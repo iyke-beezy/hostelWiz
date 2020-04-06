@@ -1,0 +1,2 @@
+# hostelWiz
+Hostel Wiz project
