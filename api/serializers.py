@@ -21,7 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
 class HostelManagerSerializer(serializers.ModelSerializer):
     class Meta:
         model = HostelManager
-        fields = ('id', 'contact', 'subscriptionType', 'status', 'startDate', 'user')
+        fields = ('id', 'subscriptionType', 'status', 'startDate', 'user')
 
 
 class CustomerSerializer(serializers.ModelSerializer):

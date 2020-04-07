@@ -14,7 +14,7 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     contact = models.CharField(max_length=20, null=True)
-    REQUIRED_FIELDS = ['groups_id', 'email', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ['groups_id', 'email', 'first_name', 'last_name', 'contacts']
 
     class Meta:
         verbose_name = 'user'
@@ -56,12 +56,12 @@ class Property(models.Model):
     pictureLocation = models.ImageField(upload_to=upload_path, blank=True, null=True)
 
     def no_of_ratings(self):
-        ratings = Rating.objects.filter(cloth=self)
+        ratings = Rating.objects.filter(property=self)
         return len(ratings)
 
     def avg_rating(self):
         sum = 0
-        ratings = Rating.objects.filter(cloth=self)
+        ratings = Rating.objects.filter(property=self)
         for rating in ratings:
             sum += rating.stars
 

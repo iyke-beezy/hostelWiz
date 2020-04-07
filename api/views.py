@@ -11,6 +11,7 @@ from .models import HostelManager, Rating, Customer, AdminUser, Room, Property, 
 from rest_framework import viewsets, status
 from .serializers import CustomerSerializer, RatingSerializer, UserSerializer, AdminSerializer, HostelManagerSerializer, RoomSerializer, PropertySerializer
 from rest_framework.authentication import TokenAuthentication
+from django.db.models import Q
 
 
 # Create your views here.
@@ -101,7 +102,7 @@ class PropertyViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['GET'])
     def getPropertyRating(self, request, pk=None):
         user_property = Property.objects.get(id=pk)
-        rating = Rating.objects.filter(user=user_property.id)
+        rating = Rating.objects.filter(property=user_property)
         serializer = RatingSerializer(rating, many=True)
         response = {'message': 'Ratings For this property', 'result': [serializer.data]}
         return Response(response, status=status.HTTP_200_OK)
@@ -127,6 +128,26 @@ class PropertyViewSet(viewsets.ModelViewSet):
                 serializer = RatingSerializer(rating, many=False)
                 response = {'message': 'Rating created', 'result': serializer.data}
                 return Response(response, status=status.HTTP_200_OK)
+
+        else:
+            response = {'message': 'you need to provide stars'}
+            return Response(response, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['POST'])
+    def search_property(self, request, pk=None):
+        self.permission_classes = [IsAll]
+        hm = HostelManager.objects.filter(status=False)
+        if 'location' in request.data:
+
+            property = Property.objects.filter(Q(location=request.data['location']))
+            serializer = PropertySerializer(property, many=True)
+            response = {'message': 'Rating created', 'result': serializer.data}
+            return Response(response, status=status.HTTP_200_OK)
+        elif 'name' in request.data:
+            property = Property.objects.filter(Q(name=request.data['name']) )
+            serializer = PropertySerializer(property, many=True)
+            response = {'message': 'Rating created', 'result': serializer.data}
+            return Response(response, status=status.HTTP_200_OK)
 
         else:
             response = {'message': 'you need to provide stars'}
