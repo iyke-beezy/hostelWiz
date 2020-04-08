@@ -8,7 +8,7 @@ import { auth } from '../firebase';
 const buttonList = {
     google: {
         visible: true,
-        provider: () => auth.GoogleAuthProvider()
+        provider: () => auth.googleOAuth()
     },
     twitter: {
         visible: true,
