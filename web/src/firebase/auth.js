@@ -8,10 +8,6 @@ export const googleOAuth = () => {
   return new firebase.firebase_.auth.GoogleAuthProvider();
 };
 
-export const twitterOAuth = () => {
-  return new firebase.firebase_.auth.TwitterAuthProvider();
-};
-
 export const facebookOAuth = () => {
   return new firebase.firebase_.auth.FacebookAuthProvider();
 };

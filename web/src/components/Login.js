@@ -10,10 +10,6 @@ const buttonList = {
         visible: true,
         provider: () => auth.googleOAuth()
     },
-    twitter: {
-        visible: true,
-        provider: () => auth.twitterOAuth()
-    },
     facebook: {
         visible: true,
         provider: () => auth.facebookOAuth()
