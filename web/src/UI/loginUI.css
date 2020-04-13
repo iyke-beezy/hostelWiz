@@ -144,6 +144,7 @@ p {
 .footer {
     display: flex;
     flex-direction: row;
+    bottom: 0;
 }
 .footer button {
     padding-right: 0;

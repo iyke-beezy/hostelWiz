@@ -60,30 +60,16 @@ const SocialButtonList = ({ history, buttonList, auth, currentProviders }) => {
     const visible = buttonList[provder].visible;
 
     return (
-<<<<<<< HEAD
       <div key={provder} className={`${provder}btn ${!visible && 'hidden'}`}
         onClick={e => authenticate(e, provder)}>
         <img src={require(`../Assets/${provder}.png`)} key={provder} alt={`${provder}`} /> SIGN UP WITH {provder}
       </div>
 
-=======
-      <button
-        key={provder}
-        className={`btn__social btn--${provder} ${!visible && 'hidden'}`}
-        onClick={e => authenticate(e, provder)}
-      >
-        {provder}
-      </button>
->>>>>>> 8928429c4cc2995e38e70d5b313ea6673c09f32b
     );
   };
 
   return (
-<<<<<<< HEAD
     <div className="otherBtns">
-=======
-    <div className="btn__social--list">
->>>>>>> 8928429c4cc2995e38e70d5b313ea6673c09f32b
       {Object.keys(buttonList).map(renderButtonList)}
     </div>
   );
