@@ -48,13 +48,11 @@ const LoginUI = ({children }) => {
                     <p>
                         Or login with other accounts
                     </p>
-                    <div>
                         {children}
-                    </div>
                     <div className="footer">
                         <Button type="link">Privacy Policy</Button>
                         <Button type="link">Terms and Conditions</Button>
-                        <p>{'\u00A9'}2020<Button type="link">Slitcorp</Button>. All Rights Reserved</p>
+                        <Button type="link" className="copyright">{'\u00A9'}2020 Slitcorp. All Rights Reserved</Button>
                     </div>
                 </div>
             </div>

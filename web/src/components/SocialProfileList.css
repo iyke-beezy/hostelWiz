@@ -4,7 +4,6 @@
     justify-content: center;
   }
   
-<<<<<<< HEAD
 .otherBtns {
   display: flex;
   flex-direction: row;
@@ -54,8 +53,6 @@
   height: 15px;
   margin-right: 10px;
 }
-=======
->>>>>>> 8928429c4cc2995e38e70d5b313ea6673c09f32b
   .container__profile {
     display: flex;
     flex-direction: column;

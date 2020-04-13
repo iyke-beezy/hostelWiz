@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-
-=======
-section {
-    display: grid;
-    grid-template-columns: 1fr minmax(360px, 991px) 1fr;
-    grid-template-areas: '. h .' '. c .' '. f .';
-    grid-gap: 5px;
-    margin-top: 20px;
-  }
-  
->>>>>>> 8928429c4cc2995e38e70d5b313ea6673c09f32b
   header {
     grid-area: h;
     text-align: center;
