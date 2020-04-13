@@ -6,6 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+<<<<<<< HEAD
 @font-face {
   font-family: 'Baloo Paaji';
   font-style: normal;
@@ -32,6 +33,8 @@ body {
   src: local('Baloo Paaji Medium'), local('BalooPaajiMedium'),
   url('./Assets/fonts/BalooPaaji2-Medium.ttf')
 }
+=======
+>>>>>>> 8928429c4cc2995e38e70d5b313ea6673c09f32b
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

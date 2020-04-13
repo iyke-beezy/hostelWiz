@@ -145,3 +145,11 @@ p {
     display: flex;
     flex-direction: row;
 }
+.footer button {
+    padding-right: 0;
+    padding-left: 0;
+    color: #92a5a3;
+}
+.footer button:hover {
+    color: #e7c654;
+}
