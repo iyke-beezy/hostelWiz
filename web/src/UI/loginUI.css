@@ -1,0 +1,147 @@
+section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+p {
+    color: #92a5a3;
+}
+
+.imageBox {
+    width: calc(50% + 50px);
+    height: 100%;
+    box-sizing: border-box;
+    border-right: 100px solid #fff;
+    border-bottom: 1000px solid transparent;
+    background-image:linear-gradient(to bottom, rgba(231, 198, 84,0.7), rgba(231, 198, 84,0.7)), url('../Assets/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.content {
+    font-family: 'Baloo Paaji';
+    width: calc(50% - 50px);
+    height: 100%;
+    background: url('../Assets/bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.Header {
+    width: 100%;
+    height: 200px;
+}
+.Header img {
+    width: 246px;
+    height: 246px;
+    float: right;
+    margin-bottom: 10px;
+}
+.mainForm {
+    margin-bottom: 20px;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1em 2em;
+}
+.mainForm .mt-8 button {
+    background-color: #e7c654;
+    border-radius: 10px;
+    font-family: "Baloo Paaji Medium";
+    font-size: 29px;
+    color: white;
+    text-align: center;
+    height: 65px;
+    width: 168px;
+}
+.mainForm h1 {
+    font-family: 'IM Fell French Canon SC';
+    font-size: 30px;
+    color: #92a5a3;
+}
+.mainForm h2 {
+    font-family: 'IM Fell French Canon SC';
+    font-size: 20px;
+    color: #92a5a3;
+}
+.mainForm h3 {
+    color: #92a5a3;
+}
+.mainForm input {
+    width: 100%;
+    font-family: "Baloo Paaji";
+    font-size: 28px;
+    background-color: transparent;
+    border: 0px;
+}
+.mt-8 {
+    margin-top: 1.2rem;
+}
+
+.login button {
+    margin-left: -10px;
+    color: #e7c654;
+}
+
+.otherBtns {
+    display: flex;
+    flex-direction: row;
+    font-family: "Baloo Paaji Medium";
+}
+
+.googlebtn {
+    height: 48px;
+    width: 230px;
+    box-shadow: rgba(0, 0, 0,0.5)  1px 1px 3px 1px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin-right: 30px;
+}
+.googlebtn {
+    font-size: 18px;
+    color: #92a5a3;
+}
+.googlebtn img {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+.fbbtn {
+    height: 48px;
+    width: 247px;
+    box-shadow: rgba(0, 0, 0,0.5)  1px 1px 3px 1px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+.fbbtn {
+    font-size: 18px;
+    color: #92a5a3;
+}
+.fbbtn img {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+
+.ant-input-affix-wrapper {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(57.3, 64.7, 63.9, 0.3);
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+}

@@ -1,0 +1,81 @@
+.btn__profiles--list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+.otherBtns {
+  display: flex;
+  flex-direction: row;
+  font-family: "Baloo Paaji Medium";
+  text-transform: uppercase;
+}
+
+.googlebtn {
+  height: 48px;
+  width: 230px;
+  box-shadow: rgba(0, 0, 0,0.5)  1px 1px 3px 1px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  margin-right: 30px;
+  cursor: pointer;
+}
+
+.googlebtn {
+  font-size: 18px;
+  color: #92a5a3;
+}
+.googlebtn img {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+}
+.facebookbtn {
+  cursor: pointer;
+  height: 48px;
+  width: 247px;
+  box-shadow: rgba(0, 0, 0,0.5)  1px 1px 3px 1px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+.facebookbtn {
+  font-size: 18px;
+  color: #92a5a3;
+}
+.facebookbtn img {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+}
+  .container__profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+  }
+  
+  .container__profile--photo {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+  }
+  
+  .container__profile--btn {
+    font-size: 0.65rem;
+    width: 80px;
+    height: 28px;
+    background-color: transparent;
+    border: 1px solid red;
+    color: red;
+  }
+  
+  .container__profile--btn:hover {
+    background-color: red;
+    color: white;
+  }
