@@ -17,6 +17,7 @@ const LoginUI = ({children }) => {
                 <div className="Header">
                     <img
                         src={require("../Assets/logo.png")}
+                        alt="logo"
                     />
                 </div>
                 <div className="mainForm">
