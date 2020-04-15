@@ -8,13 +8,19 @@ def upload_path(instance, filename):
     return '/'.join(['hostelpics', str(instance.name), filename])
 
 
+def upload_user(instance, filename):
+    return '/'.join(['hosteluserpics', str(instance.name), filename])
+
+
 class User(AbstractUser):
     groups = models.ForeignKey(Group, on_delete=models.CASCADE)
     email = models.EmailField(max_length=50, unique=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     contact = models.CharField(max_length=20, null=True)
-    REQUIRED_FIELDS = ['groups_id', 'email', 'first_name', 'last_name', 'contacts']
+    profile = models.ImageField(upload_to=upload_user, blank=True, null=True)
+
+    REQUIRED_FIELDS = ['groups_id', 'email', 'first_name', 'last_name', 'contact']
 
     class Meta:
         verbose_name = 'user'

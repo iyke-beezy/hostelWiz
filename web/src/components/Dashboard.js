@@ -5,19 +5,29 @@ import Layout from '../containers/Layout';
 import SocialButtonList from './SocialButtonList';
 import SocialProfileList from './SocialProfileList';
 import { auth } from '../firebase';
+import { withCookies } from 'react-cookie';
+import {
+  Button,
+  Container,
+  Row,
+  Col,
+} from "reactstrap";
 
 import './Dashboard.css';
 
 class Dashboard extends Component {
   static propTypes = {
-    providerData: PropTypes.arrayOf(PropTypes.object).isRequired
+   providerData: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   static defaultProps = {
     providerData: []
   };
-
-  state = {
+ constructor(props){
+   super(props);
+  this.state = {
+    users:[],
+    token: this.props.cookies.get('mr-token'),
     buttonList: {
       google: {
         visible: true,
@@ -30,9 +40,13 @@ class Dashboard extends Component {
     },
     providerData: this.props.providerData
   };
+}
 
   componentDidMount() {
+    
     this.updateProviders(this.state.providerData);
+   
+
   }
 
   handleCurrentProviders = providerData => {
@@ -75,6 +89,8 @@ class Dashboard extends Component {
 
   render() {
     return (
+
+    
       <Layout>
         <h1>Secure Area</h1>
         <SocialProfileList
@@ -97,8 +113,9 @@ class Dashboard extends Component {
           Logout
         </button>
       </Layout>
+    
     );
   }
 }
 
-export default Dashboard;
+export default withCookies(Dashboard);

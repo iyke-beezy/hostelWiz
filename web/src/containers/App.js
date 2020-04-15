@@ -4,20 +4,26 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from '../components/Login';
 import Dashboard from '../components/Dashboard';
 import About from '../components/About';
+import Profile from '../components/Profilepage';
 import withAuthentication from '../containers/withAuthentication';
+
+
 
 import './App.css';
 
 class App extends Component {
   render() {
     return (
+     
       <Router>
         <Switch>
           <Route path="/" exact component={Login} />
           <Route path="/dashboard" component={withAuthentication(Dashboard)} />
+          <Route path="/profile" component={Profile} />
           <Route path="/about" component={About} />
         </Switch>
       </Router>
+     
     );
   }
 }

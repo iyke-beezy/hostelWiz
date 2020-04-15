@@ -9,7 +9,8 @@ from rest_framework.viewsets import ViewSet
 from .permission import IsAdminUser, IsLoggedInUserOrAdmin, IsHostelManager, IsCustomer, IsAll
 from .models import HostelManager, Rating, Customer, AdminUser, Room, Property, User
 from rest_framework import viewsets, status
-from .serializers import CustomerSerializer, RatingSerializer, UserSerializer, AdminSerializer, HostelManagerSerializer, RoomSerializer, PropertySerializer
+from .serializers import CustomerSerializer, RatingSerializer, UserSerializer, AdminSerializer, HostelManagerSerializer, \
+    RoomSerializer, PropertySerializer
 from rest_framework.authentication import TokenAuthentication
 from django.db.models import Q
 
@@ -30,12 +31,20 @@ class UserViewSet(viewsets.ModelViewSet):
             permission_classes = [IsLoggedInUserOrAdmin]
         return [permission() for permission in permission_classes]
 
+    @action(detail=False, methods=['GET'])
+    def get_user(self, request, pk=None):
+        user = request.user
+        user = UserSerializer(user)
+        response = {'user': user.data}
+        return Response(response, status=status.HTTP_200_OK)
+
 
 class LoginView(ViewSet):
     serializer_class = AuthTokenSerializer
 
     def create(self, request):
-        return ObtainAuthToken().post(request)
+        token = ObtainAuthToken().post(request)
+        return token
 
 
 class LogoutView(APIView):
@@ -72,7 +81,9 @@ class PropertyViewSet(viewsets.ModelViewSet):
             type = request.data['type']
             pictureLocation = request.data['pictureLocation']
             name = request.data['name']
-            property = Property.objects.create(managerId=manager, description=description, location=location, numberOfRooms=numberOfRooms, type=type, pictureLocation=pictureLocation, name=name)
+            property = Property.objects.create(managerId=manager, description=description, location=location,
+                                               numberOfRooms=numberOfRooms, type=type, pictureLocation=pictureLocation,
+                                               name=name)
             serializer = PropertySerializer(property)
             response = {'message': serializer.data}
             return Response(response, status=status.HTTP_200_OK)
@@ -90,7 +101,8 @@ class PropertyViewSet(viewsets.ModelViewSet):
                 roomNo = request.data['roomNo']
                 roomType = request.data['roomType']
                 roomAvailable = request.data['roomAvailable']
-                room = Room.objects.create(roomNo=roomNo, roomAvailable=roomAvailable, roomType=roomType, property=property)
+                room = Room.objects.create(roomNo=roomNo, roomAvailable=roomAvailable, roomType=roomType,
+                                           property=property)
                 serializer = RoomSerializer(room)
                 response = {'message': serializer.data}
                 return Response(response, status=status.HTTP_200_OK)
@@ -144,7 +156,7 @@ class PropertyViewSet(viewsets.ModelViewSet):
             response = {'message': 'Rating created', 'result': serializer.data}
             return Response(response, status=status.HTTP_200_OK)
         elif 'name' in request.data:
-            property = Property.objects.filter(Q(name=request.data['name']) )
+            property = Property.objects.filter(Q(name=request.data['name']))
             serializer = PropertySerializer(property, many=True)
             response = {'message': 'Rating created', 'result': serializer.data}
             return Response(response, status=status.HTTP_200_OK)

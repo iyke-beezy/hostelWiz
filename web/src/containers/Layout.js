@@ -16,7 +16,7 @@ const Layout = ({ children, contentCenter }) => {
     return (
         <section>
             <header>
-                <h1>OAuth Authentication with Firebase</h1>
+                <h4>HostelWiz</h4>
             </header>
             <main className={contentCenter ? 'content-center' : ''}>{children}</main>
             <footer>
