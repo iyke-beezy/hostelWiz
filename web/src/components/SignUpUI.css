@@ -1,0 +1,37 @@
+.mainDiv{
+    min-height:100%;
+    min-width: 1024px;
+    width: 100%;
+    height: auto;
+    position:fixed;
+    top:0;
+    left: 0;
+    background-color: white;
+  }
+  
+  .firstDiv{
+      height: 720px;
+      background-image: url("./images/hostel-1.png");
+      background-size: cover;
+  }
+  
+  
+  .overlay{
+      height: 720px;
+      background-color: #E7C654;
+      opacity: 0.7;
+  }
+  
+  
+  .secondDiv{
+    background-color: white;
+    top: -216px;
+    height: 2000.59px;
+      transform: rotate(-10deg);
+  }
+  
+  .group{
+    transform: rotate(10deg);
+    margin-top: 195px;
+    
+  }
