@@ -47,7 +47,6 @@ class Login extends Component {
                 body: JSON.stringify({username:this.state.credentials.username,password:this.state.credentials.password})
                 }).then( resp => resp.json())
                 .then( res => {
-                    console.log(res.token);
                     this.props.cookies.set('mr-token', res.token);
                     window.location.href = "/profile";
                 })

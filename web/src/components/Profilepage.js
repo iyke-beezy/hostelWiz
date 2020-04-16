@@ -17,6 +17,10 @@ import {Image} from 'react-bootstrap';
 
 
 
+
+
+
+
 class Profilepage extends Component {
  
  constructor(props){
@@ -24,33 +28,53 @@ class Profilepage extends Component {
   this.state = {
     users:[],
     token: this.props.cookies.get('mr-token'),
-    fileUploadState:"",
     username : "",
     first_name:"",
     last_name:"",
     contact :"",
     Email: "",
-    profilepic:"",
-   
+    profile:"",
+   uid:""
   };
 }
 
 
 
 
-loadDetails(username,first_name,last_name,contact,email){
+loadDetails(uid,username,first_name,last_name,contact,email,profile){
   this.setState({
+    uid:uid,
     username : username,
     first_name:first_name,
     last_name:last_name,
     contact :contact,
     Email: email,
+    profile:profile
    }, this.dis());
    
 }
 
 dis(){
-  console.log(this.state.contact)
+  fetch(`${process.env.REACT_APP_API_URL}/hostelwiz/users/${this.state.uid}/`, {
+    method: 'PUT',
+    headers: { 
+      'Authorization': `Token ${this.state.token}`,
+    },
+    body: JSON.stringify({username:this.state.username,
+                         password:this.state.password,
+                         first_name:this.state.first_name,
+                         last_name:this.state.last_name,
+                         Email:this.state.email,
+                         contact:this.state.contact,
+                         profile:this.state.profile,
+    })
+    }).then( resp => resp.json())
+    .then( res => {
+        this.setState({isLoginView: true})
+        window.location.href = "/";
+        alert(this.state.credentials.groups)
+    })
+    .catch( error => console.log(error))
 }
 
 fileUploadButton = ()=>
@@ -112,13 +136,13 @@ this.setState({fileUploadState:document.getElementById('fileButton').value});
          
          <Col md = "4"></Col>
           <Col xs="6" md="4">
-          <Image  height="100" width = "100" src={this.state.fileUploadState} roundedCircle />
+          <Image  height="100" width = "100" src={this.state.profile} roundedCircle />
           <div>
-          <input  id="fileButton"  type="file"  hidden />
+          <input  id="fileButton"  type="file"   hidden />
           <Button style={{height:40, width:100, fontSize:10}}  color="primary" onClick={this.fileUploadButton}>
           Image Upload
           </Button>
-          {this.state.fileUploadState}
+          {this.state.profile}
           </div>
           </Col>
            <Col md="4">
@@ -155,7 +179,7 @@ this.setState({fileUploadState:document.getElementById('fileButton').value});
                
                 </Row>
                <Row>
-               <Button style={{height:40, width:100, fontSize:10 , marginRight:20}}  color="primary" onClick={() => {this.loadDetails(user.username,user.first_name,user.last_name,user.contact,user.email)}}>
+               <Button style={{height:40, width:100, fontSize:10 , marginRight:20}}  color="primary" onClick={() => {this.loadDetails(user.id,user.username,user.first_name,user.last_name,user.contact,user.email,this.state.profile)}}>
                 Edit profile
                 </Button>
                 
