@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Login from '../components/Login';
+import Pin from '../UI/loginPin';
 import Dashboard from '../components/Dashboard';
 import About from '../components/About';
 import withAuthentication from '../containers/withAuthentication';
