@@ -13,12 +13,15 @@ class Pin extends React.Component {
     email:PropTypes.string,
     number:PropTypes.string
   }
+  
   state = {
     value: "",
     disabled:false,
     verify:false,
     continue:false
      };
+
+    
 
   onChange = value => {
     if(value.length===4){
@@ -35,6 +38,7 @@ class Pin extends React.Component {
   };
 
   onContinue=()=>{
+  
     this.setState({ 
         continue:true,
       });
@@ -60,7 +64,9 @@ class Pin extends React.Component {
 
     }else{
         view=
+        
         <div className="mt-8">
+       
         <PinInput
           length={4}
           focus
@@ -90,10 +96,14 @@ class Pin extends React.Component {
 
 
     return (
-        {view}
+      <div>       
+         {view}
+         </div>
+
     );
   }
 }
+
 export default Pin;
 
 
