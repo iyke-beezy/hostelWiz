@@ -19,16 +19,15 @@ class LoginUI extends React.Component{
         number:''
     }
 
-    handleChange=({ target })=> {
-        this.setState({
-          [target.name]: target.value
-        });
-      }
-
-
-
+    handleChange= event => {
+     
+        let cred = this.state;
+        cred[event.target.name] = event.target.value;
+        this.setState({state: cred});
+    }
       nextPage=()=>{
-        this.setState({
+        
+       this.setState({
            move: true
           });
     }
@@ -39,18 +38,21 @@ class LoginUI extends React.Component{
     let display;
     if (this.state.move){
         display=
-    <div className="mainForm">
-            <h1>Discover More</h1>
-            {/*  */}
-            <Pin code={code} fname={this.state.fname} email={this.state.email} number={this.state.number}/>
-          
-            <div className="login">
-                <h3>Already have an account? <Button type="link">Login</Button></h3>
-            </div>
-            <p>
-                Or login with other accounts
-            </p>
-            {this.props.children}
+        <div className="mainForm">
+        <h1>Discover More</h1>
+        {/*  */}
+        <div className="mt-8">
+            <Pin code={code} fname={this.state.name} email={this.state.email} number={this.state.number}/>
+        </div>
+        <div className="login">
+            <h3>Already have an account? <Button type="link">Login</Button></h3>
+        </div>
+        <p>
+            Or login with other accounts
+        </p>
+        <div>
+    {this.props.children}
+        </div>
         <div className="footer">
             <Button type="link">Privacy Policy</Button>
             <Button type="link">Terms and Conditions</Button>
@@ -65,16 +67,17 @@ class LoginUI extends React.Component{
         {/*  */}
         <div className="mt-8">
             <h2>Full Name</h2>
-            <Input placeholder="Enter Full Name" size="large" name="fname" prefix={<UserOutlined />} onChange={this.handleChange} />
+            <Input placeholder="Enter Full Name" size="large" name="name" value={this.state.name}  prefix={<UserOutlined />} onChange={this.handleChange}
+            />
         </div>
         <div className="mt-8">
             <h2>Email</h2>
-            <Input placeholder="Enter Email" size="large" name="email" prefix={<MailOutlined />} onChange={this.handleChange}/>
+            <Input placeholder="Enter Email" size="large" name="email" value={this.state.email}  prefix={<MailOutlined />} onChange={this.handleChange}/>
         </div>
 
         <div className="mt-8">
             <h2>Phone Number</h2>
-            <Input placeholder="Enter Phone" size="large" name="number" prefix={<PhoneOutlined />} onChange={this.handleChange}/>
+            <Input placeholder="Enter Phone" size="large" name="number" value={this.state.number}  prefix={<PhoneOutlined />} onChange={this.handleChange}/>
         </div>
         <div className="mt-8">
             <Button size="large" onClick={this.nextPage}>
@@ -87,7 +90,9 @@ class LoginUI extends React.Component{
         <p>
             Or login with other accounts
         </p>
-            {this.props.children}
+        <div>
+        {this.props.children}
+        </div>
         <div className="footer">
             <Button type="link">Privacy Policy</Button>
             <Button type="link">Terms and Conditions</Button>

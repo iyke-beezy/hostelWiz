@@ -7,12 +7,21 @@ import UserPass from "./userPass";
 
 class Pin extends React.Component {
 
+  props={
+    code:PropTypes.number,
+    fname:PropTypes.string,
+    email:PropTypes.string,
+    number:PropTypes.string
+  }
+  
   state = {
     value: "",
     disabled:false,
     verify:false,
     continue:false
      };
+
+    
 
   onChange = value => {
     if(value.length===4){
@@ -29,6 +38,7 @@ class Pin extends React.Component {
   };
 
   onContinue=()=>{
+  
     this.setState({ 
         continue:true,
       });
@@ -54,7 +64,9 @@ class Pin extends React.Component {
 
     }else{
         view=
-    <div className="mainForm">
+        
+        <div className="mt-8">
+       
         <PinInput
           length={4}
           focus
@@ -84,12 +96,14 @@ class Pin extends React.Component {
 
 
     return (
-        <div className='mt-8'>
-            {view};
-        </div>
+      <div>       
+         {view}
+         </div>
+
     );
   }
 }
+
 export default Pin;
 
 
