@@ -5,8 +5,9 @@ import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
 import BottomTabNavigator from './navigation/BottomTabNavigator';
+import Login from './screens/Login';
+import SignUpScreen from './screens/SignUp';
 import useLinking from './navigation/useLinking';
 
 const Stack = createStackNavigator();
@@ -51,7 +52,26 @@ export default function App(props) {
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
           <Stack.Navigator>
-            <Stack.Screen name="Root" component={BottomTabNavigator} />
+          <Stack.Screen
+           name="Login"
+            component={Login}
+            options={{
+              headerShown: false,
+            
+            }}
+            />
+            <Stack.Screen name="Root" 
+               options={{
+                headerShown: false,
+              
+              }}
+            component={BottomTabNavigator} />
+              <Stack.Screen name="SignUp" 
+               options={{
+                headerShown: false,
+              
+              }}
+            component={SignUpScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>
