@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Keyboard, Text, View,StyleSheet, TextInput,FlatList, TouchableWithoutFeedback, Alert, KeyboardAvoidingView,Dimensions} from 'react-native';
+import {Keyboard,Image, Text, View,StyleSheet, TextInput,FlatList, TouchableWithoutFeedback, Alert, KeyboardAvoidingView,Dimensions} from 'react-native';
 import { Card,Button, Icon } from 'react-native-elements';
 import { grey } from 'ansi-colors';
 import { AntDesign } from '@expo/vector-icons';
@@ -15,10 +15,9 @@ class ProfileScreen extends React.Component {
       return (
         <View style={styles.container}>
         <View style={styles.user}>
-        <AntDesign
-          size={90}
-          style={{ marginBottom: -3 }}
-          color={  Colors.tabIconDefault } name="user" />
+            <Image 
+            src={require('../assets/images/user-active.png')}
+            />
             <Text>
                 Test User
             </Text>

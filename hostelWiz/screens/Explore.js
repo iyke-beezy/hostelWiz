@@ -2,6 +2,8 @@ import * as React from 'react';
 import {Keyboard, StyleSheet,Text, View, TextInput, TouchableWithoutFeedback, Alert, KeyboardAvoidingView,Dimensions,ScrollView} from 'react-native';
 import { Card,Button, Icon } from 'react-native-elements';
 import { Searchbar } from 'react-native-paper';
+import { AntDesign } from '@expo/vector-icons';
+import Colors from '../constants/Colors';
 
 class ExploreScreen extends React.Component {
   state = {
@@ -13,7 +15,7 @@ class ExploreScreen extends React.Component {
     render() {
       const { searchQuery } = this.state;
       return (
-        <View>
+        <View style={styles.container}>
         <ScrollView>
         <View style={styles.SearchBar}>
          <Searchbar
@@ -22,24 +24,29 @@ class ExploreScreen extends React.Component {
         value={searchQuery}
       />
       </View>
+      <View>
+      <Text style={{paddingLeft:20,margin: 25,}}>
+          Explore Hostel Wiz
+      </Text>
+      </View>
     
      
       <View style={styles.miniCardComponent}>
         
       <Card containerStyle={styles.miniCard}
 
-  //image={require('')} 
+  image={require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')} 
   >
-  <Text style={{marginBottom: 10}}>
+  <Text style={{textAlign: 'center', marginBottom: 10}}>
    Explore Apartments
   </Text>
 </Card>
 
       <Card containerStyle={styles.miniCard}
  
-  //image={require('')} 
+  image={require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')} 
   >
-  <Text style={{marginBottom: 10}}>
+  <Text style={{textAlign: 'center', marginBottom: 10}}>
    Explore Hostels
   </Text>
 </Card>
@@ -48,11 +55,23 @@ class ExploreScreen extends React.Component {
       <View>
       <Card
  containerStyle={styles.maxCard}
- // image={require('')}
+  image={require('../assets/images/hostel.jpg')}
   >
-  <Text style={{marginBottom: 10}}>
-    The idea with React Native Elements is more about component structure than actual design.
+<View style={styles.maxCardText}>
+  <Text style={{margin: 10}}>
+   Grand Royal Hostels
   </Text>
+  <Text style={{paddingLeft:130, margin: 10}}>
+    Ghc 120.00
+  </Text>
+  </View>
+ <View style={styles.rating}>
+ <AntDesign size={30} style={{ marginBottom: -3 }} color={ Colors.tabIconDefault} name="star" />
+ <AntDesign size={30} style={{ marginBottom: -3 }} color={ Colors.tabIconDefault} name="star" />
+ <AntDesign size={30} style={{ marginBottom: -3 }} color={ Colors.tabIconDefault} name="star" />
+ <AntDesign size={30} style={{ marginBottom: -3 }} color={Colors.tabIconDefault} name="star" />
+ <AntDesign size={30} style={{ marginBottom: -3 }} color={ Colors.tabIconDefault} name="star" />
+ </View>
 </Card>
       </View>
       <View>
@@ -69,6 +88,9 @@ class ExploreScreen extends React.Component {
 
   const styles = StyleSheet.create(
     {
+      container:{
+          backgroundColor:'white',
+      },
       SearchBar:{
         flex:1,
         marginTop:40,
@@ -90,7 +112,7 @@ class ExploreScreen extends React.Component {
       miniCard:{
        margin:11,
         width:170,
-        height:150,
+        height:195,
         borderRadius:5,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
@@ -98,10 +120,16 @@ class ExploreScreen extends React.Component {
         shadowRadius: 2,  
         elevation: 10
       },
+      rating:{
+        flexDirection:"row",
+      },
+      maxCardText:{
+        flexDirection:"row",
+      },
       maxCard:{
           marginLeft:25,
           marginRight:22,
-          height:250,
+          height:245,
           borderRadius:5,
           shadowColor: '#000',
           shadowOffset: { width: 0, height: 1 },
