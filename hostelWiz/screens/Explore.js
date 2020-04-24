@@ -16,14 +16,19 @@ class ExploreScreen extends React.Component {
       const { searchQuery } = this.state;
       return (
         <View style={styles.container}>
-        <ScrollView>
+        <ScrollView
+        stickyHeaderIndices={[0]}
+        showsVerticalScrollIndicator={false}
+        >
         <View style={styles.SearchBar}>
          <Searchbar
         placeholder="Search"
         onChangeText={this._onChangeSearch}
         value={searchQuery}
       />
+    
       </View>
+      <ScrollView>
       <View>
       <Text style={{paddingLeft:20,margin: 25,}}>
           Explore Hostel Wiz
@@ -74,9 +79,12 @@ class ExploreScreen extends React.Component {
  </View>
 </Card>
       </View>
+  
+ 
       <View>
         <Text></Text>
       </View>
+      </ScrollView>
       </ScrollView>
 
         </View>
@@ -90,12 +98,14 @@ class ExploreScreen extends React.Component {
     {
       container:{
           backgroundColor:'white',
+          flex:1,
       },
       SearchBar:{
         flex:1,
-        marginTop:40,
+        marginTop:30,
         marginLeft:30,
         marginRight:30,
+       
        
       },
       miniCardComponent:{

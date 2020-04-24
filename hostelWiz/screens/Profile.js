@@ -15,8 +15,9 @@ class ProfileScreen extends React.Component {
       return (
         <View style={styles.container}>
         <View style={styles.user}>
-            <Image 
-            src={require('../assets/images/user-active.png')}
+            <Image
+            style={styles.image}
+            source={require('../assets/images/user-active.png')}
             />
             <Text>
                 Test User
@@ -32,11 +33,18 @@ class ProfileScreen extends React.Component {
             {key: 'Get help'},
             {key: 'Get feedback'},
             {key: 'Terms Of Service'},
-            {key: 'Log Out'},
+            {key: 'others'},
            
           ]}
           renderItem={({item}) => <Text  style={styles.item}>{item.key}</Text>}
         />
+        <View style={styles.logoutContainer}>
+          <Image
+          style={styles.logout}
+          source={require('../assets/images/logout.png')}
+          />
+          <Text style={styles.logoutText}>logout</Text>
+        </View>
       </View>
          
       
@@ -52,12 +60,29 @@ class ProfileScreen extends React.Component {
     user:{
         alignItems:'center',
     },
+    image:{
+        height:100,
+        width:85,
+    },
     item: {
       padding: 10,
       marginBottom:10,
       fontSize: 25,
      color:'grey',
       height: 44,
+    },
+    logoutContainer:{
+      paddingLeft:150,
+        alignItems:"center",
+        flexDirection:"row",
+    },
+    logout:{
+      height:35,
+      width:35,
+    },
+    logoutText:{
+      fontSize:35,
+      color:'#ff1493',
     },
   })
 
