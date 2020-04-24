@@ -24,6 +24,8 @@ class App extends Component {
           <Route path="/dashboard" component={withAuthentication(Dashboard)} />
           <Route path="/profile" component={Profile} />
           <Route path="/about" component={About} />
+          <Route path="/login" component={Login} />
+          {/* <Route path="/signup" component={SignUpUI} /> */}
         </Switch>
         </CookiesProvider>
       </Router>

@@ -29,7 +29,7 @@ class Login extends Component {
 
     render() {
         return (
-            <LoginUI >
+            <LoginUI>
                 <SocialButtonList buttonList={buttonList} auth={auth.getAuth} />
             </LoginUI>
 
