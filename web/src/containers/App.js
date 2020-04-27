@@ -9,10 +9,18 @@ import Profile from '../components/Profile';
 import withAuthentication from '../containers/withAuthentication';
 
 import './App.css';
+import Subscribe from '../components/subscription/subscribe'
 import Filters from '../components/Filters';
 import FilterClass from '../components/filterClass';
 import BigImage from '../components/bigImage';
 import Foot from '../components/foot';
+import Item from '../components/subscription/item';
+import Uploads from '../components/subscription/upload';
+import Amenities from '../components/subscription/amenities';
+import Join from '../components/subscription/join';
+import Details from '../components/subscription/details';
+import HostForm from '../components/subscription/hostForm';
+
 
 class App extends Component {
   render() {
@@ -20,7 +28,7 @@ class App extends Component {
       <Router>
           <CookiesProvider>
         <Switch>
-          <Route path="/" exact component={HomePage} />
+          <Route path="/" exact component={Subscribe} />
           <Route path="/dashboard" component={withAuthentication(Dashboard)} />
           <Route path="/profile" component={Profile} />
           <Route path="/about" component={About} />
