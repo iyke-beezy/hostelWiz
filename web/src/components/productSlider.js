@@ -13,8 +13,12 @@ const proptypes={
 // require("assets/image.jpg") for local images
 // or url for online images
 
-const Slider=({images})=>{
-  console.log(images)
+const Slider=()=>{
+  const images=[
+    require('../Assets/apart1.jpg'),
+    require('../Assets/apart2.jpg'),
+    require('../Assets/apart6.jpg')
+  ]
 return(
   <Pane
   elevation={1}
