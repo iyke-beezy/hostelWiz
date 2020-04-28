@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import './loginUI.css'
 import { Input, Button } from 'antd';
-import { UserOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
+import { UserOutlined, MailOutlined, PhoneOutlined,LockOutlined } from '@ant-design/icons';
 import Pin from './loginPin';
 
 const propTypes = {
@@ -16,7 +16,10 @@ class LoginUI extends React.Component{
         fname:'',
         full:'',
         email:'',
-        number:''
+        number:'',
+        login:false,
+        username:'',
+        password:'',
     }
 
     handleChange= event => {
@@ -26,15 +29,68 @@ class LoginUI extends React.Component{
         this.setState({state: cred});
     }
       nextPage=()=>{
-        
-       this.setState({
-           move: true
-          });
+        if(this.state.login){
+            console.log("Login in")
+        }else{
+            this.setState({
+                move: true
+               });
+        }
+
+    }
+    logSign=()=>{
+        this.setState({
+            login:!this.state.login
+        })
     }
 
 
 
    render(){
+
+    let login;
+    if(this.state.login){
+        login=<div>
+           <div  className="mt-8">
+                <h2>Username</h2>
+                
+                <Input type="text" size="large" className="form-control" placeholder="Enter username" prefix={<UserOutlined />}  name="username" value={this.state.username} onChange = {this.handleChange} />
+            </div>
+
+            <div  className="mt-8">
+                <h2>Password</h2>
+                
+                <Input type="password" size="large" name="password" prefix={<LockOutlined />} value={this.state.password} onChange = {this.handleChange}  className="form-control" placeholder="Enter password" />
+            </div>           
+        </div>
+    }else{
+       login= <div>
+        <div className="mt-8">
+            <h2>Full Name</h2>
+            <Input placeholder="Enter Full Name" size="large" name="name" value={this.state.name}  prefix={<UserOutlined />} onChange={this.handleChange}
+            />
+        </div>
+        <div className="mt-8">
+            <h2>Email</h2>
+            <Input placeholder="Enter Email" size="large" name="email" value={this.state.email}  prefix={<MailOutlined />} onChange={this.handleChange}/>
+        </div>
+
+        <div className="mt-8">
+            <h2>Phone Number</h2>
+            <Input placeholder="Enter Phone" size="large" name="number" value={this.state.number}  prefix={<PhoneOutlined />} onChange={this.handleChange}/>
+        </div>            
+        </div>
+    };
+    let linkName;
+    let linkTitle;
+    if(this.state.login){
+        linkName="Sign up";
+        linkTitle="Create An Account"
+    }else{
+        linkName="Login";
+        linkTitle="Already have an account?"
+    }
+
     let display;
     if (this.state.move){
         display=
@@ -65,27 +121,14 @@ class LoginUI extends React.Component{
         <div className="mainForm">
         <h1>Discover More</h1>
         {/*  */}
-        <div className="mt-8">
-            <h2>Full Name</h2>
-            <Input placeholder="Enter Full Name" size="large" name="name" value={this.state.name}  prefix={<UserOutlined />} onChange={this.handleChange}
-            />
-        </div>
-        <div className="mt-8">
-            <h2>Email</h2>
-            <Input placeholder="Enter Email" size="large" name="email" value={this.state.email}  prefix={<MailOutlined />} onChange={this.handleChange}/>
-        </div>
-
-        <div className="mt-8">
-            <h2>Phone Number</h2>
-            <Input placeholder="Enter Phone" size="large" name="number" value={this.state.number}  prefix={<PhoneOutlined />} onChange={this.handleChange}/>
-        </div>
+        {login}
         <div className="mt-8">
             <Button size="large" onClick={this.nextPage}>
                 Continue
             </Button>
         </div>
         <div className="login">
-            <h3>Already have an account? <Button type="link">Login</Button></h3>
+    <h3>{linkTitle} <Button type="link" onClick={this.logSign}>{linkName}</Button></h3>
         </div>
         <p>
             Or login with other accounts
@@ -101,7 +144,9 @@ class LoginUI extends React.Component{
     </div>
 
 
-    }
+    };
+
+
 
     return (
         <section>
