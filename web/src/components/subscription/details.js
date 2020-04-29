@@ -26,6 +26,8 @@ const Details=({props})=>{
     }
     return(
         <div>
+        <div style={{display:"flex",flexDirection:'column',alignItems:'center'}}>
+            <h2 className="medText1" >A marketplace for all hostels and apartments</h2> 
         <div className="topTier">
             <div className="dtopWrap">
             <div className="dTopDiv">
@@ -51,11 +53,9 @@ const Details=({props})=>{
                     })}
                 </div>
             </div>
-            <div className="dBotDiv">
-                <h1>Payment plans</h1>
-                <h4 style={{fontSize:"25px",textAlign:"center"}}>Host your property on HostelWiz and enjoy your first 3 months free</h4>
-            </div>
 
+        </div>
+       
         </div>
         <Foot/>
         </div>

@@ -5,12 +5,14 @@ import 'antd/dist/antd.css';
 import Amenities from './amenities'
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import 'react-google-places-autocomplete/dist/index.min.css';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 const {Option}=Select
 class Selection extends React.Component{
+    buildingData;
     state={
         page:"true",
-        buildingType:"",
-        buildingPurpose:""
+        buildingType:"Select Type",
+        buildingPurpose:"Select Purpose"
     };
     handleTypeChange=(value)=>{
 
@@ -26,17 +28,17 @@ class Selection extends React.Component{
     }
 
     handlePage=()=>{
-        if(this.state.page){
+    
             this.setState({
                 page:false
             });
         }
-        else{
-            this.setState({
-                page:true
-            });
-        }
 
+ 
+    handleBack=()=>{
+        this.setState({
+            page:true
+        });
     }
     componentWillUpdate(nextProps,nextState){
         localStorage.setItem('selection',JSON.stringify(nextState));
@@ -51,7 +53,7 @@ class Selection extends React.Component{
             <div className="selectors">
                 <div className="building">
                     <h3 className="smallText">Building Type</h3>
-                    <Select defaultValue="Select Type"  size={'large'} style={{ width: 200 }} onChange={this.handleTypeChange}>
+                    <Select defaultValue={this.state.buildingType}  size={'large'} style={{ width: 200 }} onChange={this.handleTypeChange}>
                       <Option value="Apartment">Apartment</Option>
                       <Option value="Hostel">Hostel</Option>
                     </Select>
@@ -80,7 +82,7 @@ class Selection extends React.Component{
 
                 <div className="purpose">
                     <h3 className="smallText">Sale Type</h3>
-                    <Select defaultValue="Select Purpose" size={'large'} style={{ width:200 }} onChange={this.handlePurposeChange}>
+                    <Select defaultValue={this.state.buildingPurpose} size={'large'} style={{ width:200 }} onChange={this.handlePurposeChange}>
                        <Option value="For rent">For rent</Option>
                        <Option value="For sale">For sale</Option>
                     </Select>                   
@@ -91,7 +93,7 @@ class Selection extends React.Component{
                 <Button className="form-button" onClick={this.handlePage}>Next</Button>
             </div>
         }else{
-            show=<Amenities/>
+            show=<Amenities goBack={this.handleBack}/>
         }
         return(
             <div>{show}</div>

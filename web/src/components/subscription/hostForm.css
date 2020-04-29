@@ -1,11 +1,11 @@
 .form-wrapper{
     display:flex;
     align-content: flex-start;
-    flex: 35%;
     flex-direction: column;
-    height:auto;
+    margin: 70px 70px 70px 0px;
     box-shadow:rgba(0,0,0,0.5) 1px 1px 15px;
     font-family: "Baloo Paaji Medium";
+    z-index: 10;
 }
 .ant-select-selector{
     color:#92A5A3;
@@ -48,17 +48,19 @@
 .subscribe{
     display:flex;
     flex-direction: row;
-    width:80%;
-    height: auto;
+    flex-wrap: wrap;
+    justify-content:flex-end;
+    background-image: url('../../Assets/Building2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 30px top;
+    width:100%;
+    height: 100%;
+    margin-bottom: 20px;
     justify-content: space-between;
     
 }
-.divImage{
-    background-image: url('../../Assets/Building2.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    flex: 30%;
-}
+
 .subHeader{
     display: flex;
     background-color:white;
@@ -70,22 +72,18 @@
     height: 120px;
 }
 .medText1{
-    flex:70%;
-    font-size: 30px;
-    font-family: "Baloo Paaji";
+    font-size: 35px;
+    font-family: "Baloo Paaji Medium";
     color:#92A5A3;
     margin: 16px 0px ;
+    text-align: center;
 }
 .subText{
     display:flex;
     flex-direction:row;
     justify-content:center;
 }
-.subscribeCover{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-}
+
 .dTopDiv{
     display: flex;
     justify-content: space-around;
@@ -97,7 +95,6 @@
     flex-direction: column;
     align-items: center;
     width:85%;
-    border-bottom:2px solid rgba(146,165,163,0.27);
     margin-bottom: 20px;
     padding-bottom: 20px;
 }
@@ -156,7 +153,8 @@ justify-content:space-around;
 .smallText1{
     font-size: 15px;
     color: #92A5A3;
-    width:90px;
+    width:100px;
+    font-family: 'Baloo Paaji';
 
 }
 .smallText2{

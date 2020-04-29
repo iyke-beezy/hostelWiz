@@ -2,12 +2,14 @@ import React from 'react';
 import {Upload,Button} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
 import './hostForm.css';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import Join from './join';
 
 
 
 class Uploads extends React.Component{
+    upload;
     state = {
         page:true,
         fileList: [
@@ -34,22 +36,25 @@ class Uploads extends React.Component{
       };
 
       handlePage=()=>{
-        if(this.state.page){
             this.setState({
                 page:false
             });
-        }
-        else{
-            this.setState({
-                page:true
-            });
-        }
+      
+
 
     }
+    handleBackJoin=()=>{
+        this.setState({
+            page:true
+        });
+    }
+
     componentWillUpdate(nextProps,nextState){
         localStorage.setItem('uploads',JSON.stringify(nextState));
     }
-
+    handleBackUp=()=>{
+        this.props.goBack();
+    }
 
     render(){
         const props = {
@@ -60,6 +65,7 @@ class Uploads extends React.Component{
           let show;
           if(this.state.page){
             show=<div>
+              <Button onClick={this.handleBackUp}><ArrowLeftOutlined/>Back</Button>
             <div className="upload" style={{minHeight:"250px", height:"auto"}}>
                 <h2 className="medText">Show us your Property</h2>
                 <div>
@@ -76,7 +82,7 @@ class Uploads extends React.Component{
                 <Button className="form-button" onClick={this.handlePage}>Next</Button>
         </div>
           }else{
-              show=<Join/>
+              show=<Join goBack={this.handleBackJoin}/>
           }
         return(
 

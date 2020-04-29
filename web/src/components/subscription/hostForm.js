@@ -7,10 +7,6 @@ import Amenities from './amenities';
 import Uploads from './upload';
 import Join from './join';
 class HostForm extends React.Component{
-    state={
-        page:true,
-    }
-
 
     render(){
 

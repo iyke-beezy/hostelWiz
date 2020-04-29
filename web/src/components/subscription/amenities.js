@@ -3,8 +3,9 @@ import {Switch,Checkbox,Radio,Button} from 'antd';
 import './hostForm.css';
 import 'antd/dist/antd.css';
 import Uploads from './upload';
-
+import { ArrowLeftOutlined } from '@ant-design/icons';
 class Amenities extends React.Component{
+    amenities;
     state={
         page:true,
         value:1,
@@ -14,7 +15,7 @@ class Amenities extends React.Component{
         laundry:false,
         studyroom:false,
         tvroom:false,
-        checkedItems:[]
+        bath:1,
     }
     handleChange = e => {
         console.log('radio checked', e.target.value);
@@ -25,18 +26,16 @@ class Amenities extends React.Component{
 
 
       handlePage=()=>{
-        if(this.state.page){
             this.setState({
                 page:false
             });
-        }
-        else{
-            this.setState({
-                page:true
-            });
-        }
-
     }
+    handleBackUp=()=>{
+        this.setState({
+            page:true
+        });
+    }
+
     onChange=(checked,event)=>{
         if(checked){
             this.setState({
@@ -45,16 +44,18 @@ class Amenities extends React.Component{
         }
 
     }
-    onCheck=(checkedValue)=>{
+    onCheck=e=>{
         this.setState({
-            checkedItems:checkedValue
+            bath:e.target.value
         })
     }
 
-    componentWillUpdate(nextProps,nextState){
+    UNSAFE_componentWillUpdate(nextProps,nextState){
         localStorage.setItem('amenities',JSON.stringify(nextState));
     }
-
+    handleBack=()=>{
+       this.props.goBack();
+    }
 
     render(){
         const plainOptions = ['Private', 'Shared'];
@@ -62,6 +63,7 @@ class Amenities extends React.Component{
         if(this.state.page){
             show=            <div>
             <div style={{minHeight:"250px", height:"auto"}}>
+            <Button onClick={this.handleBack}><ArrowLeftOutlined/>Back</Button>
             <h2 className="medText">Tell us more about your property</h2>
             <div className="amenitiesWrap">
                 <h3 className="smallText">Amenities</h3>
@@ -69,33 +71,36 @@ class Amenities extends React.Component{
                     <div className="innerColumns">
                         <div className="values">
                             <span className="smallText1">Wifi</span>
-                            <Switch size="small" className="options" name="wifi" onChange={this.onChange}/>
+                            <Switch size="small" className="options" name="wifi" checked={this.state.wifi} onChange={this.onChange}/>
                         </div>
                         <div className="values">
                             <span className="smallText1">Car Park</span>
-                            <Switch size="small" className="options" name="carpark" onChange={this.onChange}/>
+                            <Switch size="small" className="options" name="carpark"  checked={this.state.carpark} onChange={this.onChange}/>
                         </div>
                         <div className="values">
                             <span className="smallText1">Gym</span>
-                            <Switch size="small" className="options" name="gym" onChange={this.onChange}/>
+                            <Switch size="small" className="options" name="gym" checked={this.state.gym} onChange={this.onChange}/>
                         </div>
                         <div className="values">
                             <span className="smallText1">Laundry</span>
-                            <Switch size="small" className="options" name="laundry" onChange={this.onChange}/>
+                            <Switch size="small" className="options" name="laundry" checked={this.state.laundry} onChange={this.onChange}/>
                         </div>
                         <div className="values">
                         <span className="smallText1">Study Room</span>
-                        <Switch size="small" className="options"  name="studyroom" onChange={this.onChange}/>
+                        <Switch size="small" className="options"  name="studyroom" checked={this.state.studyroom} onChange={this.onChange}/>
                         </div>
                     </div>
                     <div className="innerColumns">
                         <div className="values">
                         <span className="smallText1">TV Room</span>
-                        <Switch size="small" className="options"  name="tvroom" onChange={this.onChange}/>
+                        <Switch size="small" className="options"  name="tvroom" checked={this.state.tvroom} onChange={this.onChange}/>
                         </div>
                         <div className="values">
                         <span className="smallText1">Bathroom</span>
-                        <Checkbox.Group options={plainOptions} className="options" onChange={this.onCheck}/>
+                        <Radio.Group onChange={this.onCheck} value={this.state.bath} className="options">
+                            <Radio value={1} className="smallText2">Private</Radio>
+                            <Radio value={2} className="smallText2">Shared</Radio>
+                        </Radio.Group>
                         </div>
                         <div className="values">
                         <span className="smallText1">Bedrooms</span>
@@ -113,7 +118,7 @@ class Amenities extends React.Component{
                 <Button className="form-button" onClick={this.handlePage}>Next</Button>
             </div>
         }else{
-            show=<Uploads/>
+            show=<Uploads goBack={this.handleBackUp}/>
         }
         return(
             <div>

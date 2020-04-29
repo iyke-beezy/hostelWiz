@@ -2,13 +2,14 @@ import React from 'react';
 import {Input,Button} from 'antd';
 import './hostForm.css';
 import '../../UI/loginUI.css'
-import { UserOutlined, MailOutlined, PhoneOutlined,IdcardOutlined } from '@ant-design/icons';
+import { UserOutlined, MailOutlined, PhoneOutlined,IdcardOutlined,ArrowLeftOutlined } from '@ant-design/icons';
 
 
 
 
 
 class Join extends React.Component{
+    joins;
     state={
         name:'',
         email:'',
@@ -21,12 +22,22 @@ class Join extends React.Component{
         cred[event.target.name] = event.target.value;
         this.setState({state: cred});
     }
+   handleBackJoin=()=>{
+       this.props.goBack();
+   }
+
+
+componentWillUpdate(nextProps,nextState){
+    localStorage.setItem('join',JSON.stringify(nextState));
+}
     render(){
     return(
         <div>
         <div style={{minHeight:"260px", height:"auto"}}>
+        <Button onClick={this.handleBackJoin}><ArrowLeftOutlined/>Back</Button>
             <h2 className="medText">Join Us</h2>
             <div>
+            
             <h3 className="smallText">Sign Up</h3>
             <div>
             <div className="mt-8">
