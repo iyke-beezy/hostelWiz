@@ -41,9 +41,9 @@ class LastStep extends React.Component{
     render(){
         return(
         <div style={{fontFamily:'Baloo Paaji Medium'}}>
-            <Header style={{margin:0,padding:0,height:'auto',backgroundColor:'#FFFFFF',lineHeight:'30px'}}>
+            <Header style={{margin:0,padding:0,height:'auto',backgroundColor:'#FFFFFF',lineHeight:'20px'}}>
             <Head list={false}></Head>
-            <div style={{display:'flex', flexDirection:'column',alignItems:'center',marginBottom:'20px'}}>
+            <div style={{display:'flex', flexDirection:'column',alignItems:'center',marginBottom:'20px',marginTop:'20px'}}>
                 <div style={{display:'flex', flexDirection:'column',alignItems:'flex-start',width:'75%',marginBottom:'20px'}}>
                 <h3 className='medText'>Progress</h3>
                 <Progress percent={this.state.percent} status="active" showInfo={false}/>
@@ -55,8 +55,8 @@ class LastStep extends React.Component{
             </div>
             </Header>
             <div style={{display:'flex', flexDirection:'row',justifyContent:'center'}}>
-            <Tabs  activeKey={this.state.current} tabPosition='left' className='taboo' onTabClick={this.handleTab}   style={{ height:'320px',width:'70%',overflowY:'scroll'}}>
-                <TabPane tab={'Welcome'}>
+            <Tabs  activeKey={this.state.current} tabPosition='left' className='taboo' onTabClick={this.handleTab}   style={{ height:'340px',width:'70%',overflowY:'scroll'}}>
+                <TabPane key={1}  tab={'Welcome'}>
                 </TabPane>
                 <TabPane tab={'Location'} key={1} style={{position:'relative'}}>
                   <LocConfirm handleNext={this.handleNext}></LocConfirm>
@@ -65,6 +65,9 @@ class LastStep extends React.Component{
                  <DetailsConfirm handleBack={this.handleBack}></DetailsConfirm>
                 </TabPane>
             </Tabs>
+            </div>
+            <div style={{margin:20}}>
+
             </div>
         
         

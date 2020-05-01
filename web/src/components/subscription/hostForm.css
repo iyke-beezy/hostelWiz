@@ -275,3 +275,16 @@ font-family:"Baloo Paaji Medium";
     margin: 16px 0px ;
     text-align: center;
 }
+.finalButton{
+    color:#E7C654 ;
+    border-radius: 15px;
+    height:40px;
+    font-size: medium;
+}
+.ant-tabs-nav .ant-tabs-tab-active {
+    color: #E7C654;
+}
+.ant-tabs .ant-tabs-left-bar .ant-tabs-tab {
+    text-align: center;
+    font-size: medium;
+}
