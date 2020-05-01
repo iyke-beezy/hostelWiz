@@ -19,7 +19,7 @@ import Uploads from '../components/subscription/upload';
 import Amenities from '../components/subscription/amenities';
 import Join from '../components/subscription/join';
 import Details from '../components/subscription/details';
-import HostForm from '../components/subscription/hostForm';
+import LastStep from '../components/subscription/lastStep';
 
 
 class App extends Component {
@@ -28,7 +28,7 @@ class App extends Component {
       <Router>
           <CookiesProvider>
         <Switch>
-          <Route path="/" exact component={Subscribe} />
+          <Route path="/" exact component={LastStep} />
           <Route path="/dashboard" component={withAuthentication(Dashboard)} />
           <Route path="/profile" component={Profile} />
           <Route path="/about" component={About} />
