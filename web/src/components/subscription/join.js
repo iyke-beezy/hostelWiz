@@ -1,7 +1,8 @@
 import React from 'react';
 import {Input,Button} from 'antd';
 import './hostForm.css';
-import '../../UI/loginUI.css'
+import '../../UI/loginUI.css';
+import 'antd/dist/antd.css';
 import { UserOutlined, MailOutlined, PhoneOutlined,IdcardOutlined,ArrowLeftOutlined } from '@ant-design/icons';
 
 
@@ -11,10 +12,15 @@ import { UserOutlined, MailOutlined, PhoneOutlined,IdcardOutlined,ArrowLeftOutli
 class Join extends React.Component{
     joins;
     state={
-        name:'',
+        fname:'',
+        lname:'',
         email:'',
         id:'',
+        code:'+233',
         number:'',
+        login:false,
+        password:'',
+        cpassword:''
     }
     handleChange= event => {
      
@@ -25,38 +31,100 @@ class Join extends React.Component{
    handleBackJoin=()=>{
        this.props.goBack();
    }
+   loginSignUp=()=>{
+        this.setState({
+            login:!this.state.login,
+            email:'',
+            password:'',
+
+        });
+   }
 
 
 componentWillUpdate(nextProps,nextState){
     localStorage.setItem('join',JSON.stringify(nextState));
 }
     render(){
+    let content;
+    const {login}=this.state;
+    if (login){
+        content=(
+            <div>
+            <div style={{minHeight:"260px", height:"auto"}}>
+            <Button onClick={this.handleBackJoin}><ArrowLeftOutlined/></Button>
+                <h2 className="medText">One Last Step</h2>
+                <div>
+                
+                <span className="smallText" style={{color:'#000000'}}>Don't have an account?</span><Button  className="link-button" type="link" onClick={this.loginSignUp}>Sign Up</Button>
+                <div style={{display:'flex', flexDirection:'row'}}>
+                 <div style={{display:'flex', flexDirection:'column',marginRight:19}}>
+                <span style={{fontSize:12}}>Email</span>
+                <Input  style={{borderRadius:'10px'}} name="email" value={this.state.email}   onChange={this.handleChange} style={{width:163}}/>
+                </div>
+                <div style={{display:'flex', flexDirection:'column'}}>
+                <span style={{fontSize:12}}>Password</span>
+                <Input  style={{borderRadius:'10px'}} name="password" type='password' value={this.state.password}   onChange={this.handleChange} style={{width:163}}/>
+                </div>
+           
+                </div>
+                </div>
+            </div>
+                <Button className="form-button">Next</Button>
+            </div>            
+        );
+    }else{
+        content=(
+            <div style={{width:'330px'}}>
+            <div style={{minHeight:"260px", height:"auto"}}>
+            <Button onClick={this.handleBackJoin}><ArrowLeftOutlined/></Button>
+                <h2 className="medText">One Last Step</h2>
+                <div>
+                
+                <span className="smallText" style={{color:'#000000'}}>Already have an account?</span><Button className="link-button" type="link" onClick={this.loginSignUp}>Login</Button>
+                <div style={{display:'flex', flexDirection:'column'}}>
+                <div style={{display:'flex', flexDirection:'row',marginBottom:3}}>
+                    <div style={{display:'flex', flexDirection:'column',marginRight:19}}>
+                    <span style={{fontSize:12}}>First Name</span>
+                    <Input name="fname" value={this.state.fname}   onChange={this.handleChange} style={{width:163}}/>
+                    </div>
+                    <div style={{display:'flex', flexDirection:'column'}}>
+                    <span style={{fontSize:12}}>Last Name</span>
+                    <Input name="lname" value={this.state.lname}  onChange={this.handleChange} style={{width:163}}/>
+                    </div>
+                 </div>
+                 <div style={{display:'flex', flexDirection:'column',marginBottom:3}}>
+                     <span style={{fontSize:12}}>Mobile</span>
+                    <div style={{display:'flex', flexDirection:'row'}}>
+                        <Input name="code" value={this.state.code}  onChange={this.handleChange} style={{width:82,marginRight:14}}/>
+                        <Input name="number" value={this.state.number} onChange={this.handleChange} style={{width:249}}/>
+                    </div>
+                
+                </div>
+                 <div style={{display:'flex', flexDirection:'column',marginBottom:3}}>
+                 <span style={{fontSize:12}}>Email</span>
+                <Input  name="email" value={this.state.email}   onChange={this.handleChange} style={{width:300}}/>
+                </div>
+                <div style={{display:'flex', flexDirection:'row',marginBottom:3}}>
+                    <div style={{display:'flex', flexDirection:'column',marginRight:19}}>
+                    <span style={{fontSize:12}}>Password</span>
+                    <Input name="password" value={this.state.password} type='password'  onChange={this.handleChange} style={{width:163}}/>
+                    </div>
+                    <div style={{display:'flex', flexDirection:'column'}}>
+                    <span style={{fontSize:12}}>Repeat Password</span>
+                    <Input name="cpassword" value={this.state.cpassword} type='password' onChange={this.handleChange} style={{width:163}}/>
+                    </div>
+                 </div>
+           
+            </div>
+                </div>
+            </div>
+                <Button className="form-button">Next</Button>
+            </div>            
+        );
+    }
     return(
         <div>
-        <div style={{minHeight:"260px", height:"auto"}}>
-        <Button onClick={this.handleBackJoin}><ArrowLeftOutlined/>Back</Button>
-            <h2 className="medText">Join Us</h2>
-            <div>
-            
-            <h3 className="smallText">Sign Up</h3>
-            <div>
-            <div className="mt-8">
-            <Input placeholder="Enter Your Full Name" name="name" value={this.state.name}  prefix={<UserOutlined />} onChange={this.handleChange}
-            style={{width:200}}/>
-            </div>
-             <div className="mt-8">
-            <Input placeholder="Enter Email"  name="email" value={this.state.email}  prefix={<MailOutlined />} onChange={this.handleChange} style={{width:200}}/>
-            </div>
-            <div className="mt-8">
-            <Input placeholder="Enter A Valid ID" name="id" value={this.state.id}  prefix={<IdcardOutlined />} onChange={this.handleChange} style={{width:200}}/>
-            </div>  
-            <div className="mt-8">
-            <Input placeholder="Enter Phone"  name="number" value={this.state.number}  prefix={<PhoneOutlined />} onChange={this.handleChange} style={{width:200,marginBottom:10}}/>
-            </div>           
-        </div>
-            </div>
-        </div>
-            <Button className="form-button">Next</Button>
+            {content}
         </div>
         
 

@@ -63,7 +63,7 @@ class Amenities extends React.Component{
         if(this.state.page){
             show=            <div>
             <div style={{minHeight:"250px", height:"auto"}}>
-            <Button onClick={this.handleBack}><ArrowLeftOutlined/>Back</Button>
+            <Button onClick={this.handleBack}><ArrowLeftOutlined/></Button>
             <h2 className="medText">Tell us more about your property</h2>
             <div className="amenitiesWrap">
                 <h3 className="smallText">Amenities</h3>

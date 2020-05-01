@@ -65,7 +65,7 @@ class Uploads extends React.Component{
           let show;
           if(this.state.page){
             show=<div>
-              <Button onClick={this.handleBackUp}><ArrowLeftOutlined/>Back</Button>
+              <Button onClick={this.handleBackUp}><ArrowLeftOutlined/></Button>
             <div className="upload" style={{minHeight:"250px", height:"auto"}}>
                 <h2 className="medText">Show us your Property</h2>
                 <div>
