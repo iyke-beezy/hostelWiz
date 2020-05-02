@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import Login from './screens/Login';
 import SignUpScreen from './screens/SignUp';
+import HMBottomTabNavigator from './navigation/HMBottomTabNavigation';
 import useLinking from './navigation/useLinking';
 
 const Stack = createStackNavigator();
@@ -72,6 +73,13 @@ export default function App(props) {
               
               }}
             component={SignUpScreen} />
+
+
+              <Stack.Screen name="HMnav" 
+               options={{ headerShown: false, }}
+            component={HMBottomTabNavigator} />
+
+
           </Stack.Navigator>
         </NavigationContainer>
       </View>

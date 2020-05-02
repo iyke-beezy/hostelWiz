@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Keyboard, Text, View, TextInput, TouchableWithoutFeedback, Alert, KeyboardAvoidingView,Dimensions} from 'react-native';
+import {Keyboard, Text,Picker, View, TextInput, TouchableWithoutFeedback, Alert, KeyboardAvoidingView,Dimensions} from 'react-native';
 import styles from "../style";
 import { Card,Button, Icon } from 'react-native-elements';
 

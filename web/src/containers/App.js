@@ -9,6 +9,7 @@ import Profile from '../components/Profile';
 import withAuthentication from '../containers/withAuthentication';
 
 import './App.css';
+import EditProfile from '../../../hostelWiz/screens/EditProfile';
 
 class App extends Component {
   render() {
@@ -20,6 +21,7 @@ class App extends Component {
           <Route path="/dashboard" component={withAuthentication(Dashboard)} />
           <Route path="/profile" component={Profile} />
           <Route path="/about" component={About} />
+         
         </Switch>
         </CookiesProvider>
       </Router>
