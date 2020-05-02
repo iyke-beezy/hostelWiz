@@ -28,11 +28,12 @@ class App extends Component {
       <Router>
           <CookiesProvider>
         <Switch>
-          <Route path="/" exact component={LastStep} />
+          <Route path="/" exact component={HomePage} />
           <Route path="/dashboard" component={withAuthentication(Dashboard)} />
           <Route path="/profile" component={Profile} />
           <Route path="/about" component={About} />
           <Route path="/login" component={Login} />
+          <Route path="/listing" component = {Subscribe} />
           {/* <Route path="/signup" component={SignUpUI} /> */}
         </Switch>
         </CookiesProvider>

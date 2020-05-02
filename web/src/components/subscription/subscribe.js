@@ -14,8 +14,7 @@ const Subscribe=()=>{
             </Header>
     
         <div className="subscribe">
-            <div style={{flex:'30%'}}></div>
-            <div style={{flex:'32%',marginLeft:60}}>
+            <div>
             <HostForm/>
             </div>
             

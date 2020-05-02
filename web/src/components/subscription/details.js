@@ -41,7 +41,7 @@ const Details=({props})=>{
             </div>
             
             </div>
-            <div style={{margin:"20px"}}></div>
+            <div style={{margin:"20px", width: "100%",}}></div>
             </div>
             <div style={{margin:"20px"}}></div>
             <div className="dMidDiv">
