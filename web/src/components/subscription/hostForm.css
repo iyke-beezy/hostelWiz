@@ -44,6 +44,9 @@
 .purpose {
     margin-bottom: 15px;
 }
+.form-btn {
+    flex: 100%;
+}
 
 .form-button {
     height: 45px;
@@ -56,6 +59,7 @@
     --mouse-x: 17.125;
     --mouse-y: 73.91304347826086;
     transition: opacity 1.25s !important;
+    margin: 30px 0px;
 }
 
 .form-button:hover {
