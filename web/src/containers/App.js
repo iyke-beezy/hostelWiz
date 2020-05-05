@@ -28,7 +28,7 @@ class App extends Component {
       <Router>
           <CookiesProvider>
         <Switch>
-          <Route path="/" exact component={HomePage} />
+          <Route path="/" exact component={LastStep} />
           <Route path="/dashboard" component={withAuthentication(Dashboard)} />
           <Route path="/profile" component={Profile} />
           <Route path="/about" component={About} />

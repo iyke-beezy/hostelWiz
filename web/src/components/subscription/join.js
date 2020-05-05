@@ -58,12 +58,12 @@ componentWillUpdate(nextProps,nextState){
                 <span className="smallText" style={{color:'#000000'}}>Don't have an account?</span><Button  className="link-button" type="link" onClick={this.loginSignUp}>Sign Up</Button>
                 <div style={{display:'flex', flexDirection:'row'}}>
                  <div style={{display:'flex', flexDirection:'column',marginRight:19}}>
-                <span style={{fontSize:12}}>Email</span>
-                <Input  style={{borderRadius:'10px'}} name="email" value={this.state.email}   onChange={this.handleChange} style={{width:163}}/>
+                <span className='smSpan'>Email</span>
+                <Input  name="email" value={this.state.email}   onChange={this.handleChange} style={{width:163}}/>
                 </div>
                 <div style={{display:'flex', flexDirection:'column'}}>
-                <span style={{fontSize:12}}>Password</span>
-                <Input  style={{borderRadius:'10px'}} name="password" type='password' value={this.state.password}   onChange={this.handleChange} style={{width:163}}/>
+                <span className='smSpan'>Password</span>
+                <Input  name="password" type='password' value={this.state.password}   onChange={this.handleChange} style={{width:163}}/>
                 </div>
            
                 </div>
@@ -84,16 +84,16 @@ componentWillUpdate(nextProps,nextState){
                 <div style={{display:'flex', flexDirection:'column'}}>
                 <div style={{display:'flex', flexDirection:'row',marginBottom:3}}>
                     <div style={{display:'flex', flexDirection:'column',marginRight:19}}>
-                    <span style={{fontSize:12}}>First Name</span>
+                    <span className='smSpan'>First Name</span>
                     <Input name="fname" value={this.state.fname}   onChange={this.handleChange} style={{width:163}}/>
                     </div>
                     <div style={{display:'flex', flexDirection:'column'}}>
-                    <span style={{fontSize:12}}>Last Name</span>
+                    <span className='smSpan'>Last Name</span>
                     <Input name="lname" value={this.state.lname}  onChange={this.handleChange} style={{width:163}}/>
                     </div>
                  </div>
                  <div style={{display:'flex', flexDirection:'column',marginBottom:3}}>
-                     <span style={{fontSize:12}}>Mobile</span>
+                     <span className='smSpan'>Mobile</span>
                     <div style={{display:'flex', flexDirection:'row'}}>
                         <Input name="code" value={this.state.code}  onChange={this.handleChange} style={{width:82,marginRight:14}}/>
                         <Input name="number" value={this.state.number} onChange={this.handleChange} style={{width:249}}/>
@@ -101,16 +101,16 @@ componentWillUpdate(nextProps,nextState){
                 
                 </div>
                  <div style={{display:'flex', flexDirection:'column',marginBottom:3}}>
-                 <span style={{fontSize:12}}>Email</span>
+                 <span className='smSpan'>Email</span>
                 <Input  name="email" value={this.state.email}   onChange={this.handleChange} style={{width:300}}/>
                 </div>
                 <div style={{display:'flex', flexDirection:'row',marginBottom:3}}>
                     <div style={{display:'flex', flexDirection:'column',marginRight:19}}>
-                    <span style={{fontSize:12}}>Password</span>
+                    <span className='smSpan'>Password</span>
                     <Input name="password" value={this.state.password} type='password'  onChange={this.handleChange} style={{width:163}}/>
                     </div>
                     <div style={{display:'flex', flexDirection:'column'}}>
-                    <span style={{fontSize:12}}>Repeat Password</span>
+                    <span className='smSpan'>Repeat Password</span>
                     <Input name="cpassword" value={this.state.cpassword} type='password' onChange={this.handleChange} style={{width:163}}/>
                     </div>
                  </div>

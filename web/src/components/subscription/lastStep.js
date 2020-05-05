@@ -41,20 +41,20 @@ class LastStep extends React.Component{
     render(){
         return(
         <div style={{fontFamily:'Baloo Paaji Medium'}}>
-            <Header style={{margin:0,padding:0,height:'auto',backgroundColor:'#FFFFFF',lineHeight:'20px'}}>
+            <Header className='lStepHeaderCover' >
             <Head list={false}></Head>
-            <div style={{display:'flex', flexDirection:'column',alignItems:'center',marginBottom:'20px',marginTop:'20px'}}>
-                <div style={{display:'flex', flexDirection:'column',alignItems:'flex-start',width:'75%',marginBottom:'20px'}}>
+            <div className='lStepHeader'>
+                <div className='progress' >
                 <h3 className='medText'>Progress</h3>
                 <Progress percent={this.state.percent} status="active" showInfo={false}/>
                 </div>
-                <div style={{display:'flex', flexDirection:'column',alignItems:'flex-start',width:'70%'}}>
+                <div className='lastInfo'>
                     <h2 className='medText2' >Welcome, verify the final details of your property </h2>
                     <h3>Just few steps remaining</h3>
                 </div>
             </div>
             </Header>
-            <div style={{display:'flex', flexDirection:'row',justifyContent:'center'}}>
+            <div className="lastContent" >
             <Tabs  activeKey={this.state.current} tabPosition='left' className='taboo' onTabClick={this.handleTab}   style={{ height:'340px',width:'70%',overflowY:'scroll'}}>
                 <TabPane key={1}  tab={'Welcome'}>
                 </TabPane>
