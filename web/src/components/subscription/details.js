@@ -26,7 +26,7 @@ const Details=({props})=>{
     }
     return(
         <div>
-        <div style={{display:"flex",flexDirection:'column',alignItems:'center'}}>
+        <div className="detailsTop">
             <h2 className="medText1" >A marketplace for all hostels and apartments</h2> 
         <div className="topTier">
             <div className="dtopWrap">
