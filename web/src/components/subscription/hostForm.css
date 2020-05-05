@@ -399,5 +399,8 @@ display:flex;flex-direction:column;padding-left:20px;
     display:flex; flex-direction:column;align-items:flex-start;width:70%;
 }
 .lastContent{
-   display:flex; flex-direction:row;justify-content:center;
+   display:flex; 
+   height: auto;
+   flex-direction:row;
+   justify-content:center;
 }

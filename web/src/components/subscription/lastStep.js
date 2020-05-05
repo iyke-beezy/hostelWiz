@@ -29,14 +29,7 @@ class LastStep extends React.Component{
             percent:60
         })
     }
-    handleTab=()=>{
-        if(this.state.current==='1'){
-            this.handleNext();
-        }
-        else{
-            this.handleBack();
-    }
-}
+
     
     render(){
         return(
@@ -55,7 +48,7 @@ class LastStep extends React.Component{
             </div>
             </Header>
             <div className="lastContent" >
-            <Tabs  activeKey={this.state.current} tabPosition='left' className='taboo' onTabClick={this.handleTab}   style={{ height:'340px',width:'70%',overflowY:'scroll'}}>
+            <Tabs  activeKey={this.state.current} tabPosition='left' className='taboo'   style={{ height:'auto',width:'70%',overflowY:'scroll'}}>
                 <TabPane key={1}  tab={'Welcome'}>
                 </TabPane>
                 <TabPane tab={'Location'} key={1} style={{position:'relative'}}>
@@ -64,11 +57,23 @@ class LastStep extends React.Component{
                 <TabPane tab={'Details'} key={2}>
                  <DetailsConfirm handleBack={this.handleBack}></DetailsConfirm>
                 </TabPane>
+                <TabPane tab={'Photos'} key={3}>
+                 
+                </TabPane>                
+                <TabPane tab={'Security'} key={4}>
+                
+                </TabPane>                
+                <TabPane tab={'Pricing'} key={5}>
+                 
+                </TabPane>                
+                <TabPane tab={'Publish Listing'} key={6}>
+                 
+                </TabPane>
             </Tabs>
+            <div style={{marginBottom:500}}>
             </div>
-            <div style={{margin:20}}>
+        </div>
 
-            </div>
         
         
         </div>
