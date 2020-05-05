@@ -29,9 +29,6 @@ class LoginScreen extends React.Component {
     render() {
       return (
         <View style={{marginTop:100}}>
-       
-  
-      
           <View style={styles.loginScreenContainer}>
             <View style={styles.loginFormView}>
             <Text style={styles.logoText}>HostelWiz</Text>

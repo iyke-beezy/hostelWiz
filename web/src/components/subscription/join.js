@@ -5,10 +5,6 @@ import '../../UI/loginUI.css';
 import 'antd/dist/antd.css';
 import { UserOutlined, MailOutlined, PhoneOutlined,IdcardOutlined,ArrowLeftOutlined } from '@ant-design/icons';
 
-
-
-
-
 class Join extends React.Component{
     joins;
     state={

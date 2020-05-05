@@ -11,8 +11,8 @@ class Selection extends React.Component{
     buildingData;
     state={
         page:"true",
-        buildingType:"Select Type",
-        buildingPurpose:"Select Purpose"
+        buildingType:"Hostel",
+        buildingPurpose:"Rent"
     };
     handleTypeChange=(value)=>{
 
@@ -54,8 +54,8 @@ class Selection extends React.Component{
                 <div className="building">
                     <h3 className="smallText">Building Type</h3>
                     <Select defaultValue={this.state.buildingType}  size={'large'} style={{ width: 200 }} onChange={this.handleTypeChange}>
-                      <Option value="Apartment">Apartment</Option>
                       <Option value="Hostel">Hostel</Option>
+                      <Option value="Apartment">Apartment</Option>
                     </Select>
 
                  </div>
@@ -83,8 +83,8 @@ class Selection extends React.Component{
                 <div className="purpose">
                     <h3 className="smallText">Sale Type</h3>
                     <Select defaultValue={this.state.buildingPurpose} size={'large'} style={{ width:200 }} onChange={this.handlePurposeChange}>
-                       <Option value="For rent">For rent</Option>
-                       <Option value="For sale">For sale</Option>
+                       <Option value="Rent">For rent</Option>
+                       <Option value="Sale">For sale</Option>
                     </Select>                   
                 </div>
             </div>
