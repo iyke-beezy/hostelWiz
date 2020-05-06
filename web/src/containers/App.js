@@ -20,6 +20,8 @@ import Amenities from '../components/subscription/amenities';
 import Join from '../components/subscription/join';
 import Details from '../components/subscription/details';
 import LastStep from '../components/subscription/lastStep';
+import Test from '../test';
+import Explore from './explore';
 
 
 class App extends Component {
@@ -28,13 +30,15 @@ class App extends Component {
       <Router>
           <CookiesProvider>
         <Switch>
-          <Route path="/" exact component={Subscribe} />
+          <Route path="/" exact component={HomePage} />
           <Route path="/dashboard" component={withAuthentication(Dashboard)} />
           <Route path="/profile" component={Profile} />
           <Route path="/about" component={About} />
           <Route path="/login" component={Login} />
           <Route path="/listing" component = {Subscribe} />
           <Route path="/join" component={Join} />
+          <Route path="/test" component = {Test} />
+          <Route path="/:explore" component={Explore} />
           {/* <Route path="/signup" component={SignUpUI} /> */}
         </Switch>
         </CookiesProvider>

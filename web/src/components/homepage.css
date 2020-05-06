@@ -1,287 +1,328 @@
 * {
     font-family: baloo Paaji;
+    box-sizing: border-box;
 }
 
-.ant-menu-horizontal > .ant-menu-item:hover, .ant-menu-horizontal > .ant-menu-submenu:hover, .ant-menu-horizontal > .ant-menu-item-active, .ant-menu-horizontal > .ant-menu-submenu-active, .ant-menu-horizontal > .ant-menu-item-open, .ant-menu-horizontal > .ant-menu-submenu-open, .ant-menu-horizontal > .ant-menu-item-selected, .ant-menu-horizontal > .ant-menu-submenu-selected {
+.ant-menu-horizontal>.ant-menu-item:hover, .ant-menu-horizontal>.ant-menu-submenu:hover, .ant-menu-horizontal>.ant-menu-item-active, .ant-menu-horizontal>.ant-menu-submenu-active, .ant-menu-horizontal>.ant-menu-item-open, .ant-menu-horizontal>.ant-menu-submenu-open, .ant-menu-horizontal>.ant-menu-item-selected, .ant-menu-horizontal>.ant-menu-submenu-selected {
     color: #E7C654;
-    
 }
 
-.footer-content{
-    color:white;
+
+
+.footer-content {
+    color: white;
     font-family: "Baloo Paaji Medium";
 }
-.foot{
-    display:flex    ;
-    flex-direction: column ;
-     justify-content: space-around;
-    border-radius:80px 80px 0px 0px;
-    background-color:#E7C654;
-    border-color:#E7C654;
-    color:#FFFFFF;
-}
-.first-foot-div{
-    display:flex;
-    flex-direction:row;
+
+.foot {
+    display: flex;
+    flex-direction: column;
     justify-content: space-around;
-
-}
-.first-child-1{
-    display:flex;
-    flex-direction:column;
-    flex:30%;
-    margin:30px;
-
-}
-.first-child-2{
-    display:flex;
-    flex-direction:column;
-    flex:30%;
-    margin:30px;
-
-
-
-}
-.first-child-3{
-    display:flex;
-    flex-direction:column;
-    flex:40%;
-    margin:30px;
-
-}
-.second-foot-div{
-    display:flex;
-    flex-direction:row;
-    align-items:center;
-    justify-content: space-around; 
-}
-.second-child-1{
-    flex:50%;
-    justify-content:flex-start;
-    margin:10px;
-    display:flex;
-    flex-wrap:wrap;
-}
-.second-child-2{
-    display:flex;
-    flex-direction:row;
-    justify-content:flex-end;
-    margin:10px;
-    flex:50%
-
-}
-.second-child-2 img{
-    width:20px;
-    height:20px;
-}
-.pg-header{
-    background-color:#FFFFFF;
-    display:flex;
-    justify-content:space-evenly;
-    height:120px;
-    align-items:center;
-
-}
-.header-first{
-    flex:50%;
-    display:flex;
-    justify-content:flex-start;
-}
-.header-second{
-    flex:50%;
-    display:flex;
-    justify-content:flex-end; 
-}
-.header-first img{
-    width:120px;
-    height:120px;
+    border-radius: 80px 80px 0px 0px;
+    background-color: #E7C654;
+    border-color: #E7C654;
+    color: #FFFFFF;
 }
 
-.bigdiv{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-content:space-between;
-    align-items:center;
-    background-image:linear-gradient(to bottom, rgba(154, 164, 174,0.5), rgba(154, 164, 174,0.5)),url("../Assets/bigbac.jpg");
+.first-foot-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.first-child-1 {
+    display: flex;
+    flex-direction: column;
+    flex: 30%;
+    margin: 30px;
+}
+
+.first-child-2 {
+    display: flex;
+    flex-direction: column;
+    flex: 30%;
+    margin: 30px;
+}
+
+.first-child-3 {
+    display: flex;
+    flex-direction: column;
+    flex: 40%;
+    margin: 30px;
+}
+
+.second-foot-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.second-child-1 {
+    flex: 50%;
+    justify-content: flex-start;
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.second-child-2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 10px;
+    flex: 50%
+}
+
+.second-child-2 img {
+    width: 20px;
+    height: 20px;
+}
+
+.pg-header {
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: space-evenly;
+    height: 120px;
+    align-items: center;
+}
+
+.header-first {
+    flex: 50%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.header-second {
+    flex: 50%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header-first img {
+    width: 120px;
+    height: 120px;
+}
+
+.bigdiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: space-between;
+    align-items: center;
+    background-image: linear-gradient(to bottom, rgba(154, 164, 174, 0.5), rgba(154, 164, 174, 0.5)), url("../Assets/bigbac.jpg");
     background-position: center 70%;
     background-size: cover;
     background-repeat: no-repeat;
-    height:550px;
-}
-.textArea{
-    margin-bottom:30px;
-    display:flex;
-    flex-direction:row;
-    flex-wrap:wrap;
-    justify-content:center;
-    align-items:center;
-}
-.buttonArea{
-    font-size:18px;
-    height:55px;
-    color:white;
-    border-width:0px;
-    border-radius:8px;
-    font-family:"Baloo Paaji Medium";
-    background:linear-gradient(to right,rgb(183,142,0) 9.38%, rgb(231,198,84) 88.54%);  
-}
-.ta-sp-1{
-    font-size:25px;
-    color:white;
-    border-radius:10px;
-    font-family:"Baloo Paaji Medium";
-}
-.ta-sp-2{
-    font-size:30px;
-    color:#E7C654;
-    border-radius:10px;
-    font-family:"Baloo Paaji Medium" ;
-}
-.filt{
-    flex:31%;
-    border-radius:16px;
-    box-shadow:rgba(0,0,0,0.15) 0px 2px 8px;
-    margin:18px;
-   
+    height: 550px;
 }
 
-.filtMeta{
-    font-size:12px;
-    margin-top:-20px;
-    margin-bottom:-10px;
-    font-family:"Baloo Paaji Medium";
+.textArea {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
-.filtTitle{
-    font-size:18px;
-    color:#E7C654;
-    margin-bottom:-18px;
-    font-family:"Baloo Paaji Medium";
-}
-.filtDesc{
-    margin-top:-10px;
-}
-.filterWrap{
-    display:flex;
-    flex-direction:column;
-    justify-content:space-around;
-    align-content:center;
-    height:450px;
-    margin-bottom:60px
 
+.buttonArea {
+    font-size: 18px;
+    height: 55px;
+    color: white;
+    border-width: 0px;
+    border-radius: 8px;
+    font-family: "Baloo Paaji Medium";
+    background: linear-gradient(to right, rgb(183, 142, 0) 9.38%, rgb(231, 198, 84) 88.54%);
 }
-.heading{
-    display:flex;
-    justify-content:flex-start;
+
+.ta-sp-1 {
+    font-size: 25px;
+    color: white;
+    border-radius: 10px;
+    font-family: "Baloo Paaji Medium";
 }
-.heading div{
-    flex:4%;
+
+.ta-sp-2 {
+    font-size: 30px;
+    color: #E7C654;
+    border-radius: 10px;
+    font-family: "Baloo Paaji Medium";
 }
-.heading span{
-    flex:96%;
-    font-family:"Baloo Paaji Medium";
-    font-size:48px;
-    background:-webkit-linear-gradient(rgb(183,142,0) 9.38%, rgb(231,198,84) 88.54%); 
+
+.filt {
+    flex: 31%;
+    flex-grow: 0.31;
+    flex-shrink: 0.31;
+    border-radius: 16px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+    margin: 18px;
+}
+
+.filtMeta {
+    font-size: 12px;
+    margin-top: -20px;
+    margin-bottom: -10px;
+    font-family: "Baloo Paaji Medium";
+}
+
+.filtTitle {
+    font-size: 25px;
+    color: #E7C654;
+    margin-bottom: -18px;
+    font-family: "Baloo Paaji Medium";
+}
+
+.filtDesc {
+    font-size: 16px;
+    margin-top: -10px;
+}
+
+.filterWrap {
+   /* margin: 60px auto;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+    height: auto;
+    margin: 20px auto !important;
+    position: relative !important;
+    max-width: 1760px !important;
+    padding-right: 80px !important;
+    padding-left: 80px !important;
+}
+
+.heading {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.heading div {
+    flex: 4%;
+}
+
+.heading span {
+    flex: 96%;
+    font-family: "Baloo Paaji Medium";
+    font-size: 48px;
+    background: -webkit-linear-gradient(rgb(183, 142, 0) 9.38%, rgb(231, 198, 84) 88.54%);
     background-clip: unset;
-    -webkit-background-clip: text ;
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-.filterSection{
-    display:flex;
-    overflow-x:auto;
+
+.filterSection {
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.filterSectionDiv{
-    flex:3.5%
+.filterSection .ant-card-bordered {
+    border-radius: 16px !important;
+    border-bottom: none !important;
+    border-top: none !important;
 }
-.news{
-    flex:25%;
-    margin:20px;
-}
-.newsMeta{
-    font-size:12px;
-    margin-top:-20px;
-    margin-bottom:-10px;
-    font-family:"Baloo Paaji Medium";
-    
-}
-.newsTitle{
-    font-size:18px;
-    color:#E7C654;
-    margin-bottom:-18px;
-    font-family:"Baloo Paaji Medium";
-}
-.newsDesc{
-    margin-top:-10px;
-   
-}
-.newsWrap{
-    display:flex;
-    flex-direction:column;
-    margin-left:40px;
-    margin-right:40px;
 
+
+.filterSectionDiv {
+    flex: 3.5%
 }
-.newsHead{
-    margin:30px 30px 40px;
+
+.news {
+    flex: 25%;
+    margin: 20px;
 }
-.newsHead span{
-    font-family:"Baloo Paaji Medium";
-    font-size:30px;
-     color:#0B549E;
+
+.newsMeta {
+    font-size: 12px;
+    margin-top: -20px;
+    margin-bottom: -10px;
+    font-family: "Baloo Paaji Medium";
 }
-.newsContent{
-    display:flex;
-    flex-direction:row;
-    flex-wrap:wrap;
+
+.newsTitle {
+    font-size: 18px;
+    color: #E7C654;
+    margin-bottom: -18px;
+    font-family: "Baloo Paaji Medium";
+}
+
+.newsDesc {
+    margin-top: -10px;
+}
+
+.newsWrap {
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.newsHead {
+    margin: 30px 30px 40px;
+}
+
+.newsHead span {
+    font-family: "Baloo Paaji Medium";
+    font-size: 30px;
+    color: #0B549E;
+}
+
+.newsContent {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     margin-bottom: 60px;
-    
-
 }
-.ant-menu-horizontal{
+
+.ant-menu-horizontal {
     border-bottom: 0px;
-   
 }
-.ant-menu-item{
-    font-family: "Baloo Paaji Medium";
-    height:60px;
-}
-.searchWrapper{
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
-}
-.innerWrap{
-    display:flex;
-    flex-direction:row;
-    flex-wrap:wrap;
-    margin:20px;
-    border-radius:10px;
-    border-width:5px;
-    box-shadow:rgba(0,0,0,0.15) 0px 2px 8px;
-    height:auto;
-    width:700px;
-    justify-content:space-between;
-    align-items:center;
-}
-.locDiv{
-    flex:30%;
-    margin:10px;
-    color:#E7C654;
-}
-.buildDiv{
-    flex:40%;
-    color:#E7C654;
-}
-.innerWrap span{
-    font-family: "Baloo Paaji Medium";
-}
-.searchButton{
-    flex:10%;
-    font-size:20px;
-    height:50px;
-    color:white;
-    border-radius:10px;
-    background:linear-gradient(to right,rgb(183,142,0) 9.38%, rgb(231,198,84) 88.54%);
 
+.ant-menu-item {
+    font-family: "Baloo Paaji Medium";
+    height: 60px;
+}
+
+.searchWrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.innerWrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 20px;
+    border-radius: 10px;
+    border-width: 5px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+    height: auto;
+    width: 700px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.locDiv {
+    flex: 30%;
+    margin: 10px;
+    color: #E7C654;
+}
+
+.buildDiv {
+    flex: 40%;
+    color: #E7C654;
+}
+
+.innerWrap span {
+    font-family: "Baloo Paaji Medium";
+}
+
+.searchButton {
+    flex: 10%;
+    font-size: 20px;
+    height: 50px;
+    color: white;
+    border-radius: 10px;
+    background: linear-gradient(to right, rgb(183, 142, 0) 9.38%, rgb(231, 198, 84) 88.54%);
 }

@@ -27,7 +27,7 @@ class HomePage extends React.Component{
                     justifyContent:"center",
                     alignContent:"space-between"
                 }}
-            
+                className="homepage"
             >
                 <SearchBar/>
                 <FilterClass filter={filterImages}/>
