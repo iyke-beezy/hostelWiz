@@ -8,6 +8,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import Login from './screens/Login';
 import SignUpScreen from './screens/SignUp';
+import HostingOne from './screens/HostingOne';
+import HostingTwo from './screens/HostingTwo';
+import HostingThree from './screens/HostingThree';
 import HMBottomTabNavigator from './navigation/HMBottomTabNavigation';
 import useLinking from './navigation/useLinking';
 
@@ -74,6 +77,24 @@ export default function App(props) {
               }}
             component={SignUpScreen} />
 
+              <Stack.Screen name="Hone" 
+               options={{
+                headerShown: false,
+              
+              }}
+            component={HostingOne} />
+             <Stack.Screen name="Htwo" 
+               options={{
+                headerShown: false,
+              
+              }}
+            component={HostingTwo} />
+             <Stack.Screen name="Hthree" 
+               options={{
+                headerShown: false,
+              
+              }}
+            component={HostingThree} />
 
               <Stack.Screen name="HMnav" 
                options={{ headerShown: false, }}
