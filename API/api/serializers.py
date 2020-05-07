@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from .models import Customer, HostelManager, AdminUser, Property, Rating, Room, User
+from .models import Customer, HostelManager, AdminUser, Property, Rating, Room, User, Saved
 from rest_framework.authtoken.models import Token
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', 'first_name', 'last_name', 'username', 'password', 'groups', 'email','contact','profile')
+        fields = ('id', 'first_name', 'last_name', 'username', 'password', 'groups', 'email', 'contact', 'profile')
         model = User
         extra_kwargs = {'password': {'write_only': True}}
 
@@ -39,7 +39,12 @@ class AdminSerializer(serializers.ModelSerializer):
 class PropertySerializer(serializers.ModelSerializer):
     class Meta:
         model = Property
-        fields = ('id', 'managerId', 'description', 'location', 'numberOfRooms', 'status', 'type', 'pictureLocation', 'name')
+        fields = (
+            'id', 'managerId', 'description', 'location', 'numberOfRooms', 'type', 'pictureLocation',
+            'pictureLocation1', 'pictureLocation2', 'pictureLocation3', 'pictureLocation4', 'pictureLocation5',
+            'pictureLocation6 ', 'pictureLocation7', 'pictureLocation8', 'pictureLocation9', 'pictureLocation10', 'name'
+
+        )
 
 
 class RatingSerializer(serializers.ModelSerializer):
@@ -52,3 +57,9 @@ class RoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
         fields = ('id', 'property', 'roomNo', 'roomType', 'roomAvailable')
+
+
+class SavedSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Saved
+        fields = ('id', 'user', 'property')
