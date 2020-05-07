@@ -9,7 +9,7 @@ def upload_path(instance, filename):
 
 
 def upload_user(instance, filename):
-    return '/'.join(['hosteluserpics', str(instance.name), filename])
+    return '/'.join(['hosteluserpics', str(instance.email), filename])
 
 
 class User(AbstractUser):
@@ -60,6 +60,16 @@ class Property(models.Model):
     status = models.BooleanField(default=False)
     type = models.CharField(max_length=32)
     pictureLocation = models.ImageField(upload_to=upload_path, blank=True, null=True)
+    pictureLocation1 = models.ImageField(upload_to=upload_path, blank=True, null=True)
+    pictureLocation2 = models.ImageField(upload_to=upload_path, blank=True, null=True)
+    pictureLocation3 = models.ImageField(upload_to=upload_path, blank=True, null=True)
+    pictureLocation4 = models.ImageField(upload_to=upload_path, blank=True, null=True)
+    pictureLocation5 = models.ImageField(upload_to=upload_path, blank=True, null=True)
+    pictureLocation6 = models.ImageField(upload_to=upload_path, blank=True, null=True)
+    pictureLocation7 = models.ImageField(upload_to=upload_path, blank=True, null=True)
+    pictureLocation8 = models.ImageField(upload_to=upload_path, blank=True, null=True)
+    pictureLocation9 = models.ImageField(upload_to=upload_path, blank=True, null=True)
+    pictureLocation10 = models.ImageField(upload_to=upload_path, blank=True, null=True)
 
     def no_of_ratings(self):
         ratings = Rating.objects.filter(property=self)
@@ -92,3 +102,12 @@ class Room(models.Model):
     roomNo = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     roomType = models.CharField(max_length=32)
     roomAvailable = models.BooleanField(default=False)
+
+
+class Saved(models.Model):
+    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = (('user', 'property'),)
+        index_together = (('user', 'property'),)
