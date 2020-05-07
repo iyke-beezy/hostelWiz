@@ -3,7 +3,7 @@ import Filters from './Filters';
 import './homepage.css';
 import 'antd/dist/antd.css';
 
-const FilterClass = ({ filter }) => {
+const FilterClass =({ filter }) => {
     return (
         <div className="filterWrap">
             <div className="heading">

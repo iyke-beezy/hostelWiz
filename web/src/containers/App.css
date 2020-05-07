@@ -3,9 +3,9 @@
   font-style: normal;
   font-weight: 400;
   src: url('../Assets/fonts/BalooPaaji2-Regular.ttf');
-  src: local('Baloo Paaji'), local('BalooPaaji'),
-  url('../Assets/fonts/BalooPaaji2-Regular.ttf')
+  src: local('Baloo Paaji'), local('BalooPaaji'), url('../Assets/fonts/BalooPaaji2-Regular.ttf')
 }
+
 button {
   border: none;
   border-radius: 4px;
@@ -30,4 +30,25 @@ button:hover {
 
 .text--center {
   text-align: center;
+}
+
+.explore {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+  height: auto;
+  margin: 20px auto !important;
+  position: relative !important;
+  max-width: 1760px !important;
+  padding-right: 80px !important;
+  padding-left: 80px !important;
+  flex-wrap: wrap;
+}
+
+.explore .exploreItem {
+  flex: 25%;
+  border-radius: 16px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  margin: 18px;
 }

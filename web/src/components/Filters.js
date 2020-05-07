@@ -15,7 +15,7 @@ const Filters = () => {
 
   return (
     <div className="filterSection">
-    {/* Card for hostels*/}
+      {/* Card for hostels*/}
       <div className="filt">
         <Link to="/hostel">
           <Card hoverable cover={<img style={{ borderRadius: "16px 16px 0px 0px" }} alt="example" src={filters[0]} />}>
@@ -41,12 +41,14 @@ const Filters = () => {
 
       {/* Card for for-sale properties */}
       <div className="filt">
-        <Card hoverable cover={<img style={{ borderRadius: "16px 16px 0px 0px" }} alt="example" src={filters[2]} />}>
-          <Meta className="filtMeta"
-            title={<span className="filtTitle">Explore For-Sale properties</span>}
-            description={<span className="filtDesc">Find properties on-sale</span>}
-          />
-        </Card>
+        <Link to="sale">
+          <Card hoverable cover={<img style={{ borderRadius: "16px 16px 0px 0px" }} alt="example" src={filters[2]} />}>
+            <Meta className="filtMeta"
+              title={<span className="filtTitle">Explore For-Sale properties</span>}
+              description={<span className="filtDesc">Find properties on-sale</span>}
+            />
+          </Card>
+        </Link>
       </div>
 
     </div>
