@@ -35,6 +35,20 @@ loginFormTextInput: {
   marginBottom: 5,
 
 },
+loginFormTextInputArea: {
+  height: 90,
+  fontSize: 14,
+  borderRadius: 5,
+  borderWidth: 1,
+  borderColor: '#eaeaea',
+  backgroundColor: '#fafafa',
+  paddingLeft: 10,
+  marginLeft: 35,
+  marginRight: 35,
+  marginTop: 5,
+  marginBottom: 5,
+
+},
 loginButton: {
   backgroundColor: '#3897f1',
   borderRadius: 40,
@@ -60,5 +74,15 @@ googleLoginButton: {
    marginLeft: 30,
    marginRight: 30,
 
+},
+checkboxContainer: {
+  flexDirection: "row",
+  marginBottom: 20,
+},
+checkbox: {
+  alignSelf: "center",
+},
+label: {
+  margin: 8,
 },
 };

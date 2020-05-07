@@ -9,6 +9,41 @@ import Colors from '../constants/Colors';
 class ProfileScreen extends React.Component {
 
 
+  switchRoute=(param)=>{
+  switch(param) {
+ 
+    case 'Edit Profile':
+      this.One();
+      break;
+    
+    case 'Notification':
+      this.TWO();
+      break;
+
+    case 'Try hosting with us':
+      this.props.navigation.navigate('HMnav')
+      break;
+
+    case 'Get Feedback':
+      this.FOUR();
+      break;
+
+    case 'Terms of service':
+      this.FOUR();
+      break;
+
+    case 'Logout':
+      this.FOUR();
+      break;
+
+    default:
+      Alert.alert("NUMBER NOT FOUND");
+  
+    }
+  }
+
+
+
   
 
     render() {
@@ -30,20 +65,20 @@ class ProfileScreen extends React.Component {
           data={[
             {key: 'Edit Profile'},
             {key: 'Notifications'},
-            {key: 'Get help'},
+            {key: 'Try hosting with us'},
             {key: 'Get feedback'},
             {key: 'Terms Of Service'},
             {key: 'others'},
            
           ]}
-          renderItem={({item}) => <Text  style={styles.item}>{item.key}</Text>}
+          renderItem={({item}) => <Text style={styles.item} onPress={() =>this.switchRoute(`${item.key}`)}  >{item.key}</Text>}
         />
         <View style={styles.logoutContainer}>
           <Image
           style={styles.logout}
           source={require('../assets/images/logout.png')}
           />
-          <Text style={styles.logoutText}>logout</Text>
+          <Text style={styles.logoutText} onPress={() =>this.switchRoute('Logout')}>logout</Text>
         </View>
       </View>
          

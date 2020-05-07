@@ -41,7 +41,9 @@ class ExploreScreen extends React.Component {
       <Card containerStyle={styles.miniCard}
 
   image={require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')} 
+
   >
+  
   <Text style={{textAlign: 'center', marginBottom: 10}}>
    Explore Apartments
   </Text>
@@ -76,6 +78,9 @@ class ExploreScreen extends React.Component {
  <AntDesign size={30} style={{ marginBottom: -3 }} color={ Colors.tabIconDefault} name="star" />
  <AntDesign size={30} style={{ marginBottom: -3 }} color={Colors.tabIconDefault} name="star" />
  <AntDesign size={30} style={{ marginBottom: -3 }} color={ Colors.tabIconDefault} name="star" />
+ </View>
+ <View>
+
  </View>
 </Card>
       </View>
