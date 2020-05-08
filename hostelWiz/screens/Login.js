@@ -6,7 +6,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
-import { white } from 'react-native-paper/lib/typescript/src/styles/colors';
 
 
 
@@ -71,8 +70,8 @@ class LoginScreen extends React.Component {
             source={require("../assets/images/splash.png")}
           />
 
-          <TextInput placeholder="Username" placeholderColor="#c4c3cb" style={styles.loginFormTextInput} />
-          <TextInput placeholder="Password" placeholderColor="#c4c3cb" style={styles.loginFormTextInput} secureTextEntry={true} />
+          <TextInput placeholder="Username" placeholderColor="#c4c3cb" style={[styles.loginFormTextInput, {fontFamily: "BalooPaaji2"}]} />
+          <TextInput placeholder="Password" placeholderColor="#c4c3cb" style={[styles.loginFormTextInput, {fontFamily: "BalooPaaji2"}]} secureTextEntry={true} />
           <Button
             buttonStyle={styles.loginButton}
             //onPress={() => this.onLoginPress()}
@@ -102,7 +101,7 @@ class LoginScreen extends React.Component {
                 </Text>
 
           <TouchableOpacity onPress={() => this.props.navigation.navigate('SignUp')}>
-            <Text>Don't have an account,Sign up here</Text>
+            <Text style={{ fontFamily: "BalooPaaji2" }}>Don't have an account,Sign up here</Text>
           </TouchableOpacity>
 
         </ImageBackground>

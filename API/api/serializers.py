@@ -41,8 +41,7 @@ class PropertySerializer(serializers.ModelSerializer):
         model = Property
         fields = (
             'id', 'managerId', 'description', 'location', 'numberOfRooms', 'type', 'pictureLocation',
-            'pictureLocation1', 'pictureLocation2', 'pictureLocation3', 'pictureLocation4', 'pictureLocation5',
-            'pictureLocation6 ', 'pictureLocation7', 'pictureLocation8', 'pictureLocation9', 'pictureLocation10', 'name'
+            'pictureLocation1', 'pictureLocation2', 'pictureLocation3', 'pictureLocation4', 'pictureLocation5', 'pictureLocation6', 'pictureLocation7', 'pictureLocation8', 'pictureLocation9', 'pictureLocation10', 'name'
 
         )
 
