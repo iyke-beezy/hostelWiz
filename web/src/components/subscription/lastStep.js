@@ -6,27 +6,37 @@ import './hostForm.css';
 import Head from '../head';
 import LocConfirm from './locConfirm';
 import DetailsConfirm from './detailsConfirm';
+import AddPhotos from './addPhotos';
+import Security from './security';
+import Pricing from './pricing';
 const {Header}=Layout;
 const {TabPane}=Tabs;
 
 class LastStep extends React.Component{
     state={
         current:'1',
-        percent:30,
+        percent:14.29,
     }
     handleBack=()=>{
+        let currentNumber=parseInt(this.state.current)
+        currentNumber=currentNumber-1
         this.setState({
-            current:'1',
-            percent:30
+            current:String(currentNumber),
+
             
         })
     }
         
     handleNext=()=>{
-
+        var currentNumber=parseInt(this.state.current)
+        currentNumber=currentNumber+1
+       this.setState({
+            current:String(currentNumber),
+        })
+    }
+    handleTab=(e)=>{
         this.setState({
-            current:'2',
-            percent:60
+            current:String(e.target.key)
         })
     }
 
@@ -39,7 +49,7 @@ class LastStep extends React.Component{
             <div className='lStepHeader'>
                 <div className='progress' >
                 <h3 className='medText'>Progress</h3>
-                <Progress percent={this.state.percent} status="active" showInfo={false}/>
+                <Progress percent={parseInt(this.state.percent*this.state.current)} status="active" showInfo={false}/>
                 </div>
                 <div className='lastInfo'>
                     <h2 className='medText2' >Welcome, verify the final details of your property </h2>
@@ -48,25 +58,25 @@ class LastStep extends React.Component{
             </div>
             </Header>
             <div className="lastContent" >
-            <Tabs  activeKey={this.state.current} tabPosition='left' className='taboo'   style={{ height:'auto',width:'70%',overflowY:'scroll'}}>
-                <TabPane key={1}  tab={'Welcome'}>
+            <Tabs  tabPosition='left' className='taboo'   activeKey={this.state.current} style={{ height:'auto',width:'70%',overflowY:'scroll'}}>
+                <TabPane key={0} disabled={true} tab={'Welcome'}>
                 </TabPane>
                 <TabPane tab={'Location'} key={1} style={{position:'relative'}}>
                   <LocConfirm handleNext={this.handleNext}></LocConfirm>
                 </TabPane>
                 <TabPane tab={'Details'} key={2}>
-                 <DetailsConfirm handleBack={this.handleBack}></DetailsConfirm>
+                 <DetailsConfirm handleNext={this.handleNext} handleBack={this.handleBack}></DetailsConfirm>
                 </TabPane>
-                <TabPane tab={'Photos'} key={3}>
-                 
+                <TabPane  tab={'Photos'} key={3}>
+                 <AddPhotos handleNext={this.handleNext} handleBack={this.handleBack}/>
                 </TabPane>                
-                <TabPane tab={'Security'} key={4}>
-                
+                <TabPane  tab={'Security'} key={4}>
+                <Security handleNext={this.handleNext} handleBack={this.handleBack}/>
                 </TabPane>                
-                <TabPane tab={'Pricing'} key={5}>
-                 
+                <TabPane  tab={'Pricing'} key={5}>
+                <Pricing handleNext={this.handleNext} handleBack={this.handleBack}/>
                 </TabPane>                
-                <TabPane tab={'Publish Listing'} key={6}>
+                <TabPane  tab={'Publish Listing'} key={6}>
                  
                 </TabPane>
             </Tabs>

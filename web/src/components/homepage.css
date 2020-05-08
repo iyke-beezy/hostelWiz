@@ -109,6 +109,12 @@
     background-repeat: no-repeat;
     height:550px;
 }
+.ant-menu-horizontal  .ant-menu-item a:hover{
+    color: #E7C654;
+}
+.ant-menu-horizontal .ant-menu-item:hover{
+    border-bottom:2px solid #E7C654;
+}
 .textArea{
     margin-bottom:30px;
     display:flex;

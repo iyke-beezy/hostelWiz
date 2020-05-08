@@ -89,7 +89,7 @@ class Selection extends React.Component {
                                     </div>
                                     <div className="purpose">
                                         <h3 className="smallText">Sale Type</h3>
-                                        <Select defaultValue={this.state.buildingPurpose} disabled={this.state.buildingType != 'Apartment'} size={'large'} style={{ width: 200 }} onChange={this.handlePurposeChange}>
+                                        <Select defaultValue={this.state.buildingPurpose} disabled={this.state.buildingType !== 'Apartment'} size={'large'} style={{ width: 200 }} onChange={this.handlePurposeChange}>
                                             <Option value="Rent">For rent</Option>
                                             <Option value="Sale">For sale</Option>
                                         </Select>
