@@ -1,49 +1,125 @@
 import * as React from 'react';
-import {Keyboard,Checkbox, ScrollView, Switch, Text, View, TextInput, TouchableWithoutFeedback, Alert, KeyboardAvoidingView,Dimensions} from 'react-native';
-import styles from "../style";
+import {Keyboard,Image, Text, View,StyleSheet, TextInput,FlatList, TouchableWithoutFeedback, Alert, KeyboardAvoidingView,Dimensions} from 'react-native';
 import { Card,Button, Icon } from 'react-native-elements';
-import * as ImagePicker from 'expo-image-picker';
-import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
-import { RadioButton } from 'react-native-paper';
+import { grey } from 'ansi-colors';
+import { AntDesign ,Entypo} from '@expo/vector-icons';
+import Colors from '../constants/Colors';
 
-class ManageProperty extends React.Component {
 
-    constructor(props) {  
-        super(props);  
-        this.state = {  
-            password: '',  
-            isPasswordVisible: true,  
-            toggleText: 'Show',  
-            checked: 'first',
-        };  
-    }  
+class ManagerProfile extends React.Component {
 
+
+  switchRoute=(param)=>{
+  switch(param) {
+ 
+    case 'Edit Profile':
+      this.One();
+      break;
+    
+    case 'Notification':
+      this.TWO();
+      break;
+
+    case 'Back to user page':
+      this.props.navigation.navigate('Root')
+      break;
+
+    case 'Get Feedback':
+      this.FOUR();
+      break;
+
+    case 'Terms of service':
+      this.FOUR();
+      break;
+
+    case 'Logout':
+      this.FOUR();
+      break;
+
+    default:
+      Alert.alert("NUMBER NOT FOUND");
+  
+    }
+  }
+
+
+
+  
 
     render() {
       return (
-        <View style={{marginTop:50}}>
-       
-  
-      
-          <View style={styles.loginScreenContainer}>
-          <ScrollView>
+        <View style={styles.container}>
+        <View style={styles.user}>
+            <Image
+            style={styles.image}
+            source={require('../assets/images/user-active.png')}
+            />
+            <Text>
+                Test User
+            </Text>
+            <Text>
+                user@test.com
+            </Text>
+        </View>
+        <FlatList
+          data={[
+            {key: 'Edit Profile'},//entypo
+            {key: 'Notifications'},//ant and entypo
+            {key: 'Back to user page'},//entypo
+            {key: 'Get feedback'},
+            {key: 'Terms Of Service'},
+            {key: 'others'},
+           
+          ]}
+          renderItem={({item}) =><Text style={styles.item} onPress={() =>this.switchRoute(`${item.key}`)}  >{item.key} </Text>}
+        />
+        <View style={styles.logoutContainer}>
+          <Image
+          style={styles.logout}
+          source={require('../assets/images/logout.png')}
+          />
+          <Text style={styles.logoutText} onPress={() =>this.switchRoute('Logout')}>logout</Text>
+        </View>
+      </View>
          
-
-            
-           <Text>Manager Profile</Text>
-            </ScrollView>
-           
-            </View>
-          </View>
-      
-           
       
       );
     }
   }
 
-  export default ManageProperty;
+  const styles = StyleSheet.create({
+    container: {
+     flex: 1,
+     paddingTop: 40,
+     backgroundColor:'white',
+    },
+    user:{
+        alignItems:'center',
+    },
+    image:{
+        height:100,
+        width:85,
+    },
+    item: {
+      padding: 10,
+      margin:10,
+      fontSize: 15,
+     color:'black',
+      height: 44,
+    },
+    logoutContainer:{
+      paddingLeft:150,
+        alignItems:"center",
+        flexDirection:"row",
+    },
+    logout:{
+      height:20,
+      width:20,
+    },
+    logoutText:{
+      fontSize:20,
+      color:'#ff1493',
+    },
+  })
 
-
-
+  export default ManagerProfile;

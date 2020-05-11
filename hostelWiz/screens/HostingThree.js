@@ -118,14 +118,14 @@ class HostingThree extends React.Component{
              <Text>BathRoom</Text>
              <View style={styles.checkboxContainer}>
 
-             <Text style={styles.label}>Private</Text>
+             <Text style={styles.checkboxLabel}>Private</Text>
                <CheckBox
                value={this.state.isSelected}
                onValueChange={this.setSelection}
                style={styles.checkbox}
                />
 
-            <Text style={styles.label}>shared</Text>
+            <Text style={styles.checkboxLabel}>shared</Text>
                <CheckBox
                value={this.state.isSelected}
                onValueChange={this.setSelection}

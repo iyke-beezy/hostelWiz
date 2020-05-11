@@ -58,6 +58,14 @@ loginButton: {
   marginLeft: 20,
   marginRight: 20,
 },
+acceptButton: {
+  backgroundColor: '#3897f1',
+
+  height: 50,
+  marginTop: 10,
+  marginBottom:30,
+  
+},
 fbLoginButton: {
   height: 45,
   
@@ -80,9 +88,101 @@ checkboxContainer: {
   marginBottom: 20,
 },
 checkbox: {
-  alignSelf: "center",
+  
+  flex:2,
+  color:'blue',
+ 
+},
+checkboxSpace:{
+  flex:2,
 },
 label: {
   margin: 8,
 },
+formArea:{
+flexDirection:"column",
+margin:25,
+},
+formRow:{
+
+},
+formTitle:{
+margin:10,
+textAlign:'center',
+fontSize:25,
+
+},
+label:{
+flex:2,
+height:50,
+fontSize:20,
+},
+formComponent:{
+flexDirection:'row',
+marginTop:30,
+},
+select:{
+  flex:5,
+  borderWidth:1,
+  borderStyle:'solid',
+  borderColor:'black',
+  width:'auto', 
+  borderRadius:10,
+  
+},
+textInput:{
+  flex:5,
+  borderWidth:1,
+  borderStyle:'solid',
+  borderColor:'black',
+  width:'auto', 
+  borderRadius:10,
+  paddingLeft:5,
+},
+textDescription:{
+  flex:5,
+  borderWidth:1,
+  borderStyle:'solid',
+  borderColor:'black',
+  width:'auto', 
+  height:150,
+  borderRadius:10,
+},
+secondDivider:{
+  borderBottomColor: 'black',
+  borderBottomWidth: 1,
+  marginTop:30,
+},
+firstDivider:{
+  borderBottomColor: 'black',
+  borderBottomWidth: 1,
+  marginBottom:10,
+  marginTop:30,
+},
+switchLable:{
+  flex:3,
+  height:60,
+  fontSize:30,
+},
+checkboxLabel:{
+  flex:3,
+  height:60,
+  fontSize:40,
+},
+switch:{
+  flex:2,
+  width:'auto', 
+  width:40,
+},
+switchSpace:{
+flex:2,
+},
+bathRoomTitle:{
+  margin:10,
+textAlign:'center',
+fontSize:25,
+},
+hosting:{
+  
+}
 };

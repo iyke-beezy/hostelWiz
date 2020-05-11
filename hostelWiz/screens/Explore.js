@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Keyboard, StyleSheet,Text, View, TextInput, TouchableWithoutFeedback, Alert, KeyboardAvoidingView,Dimensions,ScrollView} from 'react-native';
+import {Keyboard, StyleSheet,Text, View, TouchableOpacity,Dimensions,ScrollView} from 'react-native';
 import { Card,Button, Icon } from 'react-native-elements';
 import { Searchbar } from 'react-native-paper';
 import { AntDesign } from '@expo/vector-icons';
@@ -28,7 +28,7 @@ class ExploreScreen extends React.Component {
       />
     
       </View>
-      <ScrollView>
+      <ScrollView style={styles.belowSearchBar}>
       <View>
       <Text style={{paddingLeft:20,margin: 25,}}>
           Explore Hostel Wiz
@@ -39,9 +39,9 @@ class ExploreScreen extends React.Component {
       <View style={styles.miniCardComponent}>
         
       <Card containerStyle={styles.miniCard}
-
+ 
   image={require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')} 
-
+  imageStyle={{borderRadius:10}}
   >
   
   <Text style={{textAlign: 'center', marginBottom: 10}}>
@@ -51,7 +51,8 @@ class ExploreScreen extends React.Component {
 
       <Card containerStyle={styles.miniCard}
  
-  image={require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')} 
+  image={require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')}
+  imageStyle={{borderRadius:10}} 
   >
   <Text style={{textAlign: 'center', marginBottom: 10}}>
    Explore Hostels
@@ -59,19 +60,45 @@ class ExploreScreen extends React.Component {
 </Card>
 
       </View>
-      <View>
-      <Card
- containerStyle={styles.maxCard}
+      <View >
+      <Card containerStyle={styles.maxCard}
+
   image={require('../assets/images/hostel.jpg')}
+  imageStyle={{borderRadius:10}}
   >
-<View style={styles.maxCardText}>
-  <Text style={{margin: 10}}>
+
+<TouchableOpacity
+        style={styles.saveButton}
+      ><View  >
+        <AntDesign color="red" style={{marginTop:7}} size={25} name="heart" />
+    
+      </View>
+        
+      </TouchableOpacity>
+
+
+<View style={styles.maxCardTextArea}>
+        <View>
+  <View style={{flexDirection:'row'}}>
+
+<Text styles={styles.title} >
    Grand Royal Hostels
   </Text>
-  <Text style={{paddingLeft:130, margin: 10}}>
+<Text style={{flex:3}}></Text>
+
+<Text styles={styles.price}>
     Ghc 120.00
   </Text>
+
+  
+ 
   </View>
+  </View>
+  <View style={styles.description}>
+    <Text >description</Text>
+    
+  </View>
+  
  <View style={styles.rating}>
  <AntDesign size={30} style={{ marginBottom: -3 }} color={ Colors.tabIconDefault} name="star" />
  <AntDesign size={30} style={{ marginBottom: -3 }} color={ Colors.tabIconDefault} name="star" />
@@ -79,11 +106,14 @@ class ExploreScreen extends React.Component {
  <AntDesign size={30} style={{ marginBottom: -3 }} color={Colors.tabIconDefault} name="star" />
  <AntDesign size={30} style={{ marginBottom: -3 }} color={ Colors.tabIconDefault} name="star" />
  </View>
- <View>
-
+ 
  </View>
 </Card>
       </View>
+
+
+
+    
   
  
       <View>
@@ -113,22 +143,28 @@ class ExploreScreen extends React.Component {
        
        
       },
+      belowSearchBar:{
+        flex : 1,
+        flexDirection:'column',
+      },
       miniCardComponent:{
-        flex:8,
+        flex:12,
         height:'auto',
         flexDirection:'row',
-        marginLeft:15,
-        marginRight:30,
+       marginLeft:12,
+        marginRight:12,
         
       },
       maxCardComponent:{
-        flex:8,
+        flex:12,
       },
       miniCard:{
-       margin:11,
-        width:170,
-        height:195,
-        borderRadius:5,
+        overflow:'hidden',
+        flex:6,
+       margin:5,
+        width:180,
+        height:185,
+        borderRadius:10,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.8,
@@ -137,15 +173,43 @@ class ExploreScreen extends React.Component {
       },
       rating:{
         flexDirection:"row",
+        marginTop:10,
       },
-      maxCardText:{
-        flexDirection:"row",
+      maxCardTextArea:{
+        
+        flexDirection:"column",
+      
+      },
+      saveButton:{
+        margin: 10,position: 'absolute', top: -150, right: 10,
+        height:40,
+        width: 40,
+        borderRadius: 64,
+        backgroundColor:'rgba(0,0,0,0.5)',
+        opacity:100,
+        alignItems: "center",
+
+      },
+      title:{
+        margin:10,
+        flex:4,
+        
+      },
+      description:{
+       marginTop:5
+      },
+      price:{
+        flex:2,
+       fontSize:10,
       },
       maxCard:{
-          marginLeft:25,
-          marginRight:22,
+        overflow:'hidden',
+        flex:12,
+        marginLeft:15,
+        marginRight:15,
+        marginBottom:5,
           height:245,
-          borderRadius:5,
+          borderRadius:14,
           shadowColor: '#000',
           shadowOffset: { width: 0, height: 1 },
           shadowOpacity: 0.8,

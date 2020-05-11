@@ -60,7 +60,7 @@ class HostingTwo extends React.Component{
               <TextInput placeholder="Headline" placeholderColor="#c4c3cb" style={styles.loginFormTextInput} />
 
               <Text>Description</Text>
-              <TextInput placeholder="Headline" multiline = {true} numberOfLines = {4} placeholderColor="#c4c3cb" style={styles.loginFormTextInputArea}  />
+              <TextInput placeholder="Descrtiption" multiline = {true} numberOfLines = {4} placeholderColor="#c4c3cb" style={styles.loginFormTextInputArea}  />
           
 
               <View style={{margin:20}}>
