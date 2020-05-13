@@ -8,15 +8,55 @@ import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-import * as Google from 'expo-google-app-auth'
+import * as GoogleSignIn from 'expo-google-sign-in';
 import * as Facebook from 'expo-facebook';
 
 
 class LoginScreen extends React.Component {
 
   state = {
-    fontsLoaded: false
+    fontsLoaded: false,
+    user: null
   }
+
+  componentDidMount() {
+    this.loadFonts()
+    this.initAsync();
+  }
+
+  initAsync = async () => {
+    try {
+      await GoogleSignIn.initAsync({
+        // You may ommit the clientId when the firebase `googleServicesFile` is configured
+        clientId: '<YOUR_IOS_CLIENT_ID>',
+        // Provide other custom options...
+      });
+    } catch ({ message }) {
+      alert('GoogleSignIn.initAsync(): ' + message);
+    }
+  };
+
+  _syncUserWithStateAsync = async () => {
+    const user = await GoogleSignIn.signInSilentlyAsync();
+    this.setState({ user });
+  };
+
+  signOutAsync = async () => {
+    await GoogleSignIn.signOutAsync();
+    this.setState({ user: null });
+  };
+
+  signInAsync = async () => {
+    try {
+      await GoogleSignIn.askForPlayServicesAsync();
+      const { type, user } = await GoogleSignIn.signInAsync();
+      if (type === 'success') {
+        this._syncUserWithStateAsync();
+      }
+    } catch ({ message }) {
+      alert('login: Error:' + message);
+    }
+  };
 
   //google signin
   signInWithGoogleAsync = async () => {
@@ -38,36 +78,33 @@ class LoginScreen extends React.Component {
     }
   }
 
-    //facebook signin
-    FacebooklogIn = async () => {
-      try {
-        const {
-          type,
-          token,
-          expires,
-          permissions,
-          declinedPermissions,
-        } = await Facebook.logInWithReadPermissionsAsync('542949173131834', {
-          permissions: ['public_profile'],
-        });
-        if (type === 'success') {
-          // Get the user's name using Facebook's Graph API
-          const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,picture.type=(large)`);
-          const userInfo = await response.json()
-          this.setState({userInfo})
-          console.log('Logged in!', `Hi ${(await response.json()).name}!`);
-        } else {
-          // type === 'cancel'
-          console.log("cancelled")
-        }
-      } catch ({ message }) {
-        console.log(`Facebook Login Error: ${message}`);
+  //facebook signin
+/*  FacebooklogIn = async () => {
+    try {
+      const {
+        type,
+        token,
+        expires,
+        permissions,
+        declinedPermissions,
+      } = await Facebook.logInWithReadPermissionsAsync('542949173131834', {
+        permissions: ['public_profile'],
+      });
+      if (type === 'success') {
+        // Get the user's name using Facebook's Graph API
+        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,picture.type=(large)`);
+        const userInfo = await response.json()
+        this.setState({ userInfo })
+        console.log('Logged in!', `Hi ${(await response.json()).name}!`);
+      } else {
+        // type === 'cancel'
+        console.log("cancelled")
       }
+    } catch ({ message }) {
+      console.log(`Facebook Login Error: ${message}`);
     }
-
-  componentDidMount() {
-    this.loadFonts()
   }
+  */
 
   loadFonts = async () => {
     await Font.loadAsync({
