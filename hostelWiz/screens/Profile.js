@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Keyboard,Image, Text, View,StyleSheet, TextInput,FlatList, TouchableWithoutFeedback, Alert, KeyboardAvoidingView,Dimensions} from 'react-native';
 import { Card,Button, Icon } from 'react-native-elements';
 import { grey } from 'ansi-colors';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign ,Entypo} from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 
 
@@ -63,15 +63,15 @@ class ProfileScreen extends React.Component {
         </View>
         <FlatList
           data={[
-            {key: 'Edit Profile'},
-            {key: 'Notifications'},
-            {key: 'Try hosting with us'},
+            {key: 'Edit Profile'},//entypo
+            {key: 'Notifications'},//ant and entypo
+            {key: 'Try hosting with us'},//entypo
             {key: 'Get feedback'},
             {key: 'Terms Of Service'},
             {key: 'others'},
            
           ]}
-          renderItem={({item}) => <Text style={styles.item} onPress={() =>this.switchRoute(`${item.key}`)}  >{item.key}</Text>}
+          renderItem={({item}) =><Text style={styles.item} onPress={() =>this.switchRoute(`${item.key}`)}  >{item.key} </Text>}
         />
         <View style={styles.logoutContainer}>
           <Image
@@ -90,7 +90,8 @@ class ProfileScreen extends React.Component {
   const styles = StyleSheet.create({
     container: {
      flex: 1,
-     paddingTop: 40
+     paddingTop: 40,
+     backgroundColor:'white',
     },
     user:{
         alignItems:'center',
@@ -101,9 +102,9 @@ class ProfileScreen extends React.Component {
     },
     item: {
       padding: 10,
-      marginBottom:10,
-      fontSize: 25,
-     color:'grey',
+      margin:10,
+      fontSize: 15,
+     color:'black',
       height: 44,
     },
     logoutContainer:{
@@ -112,11 +113,11 @@ class ProfileScreen extends React.Component {
         flexDirection:"row",
     },
     logout:{
-      height:35,
-      width:35,
+      height:20,
+      width:20,
     },
     logoutText:{
-      fontSize:35,
+      fontSize:20,
       color:'#ff1493',
     },
   })

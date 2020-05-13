@@ -16,29 +16,12 @@ class HostingScreen extends React.Component {
     constructor(props) {  
         super(props);  
         this.state = {  
-            password: '',  
-            isPasswordVisible: true,  
-            toggleText: 'Show',  
-            checked: 'first',
-            selectedValue:'',
-            itemValue:'',
-            isEnabled:false,
-            isSelected:false,
-            viewNo:'one'
+           
         };  
-        this.toggleSwitch = this.toggleSwitch.bind(this);
-        this.setSelection = this.setSelection.bind(this);
+        
     }  
 
-    toggleSwitch(){
-        this.setState({isEnabled:!this.state.isEnabled})
-    }
-
-    setSelection(){
-        this.setState({isSelected:!this.state.isSelected})
-    }
-
-
+  
 
     render() {
     
@@ -49,10 +32,40 @@ class HostingScreen extends React.Component {
        
   
       
-          <View style={{marginTop:300}}>
+          <View style={styles.formArea}>
+            <Text style={{fontSize:35}}>Why host on HostelWiz?</Text>
+          <View>
+            <Text style={{ fontSize:20,textAlign:'justify'}}>
+
+            HostelWiz gives you simplicity in setting your prices, house rules, and offers you tools to ensure you're in control. 
+            
+           You are given the opportunity to place your properties in front of a nationwide and global network of people looking for the perfect match.
+
+            </Text>
+          </View>
+
+          <Text style={{marginTop:40, fontSize:35}}>Host in 3 easy steps</Text>
          
+         <Text style={{marginTop:40,fontSize:20}}>1. Set up your property</Text>
+         <Text style={{textAlign:'justify'}}>
+         Tell us the various features that uniquely identifies your property. Add your property location for easier search.
+         </Text>
+
+         <Text style={{marginTop:40,fontSize:20}}>2. Upload Photos</Text>
+         <Text style={{textAlign:'justify'}}>
+         Upload unique photos of your building to show off.
+         </Text>
+
+         <Text style={{marginTop:40,fontSize:20}}>3.Payments Plans</Text>
+         <Text style={{textAlign:'justify'}}>
+         Host your property on HostelWiz and enjoy your first 3 months free.
+         </Text>
+         
+
+          <View style={{marginBottom:30}}></View>
+
          <Button 
-               buttonStyle={styles.loginButton}
+               buttonStyle={styles.acceptButton}
              //onPress={() => this.onLoginPress()}
                onPress={() => this.props.navigation.navigate('Hone')}
                title="Host your apartment/Hostels here"
