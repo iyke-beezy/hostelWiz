@@ -10,14 +10,39 @@ export default {
     justifyContent: "center",
     alignContent: "center",
     resizeMode: "contain",
-    justifyContent: "center",
+    backgroundColor: "#fff",
+
   },
 
+  Logoimg: {
+    resizeMode: "contain",
+    height: 100,
+    width: 100,
+    justifyContent: 'center',
+    alignSelf: "center",
+    marginTop: 10,
+    transform: [{ rotate: "-5deg" }],
+  },
+
+  imgtop: {
+    transform: [{ rotate: "5deg" }],
+    width: "105%",
+    backgroundColor: "#fff",
+    height: 100,
+    position: 'absolute',
+    top: 0,
+    left: -10,
+    marginTop: -Constants.statusBarHeight,
+  },
+  content: {
+    marginTop: 100,
+  },
   logoText: {
     fontSize: 40,
     fontWeight: "800",
     marginBottom: 30,
     textAlign: 'center',
+    color: "#fff"
   },
 
   loginFormTextInput: {
@@ -26,12 +51,13 @@ export default {
     borderRadius: 5,
     borderWidth: 1,
     borderColor: '#fff',
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgba(255,255,255,0.5)',
     paddingLeft: 10,
     marginLeft: 35,
     marginRight: 35,
     marginTop: 5,
     marginBottom: 5,
+    color: "#fff"
 
   },
   loginFormTextInputArea: {
@@ -46,10 +72,11 @@ export default {
     marginRight: 35,
     marginTop: 5,
     marginBottom: 5,
+    color: "#fff"
 
   },
   loginButton: {
-    backgroundColor: '#3897f1',
+    backgroundColor: '#92A5A3',
     borderRadius: 40,
     height: 50,
     marginTop: 10,
@@ -59,20 +86,21 @@ export default {
   },
   fbLoginButton: {
     height: 45,
-
     marginBottom: 30,
     marginLeft: 30,
     marginRight: 30,
-    backgroundColor: '#3b5998',
+    backgroundColor: '#92A5A3',
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
+    color: '#fff'
   },
   googleLoginButton: {
-    backgroundColor: "#980000",
+    backgroundColor: "#92A5A3",
     height: 45,
-    marginTop: 20,
     marginBottom: 30,
-    marginLeft: 30,
-    marginRight: 30,
-
+    borderRadius: 16,
+    padding: 10
   },
   checkboxContainer: {
     flexDirection: "row",
