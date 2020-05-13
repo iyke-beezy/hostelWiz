@@ -2,10 +2,53 @@ const React = require("react-native");
 
 const { StyleSheet } = React;
 
+
 export default {
+
+
 
 containerView: {
   flex: 1,
+},
+detailContainer: {
+  flex: 1,
+  backgroundColor:'white',
+  flexDirection:'column'
+},
+header:{
+  //height: 182,
+position: 'absolute',
+top: 0,
+left: 0,
+right: 0,
+backgroundColor: '#03A9F4',
+overflow: 'hidden',
+},
+bar: {
+ 
+ 
+  alignItems: 'center',
+  justifyContent: 'center',
+},
+title: {
+  backgroundColor: 'transparent',
+  color: 'white',
+  fontSize: 18,
+},
+scrollViewContent: {
+  marginTop:200,
+
+  
+},
+detailContent:{
+flex:4,
+borderRadius:20,
+backgroundColor:'white',
+position: 'relative',
+bottom:20,
+paddinBottom:10,
+height:'auto',
+
 },
 loginScreenContainer: {
   flex: 1,

@@ -39,7 +39,7 @@ class ExploreScreen extends React.Component {
       <View style={styles.miniCardComponent}>
         
       <Card containerStyle={styles.miniCard}
- 
+  
   image={require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')} 
   imageStyle={{borderRadius:10}}
   >
@@ -60,9 +60,9 @@ class ExploreScreen extends React.Component {
 </Card>
 
       </View>
-      <View >
+      <TouchableOpacity  onPress={() => this.props.navigation.navigate('details')} >
       <Card containerStyle={styles.maxCard}
-
+  
   image={require('../assets/images/hostel.jpg')}
   imageStyle={{borderRadius:10}}
   >
@@ -109,7 +109,7 @@ class ExploreScreen extends React.Component {
  
  </View>
 </Card>
-      </View>
+      </TouchableOpacity>
 
 
 
