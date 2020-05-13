@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1096528947592",
+    "firebase_url": "https://hostelwiz.firebaseio.com",
+    "project_id": "hostelwiz",
+    "storage_bucket": "hostelwiz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1096528947592:android:1572ae8adf302c1ec0b23d",
+        "android_client_info": {
+          "package_name": "com.hostelWiz.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1096528947592-u6d96l1tg296edgvqcr0n6vfrd3d6gs7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC97f1zYRqT1rrqBmhC_JHn2sNcQC-YBpE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1096528947592-u6d96l1tg296edgvqcr0n6vfrd3d6gs7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

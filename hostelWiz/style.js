@@ -122,12 +122,18 @@ export default {
   },
   loginButton: {
     backgroundColor: '#92A5A3',
-    borderRadius: 40,
-    height: 50,
+    borderRadius: 16,
+    height: 45,
     marginTop: 10,
     marginBottom: 30,
     marginLeft: 20,
     marginRight: 20,
+    flex: 1,
+    alignSelf: 'center',
+    paddingTop: 10,
+    paddingLeft: 40,
+    paddingRight: 40,
+    paddingBottom: 10,
   },
   acceptButton: {
     backgroundColor: '#3897f1',
@@ -138,21 +144,27 @@ export default {
 
   },
   fbLoginButton: {
+    borderRadius: 16,
     height: 45,
-    marginBottom: 30,
-    marginLeft: 30,
-    marginRight: 30,
+    marginBottom: 10,
     backgroundColor: '#92A5A3',
     flex: 1,
     justifyContent: 'center',
-    alignContent: 'center',
-    color: '#fff'
+    alignItems: 'center',
+    color: '#fff',
+    alignSelf: 'center',
+    padding: 10
   },
   googleLoginButton: {
-    backgroundColor: "#92A5A3",
     height: 45,
-    marginBottom: 30,
     borderRadius: 16,
+    marginBottom: 10,
+    backgroundColor: '#92A5A3',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+    alignSelf: 'center',
     padding: 10
   },
   checkboxContainer: {

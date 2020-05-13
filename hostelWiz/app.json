@@ -24,6 +24,10 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.hostelWiz.app",
+      "googleServicesFile": "./google-services.json"
     }
   }
 }

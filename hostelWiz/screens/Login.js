@@ -8,6 +8,9 @@ import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
+import * as Google from 'expo-google-app-auth'
+import * as Facebook from 'expo-facebook';
+
 
 class LoginScreen extends React.Component {
 
@@ -15,6 +18,7 @@ class LoginScreen extends React.Component {
     fontsLoaded: false
   }
 
+  //google signin
   signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({
@@ -33,6 +37,33 @@ class LoginScreen extends React.Component {
       return { error: true };
     }
   }
+
+    //facebook signin
+    FacebooklogIn = async () => {
+      try {
+        const {
+          type,
+          token,
+          expires,
+          permissions,
+          declinedPermissions,
+        } = await Facebook.logInWithReadPermissionsAsync('542949173131834', {
+          permissions: ['public_profile'],
+        });
+        if (type === 'success') {
+          // Get the user's name using Facebook's Graph API
+          const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,picture.type=(large)`);
+          const userInfo = await response.json()
+          this.setState({userInfo})
+          console.log('Logged in!', `Hi ${(await response.json()).name}!`);
+        } else {
+          // type === 'cancel'
+          console.log("cancelled")
+        }
+      } catch ({ message }) {
+        console.log(`Facebook Login Error: ${message}`);
+      }
+    }
 
   componentDidMount() {
     this.loadFonts()
@@ -75,23 +106,20 @@ class LoginScreen extends React.Component {
               title="Login"
             />
 
-            <Button
-              buttonStyle={styles.googleLoginButton}
-              onPress={() => this.signInWithGoogleAsync()}
-              icon={
+            <TouchableNativeFeedback style={styles.googleLoginButton} onPress={() => this.signInWithGoogleAsync()}>
+              <Text style={{ fontFamily: 'BalooPaaji2', color: '#fff', fontSize: 18 }}>
                 <Icon
                   name="google"
-                  size={15}
+                  size={18}
                   color="white"
-                />
-              }
-              title="Login with Google"
-            />
-            <TouchableNativeFeedback style={styles.fbLoginButton} onPress={() => this.signInWithGoogleAsync()}>
+                />Login with Google</Text>
+            </TouchableNativeFeedback>
 
-                <Text style={{fontFamily: 'BalooPaaji2'}}><Icon name="facebook"
-                size={25}
-                color="white" />  Login with Facebook</Text>
+            <TouchableNativeFeedback style={styles.fbLoginButton} onPress={() => this.signInWithGoogleAsync()}>
+              <Text style={{ fontFamily: 'BalooPaaji2', color: '#fff', fontSize: 18 }}>
+                <Icon name="facebook"
+                  size={18}
+                  color="white" />  Login with Facebook</Text>
             </TouchableNativeFeedback>
 
             <Text style={{ fontFamily: "BalooPaaji2", paddingLeft: 10, }}>
