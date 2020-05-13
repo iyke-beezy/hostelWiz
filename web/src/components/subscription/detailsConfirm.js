@@ -105,7 +105,7 @@ class DetailsConfirm extends React.Component{
               </div> 
               <div className='dC1'>
                 <Button className='finalButton' onClick={this.props.handleBack}>Back</Button>
-                <Button className='finalButton' >Finish</Button>                  
+                <Button className='finalButton' onClick={this.props.handleNext}>Next</Button>                  
                </div>  
         
             </div>
