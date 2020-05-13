@@ -9,6 +9,7 @@ import BottomTabNavigator from './navigation/BottomTabNavigator';
 import Login from './screens/Login';
 import SignUpScreen from './screens/SignUp';
 import HostingOne from './screens/HostingOne';
+import DetailsScreen  from './screens/DetailsScreen';
 import HostingTwo from './screens/HostingTwo';
 import HostingThree from './screens/HostingThree';
 import HMBottomTabNavigator from './navigation/HMBottomTabNavigation';
@@ -83,18 +84,20 @@ export default function App(props) {
               
               }}
             component={HostingOne} />
+            
              <Stack.Screen name="Htwo" 
                options={{
                 headerShown: false,
               
               }}
             component={HostingTwo} />
-             <Stack.Screen name="Hthree" 
+            
+             <Stack.Screen name="details" 
                options={{
                 headerShown: false,
               
               }}
-            component={HostingThree} />
+            component={DetailsScreen} />
 
               <Stack.Screen name="HMnav" 
                options={{ headerShown: false, }}
