@@ -3,13 +3,13 @@ import { Keyboard, Text, Picker, View, TextInput, TouchableWithoutFeedback, Aler
 import styles from "../style";
 import { Card, Button, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import * as GoogleSignIn from 'expo-google-sign-in';
-import * as Facebook from 'expo-facebook';
+//import * as Facebook from 'expo-facebook';
+import * as Google from 'expo-google-app-auth';
 
 
 class LoginScreen extends React.Component {
@@ -46,7 +46,7 @@ class LoginScreen extends React.Component {
     this.setState({ user: null });
   };
 
-  signInAsync = async () => {
+  GoogleSignIn = async () => {
     try {
       await GoogleSignIn.askForPlayServicesAsync();
       const { type, user } = await GoogleSignIn.signInAsync();
@@ -59,16 +59,17 @@ class LoginScreen extends React.Component {
   };
 
   //google signin
-  signInWithGoogleAsync = async () => {
+ signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({
         behavior: 'web',
-        androidClientId: '193715308872-tj21k44qisnund77qcij2lnv3n6pd098.apps.googleusercontent.com',
+        androidClientId: '503609456773-k5p11ckkutif99c9gh996dcm03jsvd7q.apps.googleusercontent.com',
         // iosClientId: YOUR_CLIENT_ID_HERE,
         scopes: ['profile', 'email'],
       });
 
       if (result.type === 'success') {
+        console.log(result.accessToken)
         return result.accessToken;
       } else {
         return { cancelled: true };
@@ -133,8 +134,8 @@ class LoginScreen extends React.Component {
             />
           </View>
           <KeyboardAwareScrollView style={styles.content}>
-            <TextInput placeholder="Username" placeholderColor="#c4c3cb" style={[styles.loginFormTextInput, { fontFamily: "BalooPaaji2", color: '#fff' }]} />
-            <TextInput placeholder="Password" placeholderColor="#c4c3cb" style={[styles.loginFormTextInput, { fontFamily: "BalooPaaji2", color: '#fff' }]} secureTextEntry={true} />
+            <TextInput placeholder="Username" placeholderColor="#fff" style={[styles.loginFormTextInput, { fontFamily: "BalooPaaji2", color: '#fff' }]} />
+            <TextInput placeholder="Password" placeholderColor="#fff" style={[styles.loginFormTextInput, { fontFamily: "BalooPaaji2", color: '#fff' }]} secureTextEntry={true} />
 
             <Button
               buttonStyle={styles.loginButton}
@@ -143,29 +144,29 @@ class LoginScreen extends React.Component {
               title="Login"
             />
 
-            <TouchableNativeFeedback style={styles.googleLoginButton} onPress={() => this.signInWithGoogleAsync()}>
+            <TouchableWithoutFeedback style={styles.googleLoginButton} onPress={() => this.signInWithGoogleAsync()}>
               <Text style={{ fontFamily: 'BalooPaaji2', color: '#fff', fontSize: 18 }}>
                 <Icon
                   name="google"
                   size={18}
                   color="white"
                 />Login with Google</Text>
-            </TouchableNativeFeedback>
+            </TouchableWithoutFeedback>
 
-            <TouchableNativeFeedback style={styles.fbLoginButton} onPress={() => this.signInWithGoogleAsync()}>
+            <TouchableWithoutFeedback style={styles.fbLoginButton}>
               <Text style={{ fontFamily: 'BalooPaaji2', color: '#fff', fontSize: 18 }}>
                 <Icon name="facebook"
                   size={18}
                   color="white" />  Login with Facebook</Text>
-            </TouchableNativeFeedback>
+            </TouchableWithoutFeedback>
 
             <Text style={{ fontFamily: "BalooPaaji2", paddingLeft: 10, }}>
               Forgot Password?
                 </Text>
 
-            <TouchableNativeFeedback onPress={() => this.props.navigation.navigate('SignUp')} style={{ paddingLeft: 10, }}>
+            <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('SignUp')} style={{ paddingLeft: 10, }}>
               <Text style={{ fontFamily: "BalooPaaji2" }}>Don't have an account?  <Text style={{ fontWeight: 'bold', fontFamily: 'Baloo_Paaji-Medium', color: '#92A5A3' }}>Sign up here</Text></Text>
-            </TouchableNativeFeedback>
+            </TouchableWithoutFeedback>
           </KeyboardAwareScrollView>
         </ImageBackground>
       );
