@@ -1,7 +1,7 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 import { Carousel } from  'antd';
-import { Pane } from 'evergreen-ui'
+import { Pane } from 'evergreen-ui';
 import 'antd/dist/antd.css';
 import '../containers/App.css';
 import '../components/slider.css';

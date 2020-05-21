@@ -1,7 +1,10 @@
 import * as React from 'react';
-import { Keyboard, Text, View, TextInput, TouchableWithoutFeedback, Alert, KeyboardAvoidingView, Dimensions, ImageBackground } from 'react-native';
+import { Keyboard, Text, View, TextInput, TouchableNativeFeedback, Alert, TouchableWithoutFeedback, Dimensions, Image, ImageBackground } from 'react-native';
 import styles from "../style";
-import { Card, Button, Icon } from 'react-native-elements';
+import { Card, Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import * as Font from 'expo-font';
+import { AppLoading } from 'expo';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
@@ -79,41 +82,32 @@ class SignUpScreen extends React.Component {
             title="SignUp"
           />
 
-          <TouchableWithoutFeedback style={styles.googleLoginButton} onPress={() => this.signInWithGoogleAsync()}>
-            <Text style={{ fontFamily: 'BalooPaaji2', color: '#fff', fontSize: 18 }}>
-              <Icon
-                name="google"
-                size={18}
-                color="white"
-              />Login with Google</Text>
-          </TouchableWithoutFeedback>
+          <TouchableNativeFeedback onPress={() => this.signInWithGoogleAsync()}>
+            <View style={styles.googleLoginButton}>
+              <Text style={{ fontFamily: 'BalooPaaji2', color: '#fff', fontSize: 18 }}>
+                <Icon
+                  name="google"
+                  size={18}
+                  color="white"
+                />  Login with Google</Text>
+            </View>
 
-          <TouchableWithoutFeedback style={styles.fbLoginButton}>
-            <Text style={{ fontFamily: 'BalooPaaji2', color: '#fff', fontSize: 18 }}>
-              <Icon name="facebook"
-                size={18}
-                color="white" />  Login with Facebook</Text>
-          </TouchableWithoutFeedback>
+          </TouchableNativeFeedback>
 
-          <TouchableWithoutFeedback style={styles.googleLoginButton} onPress={() => this.signInWithGoogleAsync()}>
-            <Text style={{ fontFamily: 'BalooPaaji2', color: '#fff', fontSize: 18 }}>
-              <Icon
-                name="google"
-                size={18}
-                color="white"
-              />Login with Google</Text>
-          </TouchableWithoutFeedback>
-
-          <TouchableWithoutFeedback style={styles.fbLoginButton}>
-            <Text style={{ fontFamily: 'BalooPaaji2', color: '#fff', fontSize: 18 }}>
-              <Icon name="facebook"
-                size={18}
-                color="white" />  Login with Facebook</Text>
-          </TouchableWithoutFeedback>
+          <TouchableNativeFeedback>
+            <View style={styles.fbLoginButton}>
+              <Text style={{ fontFamily: 'BalooPaaji2', color: '#fff', fontSize: 18 }}>
+                <Icon name="facebook"
+                  size={18}
+                  color="white" />  Login with Facebook</Text>
+            </View>
+          </TouchableNativeFeedback>
 
           <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('Login')} style={{ paddingLeft: 10, }}>
-              <Text style={{ fontFamily: "BalooPaaji2" }}>Already have an account?  <Text style={{ fontWeight: 'bold', fontFamily: 'Baloo_Paaji-Medium', color: '#92A5A3' }}>Login</Text></Text>
-              </TouchableWithoutFeedback>
+          <View style={{paddingLeft: 10, paddingBottom: 10}}>
+            <Text style={{ fontFamily: "BalooPaaji2" }}>Already have an account?  <Text style={{ fontWeight: 'bold', fontFamily: 'Baloo_Paaji-Medium', color: '#92A5A3' }}>Login</Text></Text>
+          </View>
+          </TouchableWithoutFeedback>
         </KeyboardAwareScrollView>
       </ImageBackground>
 

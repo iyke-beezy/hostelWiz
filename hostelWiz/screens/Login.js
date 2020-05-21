@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Keyboard, Text, Picker, View, TextInput, TouchableWithoutFeedback, Alert, Image, Dimensions, ImageBackground } from 'react-native';
+import { Keyboard, Text, Picker, View, TextInput, TouchableWithoutFeedback, TouchableNativeFeedback, Alert, Image, Dimensions, ImageBackground } from 'react-native';
 import styles from "../style";
 import { Card, Button, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -21,91 +21,91 @@ class LoginScreen extends React.Component {
 
   componentDidMount() {
     this.loadFonts()
-    this.initAsync();
+    //    this.initAsync();
   }
 
-  initAsync = async () => {
-    try {
-      await GoogleSignIn.initAsync({
-        // You may ommit the clientId when the firebase `googleServicesFile` is configured
-        clientId: '<YOUR_IOS_CLIENT_ID>',
-        // Provide other custom options...
-      });
-    } catch ({ message }) {
-      alert('GoogleSignIn.initAsync(): ' + message);
-    }
-  };
-
-  _syncUserWithStateAsync = async () => {
-    const user = await GoogleSignIn.signInSilentlyAsync();
-    this.setState({ user });
-  };
-
-  signOutAsync = async () => {
-    await GoogleSignIn.signOutAsync();
-    this.setState({ user: null });
-  };
-
-  GoogleSignIn = async () => {
-    try {
-      await GoogleSignIn.askForPlayServicesAsync();
-      const { type, user } = await GoogleSignIn.signInAsync();
-      if (type === 'success') {
-        this._syncUserWithStateAsync();
+  /*  initAsync = async () => {
+      try {
+        await GoogleSignIn.initAsync({
+          // You may ommit the clientId when the firebase `googleServicesFile` is configured
+          clientId: '<YOUR_IOS_CLIENT_ID>',
+          // Provide other custom options...
+        });
+      } catch ({ message }) {
+        alert('GoogleSignIn.initAsync(): ' + message);
       }
-    } catch ({ message }) {
-      alert('login: Error:' + message);
-    }
-  };
-
-  //google signin
- signInWithGoogleAsync = async () => {
-    try {
-      const result = await Google.logInAsync({
-        behavior: 'web',
-        androidClientId: '503609456773-k5p11ckkutif99c9gh996dcm03jsvd7q.apps.googleusercontent.com',
-        // iosClientId: YOUR_CLIENT_ID_HERE,
-        scopes: ['profile', 'email'],
-      });
-
-      if (result.type === 'success') {
-        console.log(result.accessToken)
-        return result.accessToken;
-      } else {
-        return { cancelled: true };
+    };
+  
+    _syncUserWithStateAsync = async () => {
+      const user = await GoogleSignIn.signInSilentlyAsync();
+      this.setState({ user });
+    };
+  
+    signOutAsync = async () => {
+      await GoogleSignIn.signOutAsync();
+      this.setState({ user: null });
+    };
+  
+    GoogleSignIn = async () => {
+      try {
+        await GoogleSignIn.askForPlayServicesAsync();
+        const { type, user } = await GoogleSignIn.signInAsync();
+        if (type === 'success') {
+          this._syncUserWithStateAsync();
+        }
+      } catch ({ message }) {
+        alert('login: Error:' + message);
       }
-    } catch (e) {
-      return { error: true };
-    }
-  }
-
-  //facebook signin
-/*  FacebooklogIn = async () => {
-    try {
-      const {
-        type,
-        token,
-        expires,
-        permissions,
-        declinedPermissions,
-      } = await Facebook.logInWithReadPermissionsAsync('542949173131834', {
-        permissions: ['public_profile'],
-      });
-      if (type === 'success') {
-        // Get the user's name using Facebook's Graph API
-        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,picture.type=(large)`);
-        const userInfo = await response.json()
-        this.setState({ userInfo })
-        console.log('Logged in!', `Hi ${(await response.json()).name}!`);
-      } else {
-        // type === 'cancel'
-        console.log("cancelled")
+    };
+  
+    //google signin
+   /*signInWithGoogleAsync = async () => {
+      try {
+        const result = await Google.logInAsync({
+          behavior: 'web',
+          androidClientId: '503609456773-k5p11ckkutif99c9gh996dcm03jsvd7q.apps.googleusercontent.com',
+          // iosClientId: YOUR_CLIENT_ID_HERE,
+          scopes: ['profile', 'email'],
+        });
+  
+        if (result.type === 'success') {
+          console.log(result.accessToken)
+          return result.accessToken;
+        } else {
+          return { cancelled: true };
+        }
+      } catch (e) {
+        return { error: true };
       }
-    } catch ({ message }) {
-      console.log(`Facebook Login Error: ${message}`);
     }
-  }
   */
+  //facebook signin
+  /*  FacebooklogIn = async () => {
+      try {
+        const {
+          type,
+          token,
+          expires,
+          permissions,
+          declinedPermissions,
+        } = await Facebook.logInWithReadPermissionsAsync('542949173131834', {
+          permissions: ['public_profile'],
+        });
+        if (type === 'success') {
+          // Get the user's name using Facebook's Graph API
+          const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,picture.type=(large)`);
+          const userInfo = await response.json()
+          this.setState({ userInfo })
+          console.log('Logged in!', `Hi ${(await response.json()).name}!`);
+        } else {
+          // type === 'cancel'
+          console.log("cancelled")
+        }
+      } catch ({ message }) {
+        console.log(`Facebook Login Error: ${message}`);
+      }
+    }
+    */
 
   loadFonts = async () => {
     await Font.loadAsync({
@@ -144,28 +144,35 @@ class LoginScreen extends React.Component {
               title="Login"
             />
 
-            <TouchableWithoutFeedback style={styles.googleLoginButton} onPress={() => this.signInWithGoogleAsync()}>
-              <Text style={{ fontFamily: 'BalooPaaji2', color: '#fff', fontSize: 18 }}>
-                <Icon
-                  name="google"
-                  size={18}
-                  color="white"
-                />Login with Google</Text>
-            </TouchableWithoutFeedback>
+            <TouchableNativeFeedback onPress={() => this.signInWithGoogleAsync()}>
+              <View style={styles.googleLoginButton}>
+                <Text style={{ fontFamily: 'BalooPaaji2', color: '#fff', fontSize: 18 }}>
+                  <Icon
+                    name="google"
+                    size={18}
+                    color="white"
+                  />  Login with Google</Text>
+              </View>
 
-            <TouchableWithoutFeedback style={styles.fbLoginButton}>
-              <Text style={{ fontFamily: 'BalooPaaji2', color: '#fff', fontSize: 18 }}>
-                <Icon name="facebook"
-                  size={18}
-                  color="white" />  Login with Facebook</Text>
-            </TouchableWithoutFeedback>
+            </TouchableNativeFeedback>
+
+            <TouchableNativeFeedback>
+              <View style={styles.fbLoginButton}>
+                <Text style={{ fontFamily: 'BalooPaaji2', color: '#fff', fontSize: 18 }}>
+                  <Icon name="facebook"
+                    size={18}
+                    color="white" />  Login with Facebook</Text>
+              </View>
+            </TouchableNativeFeedback>
 
             <Text style={{ fontFamily: "BalooPaaji2", paddingLeft: 10, }}>
               Forgot Password?
                 </Text>
 
-            <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('SignUp')} style={{ paddingLeft: 10, }}>
-              <Text style={{ fontFamily: "BalooPaaji2" }}>Don't have an account?  <Text style={{ fontWeight: 'bold', fontFamily: 'Baloo_Paaji-Medium', color: '#92A5A3' }}>Sign up here</Text></Text>
+            <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('SignUp')}>
+            <View style={{paddingLeft: 10}}>
+              <Text style={{ fontFamily: "BalooPaaji2" }}>Don't have an account?  <Text style={{fontFamily: 'Baloo_Paaji-Medium', paddingLeft: 10, color: '#92A5A3' }}>Sign up here</Text></Text>
+            </View>
             </TouchableWithoutFeedback>
           </KeyboardAwareScrollView>
         </ImageBackground>
