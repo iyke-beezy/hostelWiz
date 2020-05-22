@@ -150,29 +150,6 @@
     font-family: "Baloo Paaji Medium";
 }
 
-.filt {
-    flex: 31%;
-    flex-grow: 0.31;
-    flex-shrink: 0.31;
-    border-radius: 16px;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
-    margin: 18px;
-}
-
-.filtMeta {
-    font-size: 12px;
-    margin-top: -20px;
-    margin-bottom: -10px;
-    font-family: "Baloo Paaji Medium";
-}
-
-.filtTitle {
-    font-size: 25px;
-    color: #E7C654;
-    margin-bottom: -18px;
-    font-family: "Baloo Paaji Medium";
-}
-
 .filtDesc {
     font-size: 16px;
     margin-top: -10px;
@@ -182,7 +159,7 @@
    /* margin: 60px auto;*/
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-content: center;
     height: auto;
     margin: 20px auto !important;
@@ -193,20 +170,14 @@
 }
 
 .heading {
-    display: flex;
-    justify-content: flex-start;
-}
-
-.heading div {
-    flex: 4%;
+    height: auto;
+    padding: 10px;
 }
 
 .heading span {
-    flex: 96%;
     font-family: "Baloo Paaji Medium";
     font-size: 48px;
-    background: -webkit-linear-gradient(rgb(183, 142, 0) 9.38%, rgb(231, 198, 84) 88.54%);
-    height:550px;
+    background: -webkit-linear-gradient(rgb(183, 142, 0) 9.38%, rgb(231, 198, 84) 88.54%)
 }
 .ant-menu-horizontal  .ant-menu-item a:hover{
     color: #E7C654;
@@ -248,7 +219,6 @@
     border-radius:16px;
     box-shadow:rgba(0,0,0,0.15) 0px 2px 8px;
     margin:18px;
-   
 }
 
 .filtMeta{
@@ -263,27 +233,8 @@
     margin-bottom:-18px;
     font-family:"Baloo Paaji Medium";
 }
-.filtDesc{
-    margin-top:-10px;
-}
-.filterWrap{
-    display:flex;
-    flex-direction:column;
-    justify-content:space-around;
-    align-content:center;
-    height:450px;
-    margin-bottom:60px
 
-}
-.heading{
-    display:flex;
-    justify-content:flex-start;
-}
-.heading div{
-    flex:4%;
-}
 .heading span{
-    flex:96%;
     font-family:"Baloo Paaji Medium";
     font-size:48px;
     background:-webkit-linear-gradient(rgb(183,142,0) 9.38%, rgb(231,198,84) 88.54%); 
@@ -294,7 +245,7 @@
 
 .filterSection {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .filterSection .ant-card-bordered {

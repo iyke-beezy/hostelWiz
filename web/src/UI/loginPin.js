@@ -5,14 +5,14 @@ import {Button} from 'antd';
 import './loginUI.css'
 import UserPass from "./userPass";
 
+const propTypes={
+  code:PropTypes.number,
+  fname:PropTypes.string,
+  email:PropTypes.string,
+  number:PropTypes.string
+}
 class Pin extends React.Component {
 
-  props={
-    code:PropTypes.number,
-    fname:PropTypes.string,
-    email:PropTypes.string,
-    number:PropTypes.string
-  }
   
   state = {
     value: "",
@@ -103,7 +103,7 @@ class Pin extends React.Component {
     );
   }
 }
-
+Pin.propTypes = propTypes
 export default Pin;
 
 

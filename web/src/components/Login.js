@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 //import Layout from '../containers/Layout';
 import SocialButtonList from './SocialButtonList';

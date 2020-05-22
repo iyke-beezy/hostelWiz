@@ -5,8 +5,9 @@ import SearchBar from './searchBar'
 import FilterClass from './filterClass';
 import BigImage from './bigImage';
 import 'antd/dist/antd.css';
-import { Space } from 'antd';
+//import { Space } from 'antd';
 import NewsClass from './newsClass';
+import { withCookies } from 'react-cookie';
 
 let filterImages=[
     require('../Assets/apart1.jpg'),
@@ -15,11 +16,24 @@ let filterImages=[
 ]
 class HomePage extends React.Component{
 
-    render(){
+    state={
+        loggedIn: false
+    }
 
+    logOut = () => {
+        this.setState({loggedIn: false})
+        this.props.cookies.remove('mr-token')
+    }
+
+    componentDidMount(){
+        if(this.props.cookies.get('mr-token'))
+            this.setState({loggedIn:true})
+    }
+
+    render(){
         return(
         <div>
-            <Head></Head>
+            <Head loggedIn = {this.state.loggedIn}/>
             <div
                 style={{
                     display:"flex",
@@ -50,4 +64,4 @@ class HomePage extends React.Component{
 
 }
 
-export default HomePage;
+export default withCookies(HomePage);

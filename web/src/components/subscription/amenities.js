@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch,Checkbox,Radio,Button} from 'antd';
+import {Switch,Radio,Button} from 'antd';
 import './hostForm.css';
 import 'antd/dist/antd.css';
 import Uploads from './upload';

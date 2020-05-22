@@ -5,7 +5,6 @@ import 'antd/dist/antd.css';
 import Amenities from './amenities'
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import 'react-google-places-autocomplete/dist/index.min.css';
-import { ArrowLeftOutlined } from '@ant-design/icons';
 import Join from './join';
 const { Option } = Select
 class Selection extends React.Component {

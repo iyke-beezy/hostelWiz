@@ -1,47 +1,56 @@
 import React from 'react';
-import {Layout,Menu} from 'antd';
+import { Layout, Menu } from 'antd';
+import { UserOutlined } from '@ant-design/icons'
 import 'antd/dist/antd.css';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 const { SubMenu } = Menu;
-const {Header}=Layout;
+const { Header } = Layout;
 
-const Head=({list})=>{
-    let head;
-    // if(list){
-        head=<Header className="pg-header">
-        <div  className="header-first">
-            <img src={require("../Assets/logo.png")} alt="lampopo"/>
-        </div>
-        <div className="header-second">
-        <Menu theme="light" mode="horizontal">
+const Head = (props) => {
+    handleClicked = e => {
+        const location = e.key
+        if (location === 'logout') {
+            props.logout()
+        } else {
+            window.location.href('/'+location)
+        }
+    }
 
-            <Menu.Item key="1"><Link to="/listing">List Property</Link></Menu.Item>
-            <Menu.Item key="2">Help?</Menu.Item>
-            <Menu.Item key="3"><Link to="/login">Login</Link></Menu.Item>
-            <Menu.Item key="4">Sign Up</Menu.Item>
-        </Menu>
-        </div>
-        </Header>
-
-
-        
-    // }else{
-    //     head=<Header className="pg-header" style={{boxShadow:'rgba(0,0,0,0.5) 1px 1px 2px'}}>
-    //     <div  className="header-first">
-    //         <img src={require("../Assets/logo.png")} alt="lampopo"/>
-    //     </div>
-    //     <div className="header-second">
-    //     <Menu theme="light" mode="horizontal">
-    //     <SubMenu title={<h2>Account</h2>}>
-    //     <Menu.Item key="1">Account</Menu.Item>     
-    //     </SubMenu>
-           
-    //     </Menu>       
-    //     </div>
-    //     </Header>       
-    // }
-    return(
-    <div>{head}</div>
+    return (
+        <div>
+            {
+                props.loggedIn ? (
+                    <Header className="pg-header">
+                        <div className="header-first">
+                            <img src={require("../Assets/logo.png")} alt="hostelWiz" />
+                        </div>
+                        <div className="header-second">
+                            <Menu onClick={} theme="light" mode="horizontal">
+                                <Menu.Item key="listing">List Property</Menu.Item>
+                                <SubMenu title="Account" icon={<UserOutlined />}>
+                                    <Menu.Item key="logout">Logout</Menu.Item>
+                                </SubMenu>
+                                <Menu.Item key="help">Help?</Menu.Item>
+                            </Menu>
+                        </div>
+                    </Header>
+                ) : (
+                        <Header className="pg-header">
+                            <div className="header-first">
+                                <img src={require("../Assets/logo.png")} alt="hostelWiz" />
+                            </div>
+                            <div className="header-second">
+                                <Menu theme="light" mode="horizontal" onClick={handleClicked}>
+                                    <Menu.Item key="listing">List Property</Menu.Item>
+                                    <Menu.Item key="help">Help?</Menu.Item>
+                                    <Menu.Item key="login">Login</Menu.Item>
+                                    <Menu.Item key="register">Sign Up</Menu.Item>
+                                </Menu>
+                            </div>
+                        </Header>
+                    )
+            }
+        </div >
 
     );
 }

@@ -2,13 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './containers/App';
-import {Router} from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import history from './services/history';
+import { CookiesProvider } from 'react-cookie'
 
 ReactDOM.render(
-    <Router history={history}>
-        <App />
-    </Router>,
+  <Router history={history}>
+    <CookiesProvider>
+      <App />
+    </CookiesProvider>
+  </Router>,
   document.getElementById('root')
 );
 

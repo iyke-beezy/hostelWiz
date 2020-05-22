@@ -6,7 +6,6 @@ import {
     Container,
     Row,
     Col,
-
   } from "reactstrap";
 
 class Profile extends Component {
