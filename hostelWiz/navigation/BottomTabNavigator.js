@@ -23,8 +23,8 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="Explore"
         component={ExploreScreen}
         options={{
-       
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-search" />,
+          title: '',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-search"  />,
 
         }}
       />
@@ -32,19 +32,20 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="Saved"
         component={SavedScreen}
         options={{
-        
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
+          title: '',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book"  />,
         }}
       />
         <BottomTab.Screen
         name="Profile"
         component={ProfileScreen}
+       
         options={{
-          title: 'Profile',
+          title: '',
           tabBarIcon: ({ focused }) => <AntDesign
           size={30}
-          style={{ marginBottom: -3 }}
-          color={focused ? Colors.tabIconSelected : Colors.tabIconDefault} name="user" />,
+          color={focused ? 'gold' : 'black'} 
+         name="user" />,
         }}
       />
     </BottomTab.Navigator>

@@ -1,7 +1,10 @@
 const React = require("react-native");
+import {Dimensions } from "react-native";
+import { Screen } from "react-native-screens";
 
 const { StyleSheet } = React;
-
+const screenWidth = Math.round(Dimensions.get('window').width);
+const screenHeight = Math.round(Dimensions.get('window').height);
 
 export default {
 
@@ -10,46 +13,141 @@ export default {
 containerView: {
   flex: 1,
 },
+saveButton:{
+  margin: 10,
+  height:40,
+  width: 40,
+  borderRadius: 64,
+  backgroundColor:'rgba(0,0,0,0.5)',
+  opacity:100,
+  alignItems: "center",
+  flex:1,
+
+},
+backButton:{
+  margin: 10,
+  height:40,
+  width: 40,
+  borderRadius: 64,
+  backgroundColor:'rgba(0,0,0,0.5)',
+  opacity:100,
+  alignItems: "center",
+
+},
 detailContainer: {
-  flex: 1,
   backgroundColor:'white',
-  flexDirection:'column'
+  flexDirection:'column',
+  flex:1,
 },
-header:{
-  //height: 182,
-position: 'absolute',
-top: 0,
-left: 0,
-right: 0,
-backgroundColor: '#03A9F4',
-overflow: 'hidden',
+detailHead:{
+flex:0.2,
+flexDirection:'column',
+backgroundColor:'white',
+marginLeft:screenWidth/24,
 },
-bar: {
+backAndSave:{
+  flex:1,
+  flexDirection:'row',
+
+},
+save:{
+  margin: 10,
+  height:screenHeight/21,
+  width: 4,
+  borderRadius: 64,
+  backgroundColor:'grey',
+  opacity:1,
+  alignItems: "center",
+  flex:0.6,
+},
+back:{
+  margin: 10,
+  marginLeft:1,
+  height:screenHeight/20,
+  width: 4,
+  borderRadius: 64,
+  backgroundColor:'white',
+  opacity:1,
+  alignItems: "center",
+  flex:0.5,
+},
+mainTitle:{
+fontSize:21,
+},
+subTitle:{
+fontSize:17,
+color:'grey'
+},
+detailTitle:{
+  flex:1,
+  flexDirection:'column',
+},
+detailHeader:{
+height:(screenHeight/2),
+ flexDirection:'row',
+ backgroundColor:'white',
  
- 
-  alignItems: 'center',
-  justifyContent: 'center',
+},
+detailImages:{
+  height: (screenHeight/2)-10 ,
+  margin:10,
+  borderRadius:10,
+  width:screenWidth/2
+},
+detailScrollview:{
+flex:0.5,
+backgroundColor:'white',
 },
 title: {
   backgroundColor: 'transparent',
   color: 'white',
   fontSize: 18,
 },
-scrollViewContent: {
-  marginTop:200,
+detailTitleText:{
+  fontSize:15,
+  textAlign:'justify',
+  marginTop: screenWidth/17,
+  marginRight:screenWidth/17,
+ marginLeft:screenWidth/4,
+ color:'grey',
 
+},
+detailText:{
+  fontSize:15,
+  textAlign:'justify',
+  marginTop: screenWidth/17,
+  marginRight:screenWidth/17,
+ marginLeft:screenWidth/17,
+ color:'grey',
   
-},
-detailContent:{
-flex:4,
-borderRadius:20,
-backgroundColor:'white',
-position: 'relative',
-bottom:20,
-paddinBottom:10,
-height:'auto',
+  },
+  spaceBelow:{
+   flexDirection:'column',
+    flex:0.11,
 
-},
+    
+    },
+    spaceBelowContent:{
+      flexDirection:'row',
+       flex:0.4,
+       margin:2,
+       marginRight:12,
+       marginLeft:12,
+       
+       },
+    detailPriceAndRating:{
+      fontSize:15,
+      flex:2,
+      marginLeft:10,
+      flexDirection:'column'
+
+      },
+      rateButton:{
+          flex:3,
+         
+
+       
+      },
 loginScreenContainer: {
   flex: 1,
 },
@@ -201,6 +299,12 @@ firstDivider:{
   borderBottomWidth: 1,
   marginBottom:10,
   marginTop:30,
+},
+detailDivider:{
+  borderBottomColor: '#D3D3D3',
+  borderBottomWidth: 1,
+  marginBottom:10,
+ 
 },
 switchLable:{
   flex:3,
