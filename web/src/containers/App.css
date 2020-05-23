@@ -47,7 +47,7 @@ button:hover {
 }
 
 .explore .exploreItem {
-  flex: 25%;
+  flex: 0 0 512px;
   border-radius: 16px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
   margin: 18px;

@@ -18,6 +18,7 @@ export const loginUser = async (username, password) => {
     throw new Error(errMessage)
 }
 
+//register new user
 export const registerUser = async (data = {}) => {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/hostelwiz/users/`, {
         method: 'POST',
@@ -32,3 +33,20 @@ export const registerUser = async (data = {}) => {
     const errMessage = await response.text()
     throw new Error(errMessage)
 }
+
+//get property details
+export const getProperties = async () => {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/hostelwiz/properties/`, {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+    })
+    if(response.ok){
+        const data = await response.json()
+        return data
+    }
+
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+}
+
+//rate property

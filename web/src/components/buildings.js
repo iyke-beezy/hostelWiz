@@ -1,7 +1,9 @@
 import React from 'react'
 import PropertyItem from './misc/property'
+import { withCookies } from 'react-cookie'
+import { getProperties } from '../api'
 
-export default class Building extends React.Component {
+class Building extends React.Component {
 
     state = {
         loading: true,
@@ -13,10 +15,26 @@ export default class Building extends React.Component {
                 price: 'price',
                 type: 'rent',
             }
-        ]
+        ],
+        loggedIn: false,
+        token: null,
     }
     componentDidMount() {
         //this.setState({loading:false})
+        if (this.props.cookies.get('mr-token')) {
+            this.setState({ loggedIn: true, token : this.props.cookies.get('mr-token') })
+        }
+    }
+
+    //get properties from api
+    getProperties = async () => {
+        try {
+            const success = await getProperties()
+            console.log(success)
+        }
+        catch(err){
+            console.log(err.errMessage)
+        }
     }
 
     render() {
@@ -25,7 +43,7 @@ export default class Building extends React.Component {
                 {this.state.data.map(property => {
                     return (
                         <div className="propertyItem">
-                            <PropertyItem property={this.state.data} loading={this.state.loading} />
+                            <PropertyItem property={this.state.data} loading={this.state.loading} loggedIn={this.state.loggedIn} />
                         </div>
                     )
                 })}
@@ -33,3 +51,5 @@ export default class Building extends React.Component {
         )
     }
 }
+
+export default withCookies(Building)
