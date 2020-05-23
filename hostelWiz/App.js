@@ -14,6 +14,7 @@ import HostingTwo from './screens/HostingTwo';
 import HostingThree from './screens/HostingThree';
 import HMBottomTabNavigator from './navigation/HMBottomTabNavigation';
 import useLinking from './navigation/useLinking';
+import EditProfile from './screens/EditProfile';
 
 const Stack = createStackNavigator();
 
@@ -103,6 +104,9 @@ export default function App(props) {
                options={{ headerShown: false, }}
             component={HMBottomTabNavigator} />
 
+              <Stack.Screen name="edit" 
+               options={{ headerShown: false, }}
+            component={EditProfile} />
 
           </Stack.Navigator>
         </NavigationContainer>

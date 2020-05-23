@@ -13,7 +13,7 @@ class ProfileScreen extends React.Component {
   switch(param) {
  
     case 'Edit Profile':
-      this.One();
+    this.props.navigation.navigate('edit')
       break;
     
     case 'Notification':
