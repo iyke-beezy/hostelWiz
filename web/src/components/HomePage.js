@@ -33,7 +33,7 @@ class HomePage extends React.Component{
     render(){
         return(
         <div>
-            <Head loggedIn = {this.state.loggedIn}/>
+            <Head loggedIn = {this.state.loggedIn} logOut={this.logOut}/>
             <div
                 style={{
                     display:"flex",

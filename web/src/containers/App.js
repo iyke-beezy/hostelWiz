@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
 import Login from '../components/Login';
+import Register from '../components/Register'
 import HomePage from '../components/HomePage';
 import Dashboard from '../components/Dashboard';
 import About from '../components/About';
@@ -25,6 +26,7 @@ import Test from '../test';
 import Explore from './explore';
 import history from '../services/history'
 
+
 class App extends Component {
   render() {
     return (
@@ -36,6 +38,7 @@ class App extends Component {
             <Route path="/profile" component={Profile} />
             <Route path="/about" component={About} />
             <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
             <Route path="/listing" component={Subscribe} />
             <Route path="/join" component={Join} />
             <Route path="/test" component={Test} />

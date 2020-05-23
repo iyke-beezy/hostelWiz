@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import renderEmpty from "antd/lib/config-provider/renderEmpty";
 import { Form, Card, CardBody, Container, Row, Label, Input, FormGroup, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { withCookies } from 'react-cookie';
-import {Button} from 'antd'
+import { Button } from 'antd'
 import { loginUser, registerUser } from '../api'
 
 const propTypes = {
@@ -28,19 +28,19 @@ class UserPass extends React.Component {
         isLoginView: true
     }
 
- //login user to get token from server
- _login = async () => {
-    try {
-        const token = await loginUser(this.state.username, this.state.password)
-        this.props.cookies.set('mr-token', token);
-        this.setState({ loading: false })
-        console.log(token)
-        window.location.href = "/profile";
+    //login user to get token from server
+    _login = async () => {
+        try {
+            const token = await loginUser(this.state.username, this.state.password)
+            this.props.cookies.set('mr-token', token);
+            this.setState({ loading: false })
+            console.log(token)
+            window.location.href = "/";
+        }
+        catch (err) {
+            console.log(err.errMessage)
+        }
     }
-    catch (err) {
-        console.log(err.errMessage)
-    }
-}
 
     _signUp = async () => {
         try {
@@ -54,9 +54,9 @@ class UserPass extends React.Component {
                 contact: this.props.number,
             }
             const response = await registerUser(data)
-            this.setState({loading: false})
+            this.setState({ loading: false })
             console.log(data)
-            await this._login()
+            this._login()
         }
         catch (err) {
             console.log(err.errMessage)

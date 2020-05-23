@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 //import Layout from '../containers/Layout';
 import SocialButtonList from './SocialButtonList';
 import { auth } from '../firebase';
-import LoginUI from '../UI/loginUI';
+import RegisterUI from '../UI/registerUI';
 
 
 const buttonList = {
@@ -18,7 +18,7 @@ const buttonList = {
     }
 };
 
-class Login extends Component {
+class Register extends Component {
     componentDidMount() {
         auth.getAuth().onAuthStateChanged(user => {
             if (user) {
@@ -29,9 +29,9 @@ class Login extends Component {
 
     render() {
         return (
-            <LoginUI>
+            <RegisterUI>
                 <SocialButtonList buttonList={buttonList} auth={auth.getAuth} />
-            </LoginUI>
+            </RegisterUI>
             // <Layout contentCenter={true}>
             //     <p>Connect With</p>
             //     <SocialButtonList buttonList={buttonList} auth={auth.getAuth} />
@@ -41,4 +41,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default Register;

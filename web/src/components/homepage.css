@@ -179,10 +179,10 @@
     font-size: 48px;
     background: -webkit-linear-gradient(rgb(183, 142, 0) 9.38%, rgb(231, 198, 84) 88.54%)
 }
-.ant-menu-horizontal  .ant-menu-item a:hover{
+.ant-menu-horizontal  .ant-menu-item a:hover, .ant-menu-horizontal > .ant-menu-submenu .ant-menu-submenu-title:hover{
     color: #E7C654;
 }
-.ant-menu-horizontal .ant-menu-item:hover{
+.ant-menu-horizontal .ant-menu-item:hover, .ant-menu-horizontal > .ant-menu-submenu .ant-menu-submenu-title:hover{
     border-bottom:2px solid #E7C654;
 }
 .textArea{
@@ -306,13 +306,9 @@
     margin-bottom: 60px;
 }
 
-.ant-menu-horizontal {
-    border-bottom: 0px;
-}
 
 .ant-menu-item {
     font-family: "Baloo Paaji Medium";
-    height: 60px;
 }
 
 .searchWrapper {
