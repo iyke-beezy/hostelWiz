@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Keyboard, Text, Picker, View, TextInput, TouchableWithoutFeedback, TouchableNativeFeedback, Alert, Image, Dimensions, ImageBackground } from 'react-native';
 import styles from "../style";
 import { Card, Button, Input } from 'react-native-elements';
@@ -10,6 +10,7 @@ import { loginUser } from '../api'
 import * as GoogleSignIn from 'expo-google-sign-in';
 //import * as Facebook from 'expo-facebook';
 import * as Google from 'expo-google-app-auth';
+
 
 
 class LoginScreen extends React.Component {

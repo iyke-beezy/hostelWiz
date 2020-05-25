@@ -7,6 +7,8 @@ import Colors from '../constants/Colors';
 import { SliderBox } from "react-native-image-slider-box";
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
+import { getProperties } from '../api';
+
 
 class ExploreScreen extends React.Component {
   state = {
@@ -21,6 +23,18 @@ class ExploreScreen extends React.Component {
       // require('./assets/images/hostel.jpg'),          // Local image
     ]
   };
+
+  componentDidMount(){
+  this.getProperties();
+  
+  }
+
+  getProperties = async() => {
+    const data = await getProperties();
+    console.log(data);
+  }
+
+
 
   save = () => {
 
