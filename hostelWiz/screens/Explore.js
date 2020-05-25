@@ -272,110 +272,6 @@ class ExploreScreen extends React.Component {
   }
 }
 
-<<<<<<< HEAD
-  const styles = StyleSheet.create(
-    {
-      container:{
-          backgroundColor:'white',
-          flex:1,
-      },
-      SearchBar:{
-        flex:1,
-        marginTop:30,
-        marginLeft:30,
-        marginRight:30,
-       
-       
-      },
-      belowSearchBar:{
-        flex : 1,
-        flexDirection:'column',
-      },
-      miniCardComponent:{
-        flex:12,
-        height:'auto',
-        flexDirection:'row',
-       marginLeft:12,
-        marginRight:12,
-        
-        
-      },
-      maxCardComponent:{
-        flex:9,
-        
-      },
-      miniCard:{
-        overflow:'hidden',
-        flex:6,
-       margin:5,
-        width:180,
-        height:185,
-        borderRadius:10,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.8,
-        shadowRadius: 2,  
-        elevation: 10
-      },
-      rating:{
-        flexDirection:"row",
-        marginTop:10,
-        
-      },
-      maxCardTextArea:{
-        
-        flexDirection:"column",
-        backgroundColor:"white",
-       padding:10,
-       height:screenHeight,
-       width:screenWidth - 10
-      
-      },
-      saveButton:{
-        margin: 10,position: 'absolute', top: 8, right: 10,
-        height:40,
-        width: 40,
-        borderRadius: 64,
-        backgroundColor:'rgba(0,0,0,0.5)',
-        opacity:100,
-        alignItems: "center",
-
-      },
-      title:{
-        //margin:0,
-       fontSize:16,
-        flex:4,
-
-        fontWeight:'bold',
-        
-        
-      },
-      description:{
-       marginTop:5,
-       flexDirection:'row',
-      },
-      price:{
-        flex:2,
-       fontSize:16,
-       fontWeight:'bold',
-      },
-      maxCard:{
-        overflow:'hidden',
-        flex:12,
-        flexDirection:'column',
-        marginTop:screenHeight/30,
-        marginLeft:screenHeight/35,
-        marginRight:screenHeight/35,
-        marginBottom:screenHeight/35,
-          height:screenHeight/3 + 30,
-          borderRadius:14,
-          shadowColor: '#000',
-          shadowOffset: { width: 0, height: 1 },
-          shadowOpacity: 0.8,
-          shadowRadius: 2,  
-          elevation: 10,
-      }
-=======
 const styles = StyleSheet.create(
   {
     container: {
@@ -479,7 +375,6 @@ const styles = StyleSheet.create(
       shadowOpacity: 0.8,
       shadowRadius: 2,
       elevation: 10,
->>>>>>> 0ee4a519bcd77966894edeb69b39edccaf6a3453
     }
   }
 )
