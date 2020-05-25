@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Keyboard, Text, Picker, View, TextInput, TouchableWithoutFeedback, TouchableNativeFeedback, Alert, Image, Dimensions, ImageBackground } from 'react-native';
 import styles from "../style";
 import { Card, Button, Input } from 'react-native-elements';
@@ -6,17 +6,21 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { loginUser } from '../api'
 
 import * as GoogleSignIn from 'expo-google-sign-in';
 //import * as Facebook from 'expo-facebook';
 import * as Google from 'expo-google-app-auth';
 
 
+
 class LoginScreen extends React.Component {
 
   state = {
     fontsLoaded: false,
-    user: null
+    user: null,
+    username:'',
+    password:'',
   }
 
   componentDidMount() {
@@ -119,6 +123,29 @@ class LoginScreen extends React.Component {
     this.setState({ fontsLoaded: true })
   }
 
+
+ 
+
+
+  _login = async () => {
+   try {
+        const token = await loginUser(this.state.username, this.state.password)
+       // this.props.cookies.set('mr-token', token);
+        console.log(token)
+        if(token !== undefined ){
+          this.props.navigation.navigate('Root')
+        }
+        else(
+          alert('wrong username or password')
+        )
+        
+    }
+    catch (err) {
+        console.log(err.errMessage)
+    }
+  
+}
+
   render() {
     if (!this.state.fontsLoaded) {
       return (<AppLoading />)
@@ -134,13 +161,13 @@ class LoginScreen extends React.Component {
             />
           </View>
           <KeyboardAwareScrollView style={styles.content}>
-            <TextInput placeholder="Username" placeholderColor="#fff" style={[styles.loginFormTextInput, { fontFamily: "BalooPaaji2", color: '#fff' }]} />
-            <TextInput placeholder="Password" placeholderColor="#fff" style={[styles.loginFormTextInput, { fontFamily: "BalooPaaji2", color: '#fff' }]} secureTextEntry={true} />
+            <TextInput placeholder="Username" name="username"  onChangeText={(text) => this.setState({username:text})}  value={this.state.username} placeholderColor="#fff" style={[styles.loginFormTextInput, { fontFamily: "BalooPaaji2", color: '#fff' }]} />
+            <TextInput placeholder="Password" name="password"  onChangeText={(text) => this.setState({password:text})} value={this.state.password} placeholderColor="#fff" style={[styles.loginFormTextInput, { fontFamily: "BalooPaaji2", color: '#fff' }]} secureTextEntry={true} />
 
             <Button
               buttonStyle={styles.loginButton}
               //onPress={() => this.onLoginPress()}
-              onPress={() => this.props.navigation.navigate('Root')}
+              onPress={() => this._login()}
               title="Login"
             />
 
