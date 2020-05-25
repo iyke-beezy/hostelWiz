@@ -119,3 +119,6 @@ if (response.ok) {
 const errMessage = await response.text()
 throw new Error(errMessage)
 }
+
+//final Step to add to customer group or table
+
