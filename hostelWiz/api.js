@@ -41,10 +41,6 @@ export const registerUser = async (data = {}) => {
     if (response.ok) {
         console.log(data)
         return true
-
-    }else{
-        return false
-
     }
     const errMessage = await response.text()
     throw new Error(errMessage)
@@ -65,7 +61,6 @@ export const getProperties = async () => {
     const errMessage = await response.text()
     throw new Error(errMessage)
 }
-
 
 //rate property
 export const rateProperties = async (property_id,token,number_of_stars) => {

@@ -4,6 +4,7 @@ import styles from "../style";
 import { Card, Button, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import * as SecureStore from 'expo-secure-store';
 import { loginUser } from '../api'
 
 import * as GoogleSignIn from 'expo-google-sign-in';
@@ -19,6 +20,7 @@ class LoginScreen extends React.Component {
     user: null,
     username:'',
     password:'',
+    loading: false
   }
 
   /*   componentDidMount() {
@@ -123,77 +125,67 @@ class LoginScreen extends React.Component {
 
   }
 
-
- 
-
-
-  _login = async () => {
-   try {
-        const token = await loginUser(this.state.username, this.state.password)
-       // this.props.cookies.set('mr-token', token);
-        console.log(token)
-        if(token !== undefined ){
-          this.props.navigation.navigate('Root')
-        }
-        else(
-          alert('wrong username or password')
-        )
-        
+  handleUsername = username => {
+    this.setState({ username })
+    if (this.state.loading) {
+      this.setState({ loading: false })
     }
-    catch (err) {
-        console.log(err.errMessage)
+  }
+
+  handlePassword = password => {
+    this.setState({ password })
+    if (this.state.loading) {
+      this.setState({ loading: false })
     }
-  
-}
+  }
 
   render() {
-    if (!this.state.fontsLoaded) {
-      return (<AppLoading />)
-    }
-    else {
-      return (
 
-        <ImageBackground source={require("../assets/images/bg.png")} style={[styles.page, { fontFamily: "BalooPaaji2" }]}>
-          <View style={styles.imgtop}>
-            <Image
-              style={styles.Logoimg}
-              source={require("../assets/images/splash.png")}
-            />
-          </View>
-          <KeyboardAwareScrollView style={styles.content}>
-            <TextInput placeholder="Username" name="username"  onChangeText={(text) => this.setState({username:text})}  value={this.state.username} placeholderColor="#fff" style={[styles.loginFormTextInput, { fontFamily: "BalooPaaji2", color: '#fff' }]} />
-            <TextInput placeholder="Password" name="password"  onChangeText={(text) => this.setState({password:text})} value={this.state.password} placeholderColor="#fff" style={[styles.loginFormTextInput, { fontFamily: "BalooPaaji2", color: '#fff' }]} secureTextEntry={true} />
+    return (
 
-            <Button
-              buttonStyle={styles.loginButton}
-              //onPress={() => this.onLoginPress()}
-              onPress={() => this._login()}
-              title="Login"
-            />
+      <ImageBackground source={require("../assets/images/bg.png")} style={[styles.page, { fontFamily: "Baloo-Paaji" }]}>
+        <View style={styles.imgtop}>
+          <Image
+            style={styles.Logoimg}
+            source={require("../assets/images/splash.png")}
+          />
+        </View>
+        <KeyboardAwareScrollView style={styles.content}>
+          <Text>{this.state.err}</Text>
+          <TextInput placeholder="Username" placeholderColor="#fff" style={[styles.loginFormTextInput, { fontFamily: "Baloo-Paaji", color: '#fff' }]} onChangeText={this.handleUsername} autoCapitalize="none" />
+          <TextInput placeholder="Password" placeholderColor="#fff" style={[styles.loginFormTextInput, { fontFamily: "Baloo-Paaji", color: '#fff' }]} secureTextEntry={true} onChangeText={this.handlePassword} />
 
-            <TouchableNativeFeedback onPress={() => this.signInWithGoogleAsync()}>
-              <View style={styles.googleLoginButton}>
-                <Text style={{ fontFamily: 'BalooPaaji2', color: '#fff', fontSize: 18 }}>
-                  <Icon
-                    name="google"
-                    size={18}
-                    color="white"
-                  />  Login with Google</Text>
-              </View>
+          <Button
+            buttonStyle={styles.loginButton}
+            //onPress={() => this.onLoginPress()}
+            onPress={this._login}
+            title="Login"
+            loading={this.state.loading}
+          />
 
-            </TouchableNativeFeedback>
+          <TouchableNativeFeedback onPress={() => this.signInWithGoogleAsync()}>
+            <View style={styles.googleLoginButton}>
+              <Text style={{ fontFamily: 'Baloo-Paaji', color: '#fff', fontSize: 18 }}>
+                <Icon
+                  name="google"
+                  size={18}
+                  color="white"
+                />  Login with Google</Text>
+            </View>
 
-            <TouchableNativeFeedback>
-              <View style={styles.fbLoginButton}>
-                <Text style={{ fontFamily: 'BalooPaaji2', color: '#fff', fontSize: 18 }}>
-                  <Icon name="facebook"
-                    size={18}
-                    color="white" />  Login with Facebook</Text>
-              </View>
-            </TouchableNativeFeedback>
+          </TouchableNativeFeedback>
 
-            <Text style={{ fontFamily: "BalooPaaji2", paddingLeft: 10, }}>
-              Forgot Password?
+          <TouchableNativeFeedback>
+            <View style={styles.fbLoginButton}>
+              <Text style={{ fontFamily: 'Baloo-Paaji', color: '#fff', fontSize: 18 }}>
+                <Icon name="facebook"
+                  size={18}
+                  color="white" />  Login with Facebook</Text>
+            </View>
+          </TouchableNativeFeedback>
+
+          <Text style={{ fontFamily: "Baloo-Paaji", paddingLeft: 10, }}>
+            Forgot Password?
                 </Text>
 
           <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('SignUp')}>
@@ -208,6 +200,6 @@ class LoginScreen extends React.Component {
   }
 }
 
-}
+
 
 export default LoginScreen;
