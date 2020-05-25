@@ -1,5 +1,6 @@
 //functions for API calls to the server
 //login requires username, and password
+
 //const REACT_APP_API_URL= 'http://192.168.43.80:8000'
 const REACT_APP_API_URL= 'https://hostelwiz.herokuapp.com'
 //const REACT_APP_FIREBASE_API_KEY= AIzaSyCUcV5erWI5t4vvDNVYs_RdG7s-WtzUDxc
@@ -29,7 +30,9 @@ export const loginUser = async(username, password) => {
 
 //register new user
 export const registerUser = async (data = {}) => {
+
     const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/users/`, {
+
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -38,8 +41,10 @@ export const registerUser = async (data = {}) => {
     if (response.ok) {
         console.log(data)
         return true
+
     }else{
         return false
+
     }
     const errMessage = await response.text()
     throw new Error(errMessage)
@@ -48,6 +53,7 @@ export const registerUser = async (data = {}) => {
 //get property details
 export const getProperties = async () => {
     const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/`, {
+
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
     })
@@ -59,6 +65,7 @@ export const getProperties = async () => {
     const errMessage = await response.text()
     throw new Error(errMessage)
 }
+
 
 //rate property
 export const rateProperties = async (property_id,token,number_of_stars) => {
@@ -121,4 +128,5 @@ throw new Error(errMessage)
 }
 
 //final Step to add to customer group or table
+
 

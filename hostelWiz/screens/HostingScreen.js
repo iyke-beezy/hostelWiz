@@ -25,12 +25,7 @@ class HostingScreen extends React.Component {
 
     render() {
     
-
-
       return (
-       
-       
-  
       
           <View style={styles.formArea}>
             <Text style={{fontSize:35}}>Why host on HostelWiz?</Text>

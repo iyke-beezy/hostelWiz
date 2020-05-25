@@ -16,6 +16,7 @@ import HMBottomTabNavigator from './navigation/HMBottomTabNavigation';
 import useLinking from './navigation/useLinking';
 import EditProfile from './screens/EditProfile';
 
+import * as SecureStore from 'expo-secure-store';
 const Stack = createStackNavigator();
 
 export default function App(props) {
@@ -31,12 +32,15 @@ export default function App(props) {
         SplashScreen.preventAutoHide();
 
         // Load our initial navigation state
+        alert(SecureStore.getItemAsync('token'))
         setInitialNavigationState(await getInitialState());
 
         // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,
           'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+          'Baloo-Paaji': require('./assets/fonts/BalooPaaji2-Regular.ttf'),
+          'Baloo-Paaji-Medium': require('./assets/fonts/BalooPaaji2-Medium.ttf')
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
