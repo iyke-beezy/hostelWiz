@@ -32,7 +32,6 @@ export default function App(props) {
         SplashScreen.preventAutoHide();
 
         // Load our initial navigation state
-        alert(SecureStore.getItemAsync('token'))
         setInitialNavigationState(await getInitialState());
 
         // Load fonts
