@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { Slider, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
-import { Card, Button, Icon } from 'react-native-elements';
+import {Text, View, TouchableHighlight, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
+import { Card} from 'react-native-elements';
 import { Searchbar } from 'react-native-paper';
 import { AntDesign } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 import { SliderBox } from "react-native-image-slider-box";
 import { Asset } from 'expo-asset';
 import { AppLoading } from 'expo';
-const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
 import { getProperties } from '../api';
 import styles from './explore-styles'
