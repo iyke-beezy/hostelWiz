@@ -31,14 +31,14 @@ export default {
         flexDirection: 'row',
         alignItems: 'flex-start',
         marginBottom: screenHeight * 0.03,
-
     },
     miniCard: {
-        width: screenWidth * 0.4,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
-        margin: 10,
+        width: screenWidth * 0.42,
+        borderRadius: 15,
+        marginLeft: 5,
+        marginRight: 5,
         padding: 0,
+        overflow: 'hidden'
     },
     saveButton: {
         margin: 10,
@@ -63,10 +63,11 @@ export default {
     },
     maxCard: {
         height: screenHeight * 0.4,
-        borderRadius: 14,
+        borderRadius: 15,
         marginRight: screenWidth * 0.1,
         elevation: 1,
-        width: screenWidth * 0.9
+        width: screenWidth * 0.9,
+        marginBottom: screenHeight * 0.05
     },
     maxCardTextArea: {
         backgroundColor: "white",

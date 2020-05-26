@@ -95,7 +95,7 @@ export default {
   },
   subTitle: {
     fontSize: 14,
-    color: 'grey',
+    color: '#92A5A3',
     fontFamily: 'Baloo-Paaji-Medium',
   },
   detailTitle: {
@@ -127,13 +127,18 @@ export default {
   },
   detailTitleText: {
     fontSize: 15,
-    color: 'grey',
+    color: '#92A5A3',
     marginBottom: 15,
     fontFamily: 'Baloo-Paaji'
   },
   detailText: {
     fontSize: 15,
-    color: 'grey',
+    color: '#92A5A3',
+    fontFamily: 'Baloo-Paaji'
+  },
+  headlineText: {
+    fontSize: 13,
+    color: '#92A5A3',
     fontFamily: 'Baloo-Paaji'
   },
   spaceBelow: {

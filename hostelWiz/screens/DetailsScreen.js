@@ -9,17 +9,16 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 class DetailsScreen extends React.Component {
 
   state = {
-    rating: 2,
     save: false,
+    property : {},
   };
 
   save = () => {
-
     this.setState({ save: !this.state.save })
   }
 
   render() {
-
+    const property = this.props.navigation.getParam('property')
     return (
       <View style={styles.detailContainer} >
         <ScrollView stickyHeaderIndices={[0]}
@@ -27,14 +26,13 @@ class DetailsScreen extends React.Component {
           <View style={styles.detailHead}>
             <View style={styles.backAndSave}>
               <TouchableHighlight
-                onPress={() => this.save()}
+                onPress={() => this.props.navigation.goBack()}
                 style={styles.back}>
                 <AntDesign color='black' size={15} name="left" />
               </TouchableHighlight>
               <TouchableOpacity
                 onPress={() => this.save()}
-                style={styles.save}
-              >
+                style={styles.save}>
                 {
                   this.state.save ? <SimpleLineIcons name="heart" size={15} color="red" />
                     :
@@ -44,8 +42,8 @@ class DetailsScreen extends React.Component {
               </TouchableOpacity>
             </View>
             <View style={styles.detailTitle}>
-              <Text style={[styles.mainTitle, { marginBottom: -8 }]}>Grand Royal Hostel</Text>
-              <Text style={styles.subTitle}>Second otwe street</Text>
+              <Text style={[styles.mainTitle, { marginBottom: -8 }]}>{property.name}</Text>
+              <Text style={styles.subTitle}>{property.location}</Text>
             </View>
           </View>
         </ScrollView>
@@ -68,8 +66,8 @@ class DetailsScreen extends React.Component {
             </Image>
           </ScrollView>
           <View style={{ paddingRight: screenWidth * 0.07, flex: 1, flexDirection: 'column', paddingBottom: 10 }}>
-            <Text style={styles.detailText}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. </Text>
+            <Text style={styles.detailText}>{property.Description}.</Text>
+            <Text style={styles.headlineText}>{property.headline}</Text>
             <Text style={styles.detailTitleText}>Single Room                          [YES]</Text>
             <Text style={styles.detailTitleText}>2 in a Room                           [YES]</Text>
             <Text style={styles.detailTitleText}>3 in a Room                           [YES]</Text>
@@ -85,7 +83,7 @@ class DetailsScreen extends React.Component {
               {/* <Button
                 title='Call Now'
                 buttonStyle={{ borderRadius: 5, height: screenHeight / 15, backgroundColor: 'gold' }} /> */}
-                <AntDesign name="phone" size={20} color="black" />
+              <AntDesign name="phone" size={20} color="black" />
             </TouchableOpacity>
             <View style={styles.detailPriceAndRating}>
               <Text style={{ fontSize: 15, fontFamily: 'Baloo-Paaji' }} >Ghc 40.00</Text>
@@ -94,7 +92,7 @@ class DetailsScreen extends React.Component {
               {/* <Button
                 title='Get Directions'
                 buttonStyle={{ borderRadius: 5, height: screenHeight / 15, backgroundColor: 'gold' }} /> */}
-                <Feather name="map-pin" size={20} color="black" />
+              <Feather name="map-pin" size={20} color="black" />
             </TouchableOpacity>
 
           </View>
@@ -104,9 +102,5 @@ class DetailsScreen extends React.Component {
     );
   }
 }
-
-
-
-
 
 export default DetailsScreen;

@@ -1,14 +1,16 @@
 import * as React from 'react';
-import {Text, View, TouchableHighlight, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
-import { Card} from 'react-native-elements';
+import { Text, ToastAndroid, View, TouchableHighlight, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
+import { Card } from 'react-native-elements';
 import { Searchbar } from 'react-native-paper';
 import { AntDesign } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 import { SliderBox } from "react-native-image-slider-box";
+import * as SecureStore from 'expo-secure-store';
 import { Asset } from 'expo-asset';
 import { AppLoading } from 'expo';
 const screenHeight = Math.round(Dimensions.get('window').height);
-import { getProperties } from '../api';
+const screenWidth = Math.round(Dimensions.get('window').width);
+import { getProperties, saveProperties } from '../api';
 import styles from './explore-styles'
 
 
@@ -18,6 +20,7 @@ class ExploreScreen extends React.Component {
     rating: 2,
     save: false,
     isReady: false,
+    data: [],
     images: [
       "https://source.unsplash.com/1024x768/?nature",
       "https://source.unsplash.com/1024x768/?water",
@@ -29,14 +32,36 @@ class ExploreScreen extends React.Component {
 
   componentDidMount() {
     this.getProperties();
+    this.setState({ token: SecureStore.getItemAsync('token') })
   }
 
   getProperties = async () => {
-    const data = await getProperties();
+    try {
+      const data = await getProperties();
+      this.setState({ data })
+    }
+    catch (err) {
+      this.setState({err: err.errMessage})
+    }
   }
 
-  save = () => {
+  save = async (propertyID) => {
     this.setState({ save: !this.state.save })
+    if (!this.state.save) {
+      try {
+        const successMessage = await saveProperties(propertyID, this.state.token)
+        ToastAndroid.showWithGravityAndOffset(
+          successMessage,
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+          25,
+          50
+        );
+      }
+      catch(err){
+        this.setState({err: err.errMessage})
+      }
+    }
   }
 
   _onChangeSearch = query => this.setState({ searchQuery: query });
@@ -97,7 +122,7 @@ class ExploreScreen extends React.Component {
                         </Card>
                         <Card containerStyle={styles.miniCard}
                           image={require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')}
-                          imageStyle={{ borderRadius: 10 }}>
+                          imageStyle={{ borderTopLeftRadius: 15, borderTopRightRadius: 15}}>
                           <Text style={{ textAlign: 'center', marginBottom: 10, fontFamily: 'Baloo-Paaji-Medium' }}>
                             Explore Hostels
                     </Text>
@@ -106,58 +131,65 @@ class ExploreScreen extends React.Component {
 
                       {/* Max card details */}
                       <View style={styles.maxCardComponent}>
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('details')}>
-                          <View style={[styles.maxCard]}>
-                            <SliderBox dotColor={'orange'} onCurrentImagePressed={() => this.props.navigation.navigate('details')} autoplay={true} sliderBoxHeight={screenHeight / 4 - 5} images={this.state.images} >
-                            </SliderBox>
-                            <TouchableOpacity
-                              onPress={() => this.save()}
-                              style={styles.saveButton}>
-                              <View>
-                                {
-                                  this.state.save ? <AntDesign color='red' style={{ marginTop: 7 }} size={25} name="heart" />
-                                    :
-                                    <AntDesign color='white' style={{ marginTop: 7 }} size={25} name="heart" />
-                                }
+                        {this.state.data.map(property => {
+                          return (
+                            <TouchableHighlight onPress={() => this.props.navigation.navigate('details', {property})} key={property.id}>
+                              <View style={[styles.maxCard]}>
+                                <SliderBox dotColor={'orange'} ImageComponentStyle={{borderTopLeftRadius: 15, borderTopRightRadius: 15, width: screenWidth * 0.9, marginLeft: -36}} onCurrentImagePressed={() => this.props.navigation.navigate('details')} autoplay={true} sliderBoxHeight={screenHeight / 4 - 5} images={this.state.images} >
+                                </SliderBox>
+                                <TouchableOpacity
+                                  onPress={() => this.save(property.id)}
+                                  style={styles.saveButton}>
+                                  <View>
+                                    {
+                                      this.state.save ? <AntDesign color='red' style={{ marginTop: 7 }} size={25} name="heart" />
+                                        :
+                                        <AntDesign color='white' style={{ marginTop: 7 }} size={25} name="heart" />
+                                    }
 
-                              </View>
-                            </TouchableOpacity>
+                                  </View>
+                                </TouchableOpacity>
 
-                            <View style={styles.maxCardTextArea}>
-                              <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', }}>
-                                <View>
-                                  <Text style={styles.title}>
-                                    Grand Royal Hostels
-                                </Text>
-                                </View>
-                                <View>
-                                  <Text style={styles.price}>
-                                    Ghc 120.00
+                                <View style={styles.maxCardTextArea}>
+                                  <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', }}>
+                                    <View>
+                                      <Text style={styles.title}>
+                                        {property.name}
+                                      </Text>
+                                    </View>
+                                    <View>
+                                      <Text style={styles.price}>
+                                        {property.price}
                                   </Text>
-                                  <Text style={{ color: 'grey', fontFamily: 'Baloo-Paaji' }} >/per day</Text>
+                                      <Text style={{ color: 'grey', fontFamily: 'Baloo-Paaji' }} >/{property.rate_type}</Text>
+                                    </View>
+                                  </View>
+                                  <View style={styles.description}>
+                                    <View>
+                                      <Text style={{ color: 'grey', fontSize: 10, fontFamily: 'Baloo-Paaji' }} >{property.location}, 0.2 km from your location</Text>
+                                    </View>
+
+
+                                  </View>
+
+                                  <View style={styles.rating}>
+                                    <AntDesign size={20} color={property.avg_rating > 0 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                    <AntDesign size={20} color={property.avg_rating > 1 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                    <AntDesign size={20} color={property.avg_rating > 2 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                    <AntDesign size={20} color={property.avg_rating > 3 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                    <AntDesign size={20} color={property.avg_rating > 4 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                    <Text>({property.no_of_ratings})</Text>
+                                  </View>
+
                                 </View>
-                              </View>
-                              <View style={styles.description}>
-                                <View>
-                                  <Text style={{ color: 'grey', fontSize: 10, fontFamily: 'Baloo-Paaji'}} >Second otwe street , 0.2 km from your location</Text>
-                                </View>
-
 
                               </View>
+                            </TouchableHighlight>
+                          )
+                        })
 
-                              <View style={styles.rating}>
-                                <AntDesign size={20} color={this.state.rating > 0 ? 'orange' : Colors.tabIconDefault} name="star" />
-                                <AntDesign size={20} color={this.state.rating > 1 ? 'orange' : Colors.tabIconDefault} name="star" />
-                                <AntDesign size={20} color={this.state.rating > 2 ? 'orange' : Colors.tabIconDefault} name="star" />
-                                <AntDesign size={20} color={this.state.rating > 3 ? 'orange' : Colors.tabIconDefault} name="star" />
-                                <AntDesign size={20} color={this.state.rating > 4 ? 'orange' : Colors.tabIconDefault} name="star" />
-                              </View>
-
-                            </View>
-                          </View>
-                        </TouchableHighlight>
+                        }
                       </View>
-
 
                     </View>
                   </ScrollView>
@@ -201,7 +233,7 @@ class ExploreScreen extends React.Component {
                               </View>
                               <View style={styles.description}>
                                 <View>
-                                  <Text style={{ color: 'grey', fontSize: 10}} >Second otwe street , 0.2 km from your location</Text>
+                                  <Text style={{ color: 'grey', fontSize: 10 }} >Second otwe street , 0.2 km from your location</Text>
                                 </View>
 
 
