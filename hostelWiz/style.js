@@ -128,12 +128,13 @@ export default {
   detailTitleText: {
     fontSize: 15,
     color: 'grey',
-    marginBottom: 15
+    marginBottom: 15,
+    fontFamily: 'Baloo-Paaji'
   },
   detailText: {
     fontSize: 15,
     color: 'grey',
-
+    fontFamily: 'Baloo-Paaji'
   },
   spaceBelow: {
     height: screenHeight * 0.05,
