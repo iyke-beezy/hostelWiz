@@ -37,9 +37,7 @@ export const registerUser = async (data = {}) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     })
-    console.log(data)
     if (response.ok) {
-        console.log(data)
         return true
     }
     const errMessage = await response.text()
@@ -91,7 +89,6 @@ export const saveProperties = async (property_id,token,) => {
                
     })
     if(response.ok){
-      
         return true
     }
 

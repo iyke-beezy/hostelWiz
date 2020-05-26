@@ -8,9 +8,6 @@ import * as Permissions from 'expo-permissions';
 import { RadioButton } from 'react-native-paper';
 import { Select,InputLabel,MenuItem } from '@material-ui/core';
 
-
-
-
 class HostingScreen extends React.Component {
 
     constructor(props) {  

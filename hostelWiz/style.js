@@ -21,6 +21,8 @@ export default {
   containerView: {
     flex: 1,
   },
+
+  /* Details screen styles*/
   saveButton: {
     margin: 10,
     height: 40,
@@ -43,68 +45,80 @@ export default {
 
   },
   detailContainer: {
-    backgroundColor: 'white',
-    flexDirection: 'column',
     flex: 1,
+    backgroundColor: 'white',
+    fontFamily: 'Baloo-Paaji',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    paddingLeft: screenWidth * 0.07,
+    paddingTop: Constants.statusBarHeight,
   },
   detailHead: {
-    flex: 0.2,
+    flex: 1,
     flexDirection: 'column',
     backgroundColor: 'white',
-    marginLeft: screenWidth / 24,
+    paddingRight: screenWidth * 0.05,
+    height: screenHeight * 0.18
   },
   backAndSave: {
     flex: 1,
     flexDirection: 'row',
-
+    flexWrap: 'nowrap',
+    justifyContent: 'space-between',
   },
   save: {
-    margin: 10,
-    height: screenHeight / 21,
-    width: 4,
+    flex: 1,
+    flexDirection: 'row',
+    position: 'absolute',
+    right: 0,
+    height: 30,
+    width: 30,
     borderRadius: 64,
-    backgroundColor: 'grey',
-    opacity: 1,
+    backgroundColor: 'rgba(255,255,154,0.5)',
     alignItems: "center",
-    flex: 0.6,
+    justifyContent: 'center',
   },
   back: {
-    margin: 10,
-    marginLeft: 1,
-    height: screenHeight / 20,
-    width: 4,
+    flex: 1,
+    flexDirection: 'row',
+    position: 'absolute',
+    height: 30,
+    width: 30,
     borderRadius: 64,
-    backgroundColor: 'white',
-    opacity: 1,
+    backgroundColor: 'rgba(255,255,154,0.5)',
     alignItems: "center",
-    flex: 0.5,
+    justifyContent: 'center',
   },
   mainTitle: {
-    fontSize: 21,
+    fontSize: 16,
+    fontFamily: 'Baloo-Paaji-Medium',
   },
   subTitle: {
-    fontSize: 17,
-    color: 'grey'
+    fontSize: 14,
+    color: 'grey',
+    fontFamily: 'Baloo-Paaji-Medium',
   },
   detailTitle: {
     flex: 1,
     flexDirection: 'column',
+    flexWrap: 'nowrap',
   },
   detailHeader: {
-    height: (screenHeight / 2),
+    //height: (screenHeight / 2),
     flexDirection: 'row',
     backgroundColor: 'white',
-
   },
   detailImages: {
-    height: (screenHeight / 2) - 10,
+    height: screenHeight * 0.4,
     margin: 10,
+    marginLeft: 0,
     borderRadius: 10,
-    width: screenWidth / 2
+    width: screenWidth * 0.7
   },
   detailScrollview: {
-    flex: 0.5,
+    flex: 1,
     backgroundColor: 'white',
+    marginTop: -screenHeight * 0.68,
   },
   title: {
     backgroundColor: 'transparent',
@@ -113,53 +127,60 @@ export default {
   },
   detailTitleText: {
     fontSize: 15,
-    textAlign: 'justify',
-    marginTop: screenWidth / 17,
-    marginRight: screenWidth / 17,
-    marginLeft: screenWidth / 4,
     color: 'grey',
-
+    marginBottom: 15,
+    fontFamily: 'Baloo-Paaji'
   },
   detailText: {
     fontSize: 15,
-    textAlign: 'justify',
-    marginTop: screenWidth / 17,
-    marginRight: screenWidth / 17,
-    marginLeft: screenWidth / 17,
     color: 'grey',
-
+    fontFamily: 'Baloo-Paaji'
   },
   spaceBelow: {
-    flexDirection: 'column',
-    flex: 0.11,
-
-
+    height: screenHeight * 0.05,
+    bottom: 0,
+    marginLeft: -screenWidth * 0.03,
+    paddingLeft: screenWidth * 0.02
   },
   spaceBelowContent: {
+    flex: 1,
     flexDirection: 'row',
-    flex: 0.4,
-    margin: 2,
-    marginRight: 12,
-    marginLeft: 12,
-
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingBottom: 10,
   },
   detailPriceAndRating: {
-    fontSize: 15,
-    flex: 2,
-    marginLeft: 10,
-    flexDirection: 'column'
 
   },
   rateButton: {
-    flex: 3,
-
+    height: 30,
+    width: 30,
+    borderRadius: 64,
+    backgroundColor: 'rgba(255,255,154,0.5)',
+    alignItems: "center",
+    justifyContent: 'center',
+    marginRight: screenWidth * 0.05
+  },
+  callButton: {
+    height: 30,
+    width: 30,
+    borderRadius: 64,
+    backgroundColor: 'rgba(255,255,154,0.5)',
+    alignItems: "center",
+    justifyContent: 'center',
+  },
+  detailDivider: {
+    borderBottomColor: '#D3D3D3',
+    borderBottomWidth: 1,
+    marginBottom: 10,
+    marginRight: screenWidth * 0.05,
+    marginLeft: -screenWidth * 0.02
   },
   loginScreenContainer: {
     flex: 1,
   },
   logoText: {
     fontSize: 40,
-
     fontWeight: "800",
     marginTop: 100,
     marginBottom: 30,
@@ -305,12 +326,6 @@ export default {
     borderBottomWidth: 1,
     marginBottom: 10,
     marginTop: 30,
-  },
-  detailDivider: {
-    borderBottomColor: '#D3D3D3',
-    borderBottomWidth: 1,
-    marginBottom: 10,
-
   },
   switchLable: {
     flex: 3,
