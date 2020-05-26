@@ -14,7 +14,8 @@ export default {
         justifyContent: 'center',
         paddingTop: Constants.statusBarHeight,
         paddingLeft: screenWidth * 0.05,
-        paddingRight: screenWidth * 0.05
+        paddingRight: screenWidth * 0.05,
+        height: screenHeight
     },
     SearchBar: {
         flex: 1,

@@ -43,52 +43,65 @@ export default {
 
   },
   detailContainer: {
-    backgroundColor: 'white',
-    flexDirection: 'column',
     flex: 1,
+    backgroundColor: 'white',
+    fontFamily: 'Baloo-Paaji',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    paddingLeft: screenWidth * 0.05,
+    paddingTop: Constants.statusBarHeight,
   },
   detailHead: {
-    flex: 0.2,
+    flex: 1,
     flexDirection: 'column',
     backgroundColor: 'white',
-    marginLeft: screenWidth / 24,
+    paddingRight: screenWidth * 0.05,
+    height: screenHeight * 0.2
   },
   backAndSave: {
     flex: 1,
     flexDirection: 'row',
-
+    flexWrap: 'nowrap',
+    justifyContent: 'space-between',
   },
   save: {
+    flex: 1,
+    flexDirection: 'row',
     margin: 10,
-    height: screenHeight / 21,
-    width: 4,
+    position: 'absolute',
+    right: 0,
+    height: 30,
+    width: 30,
     borderRadius: 64,
-    backgroundColor: 'grey',
-    opacity: 1,
+    backgroundColor: 'rgba(255,255,154,0.5)',
     alignItems: "center",
-    flex: 0.6,
+    justifyContent: 'center',
   },
   back: {
+    flex: 1,
+    flexDirection: 'row',
+    position: 'absolute',
     margin: 10,
-    marginLeft: 1,
-    height: screenHeight / 20,
-    width: 4,
+    height: 30,
+    width: 30,
     borderRadius: 64,
-    backgroundColor: 'white',
-    opacity: 1,
+    backgroundColor: 'rgba(255,255,154,0.5)',
     alignItems: "center",
-    flex: 0.5,
+    justifyContent: 'center',
   },
   mainTitle: {
-    fontSize: 21,
+    fontSize: 16,
+    fontFamily: 'Baloo-Paaji-Medium'
   },
   subTitle: {
-    fontSize: 17,
-    color: 'grey'
+    fontSize: 14,
+    color: 'grey',
+    fontFamily: 'Baloo-Paaji-Medium',
   },
   detailTitle: {
     flex: 1,
     flexDirection: 'column',
+    flexWrap: 'nowrap'
   },
   detailHeader: {
     height: (screenHeight / 2),
@@ -103,7 +116,7 @@ export default {
     width: screenWidth / 2
   },
   detailScrollview: {
-    flex: 0.5,
+    flex: 1,
     backgroundColor: 'white',
   },
   title: {
