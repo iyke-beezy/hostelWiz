@@ -51,7 +51,7 @@ export const getProperties = async () => {
 
 //rate property
 export const rateProperties = async (property_id,token,number_of_stars) => {
-    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/${property_id}/rate_property/`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/hostelwiz/properties/${property_id}/rate_property/`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json' ,
                'Authorization':token 
@@ -70,7 +70,7 @@ export const rateProperties = async (property_id,token,number_of_stars) => {
 
 //save property
 export const saveProperties = async (property_id, token,) => {
-    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/${property_id}/save_property/`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/hostelwiz/properties/${property_id}/save_property/`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json' ,
                'Authorization':token 
@@ -88,7 +88,7 @@ export const saveProperties = async (property_id, token,) => {
 //final Step to create hostelmanager or change customer to hostel manager
 
 export const add_to_hostel_manager_table = async (subscriptionType,status,token,) => {
-const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/hostel_managers/create_hostel_manager/`, {
+const response = await fetch(`${process.env.REACT_APP_API_URL}/hostelwiz/hostel_managers/create_hostel_manager/`, {
     method: 'POST',
     headers: {
 
