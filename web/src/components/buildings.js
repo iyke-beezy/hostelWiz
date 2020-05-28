@@ -14,7 +14,7 @@ class Building extends React.Component {
                 name: 'name',
                 price: 'price',
                 type: 'rent',
-            }
+            },
         ],
         loggedIn: false,
         token: null,
@@ -30,7 +30,7 @@ class Building extends React.Component {
     getProperties = async () => {
         try {
             const success = await getProperties()
-            this.setState({data: success.filter(property => property.type === 'building')})
+            this.setState({data: success.filter(property => property.type === 'hostel')})
             this.setState({loading:false})
         }
         catch(err){
@@ -43,8 +43,8 @@ class Building extends React.Component {
             <React.Fragment>
                 {this.state.data.map(property => {
                     return (
-                        <div className="propertyItem">
-                            <PropertyItem property={this.state.data} loading={this.state.loading} loggedIn={this.state.loggedIn} />
+                        <div className="propertyItem" key={property.id}>
+                            <PropertyItem property={property} loading={this.state.loading} loggedIn={this.state.loggedIn} />
                         </div>
                     )
                 })}
