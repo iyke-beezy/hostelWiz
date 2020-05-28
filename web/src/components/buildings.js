@@ -20,7 +20,7 @@ class Building extends React.Component {
         token: null,
     }
     componentDidMount() {
-        //this.setState({loading:false})
+        this.getProperties()
         if (this.props.cookies.get('mr-token')) {
             this.setState({ loggedIn: true, token : this.props.cookies.get('mr-token') })
         }
@@ -30,7 +30,8 @@ class Building extends React.Component {
     getProperties = async () => {
         try {
             const success = await getProperties()
-            console.log(success)
+            this.setState({data: success.filter(property => property.type === 'building')})
+            this.setState({loading:false})
         }
         catch(err){
             console.log(err.errMessage)
