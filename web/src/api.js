@@ -36,7 +36,7 @@ export const registerUser = async (data = {}) => {
 
 //get property details
 export const getProperties = async () => {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/hostelwiz/properties/`, {
+    const response = await fetch(`https://hostelwiz.herokuapp.com/hostelwiz/properties/`, {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
     })
