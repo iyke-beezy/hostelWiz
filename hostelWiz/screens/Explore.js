@@ -39,6 +39,7 @@ class ExploreScreen extends React.Component {
     try {
       const data = await getProperties();
       this.setState({ data })
+      this.state.data.map(property => console.log(property))
     }
     catch (err) {
       this.setState({err: err.errMessage})
@@ -133,7 +134,7 @@ class ExploreScreen extends React.Component {
                       <View style={styles.maxCardComponent}>
                         {this.state.data.map(property => {
                           return (
-                            <TouchableHighlight onPress={() => this.props.navigation.navigate('details', {property})} key={property.id}>
+                            <TouchableHighlight onPress={() => this.props.navigation.navigate('details', {data: {property}})} key={property.id}>
                               <View style={[styles.maxCard]}>
                                 <SliderBox dotColor={'orange'} ImageComponentStyle={{borderTopLeftRadius: 15, borderTopRightRadius: 15, width: screenWidth * 0.9, marginLeft: -36}} onCurrentImagePressed={() => this.props.navigation.navigate('details')} autoplay={true} sliderBoxHeight={screenHeight / 4 - 5} images={this.state.images} >
                                 </SliderBox>

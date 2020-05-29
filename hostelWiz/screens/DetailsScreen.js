@@ -10,7 +10,6 @@ class DetailsScreen extends React.Component {
 
   state = {
     save: false,
-    property : {},
   };
 
   save = () => {
@@ -18,7 +17,7 @@ class DetailsScreen extends React.Component {
   }
 
   render() {
-    const property = this.props.navigation.getParam('property')
+    const property = this.props.route.params.data.property
     return (
       <View style={styles.detailContainer} >
         <ScrollView stickyHeaderIndices={[0]}
