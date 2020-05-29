@@ -13,7 +13,7 @@ export default function Explore() {
     return (
         <div>
             <Head />
-            <div className="heading">
+            <div className="heading" style={{paddingLeft:'80px'}}>
                 <div></div>
                 {
                     explore === 'sale' ?
@@ -27,12 +27,10 @@ export default function Explore() {
                                 : null
                 }
             </div>
-            <div className="explore">
-                <div className="exploreItem">
-                    {explore === ' hostel' && (<Hostel />)}
+            <div className="explore" style={{justifyContent:'start'}}>
+                    {explore === 'hostel' && (<Hostel />)}
                     {explore === 'rentApartment' && (<Building />)}
                     {explore === 'sale' && (<ForSale />)}
-                </div>
             </div>
         </div>
     )

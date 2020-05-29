@@ -25,7 +25,7 @@ const Slider = () => {
       border="none"
       borderTopLeftRadius={16}
       borderTopRightRadius={16}
-      width={512}
+      width={'100%'}
       height={'auto'}
       margin={0}
     >

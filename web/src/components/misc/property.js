@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import { Skeleton, Switch, Card, Avatar } from 'antd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import Slider from '../productSlider'
 var FontAwesome = require('react-fontawesome')
@@ -28,7 +29,7 @@ class PropertyItem extends React.Component {
                 ]}
                 hoverable cover={<Slider />}
                 loading={this.props.loading}
-                style={{borderRadius: "16px 16px 0px 0px"}}
+                style={{borderRadius: "16px 16px 0px 0px", width:'300px'}}
             >
                 <Meta
                     title="Card title"
@@ -36,8 +37,8 @@ class PropertyItem extends React.Component {
                 />
                 {this.props.property ? (
                     <div>
-                        <h3>{this.props.property.title}</h3>
-                        <FontAwesome name="star" className={this.props.property.avg_rating > 0 ? 'orange' : ''} />
+                        <h3>{this.props.property.id}</h3>
+                        
                         <FontAwesome name="star" className={this.props.property.avg_rating > 1 ? 'orange' : ''} />
                         <FontAwesome name="star" className={this.props.property.avg_rating > 2 ? 'orange' : ''} />
                         <FontAwesome name="star" className={this.props.property.avg_rating > 3 ? 'orange' : ''} />
