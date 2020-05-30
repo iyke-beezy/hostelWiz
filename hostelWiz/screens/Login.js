@@ -22,6 +22,8 @@ class LoginScreen extends React.Component {
     user: null,
     loading: false,
     isReady: false,
+    username:'',
+    password:'',
   }
 
   /*   componentDidMount() {
@@ -114,11 +116,21 @@ class LoginScreen extends React.Component {
 
   _login = async () => {
     this.setState({ loading: true })
+    
+    
     try {
+      
       const token = await loginUser(this.state.username, this.state.password);
-      SecureStore.setItemAsync('token', token)
+     const t = {token}
+     console.log(t)
+     //SecureStore.setItemAsync('token', token)
       this.setState({ loading: false })
-      this.props.navigation.navigate("Root")
+      this.props.navigation.navigate("Root",{
+       screen: 'Explore',
+      params: { t: t },
+    }
+      )
+     
     }
     catch (err) {
       this.setState({ err: err.errMessage, loading: false })
@@ -128,6 +140,7 @@ class LoginScreen extends React.Component {
 
   handleUsername = username => {
     this.setState({ username })
+   
     if (this.state.loading) {
       this.setState({ loading: false })
     }

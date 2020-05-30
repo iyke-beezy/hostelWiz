@@ -1,7 +1,7 @@
 //functions for API calls to the server
 //login requires username, and password
 
-//const REACT_APP_API_URL= 'http://192.168.43.80:8000'
+//const REACT_APP_API_URL= ' 192.168.43.80:8000'
 const REACT_APP_API_URL= 'https://hostelwiz.herokuapp.com'
 //const REACT_APP_FIREBASE_API_KEY= AIzaSyCUcV5erWI5t4vvDNVYs_RdG7s-WtzUDxc
 //const REACT_APP_FIREBASE_AUTH_DOMAIN= hostelwiz.firebaseapp.com
@@ -28,9 +28,30 @@ export const loginUser = async(username, password) => {
     throw new Error(errMessage)
 }
 
+export const searchProperty = async(location) => {
+    // const response = await fetch(REACT_APP_API_URL + '/hostelwiz/login/', {
+     const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/search_property/`, {
+         method: 'POST',
+         headers: {
+ 
+             'Content-Type': 'application/json',
+         },
+         body: JSON.stringify({ location:location })
+     })
+       
+ 
+     if(response.ok){
+        const data = await response.json()
+        return data
+    }
+
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+ }
+
 //register new user
 export const registerUser = async (data = {}) => {
-
+ 
     const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/users/`, {
 
         method: 'POST',
@@ -50,6 +71,24 @@ export const getProperties = async () => {
 
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
+    })
+    if(response.ok){
+        const data = await response.json()
+        return data
+    }
+
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+}
+
+//get property details
+export const getUser = async (token) => {
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/users/get_user/`, {
+
+        method: 'GET',
+        headers: {'Content-Type': 'application/json',
+                    'Authorization':'token 286ffbb3abfacc19e516ae4327deae01bb7132b5'
+                }
     })
     if(response.ok){
         const data = await response.json()
@@ -86,7 +125,23 @@ export const saveProperties = async (property_id,token,) => {
         headers: {'Content-Type': 'application/json' ,
                'Authorization':token 
              }
-               
+
+    })
+    if(response.ok){
+        return true
+    }
+
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+}
+
+export const getSavedProperties = async (token) => {
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/saved/get_saved/`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json' ,
+               'Authorization':token 
+             }
+
     })
     if(response.ok){
         return true

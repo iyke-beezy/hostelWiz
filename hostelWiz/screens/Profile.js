@@ -4,10 +4,26 @@ import { Card,Button, Icon } from 'react-native-elements';
 import { grey } from 'ansi-colors';
 import { AntDesign ,Entypo} from '@expo/vector-icons';
 import Colors from '../constants/Colors';
+import { getUser } from '../api';
+
 
 
 class ProfileScreen extends React.Component {
+  state={
+    token:'',
+    user:{
+    
+    },
+  }
+  componentDidMount(){
+    this.getUserDetails();
+  
+  }
 
+  getUserDetails = async () => {
+    const profile = await getUser(this.state.token)
+    this.setState({user:profile.user})
+  }
 
   switchRoute=(param)=>{
   switch(param) {
@@ -55,10 +71,10 @@ class ProfileScreen extends React.Component {
             source={require('../assets/images/user-active.png')}
             />
             <Text>
-                Test User
+                {this.state.user.first_name}
             </Text>
             <Text>
-                user@test.com
+                {this.state.user.email}
             </Text>
         </View>
         <FlatList

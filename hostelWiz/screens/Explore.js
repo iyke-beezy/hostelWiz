@@ -8,24 +8,32 @@ import { SliderBox } from "react-native-image-slider-box";
 import { Asset } from 'expo-asset';
 import { AppLoading } from 'expo';
 const screenHeight = Math.round(Dimensions.get('window').height);
-import { getProperties } from '../api';
+import { getProperties , searchProperty} from '../api';
 import styles from './explore-styles'
 
 
 class ExploreScreen extends React.Component {
+  
+ 
   state = {
-    searchQuery: '',
-    rating: 2,
-    save: false,
-    isReady: false,
-    images: [
-      "https://source.unsplash.com/1024x768/?nature",
-      "https://source.unsplash.com/1024x768/?water",
-      "https://source.unsplash.com/1024x768/?girl",
-      "https://source.unsplash.com/1024x768/?tree", // Network image
-      // require('./assets/images/hostel.jpg'),          // Local image
-    ]
-  };
+      searchQuery: '',
+      rating: 2,
+      save: false,
+      isReady: false,
+      property:[],
+      //token:1,
+      token:this.props.route.params.t,
+      images: [
+        "https://source.unsplash.com/1024x768/?nature",
+        "https://source.unsplash.com/1024x768/?water",
+        "https://source.unsplash.com/1024x768/?girl",
+        "https://source.unsplash.com/1024x768/?tree",
+        "https://hostelwiz.herokuapp.com/media/hostelpics/Property%20object%20(3)/alberto-castillo-q-mx4mSkK9zeo-unsplash.jpg", // Network image
+        // require('./assets/images/hostel.jpg'),          // Local image
+      ]
+   
+  }
+ 
 
   componentDidMount() {
     this.getProperties();
@@ -33,19 +41,31 @@ class ExploreScreen extends React.Component {
 
   getProperties = async () => {
     const data = await getProperties();
+    this.setState({property:data});
+    console.log(this.state.property)
+    
+  }
+
+  getSearchedProperty = async () => {
+    const searchedData = await searchProperty(this.state.searchQuery);
+    console.log(searchedData)
   }
 
   save = () => {
     this.setState({ save: !this.state.save })
   }
 
-  _onChangeSearch = query => this.setState({ searchQuery: query });
+  _onChangeSearch = query => { 
+    this.setState({ searchQuery: query },this.getSearchedProperty)
+  
+  };
 
   async _cacheResourcesAsync() {
     const images = ["https://source.unsplash.com/1024x768/?nature",
       "https://source.unsplash.com/1024x768/?water",
       "https://source.unsplash.com/1024x768/?girl",
       "https://source.unsplash.com/1024x768/?tree",
+      "https://hostelwiz.herokuapp.com/media/hostelpics/Property%20object%20(3)/alberto-castillo-q-mx4mSkK9zeo-unsplash.jpg",
       require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')];
 
     const cacheImages = images.map(image => {
@@ -65,7 +85,9 @@ class ExploreScreen extends React.Component {
             onFinish={() => this.setState({ isReady: true })}
             onError={console.warn}
           />
-        ) :
+        )
+        
+        :
           (
             <View style={styles.container}>
               <ScrollView
@@ -81,7 +103,7 @@ class ExploreScreen extends React.Component {
               </ScrollView>
               {
                 this.state.searchQuery === '' ?
-                  <ScrollView>
+                  <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={styles.belowSearchBar}>
                       <Text style={{ fontSize: 25, fontFamily: 'Baloo-Paaji-Medium' }}>
                         Explore Hostel Wiz
@@ -105,122 +127,137 @@ class ExploreScreen extends React.Component {
                       </View>
 
                       {/* Max card details */}
-                      <View style={styles.maxCardComponent}>
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('details')}>
-                          <View style={[styles.maxCard]}>
-                            <SliderBox dotColor={'orange'} onCurrentImagePressed={() => this.props.navigation.navigate('details')} autoplay={true} sliderBoxHeight={screenHeight / 4 - 5} images={this.state.images} >
-                            </SliderBox>
-                            <TouchableOpacity
-                              onPress={() => this.save()}
-                              style={styles.saveButton}>
-                              <View>
-                                {
-                                  this.state.save ? <AntDesign color='red' style={{ marginTop: 7 }} size={25} name="heart" />
-                                    :
-                                    <AntDesign color='white' style={{ marginTop: 7 }} size={25} name="heart" />
-                                }
-
-                              </View>
-                            </TouchableOpacity>
-
-                            <View style={styles.maxCardTextArea}>
-                              <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', }}>
+                      { this.state.property.map( property => {
+                        return (
+                          <View key={property.id} style={styles.maxCardComponent}>
+                          <TouchableHighlight onPress={() => this.props.navigation.navigate('details',{property:property,token:this.state.token})}>
+                            <View style={[styles.maxCard]}>
+                          
+                              <SliderBox dotColor={'orange'} onCurrentImagePressed={() => this.props.navigation.navigate('details',{property:property,token:this.state.token})} autoplay={true} sliderBoxHeight={screenHeight / 4 - 5} images={this.state.images} >
+                              </SliderBox>
+                            
+                    
+                              <TouchableOpacity
+                                onPress={() => this.save()}
+                                style={styles.saveButton}>
                                 <View>
-                                  <Text style={styles.title}>
-                                    Grand Royal Hostels
-                                </Text>
+                                  {
+                                    this.state.save ? <AntDesign color='red' style={{ marginTop: 7 }} size={25} name="heart" />
+                                      :
+                                      <AntDesign color='white' style={{ marginTop: 7 }} size={25} name="heart" />
+                                  }
+  
                                 </View>
-                                <View>
-                                  <Text style={styles.price}>
-                                    Ghc 120.00
+                              </TouchableOpacity>
+  
+                              <View style={styles.maxCardTextArea}>
+                                <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', }}>
+                                  <View>
+                                    <Text style={styles.title}>
+                                     {property.name}
                                   </Text>
-                                  <Text style={{ color: 'grey', fontFamily: 'Baloo-Paaji' }} >/per day</Text>
+                                  </View>
+                                  <View>
+                                    <Text style={styles.price}>
+                                      Ghc {property.price}
+                                    </Text>
+                                    <Text style={{ color: 'grey', fontFamily: 'Baloo-Paaji' }} >/per day</Text>
+                                  </View>
                                 </View>
-                              </View>
-                              <View style={styles.description}>
-                                <View>
-                                  <Text style={{ color: 'grey', fontSize: 10, fontFamily: 'Baloo-Paaji'}} >Second otwe street , 0.2 km from your location</Text>
+                                <View style={styles.description}>
+                                  <View>
+                                    <Text style={{ color: 'grey', fontSize: 10, fontFamily: 'Baloo-Paaji'}} >{property.location} , 0.2 km from your location</Text>
+                                  </View>
+  
+  
                                 </View>
-
-
+  
+                                <View style={styles.rating}>
+                                  <AntDesign size={20} color={property.avg_rating > 0 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                  <AntDesign size={20} color={property.avg_rating > 1 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                  <AntDesign size={20} color={property.avg_rating > 2 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                  <AntDesign size={20} color={property.avg_rating > 3 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                  <AntDesign size={20} color={property.avg_rating > 4 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                </View>
+  
                               </View>
-
-                              <View style={styles.rating}>
-                                <AntDesign size={20} color={this.state.rating > 0 ? 'orange' : Colors.tabIconDefault} name="star" />
-                                <AntDesign size={20} color={this.state.rating > 1 ? 'orange' : Colors.tabIconDefault} name="star" />
-                                <AntDesign size={20} color={this.state.rating > 2 ? 'orange' : Colors.tabIconDefault} name="star" />
-                                <AntDesign size={20} color={this.state.rating > 3 ? 'orange' : Colors.tabIconDefault} name="star" />
-                                <AntDesign size={20} color={this.state.rating > 4 ? 'orange' : Colors.tabIconDefault} name="star" />
-                              </View>
-
                             </View>
-                          </View>
-                        </TouchableHighlight>
-                      </View>
+                          </TouchableHighlight>
+                        </View>
+                        );
+                        
+                        })}
+                  
 
 
                     </View>
                   </ScrollView>
                   :
+
+
                   //screen to show when user searches for hoste
                   <ScrollView>
                     <View style={styles.belowSearchBar}>
 
                       {/* Max card details */}
-                      <View style={styles.maxCardComponent}>
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('details')}>
-                          <View style={[styles.maxCard]}>
-                            <SliderBox dotColor={'orange'} onCurrentImagePressed={() => this.props.navigation.navigate('details')} autoplay={true} sliderBoxHeight={screenHeight / 4 - 5} images={this.state.images} >
-                            </SliderBox>
-                            <TouchableOpacity
-                              onPress={() => this.save()}
-                              style={styles.saveButton}>
-                              <View>
-                                {
-                                  this.state.save ? <AntDesign color='red' style={{ marginTop: 7 }} size={25} name="heart" />
-                                    :
-                                    <AntDesign color='white' style={{ marginTop: 7 }} size={25} name="heart" />
-                                }
-
-                              </View>
-                            </TouchableOpacity>
-
-                            <View style={styles.maxCardTextArea}>
-                              <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', }}>
+                      { this.state.property.map( property => {
+                        return (
+                          <View style={styles.maxCardComponent}>
+                          <TouchableHighlight onPress={() => this.props.navigation.navigate('details')}>
+                            <View style={[styles.maxCard]}>
+                              <SliderBox dotColor={'orange'} onCurrentImagePressed={() => this.props.navigation.navigate('details')} autoplay={true} sliderBoxHeight={screenHeight / 4 - 5} images={property.images} >
+                              </SliderBox>
+                              <TouchableOpacity
+                                onPress={() => this.save()}
+                                style={styles.saveButton}>
                                 <View>
-                                  <Text style={styles.title}>
-                                    Grand Royal Hostels
-                                </Text>
+                                  {
+                                    this.state.save ? <AntDesign color='red' style={{ marginTop: 7 }} size={25} name="heart" />
+                                      :
+                                      <AntDesign color='white' style={{ marginTop: 7 }} size={25} name="heart" />
+                                  }
+  
                                 </View>
-                                <View>
-                                  <Text style={styles.price}>
-                                    Ghc 120.00
+                              </TouchableOpacity>
+  
+                              <View style={styles.maxCardTextArea}>
+                                <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', }}>
+                                  <View>
+                                    <Text style={styles.title}>
+                                      Grand Royal Hostels
                                   </Text>
-                                  <Text style={{ color: 'grey' }} >/per day</Text>
+                                  </View>
+                                  <View>
+                                    <Text style={styles.price}>
+                                      Ghc 120.00
+                                    </Text>
+                                    <Text style={{ color: 'grey' }} >/per day</Text>
+                                  </View>
                                 </View>
-                              </View>
-                              <View style={styles.description}>
-                                <View>
-                                  <Text style={{ color: 'grey', fontSize: 10}} >Second otwe street , 0.2 km from your location</Text>
+                                <View style={styles.description}>
+                                  <View>
+                                    <Text style={{ color: 'grey', fontSize: 10}} >Second otwe street , 0.2 km from your location</Text>
+                                  </View>
+  
+  
                                 </View>
-
-
+  
+                                <View style={styles.rating}>
+                                  <AntDesign size={20} color={this.state.rating > 0 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                  <AntDesign size={20} color={this.state.rating > 1 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                  <AntDesign size={20} color={this.state.rating > 2 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                  <AntDesign size={20} color={this.state.rating > 3 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                  <AntDesign size={20} color={this.state.rating > 4 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                </View>
+  
                               </View>
-
-                              <View style={styles.rating}>
-                                <AntDesign size={20} color={this.state.rating > 0 ? 'orange' : Colors.tabIconDefault} name="star" />
-                                <AntDesign size={20} color={this.state.rating > 1 ? 'orange' : Colors.tabIconDefault} name="star" />
-                                <AntDesign size={20} color={this.state.rating > 2 ? 'orange' : Colors.tabIconDefault} name="star" />
-                                <AntDesign size={20} color={this.state.rating > 3 ? 'orange' : Colors.tabIconDefault} name="star" />
-                                <AntDesign size={20} color={this.state.rating > 4 ? 'orange' : Colors.tabIconDefault} name="star" />
-                              </View>
-
                             </View>
-                          </View>
-                        </TouchableHighlight>
-                      </View>
-
-
+                          </TouchableHighlight>
+                        </View>
+  
+  
+                        );})}
+                     
                     </View>
                   </ScrollView>
               }

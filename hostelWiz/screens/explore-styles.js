@@ -59,6 +59,8 @@ export default {
         alignItems: 'center',
         marginBottom: screenHeight * 0.03,
         marginRight: screenWidth * 0.05,
+        
+        
 
     },
     maxCard: {
@@ -66,7 +68,8 @@ export default {
         borderRadius: 14,
         marginRight: screenWidth * 0.1,
         elevation: 1,
-        width: screenWidth * 0.9
+        width: screenWidth * 0.9,
+      
     },
     maxCardTextArea: {
         backgroundColor: "white",
