@@ -125,7 +125,6 @@ export const saveProperties = async (property_id, token,) => {
         headers: {'Content-Type': 'application/json' ,
                'Authorization':token 
              }
-
     })
     if(response.ok){
         const {message} = await response.json()
