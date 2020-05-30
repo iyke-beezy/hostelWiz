@@ -46,8 +46,9 @@ class ExploreScreen extends React.Component {
     
   }
 
-  getSearchedProperty = async () => {
-    const searchedData = await searchProperty(this.state.searchQuery);
+  getSearchedProperty = async (location) => {
+    const searchedData = await searchProperty(location);
+    this.setState({property:searchedData});
     console.log(searchedData)
   }
 
@@ -57,7 +58,7 @@ class ExploreScreen extends React.Component {
 
   _onChangeSearch = query => { 
     this.setState({ searchQuery: query },this.getSearchedProperty)
-  
+   this.getSearchedProperty(query)
   };
 
   async _cacheResourcesAsync() {
