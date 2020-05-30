@@ -119,7 +119,7 @@ export const rateProperties = async (property_id,token,number_of_stars) => {
 }
 
 //save property
-export const saveProperties = async (property_id,token,) => {
+export const saveProperties = async (property_id, token,) => {
     const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/${property_id}/save_property/`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json' ,
@@ -128,7 +128,8 @@ export const saveProperties = async (property_id,token,) => {
 
     })
     if(response.ok){
-        return true
+        const {message} = await response.json()
+        return message
     }
 
     const errMessage = await response.text()
@@ -144,7 +145,8 @@ export const getSavedProperties = async (token) => {
 
     })
     if(response.ok){
-        return true
+        const {message} = await response.json()
+        return message
     }
 
     const errMessage = await response.text()

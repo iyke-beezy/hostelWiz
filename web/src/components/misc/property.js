@@ -6,7 +6,7 @@ import Slider from '../productSlider'
 var FontAwesome = require('react-fontawesome')
 
 const propTypes = {
-    property: PropTypes.array.isRequired,
+    property: PropTypes.object.isRequired,
     loggedIn: PropTypes.bool,
     loading: PropTypes.bool
 };

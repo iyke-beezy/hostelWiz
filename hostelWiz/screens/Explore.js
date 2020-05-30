@@ -1,14 +1,16 @@
 import * as React from 'react';
-import {Text, View, TouchableHighlight, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
-import { Card} from 'react-native-elements';
+import { Text, ToastAndroid, View, TouchableHighlight, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
+import { Card } from 'react-native-elements';
 import { Searchbar } from 'react-native-paper';
 import { AntDesign } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 import { SliderBox } from "react-native-image-slider-box";
+import * as SecureStore from 'expo-secure-store';
 import { Asset } from 'expo-asset';
 import { AppLoading } from 'expo';
 const screenHeight = Math.round(Dimensions.get('window').height);
-import { getProperties , searchProperty} from '../api';
+const screenWidth = Math.round(Dimensions.get('window').width);
+import { getProperties, saveProperties, searchProperty } from '../api';
 import styles from './explore-styles'
 
 
@@ -37,12 +39,18 @@ class ExploreScreen extends React.Component {
 
   componentDidMount() {
     this.getProperties();
+    this.setState({ token: SecureStore.getItemAsync('token') })
   }
 
   getProperties = async () => {
+    try{
     const data = await getProperties();
     this.setState({property:data});
     console.log(this.state.property)
+    }
+    catch(err) {
+      this.setState({err: err.errMessage})
+    }
     
   }
 
@@ -52,8 +60,23 @@ class ExploreScreen extends React.Component {
     console.log(searchedData)
   }
 
-  save = () => {
+  save = async (propertyID) => {
     this.setState({ save: !this.state.save })
+    if (!this.state.save) {
+      try {
+        const successMessage = await saveProperties(propertyID, this.state.token)
+        ToastAndroid.showWithGravityAndOffset(
+          successMessage,
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+          25,
+          50
+        );
+      }
+      catch(err){
+        this.setState({err: err.errMessage})
+      }
+    }
   }
 
   _onChangeSearch = query => { 
@@ -120,7 +143,7 @@ class ExploreScreen extends React.Component {
                         </Card>
                         <Card containerStyle={styles.miniCard}
                           image={require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')}
-                          imageStyle={{ borderRadius: 10 }}>
+                          imageStyle={{ borderTopLeftRadius: 15, borderTopRightRadius: 15}}>
                           <Text style={{ textAlign: 'center', marginBottom: 10, fontFamily: 'Baloo-Paaji-Medium' }}>
                             Explore Hostels
                     </Text>
@@ -189,7 +212,6 @@ class ExploreScreen extends React.Component {
                         
                         })}
                   
-
 
                     </View>
                   </ScrollView>

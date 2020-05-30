@@ -5,68 +5,58 @@ import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { registerUser } from '../api';
-
+import * as SecureStore from 'expo-secure-store';
 
 class SignUpScreen extends React.Component {
   state = {
-    username:'',
-    password:'',
-    first_name:'',
-    last_name:'',
-    email:'',
-    groups:'',
-    contact:'',
+    username: '',
+    password: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    groups: '',
+    contact: '',
   }
 
   _login = async () => {
     try {
-         const token = await loginUser(this.state.username, this.state.password)
-        // this.props.cookies.set('mr-token', token);
-         console.log(token)
-         if(token !== undefined ){
-           this.props.navigation.navigate('Root')
-         }
-         else(
-           alert('wrong username or password')
-         )
-         
-     }
-     catch (err) {
-         console.log(err.errMessage)
-     }
-   
- }
+      const token = await loginUser(this.state.username, this.state.password)
+      // this.props.cookies.set('mr-token', token);
+      console.log(token)
+      SecureStore.setItemAsync('token', token)
+      this.props.navigation.navigate('Root')
+    }
+    catch (err) {
+      console.log(err.errMessage)
+    }
+
+  }
 
   _signUp = async () => {
     try {
-        const data = {
-            username: this.state.username,
-            password: this.state.password,
-            first_name: this.state.first_name,
-            last_name: this.state.last_name,
-            email: this.state.email,
-            groups: this.state.groups,
-            contact: this.state.contact,
-        }
-        const response = await registerUser(data)
-        if(response){
-          ToastAndroid.showWithGravityAndOffset(
-            'You were succesfully registered',
-            ToastAndroid.LONG,
-            ToastAndroid.BOTTOM,
-            25,
-            50
-          );
-         console.log(response)
-         this.props.navigation.navigate('Login')
-        }
-        console.log(response)
-         
+      const data = {
+        username: this.state.username,
+        password: this.state.password,
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
+        email: this.state.email,
+        groups: this.state.groups,
+        contact: this.state.contact,
+      }
+      const response = await registerUser(data)
+      ToastAndroid.showWithGravityAndOffset(
+        'You were succesfully registered',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+        25,
+        50
+      );
+      await this._login()
     }
     catch (err) {
-        console.log(err.errMessage)
+      console.log(err.errMessage)
     }
-}
+  }
 
   render() {
     return (
@@ -84,8 +74,8 @@ class SignUpScreen extends React.Component {
             style={[styles.loginFormTextInput,
             { fontFamily: "Baloo-Paaji", color: '#fff' }
             ]}
-            onChangeText={(text) => this.setState({username:text})}
-            />
+            onChangeText={(text) => this.setState({ username: text })}
+          />
 
           <TextInput
             placeholder="Password"
@@ -94,17 +84,17 @@ class SignUpScreen extends React.Component {
             { fontFamily: "Baloo-Paaji", color: '#fff' }
             ]}
             secureTextEntry={true}
-            onChangeText={(text) => this.setState({password:text})}
-             />
+            onChangeText={(text) => this.setState({ password: text })}
+          />
 
-            <TextInput
+          <TextInput
             placeholder="Email"
             placeholderColor="#fff"
             style={[styles.loginFormTextInput,
             { fontFamily: "Baloo-Paaji", color: '#fff' }
             ]}
-            onChangeText={(text) => this.setState({email:text})}
-            />
+            onChangeText={(text) => this.setState({ email: text })}
+          />
 
           <TextInput
             placeholder="first name"
@@ -112,34 +102,34 @@ class SignUpScreen extends React.Component {
             style={[styles.loginFormTextInput,
             { fontFamily: "Baloo-Paaji", color: '#fff' }
             ]}
-            onChangeText={(text) => this.setState({first_name:text})}
-            />
+            onChangeText={(text) => this.setState({ first_name: text })}
+          />
 
-              <TextInput
+          <TextInput
             placeholder="last name"
             placeholderColor="#fff"
             style={[styles.loginFormTextInput,
             { fontFamily: "Baloo-Paaji", color: '#fff' }
             ]}
-            onChangeText={(text) => this.setState({last_name:text})}
-            />
+            onChangeText={(text) => this.setState({ last_name: text })}
+          />
 
           <TextInput
             placeholder="phonenumber"
             placeholderColor="#fff"
             style={[styles.loginFormTextInput,
             { fontFamily: "Baloo-Paaji", color: '#fff' }
-            ]} 
-            onChangeText={(text) => this.setState({contact:text})}
-            />
+            ]}
+            onChangeText={(text) => this.setState({ contact: text })}
+          />
           <TextInput
             placeholder="group"
             placeholderColor="#fff"
             style={[styles.loginFormTextInput,
             { fontFamily: "Baloo-Paaji", color: '#fff' }
             ]}
-            onChangeText={(text) => this.setState({groups:text})}
-            />
+            onChangeText={(text) => this.setState({ groups: text })}
+          />
 
           <Button
             buttonStyle={styles.loginButton}
@@ -170,9 +160,9 @@ class SignUpScreen extends React.Component {
           </TouchableNativeFeedback>
 
           <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('Login')} style={{ paddingLeft: 10, }}>
-          <View style={{paddingLeft: 10, paddingBottom: 10}}>
-            <Text style={{ fontFamily: "Baloo-Paaji" }}>Already have an account?  <Text style={{ fontWeight: 'bold', fontFamily: 'Baloo-Paaji-Medium', color: '#92A5A3' }}>Login</Text></Text>
-          </View>
+            <View style={{ paddingLeft: 10, paddingBottom: 10 }}>
+              <Text style={{ fontFamily: "Baloo-Paaji" }}>Already have an account?  <Text style={{ fontWeight: 'bold', fontFamily: 'Baloo-Paaji-Medium', color: '#92A5A3' }}>Login</Text></Text>
+            </View>
           </TouchableWithoutFeedback>
         </KeyboardAwareScrollView>
       </ImageBackground>

@@ -23,15 +23,15 @@ const Slider = () => {
     <Pane
       elevation={1}
       border="none"
-      borderLeftRadius={16}
-      borderRightRadius={16}
+      borderTopLeftRadius={16}
+      borderTopRightRadius={16}
       width={512}
       height={'auto'}
       margin={0}
     >
       <Carousel autoplay >
         {images.map(image => {
-          return <div><img className='image' key={image} src={image} alt="item" style={{ borderRadius: "16px 16px 0px 0px", }} /></div>
+          return <div key={image} style={{borderTopRightRadius: 16}}><img className='image'  src={image} alt="item" style={{ borderRadius: "16px 16px 0px 0px", }} /></div>
         })}
       </Carousel>
     </Pane>

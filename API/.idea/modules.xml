@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/API.iml" filepath="$PROJECT_DIR$/.idea/API.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../personal/tutorial/MovieRaterApi/.idea/MovieRaterApi.iml" filepath="$PROJECT_DIR$/../../personal/tutorial/MovieRaterApi/.idea/MovieRaterApi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../personal/tutorial/django-tutorial/.idea/django-tutorial.iml" filepath="$PROJECT_DIR$/../../personal/tutorial/django-tutorial/.idea/django-tutorial.iml" />
     </modules>
   </component>
 </project>

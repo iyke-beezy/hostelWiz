@@ -9,7 +9,7 @@ import BottomTabNavigator from './navigation/BottomTabNavigator';
 import Login from './screens/Login';
 import SignUpScreen from './screens/SignUp';
 import HostingOne from './screens/HostingOne';
-import DetailsScreen  from './screens/DetailsScreen';
+import DetailsScreen from './screens/DetailsScreen';
 import HostingTwo from './screens/HostingTwo';
 import HostingThree from './screens/HostingThree';
 import HMBottomTabNavigator from './navigation/HMBottomTabNavigation';
@@ -17,11 +17,13 @@ import useLinking from './navigation/useLinking';
 import EditProfile from './screens/EditProfile';
 
 import * as SecureStore from 'expo-secure-store';
+import ExploreScreen from './screens/Explore';
 const Stack = createStackNavigator();
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const [initialNavigationState, setInitialNavigationState] = React.useState();
+  const [initialRouteName, setinitialRouteName] = React.useState('Login');
   const containerRef = React.useRef();
   const { getInitialState } = useLinking(containerRef);
 
@@ -33,7 +35,9 @@ export default function App(props) {
 
         // Load our initial navigation state
         setInitialNavigationState(await getInitialState());
-
+        if (SecureStore.getItemAsync('token')) {
+          setinitialRouteName('Root')
+        }
         // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,
@@ -56,60 +60,67 @@ export default function App(props) {
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return null;
   } else {
+
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <Stack.Navigator>
-          <Stack.Screen
-           name="Login"
-            component={Login}
-            options={{
-              headerShown: false,
-            
-            }}
+          <Stack.Navigator initialRouteName={initialRouteName}>
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{
+                headerShown: false,
+
+              }}
             />
-            <Stack.Screen name="Root" 
-               options={{
+            <Stack.Screen name="exploreScreen"
+              options={{
                 headerShown: false,
-              
-              }}
-            component={BottomTabNavigator} />
-              <Stack.Screen name="SignUp" 
-               options={{
-                headerShown: false,
-              
-              }}
-            component={SignUpScreen} />
 
-              <Stack.Screen name="Hone" 
-               options={{
-                headerShown: false,
-              
               }}
-            component={HostingOne} />
-            
-             <Stack.Screen name="Htwo" 
-               options={{
+              component={ExploreScreen} />
+            <Stack.Screen name="Root"
+              options={{
                 headerShown: false,
-              
-              }}
-            component={HostingTwo} />
-            
-             <Stack.Screen name="details" 
-               options={{
-                headerShown: false,
-              
-              }}
-            component={DetailsScreen} />
 
-              <Stack.Screen name="HMnav" 
-               options={{ headerShown: false, }}
-            component={HMBottomTabNavigator} />
+              }}
+              component={BottomTabNavigator} />
+            <Stack.Screen name="SignUp"
+              options={{
+                headerShown: false,
 
-              <Stack.Screen name="edit" 
-               options={{ headerShown: false, }}
-            component={EditProfile} />
+              }}
+              component={SignUpScreen} />
+
+            <Stack.Screen name="Hone"
+              options={{
+                headerShown: false,
+
+              }}
+              component={HostingOne} />
+
+            <Stack.Screen name="Htwo"
+              options={{
+                headerShown: false,
+
+              }}
+              component={HostingTwo} />
+
+            <Stack.Screen name="details"
+              options={{
+                headerShown: false,
+
+              }}
+              component={DetailsScreen} />
+
+            <Stack.Screen name="HMnav"
+              options={{ headerShown: false, }}
+              component={HMBottomTabNavigator} />
+
+            <Stack.Screen name="edit"
+              options={{ headerShown: false, }}
+              component={EditProfile} />
 
           </Stack.Navigator>
         </NavigationContainer>

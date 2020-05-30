@@ -14,13 +14,13 @@ class Building extends React.Component {
                 name: 'name',
                 price: 'price',
                 type: 'rent',
-            }
+            },
         ],
         loggedIn: false,
         token: null,
     }
     componentDidMount() {
-        //this.setState({loading:false})
+        this.getProperties()
         if (this.props.cookies.get('mr-token')) {
             this.setState({ loggedIn: true, token : this.props.cookies.get('mr-token') })
         }
@@ -30,7 +30,8 @@ class Building extends React.Component {
     getProperties = async () => {
         try {
             const success = await getProperties()
-            console.log(success)
+            this.setState({data: success.filter(property => property.type === 'hostel')})
+            this.setState({loading:false})
         }
         catch(err){
             console.log(err.errMessage)
@@ -42,8 +43,8 @@ class Building extends React.Component {
             <React.Fragment>
                 {this.state.data.map(property => {
                     return (
-                        <div className="propertyItem">
-                            <PropertyItem property={this.state.data} loading={this.state.loading} loggedIn={this.state.loggedIn} />
+                        <div className="propertyItem" key={property.id}>
+                            <PropertyItem property={property} loading={this.state.loading} loggedIn={this.state.loggedIn} />
                         </div>
                     )
                 })}
