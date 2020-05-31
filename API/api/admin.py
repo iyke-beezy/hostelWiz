@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import HostelManager, Rating, Customer, AdminUser, Room, Property, User, Saved
+from .models import HostelManager, Rating, Customer, AdminUser, Room, Property, User, Saved,PropertyImage
 # Register your models here.
 
 admin.site.register(Saved)
@@ -10,3 +10,4 @@ admin.site.register(AdminUser)
 admin.site.register(Room)
 admin.site.register(Property)
 admin.site.register(User)
+admin.site.register(PropertyImage)

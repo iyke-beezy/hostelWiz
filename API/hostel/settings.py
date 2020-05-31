@@ -25,7 +25,7 @@ SECRET_KEY = '-s%qcahlyxc6$+&emeexbk^=fj5_a)j+seuxz$^9!-8dwpzk1e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -49,6 +49,8 @@ AUTH_USER_MODEL = 'api.User'
 CORS_ORIGIN_WHITELIST = (
 
     'http://localhost:3000',
+    'http://localhost:19002',
+    'exp://192.168.43.80:19000',
 
 )
 
@@ -90,7 +92,7 @@ WSGI_APPLICATION = 'hostel.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
@@ -131,8 +133,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR, '_staticfiles')
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'modia')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'modia').replace('\\','/')
 MEDIA_URL = '/media/'

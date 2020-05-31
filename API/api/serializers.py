@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Customer, HostelManager, AdminUser, Property, Rating, Room, User, Saved
+from .models import Customer, HostelManager, AdminUser, Property, Rating, Room, User, Saved, PropertyImage
 from rest_framework.authtoken.models import Token
 
 
@@ -35,14 +35,20 @@ class AdminSerializer(serializers.ModelSerializer):
         model = AdminUser
         fields = ('id', 'user')
 
+class PropertyImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PropertyImage
+        fields = (
+            'id', 'property', 'image'
+        )
 
 class PropertySerializer(serializers.ModelSerializer):
+    images = PropertyImageSerializer(many=True)
     class Meta:
         model = Property
         fields = (
-            'id', 'managerId', 'description', 'location', 'numberOfRooms', 'type', 'pictureLocation',
-            'pictureLocation1', 'pictureLocation2', 'pictureLocation3', 'pictureLocation4', 'pictureLocation5', 'pictureLocation6', 'pictureLocation7', 'pictureLocation8', 'pictureLocation9', 'pictureLocation10', 'name'
-
+            'id', 'managerId', 'name', 'description', 'location', 'numberOfRooms', 'type',
+            'no_of_ratings', 'avg_rating', 'rate_type', 'headline', 'price', 'images'
         )
 
 
@@ -59,6 +65,7 @@ class RoomSerializer(serializers.ModelSerializer):
 
 
 class SavedSerializer(serializers.ModelSerializer):
+    properties = PropertySerializer(many=True)
     class Meta:
         model = Saved
-        fields = ('id', 'user', 'property')
+        fields = ('id', 'user','properties')

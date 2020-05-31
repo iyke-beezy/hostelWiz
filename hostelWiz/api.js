@@ -28,15 +28,15 @@ export const loginUser = async(username, password) => {
     throw new Error(errMessage)
 }
 
-export const searchProperty = async(location) => {
-    // const response = await fetch(REACT_APP_API_URL + '/hostelwiz/login/', {
-     const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/search_property/`, {
-         method: 'POST',
-         headers: {
+export const searchProperty = async(loca) => {
  
-             'Content-Type': 'application/json',
-         },
-         body: JSON.stringify({ location:location })
+     const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/search_property/`, {
+        method: 'POST',
+        headers: {
+
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ location:'pent' })
      })
        
      if(response.ok){
@@ -139,12 +139,13 @@ export const getSavedProperties = async (token) => {
     const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/saved/get_saved/`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json' ,
-               'Authorization':token 
+               'Authorization':'token 286ffbb3abfacc19e516ae4327deae01bb7132b5' 
              }
 
     })
     if(response.ok){
-        return true
+        const saved = response.json()
+        return saved
     }
 
     const errMessage = await response.text()

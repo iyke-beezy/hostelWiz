@@ -40,6 +40,7 @@ class ExploreScreen extends React.Component {
 
   }
 
+<<<<<<< HEAD
   getImages = images => {
     var imagesSet = []
     for(var i = 0; i < images.length; i++){
@@ -59,15 +60,27 @@ class ExploreScreen extends React.Component {
       this.setState({ responseMessage: null })
       console.log(err.errMessage)
     }
+=======
+  getSearchedProperty = async () => {
+    const searchedData = await searchProperty(this.state.searchQuery);
+    this.setState({property:searchedData});
+    console.log(searchedData)
+>>>>>>> origin/master
   }
 
   save = () => {
     this.setState({ save: !this.state.save })
   }
 
+<<<<<<< HEAD
   _onChangeSearch = query => {
     this.setState({ searchQuery: query })
     this.getSearchedProperty()
+=======
+  _onChangeSearch = query => { 
+    this.setState({searchQuery: query })
+   this.getSearchedProperty()
+>>>>>>> origin/master
   };
 
   async _cacheResourcesAsync() {
@@ -208,6 +221,7 @@ class ExploreScreen extends React.Component {
                     <View style={styles.belowSearchBar}>
 
                       {/* Max card details */}
+<<<<<<< HEAD
                       {this.state.responseMessage ? (
                         this.state.property.map(property => {
                           return (
@@ -262,6 +276,45 @@ class ExploreScreen extends React.Component {
                                       <AntDesign size={20} color={property.avg_rating > 4 ? 'orange' : Colors.tabIconDefault} name="star" />
                                     </View>
 
+=======
+                      { this.state.property.map( property => {
+                        return (
+                          <View key={property.id} style={styles.maxCardComponent}>
+                          <TouchableHighlight onPress={() => this.props.navigation.navigate('details')}>
+                            <View style={[styles.maxCard]}>
+                              <SliderBox dotColor={'orange'} onCurrentImagePressed={() => this.props.navigation.navigate('details')} autoplay={true} sliderBoxHeight={screenHeight / 4 - 5} images={property.images} >
+                              </SliderBox>
+                              <TouchableOpacity
+                                onPress={() => this.save()}
+                                style={styles.saveButton}>
+                                <View>
+                                  {
+                                    this.state.save ? <AntDesign color='red' style={{ marginTop: 7 }} size={25} name="heart" />
+                                      :
+                                      <AntDesign color='white' style={{ marginTop: 7 }} size={25} name="heart" />
+                                  }
+  
+                                </View>
+                              </TouchableOpacity>
+  
+                              <View style={styles.maxCardTextArea}>
+                                <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', }}>
+                                  <View>
+                                    <Text style={styles.title}>
+                                      Grand Royal Hostels
+                                  </Text>
+                                  </View>
+                                  <View>
+                                    <Text style={styles.price}>
+                                      Ghc 120.00
+                                    </Text>
+                                    <Text style={{ color: 'grey' }} >/per day</Text>
+                                  </View>
+                                </View>
+                                <View style={styles.description}>
+                                  <View>
+                                    <Text style={{ color: 'grey', fontSize: 10}} >Second otwe street , 0.2 km from your location</Text>
+>>>>>>> origin/master
                                   </View>
                                 </View>
                               </TouchableHighlight>

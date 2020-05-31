@@ -7,10 +7,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ViewSet
 from .permission import IsAdminUser, IsLoggedInUserOrAdmin, IsHostelManager, IsCustomer, IsAll
-from .models import HostelManager, Rating, Customer, AdminUser, Room, Property, User, Saved
+from .models import HostelManager, Rating, Customer, AdminUser, Room, Property, User, Saved, PropertyImage
 from rest_framework import viewsets, status
 from .serializers import CustomerSerializer, RatingSerializer, UserSerializer, AdminSerializer, HostelManagerSerializer, \
-    RoomSerializer, PropertySerializer, SavedSerializer
+    RoomSerializer, PropertySerializer, SavedSerializer, PropertyImageSerializer
 from rest_framework.authentication import TokenAuthentication
 from django.db.models import Q
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -55,50 +55,34 @@ class LogoutView(APIView):
 
 
 class PropertyViewSet(viewsets.ModelViewSet):
-    parser_classes = (MultiPartParser, FormParser)
-    queryset = Property.objects.all()
+    #parser_classes = (MultiPartParser, FormParser)
+    hostelProperties = Property.objects.all()
     serializer_class = PropertySerializer
-    authentication_classes = (TokenAuthentication,)
+    queryset = hostelProperties
 
     def get_permissions(self):
         permission_classes = []
         if self.action == 'create':
+            authentication_classes = [TokenAuthentication]
             permission_classes = [IsAdminUser]
         elif self.action == 'list':
-            permission_classes = [IsAll]
-        elif self.action == 'retrieve' or self.action == 'update' or self.action == 'partial_update':
+            permission_classes = [AllowAny]
+        elif self.action == 'retrieve':
+            permission_classes = [AllowAny]
+        elif self.action == 'update' or self.action == 'partial_update':
             permission_classes = [IsLoggedInUserOrAdmin]
+            authentication_classes = [TokenAuthentication]
         elif self.action == 'destroy':
             permission_classes = [IsLoggedInUserOrAdmin]
+            authentication_classes = [TokenAuthentication]
         return [permission() for permission in permission_classes]
 
     @action(detail=False, methods=['POST'])
-    def create_property(self, request, pk=None):
+    def is_manager(self, request, pk=None):
         user = request.user
         if HostelManager.objects.filter(user=request.user).exists():
             manager = HostelManager.objects.get(user=request.user)
-            property_description = request.data['description']
-            location = request.data['location']
-            number_of_rooms = request.data['numberOfRooms']
-            property_type = request.data['type']
-            picture_location = request.data['pictureLocation']
-            picture_location1 = request.data['pictureLocation1']
-            picture_location2 = request.data['pictureLocation2']
-            picture_location3 = request.data['pictureLocation3']
-            picture_location4 = request.data['pictureLocation4']
-            picture_location5 = request.data['pictureLocation5']
-            picture_location6 = request.data['pictureLocation6']
-            picture_location7 = request.data['pictureLocation7']
-            picture_location8 = request.data['pictureLocation8']
-            picture_location9 = request.data['pictureLocation9']
-            picture_location10 = request.data['pictureLocation10']
-            name = request.data['name']
-            my_property = Property.objects.create(managerId=manager, description=property_description,
-                                                  location=location,
-                                                  numberOfRooms=number_of_rooms, type=property_type,
-                                                  pictureLocation=picture_location,
-                                                  name=name)
-            serializer = PropertySerializer(my_property)
+            serializer = HostelManagerSerializer
             response = {'message': serializer.data}
             return Response(response, status=status.HTTP_200_OK)
         else:
@@ -149,7 +133,7 @@ class PropertyViewSet(viewsets.ModelViewSet):
         except:
             saved = Saved.objects.create(user=user, property=my_property)
             serializer = SavedSerializer(saved, many=False)
-            response = {'message': 'Saved created', 'result': serializer.data}
+            response = {'message': 'Saved ', 'result': serializer.data}
             return Response(response, status=status.HTTP_200_OK)
 
     @action(detail=True, methods=['POST'])
@@ -181,17 +165,15 @@ class PropertyViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['POST'])
     def search_property(self, request, pk=None):
         self.permission_classes = [IsAll]
-        hm = HostelManager.objects.filter(status=False)
+        # hm = HostelManager.objects.filter(status=False)
         if 'location' in request.data:
 
             my_property = Property.objects.filter(
-                (Q(location=request.data['location']) & Q(managerId_status=True)) |
-                (Q(name=request.data['location']) & Q(managerId_status=True)))
+                (Q(location__contains=request.data['location'])) |
+                (Q(name__contains=request.data['location'])))
             serializer = PropertySerializer(my_property, many=True)
             response = {'message': 'Property Found', 'result': serializer.data}
             return Response(response, status=status.HTTP_200_OK)
-
-
         else:
             response = {'message': 'you need to provide stars'}
             return Response(response, status=status.HTTP_200_OK)
@@ -202,6 +184,32 @@ class RatingViewSet(viewsets.ModelViewSet):
     serializer_class = RatingSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
+
+
+class SavingViewSet(viewsets.ModelViewSet):
+    queryset = Saved.objects.all()
+    serializer_class = SavedSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    @action(detail=False, methods=['POST'])
+    def get_saved(self, request, pk=None):
+        self.permission_classes = [IsAll]
+        user = request.user
+        saved = Saved.objects.filter(user=user.id)
+        saved = saved.select_related('property')
+        serializer = SavedSerializer(saved, many=True)
+        response = {'message': 'Your saved hostels', 'result': serializer.data}
+        return Response(response, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['POST'])
+    def remove_saved(self, request, pk=None):
+        self.permission_classes = [IsAll]
+        user = request.user
+        saved = Saved.objects.filter(Q(user=user.id) & Q(id=pk))
+        saved.delete()
+        response = {'message': 'Your saved hostels was removed', 'result': 'deleted'}
+        return Response(response, status=status.HTTP_200_OK)
 
 
 class RoomViewSet(viewsets.ModelViewSet):
@@ -290,3 +298,10 @@ class HostelManagerViewSet(viewsets.ModelViewSet):
         serializer = HostelManagerSerializer(hostel_manager, many=False)
         response = {'message': 'Manager created', 'result': serializer.data}
         return Response(response, status=status.HTTP_200_OK)
+
+
+class PropertyImageViewSet(viewsets.ModelViewSet):
+    queryset = PropertyImage.objects.all()
+    serializer_class = PropertyImageSerializer
+    # authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
