@@ -62,6 +62,7 @@ class Property(models.Model):
     headline = models.CharField(max_length=32)
     rate_type = models.CharField(max_length=32)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    saved = models.ManyToManyField(Saved, related_name="properties")
 
     def no_of_ratings(self):
         ratings = Rating.objects.filter(property=self)
@@ -102,7 +103,6 @@ class PropertyImage(models.Model):
 
 
 class Saved(models.Model):
-    property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name='properties')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
