@@ -35,8 +35,8 @@ export default {
     },
     miniCard: {
         width: screenWidth * 0.4,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
+        borderRadius: 15,
+        overflow: 'hidden',
         margin: 10,
         padding: 0,
     },
