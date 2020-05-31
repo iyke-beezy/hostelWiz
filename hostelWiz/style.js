@@ -142,6 +142,11 @@ export default {
     marginLeft: -screenWidth * 0.03,
     paddingLeft: screenWidth * 0.02
   },
+  rating: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start'
+  },
   spaceBelowContent: {
     flex: 1,
     flexDirection: 'row',

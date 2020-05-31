@@ -39,7 +39,6 @@ export const searchProperty = async(location) => {
          body: JSON.stringify({ location:location })
      })
        
- 
      if(response.ok){
         const data = await response.json()
         return data
@@ -113,6 +112,7 @@ export const rateProperties = async (property_id,token,number_of_stars) => {
       
         return true
     }
+    
 
     const errMessage = await response.text()
     throw new Error(errMessage)

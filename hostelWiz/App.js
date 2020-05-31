@@ -22,6 +22,7 @@ const Stack = createStackNavigator();
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const [initialNavigationState, setInitialNavigationState] = React.useState();
+  const [initialRouteName, setinitialRouteName] = React.useState('Login');
   const containerRef = React.useRef();
   const { getInitialState } = useLinking(containerRef);
 
@@ -33,7 +34,9 @@ export default function App(props) {
 
         // Load our initial navigation state
         setInitialNavigationState(await getInitialState());
-
+        if(SecureStore.getItemAsync('token')){
+          setinitialRouteName('Root')
+        }
         // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,
