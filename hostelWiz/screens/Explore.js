@@ -40,16 +40,13 @@ class ExploreScreen extends React.Component {
 
   }
 
-  setImages = images => {
-    //console.log(images)
+  getImages = images => {
     var imagesSet = []
     for(var i = 0; i < images.length; i++){
       images.map(image => {
-        //console.log(image)
         imagesSet.push(image.image)
       })
     }
-    console.log(imagesSet)
     return imagesSet
   }
   getSearchedProperty = async () => {
@@ -146,7 +143,7 @@ class ExploreScreen extends React.Component {
                             <TouchableHighlight onPress={() => this.props.navigation.navigate('details', { property: property, token: this.state.token })}>
                               <View style={[styles.maxCard]}>
 
-                                <SliderBox dotColor={'orange'} onCurrentImagePressed={() => this.props.navigation.navigate('details', { property: property, token: this.state.token })} autoplay={true} sliderBoxHeight={screenHeight / 4 - 5} images={this.setImages(property.images)} >
+                                <SliderBox dotColor={'orange'} onCurrentImagePressed={() => this.props.navigation.navigate('details', { property: property, token: this.state.token })} autoplay={true} sliderBoxHeight={screenHeight / 4 - 5} images={this.getImages(property.images)} >
                                 </SliderBox>
 
 
@@ -218,7 +215,7 @@ class ExploreScreen extends React.Component {
                               <TouchableHighlight onPress={() => this.props.navigation.navigate('details', { property: property, token: this.state.token })}>
                                 <View style={[styles.maxCard]}>
 
-                                  <SliderBox dotColor={'orange'} onCurrentImagePressed={() => this.props.navigation.navigate('details', { property: property, token: this.state.token })} autoplay={true} sliderBoxHeight={screenHeight / 4 - 5} images={this.state.images} >
+                                  <SliderBox dotColor={'orange'} onCurrentImagePressed={() => this.props.navigation.navigate('details', { property: property, token: this.state.token })} autoplay={true} sliderBoxHeight={screenHeight / 4 - 5} images={this.getImages(property.images)} >
                                   </SliderBox>
 
 

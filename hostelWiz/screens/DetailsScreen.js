@@ -34,6 +34,15 @@ class DetailsScreen extends React.Component {
 
   }
 
+  getImages = images => {
+    var imagesSet = []
+    for (var i = 0; i < images.length; i++) {
+      images.map(image => {
+        imagesSet.push(image.image)
+      })
+    }
+    return imagesSet
+  }
 
 
   render() {
@@ -83,16 +92,12 @@ class DetailsScreen extends React.Component {
           scrollEventThrottle={2}
           showsVerticalScrollIndicator={false}
         >
-          <ScrollView style={styles.detailHeader} showsHorizontalScrollIndicator={false} horizontal={true}  >
-            <Image style={styles.detailImages} source={require('../assets/images/hostel.jpg')}>
-
-            </Image>
-            <Image style={styles.detailImages} source={require('../assets/images/hostel.jpg')}>
-
-            </Image>
-            <Image style={styles.detailImages} source={require('../assets/images/hostel.jpg')}>
-
-            </Image>
+          <ScrollView style={styles.detailHeader} showsHorizontalScrollIndicator={false} horizontal={true} >
+            {this.getImages(property.images).map(image => {
+              (
+                <Image style={styles.detailImages} source={image}>
+                </Image>)
+            })}
           </ScrollView>
           <View style={{ paddingRight: screenWidth * 0.07, flex: 1, flexDirection: 'column', paddingBottom: 10 }}>
             <Text style={styles.detailText}>
