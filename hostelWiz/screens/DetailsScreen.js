@@ -10,6 +10,7 @@ import { rateProperties } from '../api'
 class DetailsScreen extends React.Component {
 
   state = {
+    rating: 2,
     save: false,
     hostel:this.props.route.params.property,
     token:this.props.route.params.token,
@@ -18,6 +19,7 @@ class DetailsScreen extends React.Component {
   };
 
   save = () => {
+
     this.setState({ save: !this.state.save })
   }
 
@@ -34,7 +36,7 @@ class DetailsScreen extends React.Component {
  
 
   render() {
-    const property = this.props.route.params.data.property
+
     return (
       <View style={styles.detailContainer} >
         <ScrollView stickyHeaderIndices={[0]}
@@ -49,7 +51,8 @@ class DetailsScreen extends React.Component {
               </TouchableHighlight>
               <TouchableOpacity
                 onPress={() => this.save()}
-                style={styles.save}>
+                style={styles.save}
+              >
                 {
                   this.state.save ? <SimpleLineIcons name="heart" size={15} color="red" />
                     :
@@ -101,7 +104,7 @@ class DetailsScreen extends React.Component {
               {/* <Button
                 title='Call Now'
                 buttonStyle={{ borderRadius: 5, height: screenHeight / 15, backgroundColor: 'gold' }} /> */}
-              <AntDesign name="phone" size={20} color="black" />
+                <AntDesign name="phone" size={20} color="black" />
             </TouchableOpacity>
             <View style={styles.detailPriceAndRating}>
               <Text style={{ fontSize: 15, fontFamily: 'Baloo-Paaji' }} >Ghc {this.state.hostel.price}</Text>
@@ -110,7 +113,7 @@ class DetailsScreen extends React.Component {
               {/* <Button
                 title='Get Directions'
                 buttonStyle={{ borderRadius: 5, height: screenHeight / 15, backgroundColor: 'gold' }} /> */}
-              <Feather name="map-pin" size={20} color="black" />
+                <Feather name="map-pin" size={20} color="black" />
             </TouchableOpacity>
             <Modal
         animationType="slide"
@@ -150,5 +153,9 @@ class DetailsScreen extends React.Component {
     );
   }
 }
+
+
+
+
 
 export default DetailsScreen;

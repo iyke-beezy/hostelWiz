@@ -1,16 +1,14 @@
 import * as React from 'react';
-import { Text, ToastAndroid, View, TouchableHighlight, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
-import { Card } from 'react-native-elements';
+import {Text, View, TouchableHighlight, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
+import { Card} from 'react-native-elements';
 import { Searchbar } from 'react-native-paper';
 import { AntDesign } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 import { SliderBox } from "react-native-image-slider-box";
-import * as SecureStore from 'expo-secure-store';
 import { Asset } from 'expo-asset';
 import { AppLoading } from 'expo';
 const screenHeight = Math.round(Dimensions.get('window').height);
-const screenWidth = Math.round(Dimensions.get('window').width);
-import { getProperties, saveProperties, searchProperty } from '../api';
+import { getProperties , searchProperty} from '../api';
 import styles from './explore-styles'
 
 
@@ -39,49 +37,28 @@ class ExploreScreen extends React.Component {
 
   componentDidMount() {
     this.getProperties();
-    this.setState({ token: SecureStore.getItemAsync('token') })
   }
 
   getProperties = async () => {
-    try{
     const data = await getProperties();
     this.setState({property:data});
     console.log(this.state.property)
-    }
-    catch(err) {
-      this.setState({err: err.errMessage})
-    }
     
   }
 
-  getSearchedProperty = async (location) => {
-    const searchedData = await searchProperty(location);
+  getSearchedProperty = async () => {
+    const searchedData = await searchProperty(this.state.searchQuery);
     this.setState({property:searchedData});
     console.log(searchedData)
   }
 
-  save = async (propertyID) => {
+  save = () => {
     this.setState({ save: !this.state.save })
-    if (!this.state.save) {
-      try {
-        const successMessage = await saveProperties(propertyID, this.state.token)
-        ToastAndroid.showWithGravityAndOffset(
-          successMessage,
-          ToastAndroid.LONG,
-          ToastAndroid.BOTTOM,
-          25,
-          50
-        );
-      }
-      catch(err){
-        this.setState({err: err.errMessage})
-      }
-    }
   }
 
   _onChangeSearch = query => { 
     this.setState({searchQuery: query })
-   this.getSearchedProperty(this.state.searchQuery)
+   this.getSearchedProperty()
   };
 
   async _cacheResourcesAsync() {
@@ -143,7 +120,7 @@ class ExploreScreen extends React.Component {
                         </Card>
                         <Card containerStyle={styles.miniCard}
                           image={require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')}
-                          imageStyle={{ borderTopLeftRadius: 15, borderTopRightRadius: 15}}>
+                          imageStyle={{ borderRadius: 10 }}>
                           <Text style={{ textAlign: 'center', marginBottom: 10, fontFamily: 'Baloo-Paaji-Medium' }}>
                             Explore Hostels
                     </Text>
@@ -213,6 +190,7 @@ class ExploreScreen extends React.Component {
                         })}
                   
 
+
                     </View>
                   </ScrollView>
                   :
@@ -225,7 +203,7 @@ class ExploreScreen extends React.Component {
                       {/* Max card details */}
                       { this.state.property.map( property => {
                         return (
-                          <View style={styles.maxCardComponent}>
+                          <View key={property.id} style={styles.maxCardComponent}>
                           <TouchableHighlight onPress={() => this.props.navigation.navigate('details')}>
                             <View style={[styles.maxCard]}>
                               <SliderBox dotColor={'orange'} onCurrentImagePressed={() => this.props.navigation.navigate('details')} autoplay={true} sliderBoxHeight={screenHeight / 4 - 5} images={property.images} >
