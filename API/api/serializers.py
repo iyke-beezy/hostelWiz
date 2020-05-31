@@ -65,7 +65,6 @@ class RoomSerializer(serializers.ModelSerializer):
 
 
 class SavedSerializer(serializers.ModelSerializer):
-    properties = PropertySerializer(many=True)
     class Meta:
         model = Saved
-        fields = ('id', 'user','properties')
+        fields = ('id', 'user','property')
