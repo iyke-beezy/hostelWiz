@@ -46,8 +46,8 @@ class ExploreScreen extends React.Component {
     
   }
 
-  getSearchedProperty = async (location) => {
-    const searchedData = await searchProperty(location);
+  getSearchedProperty = async () => {
+    const searchedData = await searchProperty(this.state.searchQuery);
     this.setState({property:searchedData});
     console.log(searchedData)
   }
@@ -58,7 +58,7 @@ class ExploreScreen extends React.Component {
 
   _onChangeSearch = query => { 
     this.setState({searchQuery: query })
-   this.getSearchedProperty(this.state.searchQuery)
+   this.getSearchedProperty()
   };
 
   async _cacheResourcesAsync() {
@@ -203,7 +203,7 @@ class ExploreScreen extends React.Component {
                       {/* Max card details */}
                       { this.state.property.map( property => {
                         return (
-                          <View style={styles.maxCardComponent}>
+                          <View key={property.id} style={styles.maxCardComponent}>
                           <TouchableHighlight onPress={() => this.props.navigation.navigate('details')}>
                             <View style={[styles.maxCard]}>
                               <SliderBox dotColor={'orange'} onCurrentImagePressed={() => this.props.navigation.navigate('details')} autoplay={true} sliderBoxHeight={screenHeight / 4 - 5} images={property.images} >
