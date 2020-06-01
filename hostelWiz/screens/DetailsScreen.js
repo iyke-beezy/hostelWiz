@@ -41,6 +41,7 @@ class DetailsScreen extends React.Component {
         imagesSet.push(image.image)
       })
     }
+    console.log(imagesSet)
     return imagesSet
   }
 
@@ -93,11 +94,7 @@ class DetailsScreen extends React.Component {
           showsVerticalScrollIndicator={false}
         >
           <ScrollView style={styles.detailHeader} showsHorizontalScrollIndicator={false} horizontal={true} >
-            {this.getImages(property.images).map(image => {
-              (
-                <Image style={styles.detailImages} source={image}>
-                </Image>)
-            })}
+            {this.getImages(property.images).map(image => <Image key={image} style={styles.detailImages} source={{uri:`${image}`}} />)}
           </ScrollView>
           <View style={{ paddingRight: screenWidth * 0.07, flex: 1, flexDirection: 'column', paddingBottom: 10 }}>
             <Text style={styles.detailText}>

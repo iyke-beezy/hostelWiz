@@ -33,14 +33,20 @@ class SavedScreen extends React.Component {
   }
 
   getProperties = async () => {
-    const data = await getSavedProperties(this.state.token);
-    this.setState({property:data.result});
-    console.log(this.state.property)
+    try{
+      const data = await getSavedProperties(this.state.token);
+      this.setState({property:data.result});
+      console.log(this.state.property)
+    }
+    catch(err){
+      console.log(err.errMessage)
+    }
+    //this.setState({property:data});
+    
     
   }
 
   save = () => {
-    
       this.setState({save:!this.state.save}) 
   }
 

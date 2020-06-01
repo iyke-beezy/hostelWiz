@@ -8,6 +8,7 @@ import { SliderBox } from "react-native-image-slider-box";
 import { Asset } from 'expo-asset';
 import { AppLoading } from 'expo';
 const screenHeight = Math.round(Dimensions.get('window').height);
+const screenWidth = Math.round(Dimensions.get('window').width);
 import { getProperties, searchProperty, saveProperties, getSavedProperties,getUser } from '../api';
 import styles from './explore-styles'
 
@@ -186,8 +187,7 @@ class ExploreScreen extends React.Component {
                     </Text>
                         </Card>
                         <Card containerStyle={styles.miniCard}
-                          image={require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')}
-                          imageStyle={{ borderRadius: 10 }}>
+                          image={require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')}>
                           <Text style={{ textAlign: 'center', marginBottom: 10, fontFamily: 'Baloo-Paaji-Medium' }}>
                             Explore Hostels
                     </Text>
@@ -201,8 +201,14 @@ class ExploreScreen extends React.Component {
                             <TouchableHighlight onPress={() => this.props.navigation.navigate('details', { property: property, token: this.state.token })}>
                               <View style={[styles.maxCard]}>
 
-                                <SliderBox dotColor={'orange'} onCurrentImagePressed={() => this.props.navigation.navigate('details', { property: property, token: this.state.token })} autoplay={true} sliderBoxHeight={screenHeight / 4 - 5} images={this.getImages(property.images)} >
-                                </SliderBox>
+                                <SliderBox 
+                                dotColor={'orange'} 
+                                onCurrentImagePressed={() => this.props.navigation.navigate('details', { property: property, token: this.state.token })} 
+                                autoplay={true} 
+                                sliderBoxHeight={screenHeight / 4 - 5} 
+                                images={this.getImages(property.images)} 
+                                ImageComponentStyle={{borderTopLeftRadius: 15, borderTopRightRadius: 15, width: screenWidth * 0.9, marginLeft: - screenWidth * 0.1}}
+                                />
 
 
                                 <TouchableOpacity
