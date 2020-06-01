@@ -66,9 +66,11 @@ class ExploreScreen extends React.Component {
  
 
   saveProperty = async (property_id) => {
+    
     try {
       const data = await saveProperties(property_id,this.state.token.token,this.state.user.id);
-       
+      return data 
+       console.log("save me")
     } catch (err) {
       console.log(err.errMessage)
     }
@@ -119,9 +121,10 @@ class ExploreScreen extends React.Component {
     }
   }
 
-  save = (p) => {
+  save = (pr) => {
+    
     this.setState({ save: !this.state.save });
-    this.saveProperty(p);
+    this.saveProperty(pr);
   }
 
   _onChangeSearch = query => {

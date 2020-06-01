@@ -138,17 +138,20 @@ export const rateProperties = async (property_id,token,number_of_stars) => {
 }
 
 //save property
-export const saveProperties = async (property_id,token,user_id) => {
+export const saveProperties = async (property,token,user) => {
+    console.log(property,user)
     const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/saved/`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json' ,
                'Authorization':`token ${token}`
              },
-             body: JSON.stringify({ property_id:property_id, user_id:user_id })
+             body: JSON.stringify({ property_id:property, user:user })
 
     })
     if(response.ok){
-        return true
+        console.log(response.json())
+        return response.json()
+        
     }
 
     const errMessage = await response.text()
