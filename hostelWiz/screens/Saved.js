@@ -7,7 +7,7 @@ import { SliderBox } from "react-native-image-slider-box";
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
 import styles from './explore-styles'
-import { getSavedProperties ,} from '../api';
+import { getSavedProperties } from '../api';
 
 
 class SavedScreen extends React.Component {
@@ -34,9 +34,11 @@ class SavedScreen extends React.Component {
 
   getProperties = async () => {
     try{
+      const token = '286ffbb3abfacc19e516ae4327deae01bb7132b5'
       const data = await getSavedProperties(this.state.token);
+      console.log(data); 
       this.setState({property:data.result});
-      console.log(this.state.property)
+      
     }
     catch(err){
       console.log(err.errMessage)

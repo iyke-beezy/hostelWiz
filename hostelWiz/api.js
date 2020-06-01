@@ -165,7 +165,7 @@ export const getSavedProperties = async (token) => {
     })
     if(response.ok){
         const saved = response.json()
-        return saved.result.properties
+        return saved
     }
 
     const errMessage = await response.text()
