@@ -18,6 +18,7 @@ class SavedScreen extends React.Component {
     rating:2,
     save:false,
     property:[],
+    token: '286ffbb3abfacc19e516ae4327deae01bb7132b5',
     images: [
       "https://source.unsplash.com/1024x768/?nature",
       "https://source.unsplash.com/1024x768/?water",
@@ -32,9 +33,9 @@ class SavedScreen extends React.Component {
   }
 
   getProperties = async () => {
-    const data = await getSavedProperties();
-    //this.setState({property:data});
-    console.log(this.state.property);
+    const data = await getSavedProperties(this.state.token);
+    this.setState({property:data.result});
+    console.log(this.state.property)
     
   }
 
@@ -44,7 +45,17 @@ class SavedScreen extends React.Component {
   }
 
  
-
+  getImages = images => {
+    var imagesSet = []
+    for(var i = 0; i < images.length; i++){
+      images.map(image => {
+        imagesSet.push("https://hostelwiz.herokuapp.com"+image.image)
+      })
+    }
+    console.log(imagesSet)
+    return imagesSet
+    
+  }
 
   _onChangeSearch = query => this.setState({ searchQuery: query });
 
@@ -55,9 +66,9 @@ class SavedScreen extends React.Component {
         <View style={styles.container}>
            {
            
-           this.state.property === undefined ? (
-          <View style={{flex :1 , justifyContent:"flex-start" , alignItems :"center"}}>
-             <Text style = {{color:'grey'}}> No Objects found</Text>
+           this.state.property.length == 0 || this.state.property === undefined  ? (
+          <View style={{flex :1 , justifyContent:"center" , alignItems :"center"}}>
+             <Text style = {{color:'grey'}}> You have no saved properties</Text>
           </View>
          
            )
@@ -74,7 +85,7 @@ class SavedScreen extends React.Component {
                 <TouchableHighlight onPress={() => this.props.navigation.navigate('details',{property:property,token:this.state.token})}>
                   <View style={[styles.maxCard]}>
                 
-                    <SliderBox dotColor={'orange'} onCurrentImagePressed={() => this.props.navigation.navigate('details',{property:property,token:this.state.token})} autoplay={true} sliderBoxHeight={screenHeight / 4 - 5} images={this.state.images} >
+                    <SliderBox dotColor={'orange'} onCurrentImagePressed={() => this.props.navigation.navigate('details',{property:property.property,token:this.state.token})} autoplay={true} sliderBoxHeight={screenHeight / 4 - 5} images={this.getImages(property.property.images)} >
                     </SliderBox>
                   
           
@@ -95,30 +106,30 @@ class SavedScreen extends React.Component {
                       <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', }}>
                         <View>
                           <Text style={styles.title}>
-                           {property.name}
+                           {property.property.name}
                         </Text>
                         </View>
                         <View>
                           <Text style={styles.price}>
-                            Ghc {property.price}
+                            Ghc {property.property.price}
                           </Text>
                           <Text style={{ color: 'grey', fontFamily: 'Baloo-Paaji' }} >/per day</Text>
                         </View>
                       </View>
                       <View style={styles.description}>
                         <View>
-                          <Text style={{ color: 'grey', fontSize: 10, fontFamily: 'Baloo-Paaji'}} >{property.location} , 0.2 km from your location</Text>
+                          <Text style={{ color: 'grey', fontSize: 10, fontFamily: 'Baloo-Paaji'}} >{property.property.location} , 0.2 km from your location</Text>
                         </View>
   
   
                       </View>
   
                       <View style={styles.rating}>
-                        <AntDesign size={20} color={property.avg_rating > 0 ? 'orange' : Colors.tabIconDefault} name="star" />
-                        <AntDesign size={20} color={property.avg_rating > 1 ? 'orange' : Colors.tabIconDefault} name="star" />
-                        <AntDesign size={20} color={property.avg_rating > 2 ? 'orange' : Colors.tabIconDefault} name="star" />
-                        <AntDesign size={20} color={property.avg_rating > 3 ? 'orange' : Colors.tabIconDefault} name="star" />
-                        <AntDesign size={20} color={property.avg_rating > 4 ? 'orange' : Colors.tabIconDefault} name="star" />
+                        <AntDesign size={20} color={property.property.avg_rating > 0 ? 'orange' : Colors.tabIconDefault} name="star" />
+                        <AntDesign size={20} color={property.property.avg_rating > 1 ? 'orange' : Colors.tabIconDefault} name="star" />
+                        <AntDesign size={20} color={property.property.avg_rating > 2 ? 'orange' : Colors.tabIconDefault} name="star" />
+                        <AntDesign size={20} color={property.property.avg_rating > 3 ? 'orange' : Colors.tabIconDefault} name="star" />
+                        <AntDesign size={20} color={property.property.avg_rating > 4 ? 'orange' : Colors.tabIconDefault} name="star" />
                       </View>
   
                     </View>

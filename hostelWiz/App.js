@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { SplashScreen } from 'expo';
+import { SplashScreen, Notifications } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
@@ -15,6 +15,11 @@ import HostingThree from './screens/HostingThree';
 import HMBottomTabNavigator from './navigation/HMBottomTabNavigation';
 import useLinking from './navigation/useLinking';
 import EditProfile from './screens/EditProfile';
+import Notification from './screens/notification';
+import Others from './screens/others';
+import Feedback from './screens/feedback';
+import Terms from './screens/terms';
+
 
 import * as SecureStore from 'expo-secure-store';
 const Stack = createStackNavigator();
@@ -113,6 +118,22 @@ export default function App(props) {
               <Stack.Screen name="edit" 
                options={{ headerShown: false, }}
             component={EditProfile} />
+
+            <Stack.Screen name="others" 
+               options={{ headerShown: false, }}
+            component={Others} />
+
+             <Stack.Screen name="feedback" 
+               options={{ headerShown: false, }}
+            component={Feedback} />
+
+            <Stack.Screen name="terms" 
+               options={{ headerShown: false, }}
+            component={Terms} />
+
+            <Stack.Screen name="notification" 
+               options={{ headerShown: false, }}
+            component={Notification} />
 
           </Stack.Navigator>
         </NavigationContainer>

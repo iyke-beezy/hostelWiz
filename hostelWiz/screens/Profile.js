@@ -1,16 +1,19 @@
 import * as React from 'react';
-import {Keyboard,Image, Text, View,StyleSheet, TextInput,FlatList, TouchableWithoutFeedback, Alert, KeyboardAvoidingView,Dimensions} from 'react-native';
+import {Keyboard,Image, Dimensions , Text, View,StyleSheet, TextInput,FlatList, TouchableWithoutFeedback, Alert, KeyboardAvoidingView} from 'react-native';
 import { Card,Button, Icon } from 'react-native-elements';
 import { grey } from 'ansi-colors';
 import { AntDesign ,Entypo} from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 import { getUser } from '../api';
+const screenWidth = Math.round(Dimensions.get('window').width);
+const screenHeight = Math.round(Dimensions.get('window').height);
+import Constants from 'expo-constants';
 
 
 
 class ProfileScreen extends React.Component {
   state={
-    token:'',
+    token:'286ffbb3abfacc19e516ae4327deae01bb7132b5',
     user:{
     
     },
@@ -23,33 +26,38 @@ class ProfileScreen extends React.Component {
   getUserDetails = async () => {
     const profile = await getUser(this.state.token)
     this.setState({user:profile.user})
+    console.log(profile)
   }
 
   switchRoute=(param)=>{
   switch(param) {
  
     case 'Edit Profile':
-    this.props.navigation.navigate('edit')
+    this.props.navigation.navigate('edit',{user:this.state.user})
       break;
     
-    case 'Notification':
-      this.TWO();
-      break;
+    case 'Notifications':
+      this.props.navigation.navigate('notification')
+       break;
 
     case 'Try hosting with us':
       this.props.navigation.navigate('HMnav')
       break;
 
-    case 'Get Feedback':
-      this.FOUR();
+    case 'Get feedback':
+      this.props.navigation.navigate('feedback')
       break;
 
-    case 'Terms of service':
-      this.FOUR();
+    case 'Terms Of Service':
+       this.props.navigation.navigate('terms')
       break;
+
+      case 'others':
+        this.props.navigation.navigate('others')
+       break;
 
     case 'Logout':
-      this.FOUR();
+      this.props.navigation.navigate('Login');
       break;
 
     default:
@@ -105,9 +113,16 @@ class ProfileScreen extends React.Component {
 
   const styles = StyleSheet.create({
     container: {
-     flex: 1,
-     paddingTop: 40,
-     backgroundColor:'white',
+      backgroundColor: 'white',
+      flexDirection: 'column',
+      flex: 1,
+      alignItems:'stretch',
+      fontFamily: 'Baloo-Paaji',
+      justifyContent: 'center',
+      paddingTop: Constants.statusBarHeight,
+      paddingLeft: screenWidth * 0.01,
+      paddingRight: screenWidth * 0.01,
+      height: screenHeight
     },
     user:{
         alignItems:'center',
@@ -124,11 +139,13 @@ class ProfileScreen extends React.Component {
       height: 44,
     },
     logoutContainer:{
-      paddingLeft:150,
-        alignItems:"center",
+      //paddingLeft:150,
+      justifyContent:"center",
+      //  alignItems:"center",
         flexDirection:"row",
     },
     logout:{
+
       height:20,
       width:20,
     },

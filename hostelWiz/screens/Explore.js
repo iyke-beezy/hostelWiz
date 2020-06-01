@@ -8,17 +8,22 @@ import { SliderBox } from "react-native-image-slider-box";
 import { Asset } from 'expo-asset';
 import { AppLoading } from 'expo';
 const screenHeight = Math.round(Dimensions.get('window').height);
-import { getProperties, searchProperty } from '../api';
+import { getProperties, searchProperty, saveProperties, getSavedProperties,getUser } from '../api';
 import styles from './explore-styles'
 
 class ExploreScreen extends React.Component {
 
   state = {
+    user:{
+
+    },
+    savedProperties:[],
     searchQuery: '',
     rating: 2,
     save: false,
     isReady: false,
     property: [],
+    searchedProp: [],
     //token:1,
     token: this.props.route.params.t,
     images: [],
@@ -26,7 +31,20 @@ class ExploreScreen extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.state.token.token)
     this.getProperties();
+    this.get_User();
+    this.getSaveProperties();
+  }
+
+  getSaveProperties = async () => {
+    try {
+      const data = await getSavedProperties(this.state.token.token);
+      this.setState({ savedProperties: data });
+      console.log(this.state.savedProperties)
+    } catch (err) {
+      console.log(err.errMessage)
+    }
   }
 
   getProperties = async () => {
@@ -40,6 +58,43 @@ class ExploreScreen extends React.Component {
 
   }
 
+  checkIfIdExistInSave(){
+
+  }
+
+ 
+
+  saveProperty = async (property_id) => {
+    try {
+      const data = await saveProperties(property_id,this.state.token.token,this.state.user.id);
+       
+    } catch (err) {
+      console.log(err.errMessage)
+    }
+
+  }
+
+  get_User = async () => {
+    const profile = await getUser(this.state.token.token)
+    this.setState({user:profile.user})
+    console.log(profile)
+
+  }
+
+
+
+  getSearchedImages = images => {
+    var imagesSet = []
+    for(var i = 0; i < images.length; i++){
+      images.map(image => {
+        imagesSet.push("https://hostelwiz.herokuapp.com"+image.image)
+      })
+    }
+    console.log(imagesSet)
+    return imagesSet
+    
+  }
+
   getImages = images => {
     var imagesSet = []
     for(var i = 0; i < images.length; i++){
@@ -47,13 +102,15 @@ class ExploreScreen extends React.Component {
         imagesSet.push(image.image)
       })
     }
+    console.log(imagesSet)
     return imagesSet
+    
   }
   getSearchedProperty = async () => {
     try {
       const searchedData = await searchProperty(this.state.searchQuery);
-      this.setState({ property: searchedData.result, responseMessage: searchedData.message });
-      //console.log(searchedData)
+      this.setState({ searchedProp: searchedData.result, responseMessage: searchedData.message });
+      console.log(searchedData)
     }
     catch (err) {
       this.setState({ responseMessage: null })
@@ -61,8 +118,9 @@ class ExploreScreen extends React.Component {
     }
   }
 
-  save = () => {
-    this.setState({ save: !this.state.save })
+  save = (p) => {
+    this.setState({ save: !this.state.save });
+    this.saveProperty(p);
   }
 
   _onChangeSearch = query => {
@@ -148,7 +206,7 @@ class ExploreScreen extends React.Component {
 
 
                                 <TouchableOpacity
-                                  onPress={() => this.save()}
+                                  onPress={() => this.save(property.id)}
                                   style={styles.saveButton}>
                                   <View>
                                     {
@@ -203,19 +261,21 @@ class ExploreScreen extends React.Component {
                   </ScrollView>
                   :
 
+                
+
                   //screen to show when user searches for hoste
                   <ScrollView>
                     <View style={styles.belowSearchBar}>
 
                       {/* Max card details */}
                       {this.state.responseMessage ? (
-                        this.state.property.map(property => {
+                        this.state.searchedProp.map(property => {
                           return (
                             <View key={property.id} style={styles.maxCardComponent}>
                               <TouchableHighlight onPress={() => this.props.navigation.navigate('details', { property: property, token: this.state.token })}>
                                 <View style={[styles.maxCard]}>
 
-                                  <SliderBox dotColor={'orange'} onCurrentImagePressed={() => this.props.navigation.navigate('details', { property: property, token: this.state.token })} autoplay={true} sliderBoxHeight={screenHeight / 4 - 5} images={this.getImages(property.images)} >
+                                  <SliderBox dotColor={'orange'} onCurrentImagePressed={() => this.props.navigation.navigate('details', { property: property, token: this.state.token })} autoplay={true} sliderBoxHeight={screenHeight / 4 - 5} images={this.getSearchedImages(property.images)} >
                                   </SliderBox>
 
 
@@ -278,6 +338,7 @@ class ExploreScreen extends React.Component {
 
                     </View>
                   </ScrollView>
+                  
               }
             </View >)
 

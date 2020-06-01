@@ -33,10 +33,10 @@ export const searchProperty = async(loca) => {
      const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/search_property/`, {
         method: 'POST',
         headers: {
-
+             
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ location:'pent' })
+        body: JSON.stringify({ location:loca })
      })
        
      if(response.ok){
@@ -64,6 +64,23 @@ export const registerUser = async (data = {}) => {
     throw new Error(errMessage)
 }
 
+export const editUser = async (data = {},id,token) => {
+ 
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/users/${id}`, {
+
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json',
+                   'Authorization':`token ${token}`,
+     },
+        body: JSON.stringify(data)
+    })
+    if (response.ok) {
+        return true
+    }
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+}
+
 //get property details
 export const getProperties = async () => {
     const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/`, {
@@ -80,13 +97,15 @@ export const getProperties = async () => {
     throw new Error(errMessage)
 }
 
+
+
 //get property details
 export const getUser = async (token) => {
     const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/users/get_user/`, {
 
         method: 'GET',
         headers: {'Content-Type': 'application/json',
-                    'Authorization':'token 286ffbb3abfacc19e516ae4327deae01bb7132b5'
+                    'Authorization':`token ${token}`
                 }
     })
     if(response.ok){
@@ -103,7 +122,7 @@ export const rateProperties = async (property_id,token,number_of_stars) => {
     const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/${property_id}/rate_property/`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json' ,
-               'Authorization':token 
+               'Authorization':`token ${token}`
              }
                ,
                body: JSON.stringify({ stars:number_of_stars })
@@ -119,12 +138,13 @@ export const rateProperties = async (property_id,token,number_of_stars) => {
 }
 
 //save property
-export const saveProperties = async (property_id,token,) => {
-    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/${property_id}/save_property/`, {
+export const saveProperties = async (property_id,token,user_id) => {
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/saved/`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json' ,
-               'Authorization':token 
-             }
+               'Authorization':`token ${token}`
+             },
+             body: JSON.stringify({ property_id:property_id, user_id:user_id })
 
     })
     if(response.ok){
@@ -139,7 +159,7 @@ export const getSavedProperties = async (token) => {
     const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/saved/get_saved/`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json' ,
-               'Authorization':'token 286ffbb3abfacc19e516ae4327deae01bb7132b5' 
+               'Authorization':`token ${token}`
              }
 
     })
