@@ -50,7 +50,6 @@ class HostelManager(models.Model):
 class AdminUser(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, unique=True)
 
-
 class Property(models.Model):
     name = models.CharField(max_length=32, unique=True, null=True)
     managerId = models.ForeignKey(HostelManager, on_delete=models.CASCADE)
@@ -62,7 +61,6 @@ class Property(models.Model):
     headline = models.CharField(max_length=32)
     rate_type = models.CharField(max_length=32)
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    saved = models.ManyToManyField(Saved, related_name="properties")
 
     def no_of_ratings(self):
         ratings = Rating.objects.filter(property=self)
@@ -96,14 +94,13 @@ class Room(models.Model):
     roomType = models.CharField(max_length=32)
     roomAvailable = models.BooleanField(default=False)
 
-
 class PropertyImage(models.Model):
     property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to=upload_path, blank=True, null=True)
 
-
 class Saved(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    property = models.ForeignKey(Property, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = (('user', 'property'),)

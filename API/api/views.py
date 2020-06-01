@@ -197,7 +197,6 @@ class SavingViewSet(viewsets.ModelViewSet):
         self.permission_classes = [IsAll]
         user = request.user
         saved = Saved.objects.filter(user=user.id)
-        saved = saved.select_related('property')
         serializer = SavedSerializer(saved, many=True)
         response = {'message': 'Your saved hostels', 'result': serializer.data}
         return Response(response, status=status.HTTP_200_OK)
