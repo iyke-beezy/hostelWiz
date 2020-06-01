@@ -22,23 +22,18 @@ class PropertyItem extends React.Component {
     render() {
         return (
             <Card
-                actions={[
-                    <SettingOutlined key="setting" />,
-                    <EditOutlined key="edit" />,
-                    <EllipsisOutlined key="ellipsis" />,
-                ]}
-                hoverable cover={<Slider />}
+                hoverable cover={<Slider images={this.props.property.images} />}
                 loading={this.props.loading}
                 style={{borderRadius: "16px 16px 0px 0px", width:'300px'}}
             >
+                <div style={{display:'flex',justifyContent:'space-between'}}>
+                <div>
                 <Meta
-                    title="Card title"
-                    description="This is the description"
+                    title={<h2 >{this.props.property.name}</h2>}
+                    
                 />
                 {this.props.property ? (
-                    <div>
-                        <h3>{this.props.property.id}</h3>
-                        
+                    <div>                        
                         <FontAwesome name="star" className={this.props.property.avg_rating > 1 ? 'orange' : ''} />
                         <FontAwesome name="star" className={this.props.property.avg_rating > 2 ? 'orange' : ''} />
                         <FontAwesome name="star" className={this.props.property.avg_rating > 3 ? 'orange' : ''} />
@@ -57,6 +52,14 @@ class PropertyItem extends React.Component {
 
                     </div>
                 ) : null}
+                </div>
+                <div>
+                    <h2>Ghc&nbsp;{this.props.property.price}</h2>
+                    <h4 style={{textAlign:'right'}}>{this.props.property.rate_type}</h4>
+                </div>
+                </div>
+
+
             </Card>
 
 
