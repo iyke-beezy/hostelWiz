@@ -149,7 +149,7 @@ export const saveProperties = async (property,token,user) => {
 
     })
     if(response.ok){
-        console.log(response.json())
+        //console.log(response.json())
         return response.json()
         
     }

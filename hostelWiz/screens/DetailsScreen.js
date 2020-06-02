@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Keyboard, Modal, StatusBar, Image, TouchableOpacity, Animated, ScrollView, ImageBackground, Text, View, StyleSheet, TextInput, FlatList, TouchableWithoutFeedback, Alert, KeyboardAvoidingView, Dimensions, TouchableHighlight } from 'react-native';
 import { Card, Button, Icon } from 'react-native-elements';
-import { AntDesign, SimpleLineIcons, Feather } from '@expo/vector-icons';
+import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
 import styles from "../style";
 import Colors from '../constants/Colors';
 const screenWidth = Math.round(Dimensions.get('window').width);
@@ -12,7 +12,7 @@ class DetailsScreen extends React.Component {
 
   state = {
     rating: 2,
-    save: false,
+    save: this.props.route.params.save,
     hostel: this.props.route.params.property,
     token: this.props.route.params.token,
     newRating: 0,
@@ -38,7 +38,12 @@ class DetailsScreen extends React.Component {
     var imagesSet = []
     for (var i = 0; i < images.length; i++) {
       images.map(image => {
-        imagesSet.push(image.image)
+        if(image.image.startsWith("https://hostelwiz.herokuapp.com")){
+          imagesSet.push(image.image)
+        }
+        else {
+          imagesSet.push("https://hostelwiz.herokuapp.com" + image.image)
+        }
       })
     }
     console.log(imagesSet)
@@ -65,9 +70,9 @@ class DetailsScreen extends React.Component {
                 style={styles.save}
               >
                 {
-                  this.state.save ? <SimpleLineIcons name="heart" size={15} color="red" />
+                  this.state.save ? <Ionicons name="md-heart" size={15} color="red" />
                     :
-                    <SimpleLineIcons name="heart" size={15} color="black" />
+                    <Ionicons name="md-heart-empty" size={15} color="black" />
                 }
 
               </TouchableOpacity>
