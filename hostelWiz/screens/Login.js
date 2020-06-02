@@ -10,7 +10,7 @@ import * as SecureStore from 'expo-secure-store';
 import { loginUser } from '../api'
 
 import * as GoogleSignIn from 'expo-google-sign-in';
-//import * as Facebook from 'expo-facebook';
+import * as Facebook from 'expo-facebook';
 import * as Google from 'expo-google-app-auth';
 
 
@@ -200,7 +200,7 @@ class LoginScreen extends React.Component {
 
                 </TouchableNativeFeedback>
 
-                <TouchableNativeFeedback>
+                <TouchableNativeFeedback onPress={() => this.FacebooklogIn()}>
                   <View style={styles.fbLoginButton}>
                     <Text style={{ fontFamily: 'Baloo-Paaji', color: '#fff', fontSize: 18 }}>
                       <Icon name="facebook"

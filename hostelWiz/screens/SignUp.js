@@ -145,7 +145,7 @@ class SignUpScreen extends React.Component {
             buttonStyle={styles.loginButton}
             //onPress={() => this.onLoginPress()}
             onPress={() => this._signUp()}
-            title="SignUp"
+            title="Sign Up"
           />
 
           <TouchableNativeFeedback onPress={() => this.signInWithGoogleAsync()}>
