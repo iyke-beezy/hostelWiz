@@ -33,7 +33,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="Saved"
         component={SavedScreen}
         options={{
-          title: 'Saved',
+          title: '',
           tabBarIcon: ({ focused }) => <Image 
           source={focused ? require('../assets/images/active.png') : require('../assets/images/inactive.png')} 
           style={{ marginBottom: -3 }}
@@ -49,7 +49,7 @@ export default function BottomTabNavigator({ navigation, route }) {
           tabBarIcon: ({ focused }) => <FontAwesome
           size={25}
         
-          color={focused ? 'gold' : 'black'} 
+          color={focused ? '#E7C654' : '#92A5A3'} 
          name={focused ? 'user-circle' : 'user-circle-o'} />,
         }}
       />
