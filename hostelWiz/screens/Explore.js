@@ -9,16 +9,16 @@ import { Asset } from 'expo-asset';
 import { AppLoading } from 'expo';
 const screenHeight = Math.round(Dimensions.get('window').height);
 const screenWidth = Math.round(Dimensions.get('window').width);
-import { getProperties, searchProperty, saveProperties, getSavedProperties,getUser } from '../api';
+import { getProperties, searchProperty, saveProperties, getSavedProperties, getUser } from '../api';
 import styles from './explore-styles'
 
 class ExploreScreen extends React.Component {
 
   state = {
-    user:{
+    user: {
 
     },
-    savedProperties:[],
+    savedProperties: [],
     searchQuery: '',
     rating: 2,
     save: false,
@@ -41,8 +41,9 @@ class ExploreScreen extends React.Component {
   getSaveProperties = async () => {
     try {
       const data = await getSavedProperties(this.state.token.token);
-      this.setState({ savedProperties: data });
-      console.log(this.state.savedProperties)
+      this.setState({ savedProperties: data.result });
+      //console.log(this.state.savedProperties)
+      //console.log(this.state.token.token)
     } catch (err) {
       console.log(err.errMessage)
     }
@@ -59,18 +60,12 @@ class ExploreScreen extends React.Component {
 
   }
 
-  checkIfIdExistInSave(){
-
-  }
-
- 
-
   saveProperty = async (property_id) => {
-    
+
     try {
-      const data = await saveProperties(property_id,this.state.token.token,this.state.user.id);
-      return data 
-       console.log("save me")
+      const data = await saveProperties(property_id, this.state.token.token, this.state.user.id);
+      return data
+      //console.log("save me")
     } catch (err) {
       console.log(err.errMessage)
     }
@@ -79,41 +74,40 @@ class ExploreScreen extends React.Component {
 
   get_User = async () => {
     const profile = await getUser(this.state.token.token)
-    this.setState({user:profile.user})
-    console.log(profile)
-
+    this.setState({ user: profile.user })
+    //console.log(profile)
   }
 
 
 
   getSearchedImages = images => {
     var imagesSet = []
-    for(var i = 0; i < images.length; i++){
+    for (var i = 0; i < images.length; i++) {
       images.map(image => {
-        imagesSet.push("https://hostelwiz.herokuapp.com"+image.image)
+        imagesSet.push("https://hostelwiz.herokuapp.com" + image.image)
       })
     }
-    console.log(imagesSet)
+    //console.log(imagesSet)
     return imagesSet
-    
+
   }
 
   getImages = images => {
     var imagesSet = []
-    for(var i = 0; i < images.length; i++){
+    for (var i = 0; i < images.length; i++) {
       images.map(image => {
         imagesSet.push(image.image)
       })
     }
-    console.log(imagesSet)
+    //console.log(imagesSet)
     return imagesSet
-    
+
   }
   getSearchedProperty = async () => {
     try {
       const searchedData = await searchProperty(this.state.searchQuery);
       this.setState({ searchedProp: searchedData.result, responseMessage: searchedData.message });
-      console.log(searchedData)
+      //console.log(searchedData)
     }
     catch (err) {
       this.setState({ responseMessage: null })
@@ -122,7 +116,6 @@ class ExploreScreen extends React.Component {
   }
 
   save = (pr) => {
-    
     this.setState({ save: !this.state.save });
     this.saveProperty(pr);
   }
@@ -201,16 +194,16 @@ class ExploreScreen extends React.Component {
                       {this.state.property.map(property => {
                         return (
                           <View key={property.id} style={styles.maxCardComponent}>
-                            <TouchableHighlight onPress={() => this.props.navigation.navigate('details', { property: property, token: this.state.token })}>
+                            <TouchableHighlight onPress={() => this.props.navigation.navigate('details', { property: property, token: this.state.token, save: this.checkIfIdExistInSave(property.id) })}>
                               <View style={[styles.maxCard]}>
 
-                                <SliderBox 
-                                dotColor={'orange'} 
-                                onCurrentImagePressed={() => this.props.navigation.navigate('details', { property: property, token: this.state.token })} 
-                                autoplay={true} 
-                                sliderBoxHeight={screenHeight / 4 - 5} 
-                                images={this.getImages(property.images)} 
-                                ImageComponentStyle={{borderTopLeftRadius: 15, borderTopRightRadius: 15, width: screenWidth * 0.9, marginLeft: - screenWidth * 0.1}}
+                                <SliderBox
+                                  dotColor={'orange'}
+                                  onCurrentImagePressed={() => this.props.navigation.navigate('details', { property: property, token: this.state.token, save: this.checkIfIdExistInSave(property.id) })}
+                                  autoplay={true}
+                                  sliderBoxHeight={screenHeight / 4 - 5}
+                                  images={this.getImages(property.images)}
+                                  ImageComponentStyle={{ borderTopLeftRadius: 15, borderTopRightRadius: 15, width: screenWidth * 0.9, marginLeft: - screenWidth * 0.1 }}
                                 />
 
 
@@ -219,7 +212,7 @@ class ExploreScreen extends React.Component {
                                   style={styles.saveButton}>
                                   <View>
                                     {
-                                      this.state.save ? <AntDesign color='red' style={{ marginTop: 7 }} size={25} name="heart" />
+                                      this.checkIfIdExistInSave(property.id) || this.state.save ? <AntDesign color='red' style={{ marginTop: 7 }} size={25} name="heart" />
                                         :
                                         <AntDesign color='white' style={{ marginTop: 7 }} size={25} name="heart" />
                                     }
@@ -270,7 +263,7 @@ class ExploreScreen extends React.Component {
                   </ScrollView>
                   :
 
-                
+
 
                   //screen to show when user searches for hoste
                   <ScrollView>
@@ -293,7 +286,7 @@ class ExploreScreen extends React.Component {
                                     style={styles.saveButton}>
                                     <View>
                                       {
-                                        this.state.save ? <AntDesign color='red' style={{ marginTop: 7 }} size={25} name="heart" />
+                                        (this.state.save || this.checkIfIdExistInSave(property.id)) ? <AntDesign color='red' style={{ marginTop: 7 }} size={25} name="heart" />
                                           :
                                           <AntDesign color='white' style={{ marginTop: 7 }} size={25} name="heart" />
                                       }
@@ -347,12 +340,21 @@ class ExploreScreen extends React.Component {
 
                     </View>
                   </ScrollView>
-                  
+
               }
             </View >)
 
       );
     }
+  }
+  checkIfIdExistInSave = (property_id) => {
+    var status = false
+    this.state.savedProperties.map(item => {
+      if (item.property_id === property_id) {
+        status = true
+      }
+    })
+    return status
   }
 }
 
