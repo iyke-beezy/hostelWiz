@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign,FontAwesome } from '@expo/vector-icons';
 import TabBarIcon from '../components/TabBarIcon';
 import ExploreScreen from '../screens/Explore';
 import SavedScreen from '../screens/Saved';
@@ -24,7 +24,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={ExploreScreen}
         options={{
           title: '',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-search"  />,
+          tabBarIcon: ({ focused }) => <TabBarIcon size={25} focused={focused} name="md-search"  />,
 
         }}
       />
@@ -33,7 +33,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={SavedScreen}
         options={{
           title: '',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book"  />,
+          tabBarIcon: ({ focused }) => <AntDesign focused={focused} size={25} color={focused ? 'gold' : 'black'} name={focused ? 'heart' : 'hearto'}  />,
         }}
       />
         <BottomTab.Screen
@@ -42,10 +42,11 @@ export default function BottomTabNavigator({ navigation, route }) {
        
         options={{
           title: '',
-          tabBarIcon: ({ focused }) => <AntDesign
-          size={30}
+          tabBarIcon: ({ focused }) => <FontAwesome
+          size={25}
+        
           color={focused ? 'gold' : 'black'} 
-         name="user" />,
+         name={focused ? 'user-circle' : 'user-circle-o'} />,
         }}
       />
     </BottomTab.Navigator>
