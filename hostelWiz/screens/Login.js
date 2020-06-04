@@ -10,9 +10,9 @@ import * as SecureStore from 'expo-secure-store';
 import { loginUser } from '../api'
 
 import * as GoogleSignIn from 'expo-google-sign-in';
-//import * as Facebook from 'expo-facebook';
-import * as Google from 'expo-google-app-auth';
-
+import {auth, firebase} from '../components/firebase/firebase'
+import * as Facebook from 'expo-facebook';
+//import * as Google from 'expo-google-app-auth';
 
 
 class LoginScreen extends React.Component {
@@ -22,15 +22,24 @@ class LoginScreen extends React.Component {
     user: null,
     loading: false,
     isReady: false,
-    username:'',
-    password:'',
+    username: '',
+    password: '',
   }
 
-  /*   componentDidMount() {
-    //    this.initAsync();
+    componentDidMount() {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user != null) {
+          console.log("We are authenticated now!", user.providerData);
+          //SecureStore.setItemAsync('userToken', user.token)
+          console.log(user)
+        }
+      
+        // Do other things
+      });
+        this.initAsync();
   }
 
- initAsync = async () => {
+  initAsync = async () => {
       try {
         await GoogleSignIn.initAsync({
           // You may ommit the clientId when the firebase `googleServicesFile` is configured
@@ -85,52 +94,54 @@ class LoginScreen extends React.Component {
       }
     }
   */
+
+
   //facebook signin
-  /*  FacebooklogIn = async () => {
-      try {
-        const {
-          type,
-          token,
-          expires,
-          permissions,
-          declinedPermissions,
-        } = await Facebook.logInWithReadPermissionsAsync('542949173131834', {
-          permissions: ['public_profile'],
+  FacebooklogIn = async () => {
+    try {
+      await Facebook.initializeAsync(`${process.env.FACEBOOK_APP_ID}`);
+      const {
+        type,
+        token,
+        expires,
+        permissions,
+        declinedPermissions,
+      } = await Facebook.logInWithReadPermissionsAsync({
+        permissions: ['public_profile'],
+      });
+      if (type === 'success') {
+        // Get the user's name using Facebook's Graph API
+        const credential = firebase.auth.FacebookAuthProvider.credential(token);
+
+        // Sign in with credential from the Facebook user.
+        firebase.auth().signInWithCredential(credential).catch((error) => {
+          // Handle Errors here.
+          this.setState({err: error})
         });
-        if (type === 'success') {
-          // Get the user's name using Facebook's Graph API
-          const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,name,picture.type=(large)`);
-          const userInfo = await response.json()
-          this.setState({ userInfo })
-          console.log('Logged in!', `Hi ${(await response.json()).name}!`);
-        } else {
-          // type === 'cancel'
-          console.log("cancelled")
-        }
-      } catch ({ message }) {
-        console.log(`Facebook Login Error: ${message}`);
+      } else {
+        // type === 'cancel'
       }
+    } catch ({ message }) {
+      alert(`Facebook Login Error: ${message}`);
     }
-    */
+  }
+
 
 
   _login = async () => {
     this.setState({ loading: true })
-    
-    
     try {
-      
       const token = await loginUser(this.state.username, this.state.password);
-     const t = {token}
-     console.log(t)
-     //SecureStore.setItemAsync('token', token)
+      const t = { token }
+      console.log(t)
+      //SecureStore.setItemAsync('token', token)
       this.setState({ loading: false })
-      this.props.navigation.navigate("Root",{
-       screen: 'Explore',
-      params: { t: t },
-    }
+      this.props.navigation.navigate("Root", {
+        screen: 'Explore',
+        params: { t: t },
+      }
       )
-     
+
     }
     catch (err) {
       this.setState({ err: err.errMessage, loading: false })
@@ -140,7 +151,7 @@ class LoginScreen extends React.Component {
 
   handleUsername = username => {
     this.setState({ username })
-   
+
     if (this.state.loading) {
       this.setState({ loading: false })
     }
@@ -203,7 +214,7 @@ class LoginScreen extends React.Component {
 
                 </TouchableNativeFeedback>
 
-                <TouchableNativeFeedback>
+                <TouchableNativeFeedback onPress={() => this.FacebooklogIn()}>
                   <View style={styles.fbLoginButton}>
                     <Text style={{ fontFamily: 'Baloo-Paaji', color: '#fff', fontSize: 18 }}>
                       <Icon name="facebook"

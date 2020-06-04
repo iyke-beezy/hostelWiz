@@ -1,4 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {Image} from 'react-native'
 import * as React from 'react';
 import { AntDesign,FontAwesome } from '@expo/vector-icons';
 import TabBarIcon from '../components/TabBarIcon';
@@ -33,7 +34,10 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={SavedScreen}
         options={{
           title: '',
-          tabBarIcon: ({ focused }) => <AntDesign focused={focused} size={25} color={focused ? 'gold' : 'black'} name={focused ? 'heart' : 'hearto'}  />,
+          tabBarIcon: ({ focused }) => <Image 
+          source={focused ? require('../assets/images/active.png') : require('../assets/images/inactive.png')} 
+          style={{ marginBottom: -3 }}
+          />,
         }}
       />
         <BottomTab.Screen
@@ -45,7 +49,7 @@ export default function BottomTabNavigator({ navigation, route }) {
           tabBarIcon: ({ focused }) => <FontAwesome
           size={25}
         
-          color={focused ? 'gold' : 'black'} 
+          color={focused ? '#E7C654' : '#92A5A3'} 
          name={focused ? 'user-circle' : 'user-circle-o'} />,
         }}
       />

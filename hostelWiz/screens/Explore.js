@@ -217,7 +217,7 @@ class ExploreScreen extends React.Component {
                                   style={styles.saveButton}>
                                   <View>
                                     {
-                                      this.checkIfIdExistInSave(property.id) || this.state.save ? <AntDesign color='red' style={{ marginTop: 7 }} size={25} name="heart" />
+                                      this.checkIfIdExistInSave(property.id) ? <AntDesign color='red' style={{ marginTop: 7 }} size={25} name="heart" />
                                         :
                                         <AntDesign color='white' style={{ marginTop: 7 }} size={25} name="heart" />
                                     }
@@ -291,7 +291,7 @@ class ExploreScreen extends React.Component {
                                     style={styles.saveButton}>
                                     <View>
                                       {
-                                        (this.state.save || this.checkIfIdExistInSave(property.id)) ? <AntDesign color='red' style={{ marginTop: 7 }} size={25} name="heart" />
+                                        this.checkIfIdExistInSave(property.id) ? <AntDesign color='red' style={{ marginTop: 7 }} size={25} name="heart" />
                                           :
                                           <AntDesign color='white' style={{ marginTop: 7 }} size={25} name="heart" />
                                       }
