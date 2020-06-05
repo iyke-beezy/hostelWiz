@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Keyboard, StyleSheet, TouchableHighlight, Text, View, TouchableOpacity, ScrollView, TouchableWithoutFeedback, Alert, KeyboardAvoidingView, Dimensions } from 'react-native';
+import { Keyboard, StyleSheet, TouchableHighlight, Text, View, TouchableOpacity, ScrollView, AsyncStorage, Dimensions } from 'react-native';
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 import { Card, Button, Icon } from 'react-native-elements';
@@ -18,7 +18,7 @@ class SavedScreen extends React.Component {
     rating: 2,
     save: false,
     property: [],
-    token: '286ffbb3abfacc19e516ae4327deae01bb7132b5',
+    token: null,
     images: [
       "https://source.unsplash.com/1024x768/?nature",
       "https://source.unsplash.com/1024x768/?water",
@@ -29,18 +29,26 @@ class SavedScreen extends React.Component {
   };
 
   componentDidMount() {
-    this.getProperties();
+    this.getToken();
   }
-
+  getToken = async () => {
+    try {
+      let userToken = await AsyncStorage.getItem("userToken");
+      let data = JSON.parse(userToken)
+      this.setState({token: data.token})
+      this.getProperties();
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
+  }
   getProperties = async () => {
     try {
       const data = await getSavedProperties(this.state.token);
       //console.log(data); 
-      this.setState({ property: data.result, save: true });
-      console.log(this.state.property)
+      this.setState({ property: data.result, save: true }); 
     }
     catch (err) {
-      console.log(err.errMessage)
+      console.log(err)
     }
     //this.setState({property:data});
 
@@ -59,9 +67,8 @@ class SavedScreen extends React.Component {
         imagesSet.push("https://hostelwiz.herokuapp.com" + image.image)
       })
     }
-    console.log(imagesSet)
+    //console.log(imagesSet)
     return imagesSet
-
   }
 
   _onChangeSearch = query => this.setState({ searchQuery: query });

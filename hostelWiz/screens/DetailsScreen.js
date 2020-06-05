@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Keyboard, Modal, StatusBar, Image, TouchableOpacity, Animated, ScrollView, ImageBackground, Text, View, StyleSheet, TextInput, FlatList, TouchableWithoutFeedback, Alert, KeyboardAvoidingView, Dimensions, TouchableHighlight } from 'react-native';
+import { Keyboard, Modal, StatusBar, Image, TouchableOpacity, Animated, ScrollView, ImageBackground, Text, View, Alert, AsyncStorage, Dimensions, TouchableHighlight } from 'react-native';
 import { Card, Button, Icon } from 'react-native-elements';
 import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
 import styles from "../style";
@@ -14,14 +14,23 @@ class DetailsScreen extends React.Component {
     rating: 2,
     save: this.props.route.params.save,
     hostel: this.props.route.params.property,
-    token: this.props.route.params.token,
+    token: null,
     newRating: 0,
     modalVisible: false,
   };
-
+  componentDidMount(){
+    this.getToken()
+  }
   save = () => {
-
     this.setState({ save: !this.state.save })
+  }
+  async getToken() {
+    try {
+      let userToken = await AsyncStorage.getItem("userToken");
+      this.setState({token: userToken})
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
   }
 
   toggleModal = () => {

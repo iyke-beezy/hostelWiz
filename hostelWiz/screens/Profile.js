@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Keyboard, Image, Dimensions, Text, View, StyleSheet, TextInput, FlatList, TouchableWithoutFeedback, Alert, KeyboardAvoidingView } from 'react-native';
+import { Keyboard, Image, Dimensions, Text, View, StyleSheet, TextInput, FlatList, TouchableWithoutFeedback, Alert, KeyboardAvoidingView, AsyncStorage } from 'react-native';
 import { Card, Button, Icon } from 'react-native-elements';
 import { grey } from 'ansi-colors';
 import { AntDesign, Entypo, FontAwesome5, FontAwesome, MaterialIcons } from '@expo/vector-icons';
@@ -9,21 +9,32 @@ const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
 import Constants from 'expo-constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import * as SecureStore from 'expo-secure-store';
 
 
 
 class ProfileScreen extends React.Component {
   state = {
-    token: '286ffbb3abfacc19e516ae4327deae01bb7132b5',
+    token: '',
     user: {
 
     },
   }
   componentDidMount() {
-    this.getUserDetails();
-
+    this.getUser()
+    //this.getUserDetails();
   }
 
+  async getUser(user) {
+    try {
+      let userData = await AsyncStorage.getItem("userData");
+      let data = JSON.parse(userData);
+      console.log(data[0]);
+      this.setState({ user: data[0] })
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
+  }
   getUserDetails = async () => {
     const profile = await getUser(this.state.token)
     this.setState({ user: profile.user })
@@ -42,7 +53,7 @@ class ProfileScreen extends React.Component {
         break;
 
       case 'hosting':
-        this.props.navigation.navigate('HMnav')
+        this.props.navigation.navigate('feedback')
         break;
 
       case 'feedback':
@@ -74,12 +85,12 @@ class ProfileScreen extends React.Component {
         <View style={styles.user}>
           <Image
             style={styles.image}
-            source={require('../assets/images/user-active.png')}
+            source={ this.state.user.photourl ? {uri: this.state.user.photourl} : require('../assets/images/user-active.png')}
           />
 
           <View style={{ marginLeft: screenWidth * 0.05, }}>
             <Text style={styles.username}>
-              {this.state.user.first_name}
+              {this.state.user.displayName}
             </Text>
             <Text style={styles.email}>
               {this.state.user.email}
@@ -118,7 +129,11 @@ class ProfileScreen extends React.Component {
           <View style={styles.detailDividerTwo}></View>
           <View style={styles.logoutContainer}>
 
-            <Text style={styles.logoutText} onPress={() => this.switchRoute('Logout')}>
+            <Text style={styles.logoutText} onPress={() => {
+              AsyncStorage.removeItem('userData')
+              AsyncStorage.removeItem('userToken')
+              this.switchRoute('Logout')
+            }}>
               <AntDesign size={25} name={'poweroff'} />   logout</Text>
           </View>
         </View>
@@ -164,9 +179,9 @@ const styles = StyleSheet.create({
     height: screenHeight * 0.06,
     fontFamily: 'Baloo-Paaji'
   },
-  itemText : {
+  itemText: {
     fontSize: 20,
-    fontFamily : 'Baloo-Paaji-Medium'
+    fontFamily: 'Baloo-Paaji-Medium'
   },
   logoutContainer: {
     //paddingLeft:150,

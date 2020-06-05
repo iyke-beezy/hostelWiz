@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, TouchableHighlight, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
+import { Text, View, TouchableHighlight, TouchableOpacity, Dimensions, ScrollView, AsyncStorage } from 'react-native';
 import { Card } from 'react-native-elements';
 import { Searchbar } from 'react-native-paper';
 import { AntDesign } from '@expo/vector-icons';
@@ -15,9 +15,6 @@ import styles from './explore-styles'
 class ExploreScreen extends React.Component {
 
   state = {
-    user: {
-
-    },
     savedProperties: [],
     searchQuery: '',
     rating: 2,
@@ -26,21 +23,30 @@ class ExploreScreen extends React.Component {
     property: [],
     searchedProp: [],
     //token:1,
-    token: this.props.route.params.t,
+    token: null,//this.props.route.params.t,
     images: [],
     responseMessage: null
   }
 
   componentDidMount() {
-    console.log(this.state.token.token)
+    //console.log(this.state.token)
+    this.getToken();
     this.getProperties();
-    this.get_User();
-    this.getSaveProperties();
   }
-
+  async getToken() {
+    try {
+      let userToken = await AsyncStorage.getItem("userToken");
+      let data = JSON.parse(userToken)
+      this.setState({token: data.token})
+      this.getSaveProperties();
+      //console.log(this.state.token)
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
+  }
   getSaveProperties = async () => {
     try {
-      const data = await getSavedProperties(this.state.token.token);
+      const data = await getSavedProperties(this.state.token);
       this.setState({ savedProperties: data.result });
       //console.log(this.state.savedProperties)
       //console.log(this.state.token.token)
@@ -63,7 +69,7 @@ class ExploreScreen extends React.Component {
   saveProperty = async (property_id) => {
 
     try {
-      const data = await saveProperties(property_id, this.state.token.token, this.state.user.id);
+      const data = await saveProperties(property_id, this.state.token, this.state.user.id);
       return data
       //console.log("save me")
     } catch (err) {
@@ -73,7 +79,7 @@ class ExploreScreen extends React.Component {
   }
 
   get_User = async () => {
-    const profile = await getUser(this.state.token.token)
+    const profile = await getUser(this.state.token)
     this.setState({ user: profile.user })
     //console.log(profile)
   }
