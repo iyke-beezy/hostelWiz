@@ -10,10 +10,20 @@ import * as SecureStore from 'expo-secure-store';
 import { loginUser } from '../api'
 
 import * as GoogleSignIn from 'expo-google-sign-in';
-import {auth, firebase} from '../components/firebase/firebase'
+import * as firebase from 'firebase';
 import * as Facebook from 'expo-facebook';
 //import * as Google from 'expo-google-app-auth';
 
+firebase.initializeApp({
+  apiKey: 'AIzaSyC97f1zYRqT1rrqBmhC_JHn2sNcQC-YBpE',
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: "hostelwiz",
+  storageBucket: "hostelwiz.appspot.com",
+  messagingSenderId: "1096528947592",
+  appId: "1:1096528947592:android:1572ae8adf302c1ec0b23d",
+  measurementId: "G-CED24MJ2C3"
+});
 
 class LoginScreen extends React.Component {
 
@@ -43,7 +53,6 @@ class LoginScreen extends React.Component {
       try {
         await GoogleSignIn.initAsync({
           // You may ommit the clientId when the firebase `googleServicesFile` is configured
-          clientId: '<YOUR_IOS_CLIENT_ID>',
           // Provide other custom options...
         });
       } catch ({ message }) {
@@ -99,7 +108,7 @@ class LoginScreen extends React.Component {
   //facebook signin
   FacebooklogIn = async () => {
     try {
-      await Facebook.initializeAsync(`${process.env.FACEBOOK_APP_ID}`);
+      await Facebook.initializeAsync('2547147542165666');
       const {
         type,
         token,
@@ -111,7 +120,7 @@ class LoginScreen extends React.Component {
       });
       if (type === 'success') {
         // Get the user's name using Facebook's Graph API
-        const credential = firebase.auth.FacebookAuthProvider.credential(token);
+        const credential = firebase.auth().FacebookAuthProvider.credential(token);
 
         // Sign in with credential from the Facebook user.
         firebase.auth().signInWithCredential(credential).catch((error) => {
