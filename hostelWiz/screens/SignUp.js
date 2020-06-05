@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ToastAndroid, Text, View, TextInput, TouchableNativeFeedback, TouchableWithoutFeedback, Image, ImageBackground } from 'react-native';
+import { ToastAndroid, Text, View, TextInput, AsyncStorage, TouchableWithoutFeedback, Image, ImageBackground } from 'react-native';
 import styles from "../style";
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -16,28 +16,43 @@ class SignUpScreen extends React.Component {
     email:'',
     groups:'',
     contact:'',
+    loading: false,
+  }
+
+  async storeToken(token) {
+    try {
+      await AsyncStorage.setItem("userToken", JSON.stringify(token));
+      this.setState({ loading: false })
+      this.props.navigation.navigate("Root", {
+        screen: 'Explore',
+      }
+      )
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
   }
 
   _login = async () => {
+    this.setState({ loading: true })
     try {
-         const token = await loginUser(this.state.username, this.state.password)
-        // this.props.cookies.set('mr-token', token);
-         console.log(token)
-         if(token !== undefined ){
-           this.props.navigation.navigate('Root')
-         }
-         else(
-           alert('wrong username or password')
-         )
-         
-     }
-     catch (err) {
-         console.log(err.errMessage)
-     }
+      const token = await loginUser(this.state.username, this.state.password);
+      const t = { token }
+      //SecureStore.setItemAsync('token', token)
+      this.setState({ loading: false })
+      this.storeToken(t)
+    }
+    catch (err) {
+      console.log(err.errMessage)
+      this.setState({ err: err.errMessage, loading: false })
+    }
+
    
  }
 
+
+
   _signUp = async () => {
+    this.setState({ loading: true })
     try {
         const data = {
             username: this.state.username,
@@ -51,20 +66,17 @@ class SignUpScreen extends React.Component {
         const response = await registerUser(data)
         if(response){
           ToastAndroid.showWithGravityAndOffset(
-            'You were succesfully registered',
+            'Registeration Successful',
             ToastAndroid.LONG,
             ToastAndroid.BOTTOM,
             25,
             50
           );
-         console.log(response)
-         this.props.navigation.navigate('Login')
-        }
-        console.log(response)
-         
+         this._login()
+        }         
     }
     catch (err) {
-        console.log(err.errMessage)
+        console.log(err)
     }
 }
 
@@ -132,42 +144,14 @@ class SignUpScreen extends React.Component {
             ]} 
             onChangeText={(text) => this.setState({contact:text})}
             />
-          <TextInput
-            placeholder="group"
-            placeholderColor="#fff"
-            style={[styles.loginFormTextInput,
-            { fontFamily: "Baloo-Paaji", color: '#fff' }
-            ]}
-            onChangeText={(text) => this.setState({groups:text})}
-            />
 
           <Button
             buttonStyle={styles.loginButton}
+            loading={this.state.loading}
             //onPress={() => this.onLoginPress()}
-            onPress={() => this._signUp()}
+            onPress={this._signUp}
             title="Sign Up"
           />
-
-          <TouchableNativeFeedback onPress={() => this.signInWithGoogleAsync()}>
-            <View style={styles.googleLoginButton}>
-              <Text style={{ fontFamily: 'Baloo-Paaji', color: '#fff', fontSize: 18 }}>
-                <Icon
-                  name="google"
-                  size={18}
-                  color="white"
-                />  Login with Google</Text>
-            </View>
-
-          </TouchableNativeFeedback>
-
-          <TouchableNativeFeedback>
-            <View style={styles.fbLoginButton}>
-              <Text style={{ fontFamily: 'Baloo-Paaji', color: '#fff', fontSize: 18 }}>
-                <Icon name="facebook"
-                  size={18}
-                  color="white" />  Login with Facebook</Text>
-            </View>
-          </TouchableNativeFeedback>
 
           <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('Login')} style={{ paddingLeft: 10, }}>
           <View style={{paddingLeft: 10, paddingBottom: 10}}>

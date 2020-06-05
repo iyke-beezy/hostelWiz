@@ -9,28 +9,40 @@ const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
 import Constants from 'expo-constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import * as SecureStore from 'expo-secure-store';
+import firebase from './firebase';
 
 
 
 class ProfileScreen extends React.Component {
   state = {
     token: '',
-    user: {
-
-    },
+    user: {},
+    loginSource: null
   }
   componentDidMount() {
     this.getUser()
     //this.getUserDetails();
   }
 
-  async getUser(user) {
+  async getUser() {
     try {
       let userData = await AsyncStorage.getItem("userData");
       let data = JSON.parse(userData);
       console.log(data[0]);
-      this.setState({ user: data[0] })
+      this.setState({ user: data[0], loginSource: 'facebook' })
+    } catch (error) {
+      console.log("Something went wrong", error);
+      this.setState({ loginSource: 'token' })
+      this.getToken()
+    }
+  }
+
+  getToken = async () => {
+    try {
+      let userToken = await AsyncStorage.getItem("userToken");
+      let data = JSON.parse(userToken)
+      this.setState({ token: data.token })
+      this.getUserDetails();
     } catch (error) {
       console.log("Something went wrong", error);
     }
@@ -85,13 +97,18 @@ class ProfileScreen extends React.Component {
         <View style={styles.user}>
           <Image
             style={styles.image}
-            source={ this.state.user.photourl ? {uri: this.state.user.photourl} : require('../assets/images/user-active.png')}
+            source={this.state.user.photourl ? { uri: this.state.user.photourl } : require('../assets/images/user-active.png')}
           />
-
           <View style={{ marginLeft: screenWidth * 0.05, }}>
-            <Text style={styles.username}>
-              {this.state.user.displayName}
-            </Text>
+            {this.state.loginSource && this.state.loginSource === 'token' ?
+              <Text style={styles.username}>
+                {this.state.user.first_name} {this.state.user.last_name}
+              </Text>
+              :
+              <Text style={styles.username}>
+                {this.state.user.displayName}
+              </Text>
+            }
             <Text style={styles.email}>
               {this.state.user.email}
             </Text>
@@ -130,6 +147,11 @@ class ProfileScreen extends React.Component {
           <View style={styles.logoutContainer}>
 
             <Text style={styles.logoutText} onPress={() => {
+              firebase.auth().signOut().then(function () {
+                // Sign-out successful.
+              }).catch(function (error) {
+                // An error happened.
+              });
               AsyncStorage.removeItem('userData')
               AsyncStorage.removeItem('userToken')
               this.switchRoute('Logout')
