@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TextInput, TouchableWithoutFeedback, TouchableNativeFeedback, Image, ImageBackground } from 'react-native';
+import { Text, View, TextInput, TouchableWithoutFeedback, TouchableNativeFeedback, Image, ImageBackground, AsyncStorage } from 'react-native';
 import styles from "../style";
 import { Asset } from 'expo-asset';
 import { AppLoading } from 'expo';
@@ -10,7 +10,7 @@ import * as SecureStore from 'expo-secure-store';
 import { loginUser } from '../api'
 
 import * as GoogleSignIn from 'expo-google-sign-in';
-import {auth, firebase} from '../components/firebase/firebase'
+import firebase from './firebase';
 import * as Facebook from 'expo-facebook';
 //import * as Google from 'expo-google-app-auth';
 
@@ -26,6 +26,7 @@ class LoginScreen extends React.Component {
     password: '',
   }
 
+<<<<<<< HEAD
     componentDidMount() {
    /*   firebase.auth().onAuthStateChanged((user) => {
         if (user != null) {
@@ -70,46 +71,72 @@ class LoginScreen extends React.Component {
         }
       } catch ({ message }) {
         alert('login: Error:' + message);
-      }
-    };
-  
-    //google signin
-   /*signInWithGoogleAsync = async () => {
-      try {
-        const result = await Google.logInAsync({
-          behavior: 'web',
-          androidClientId: '503609456773-k5p11ckkutif99c9gh996dcm03jsvd7q.apps.googleusercontent.com',
-          // iosClientId: YOUR_CLIENT_ID_HERE,
-          scopes: ['profile', 'email'],
-        });
-  
-        if (result.type === 'success') {
-          console.log(result.accessToken)
-          return result.accessToken;
-        } else {
-          return { cancelled: true };
-        }
-      } catch (e) {
-        return { error: true };
-      }
-    }
-  */
-
-
-  //facebook signin
-  FacebooklogIn = async () => {
+=======
+  async storeUser(user) {
     try {
-      await Facebook.initializeAsync(`${process.env.FACEBOOK_APP_ID}`);
-      const {
-        type,
-        token,
-        expires,
-        permissions,
-        declinedPermissions,
-      } = await Facebook.logInWithReadPermissionsAsync({
-        permissions: ['public_profile'],
+      await AsyncStorage.setItem("userData", JSON.stringify(user));
+      this.setState({ loading: false })
+      this.props.navigation.navigate("Root", {
+        screen: 'Explore',
+>>>>>>> 71ff8478726bdbb24ae16a0d48f009372a47d2ac
+      }
+      )
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
+  }
+  
+  async storeToken(token) {
+    try {
+      await AsyncStorage.setItem("userToken", JSON.stringify(token));
+      this.setState({ loading: false })
+      this.props.navigation.navigate("Root", {
+        screen: 'Explore',
+      }
+      )
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
+  }
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user != null) {
+        console.log("We are authenticated now!");
+        this.storeUser(user.providerData)
+      }
+
+      // Do other things
+    });
+    //this.initAsync();
+  }
+
+  /*initAsync = async () => {
+    try {
+      await GoogleSignIn.initAsync({
+        // You may ommit the clientId when the firebase `googleServicesFile` is configured
+        // Provide other custom options...
       });
+    } catch ({ message }) {
+      alert('GoogleSignIn.initAsync(): ' + message);
+    }
+  };
+ 
+  _syncUserWithStateAsync = async () => {
+    const user = await GoogleSignIn.signInSilentlyAsync();
+    this.setState({ user });
+  };
+ 
+  signOutAsync = async () => {
+    await GoogleSignIn.signOutAsync();
+    this.setState({ user: null });
+  };
+ 
+  GoogleSignIn = async () => {
+    try {
+      await GoogleSignIn.askForPlayServicesAsync();
+      const { type, user } = await GoogleSignIn.signInAsync();
       if (type === 'success') {
+<<<<<<< HEAD
         // Get the user's name using Facebook's Graph API
         //const credential = firebase.auth.FacebookAuthProvider.credential(token);
          // console.log(token)
@@ -122,9 +149,58 @@ class LoginScreen extends React.Component {
         });
       } else {
         // type === 'cancel'
+=======
+        this._syncUserWithStateAsync();
+>>>>>>> 71ff8478726bdbb24ae16a0d48f009372a47d2ac
       }
     } catch ({ message }) {
-      alert(`Facebook Login Error: ${message}`);
+      alert('login: Error:' + message);
+    }
+  };
+ 
+  //google signin
+  /*signInWithGoogleAsync = async () => {
+     try {
+       const result = await Google.logInAsync({
+         behavior: 'web',
+         androidClientId: '503609456773-k5p11ckkutif99c9gh996dcm03jsvd7q.apps.googleusercontent.com',
+         // iosClientId: YOUR_CLIENT_ID_HERE,
+         scopes: ['profile', 'email'],
+       });
+ 
+       if (result.type === 'success') {
+         console.log(result.accessToken)
+         return result.accessToken;
+       } else {
+         return { cancelled: true };
+       }
+     } catch (e) {
+       return { error: true };
+     }
+   }
+ */
+
+
+  //facebook signin
+  FacebooklogIn = async () => {
+    await Facebook.initializeAsync(
+      '2547147542165666',
+    );
+
+    const { type, token } = await Facebook.logInWithReadPermissionsAsync(
+      { permissions: ['public_profile'] }
+    );
+
+    if (type === 'success') {
+      console.log(token)
+      // Build Firebase credential with the Facebook access token.
+      const credential = firebase.auth.FacebookAuthProvider.credential(token);
+
+      // Sign in with credential from the Facebook user.
+      firebase.auth().signInWithCredential(credential).catch((error) => {
+        // Handle Errors here.
+        alert(`facebook error : ${error}`)
+      });
     }
   }
 
@@ -135,17 +211,12 @@ class LoginScreen extends React.Component {
     try {
       const token = await loginUser(this.state.username, this.state.password);
       const t = { token }
-      console.log(t)
       //SecureStore.setItemAsync('token', token)
       this.setState({ loading: false })
-      this.props.navigation.navigate("Root", {
-        screen: 'Explore',
-        params: { t: t },
-      }
-      )
-
+      this.storeToken(t)
     }
     catch (err) {
+      console.log(err.errMessage)
       this.setState({ err: err.errMessage, loading: false })
     }
 
