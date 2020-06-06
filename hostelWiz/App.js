@@ -9,9 +9,9 @@ import BottomTabNavigator from './navigation/BottomTabNavigator';
 import Login from './screens/Login';
 import SignUpScreen from './screens/SignUp';
 import HostingOne from './screens/HostingOne';
+import ConfirmPassword from './screens/ConfirmPassword';
 import DetailsScreen  from './screens/DetailsScreen';
 import HostingTwo from './screens/HostingTwo';
-import HostingThree from './screens/HostingThree';
 import HMBottomTabNavigator from './navigation/HMBottomTabNavigation';
 import useLinking from './navigation/useLinking';
 import EditProfile from './screens/EditProfile';
@@ -134,6 +134,10 @@ export default function App(props) {
             <Stack.Screen name="notification" 
                options={{ headerShown: false, }}
             component={Notification} />
+
+           <Stack.Screen name="ConfirmPassword" 
+               options={{ headerShown: false, }}
+            component={ConfirmPassword} />
 
           </Stack.Navigator>
         </NavigationContainer>

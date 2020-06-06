@@ -49,16 +49,17 @@ export const searchProperty = async(loca) => {
  }
 
 //register new user
-export const registerUser = async (data = {}) => {
+export const registerUser = async (data) => {
  
     const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/users/`, {
-
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     })
     if (response.ok) {
+        console.log('registraion complete')
         return true
+
     }
     const errMessage = await response.text()
     throw new Error(errMessage)

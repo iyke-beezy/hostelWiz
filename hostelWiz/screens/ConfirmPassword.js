@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ToastAndroid, Text, View, TextInput, TouchableNativeFeedback, TouchableWithoutFeedback, Image, ImageBackground } from 'react-native';
+import { ToastAndroid, Text, View, TextInput, TouchableNativeFeedback, TouchableWithoutFeedback, Image, ImageBackground, Alert } from 'react-native';
 import styles from "../style";
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -7,15 +7,16 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { registerUser,loginUser } from '../api';
 
 
-class SignUpScreen extends React.Component {
+class ConfirmPassword extends React.Component {
   state = {
-
-    first_name:'',
-    last_name:'',
-    email:'',
-    contact:'',
+    wrongPassword:false,
+    username:'',
+    password:'',
+    confirmpassword:'',
+    data:this.props.route.params.data,
     loading:false,
   }
+
   _login = async () => {
     this.setState({ loading: true })
     try {
@@ -37,26 +38,46 @@ class SignUpScreen extends React.Component {
 
   }
 
- 
-
-  _signUp = () => {
+  _signUp = async () => {
     try {
+        console.log(this.state.username)
+        if(this.state.password===this.state.confirmpassword){
         const data = {
-            
-            first_name: this.state.first_name,
-            last_name: this.state.last_name,
-            email: this.state.email,
-            contact: this.state.contact,
+            username: this.state.username,
+            password: this.state.password,
+            first_name: this.state.data.first_name,
+            last_name: this.state.data.last_name,
+            email: this.state.data.email,
+            contact: this.state.data.contact,
+            groups:3,
+        }
+        const response = await registerUser(data)
+        if(response){
+          ToastAndroid.showWithGravityAndOffset(
+            'You were succesfully registered',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+            25,
+            50
+          );
+         console.log(response)
+           this._login
+         //this.props.navigation.navigate('Login')
         }
        
-         this.props.navigation.navigate('ConfirmPassword',{data:data})
-        
-        
-         
+    }
+    else {
+        Alert.alert('Passwords dont match');
+        this.setState({wrongPassword:true});
+
+    }
+
+    this._login()
     }
     catch (err) {
         console.log(err.errMessage)
     }
+   
 }
 
   render() {
@@ -69,51 +90,50 @@ class SignUpScreen extends React.Component {
           />
         </View>
         <KeyboardAwareScrollView style={styles.content}>
-         
+          <TextInput
+            placeholder="Username"
+            placeholderColor="#fff"
+            style={[styles.loginFormTextInput,
+            { fontFamily: "Baloo-Paaji", color: '#fff' }
+            ]}
+            onChangeText={(text) => this.setState({username:text})}
+            />
+
+          <TextInput
+            placeholder="Password"
+            placeholderColor="#fff"
+            style={[styles.loginFormTextInput,
+            { fontFamily: "Baloo-Paaji", color: '#fff' }
+            ]}
+            secureTextEntry={true}
+            onChangeText={(text) => this.setState({password:text})}
+             />
 
             <TextInput
-            placeholder="Email"
+            placeholder="Confirm Password"
             placeholderColor="#fff"
             style={[styles.loginFormTextInput,
             { fontFamily: "Baloo-Paaji", color: '#fff' }
             ]}
-            onChangeText={(text) => this.setState({email:text})}
-            />
+            secureTextEntry={true}
+            onChangeText={(text) => this.setState({confirmpassword:text})}
+             />
 
-          <TextInput
-            placeholder="first name"
-            placeholderColor="#fff"
-            style={[styles.loginFormTextInput,
-            { fontFamily: "Baloo-Paaji", color: '#fff' }
-            ]}
-            onChangeText={(text) => this.setState({first_name:text})}
-            />
-
-              <TextInput
-            placeholder="last name"
-            placeholderColor="#fff"
-            style={[styles.loginFormTextInput,
-            { fontFamily: "Baloo-Paaji", color: '#fff' }
-            ]}
-            onChangeText={(text) => this.setState({last_name:text})}
-            />
-
-          <TextInput
-            placeholder="phonenumber"
-            placeholderColor="#fff"
-            style={[styles.loginFormTextInput,
-            { fontFamily: "Baloo-Paaji", color: '#fff' }
-            ]} 
-            onChangeText={(text) => this.setState({contact:text})}
-            />
-
+         
           <Button
             buttonStyle={styles.loginButton}
             //onPress={() => this.onLoginPress()}
             onPress={() => this._signUp()}
-            title="Next"
-           
+            title="Sign Up"
+            loading={this.state.loading}
           />
+          {
+              this.state.wrongPassword ?
+              
+              <Text>Passwords are not matching</Text>:
+              
+              <View><Text></Text></View>
+          }
 
           <TouchableNativeFeedback onPress={() => this.signInWithGoogleAsync()}>
             <View style={styles.googleLoginButton}>
@@ -148,4 +168,4 @@ class SignUpScreen extends React.Component {
   }
 }
 
-export default SignUpScreen;
+export default ConfirmPassword;

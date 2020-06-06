@@ -27,7 +27,7 @@ class LoginScreen extends React.Component {
   }
 
     componentDidMount() {
-      firebase.auth().onAuthStateChanged((user) => {
+   /*   firebase.auth().onAuthStateChanged((user) => {
         if (user != null) {
           console.log("We are authenticated now!", user.providerData);
           //SecureStore.setItemAsync('userToken', user.token)
@@ -35,8 +35,8 @@ class LoginScreen extends React.Component {
         }
       
         // Do other things
-      });
-        this.initAsync();
+      });*/
+      //  this.initAsync();
   }
 
   initAsync = async () => {
@@ -111,8 +111,10 @@ class LoginScreen extends React.Component {
       });
       if (type === 'success') {
         // Get the user's name using Facebook's Graph API
-        const credential = firebase.auth.FacebookAuthProvider.credential(token);
-
+        //const credential = firebase.auth.FacebookAuthProvider.credential(token);
+         // console.log(token)
+          const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+          Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
         // Sign in with credential from the Facebook user.
         firebase.auth().signInWithCredential(credential).catch((error) => {
           // Handle Errors here.
