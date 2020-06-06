@@ -26,59 +26,12 @@ class LoginScreen extends React.Component {
     password: '',
   }
 
-<<<<<<< HEAD
-    componentDidMount() {
-   /*   firebase.auth().onAuthStateChanged((user) => {
-        if (user != null) {
-          console.log("We are authenticated now!", user.providerData);
-          //SecureStore.setItemAsync('userToken', user.token)
-          console.log(user)
-        }
-      
-        // Do other things
-      });*/
-      //  this.initAsync();
-  }
-
-  initAsync = async () => {
-      try {
-        await GoogleSignIn.initAsync({
-          // You may ommit the clientId when the firebase `googleServicesFile` is configured
-          clientId: '<YOUR_IOS_CLIENT_ID>',
-          // Provide other custom options...
-        });
-      } catch ({ message }) {
-        alert('GoogleSignIn.initAsync(): ' + message);
-      }
-    };
-  
-    _syncUserWithStateAsync = async () => {
-      const user = await GoogleSignIn.signInSilentlyAsync();
-      this.setState({ user });
-    };
-  
-    signOutAsync = async () => {
-      await GoogleSignIn.signOutAsync();
-      this.setState({ user: null });
-    };
-  
-    GoogleSignIn = async () => {
-      try {
-        await GoogleSignIn.askForPlayServicesAsync();
-        const { type, user } = await GoogleSignIn.signInAsync();
-        if (type === 'success') {
-          this._syncUserWithStateAsync();
-        }
-      } catch ({ message }) {
-        alert('login: Error:' + message);
-=======
   async storeUser(user) {
     try {
       await AsyncStorage.setItem("userData", JSON.stringify(user));
       this.setState({ loading: false })
       this.props.navigation.navigate("Root", {
         screen: 'Explore',
->>>>>>> 71ff8478726bdbb24ae16a0d48f009372a47d2ac
       }
       )
     } catch (error) {
@@ -136,22 +89,7 @@ class LoginScreen extends React.Component {
       await GoogleSignIn.askForPlayServicesAsync();
       const { type, user } = await GoogleSignIn.signInAsync();
       if (type === 'success') {
-<<<<<<< HEAD
-        // Get the user's name using Facebook's Graph API
-        //const credential = firebase.auth.FacebookAuthProvider.credential(token);
-         // console.log(token)
-          const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-          Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
-        // Sign in with credential from the Facebook user.
-        firebase.auth().signInWithCredential(credential).catch((error) => {
-          // Handle Errors here.
-          this.setState({err: error})
-        });
-      } else {
-        // type === 'cancel'
-=======
         this._syncUserWithStateAsync();
->>>>>>> 71ff8478726bdbb24ae16a0d48f009372a47d2ac
       }
     } catch ({ message }) {
       alert('login: Error:' + message);
