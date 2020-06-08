@@ -30,6 +30,7 @@ class SavedScreen extends React.Component {
 
   componentDidMount() {
     this.getToken();
+    
   }
   getToken = async () => {
     try {
@@ -44,7 +45,7 @@ class SavedScreen extends React.Component {
   getProperties = async () => {
     try {
       const data = await getSavedProperties(this.state.token);
-      //console.log(data); 
+      console.log(data); 
       this.setState({ property: data.result, save: true }); 
     }
     catch (err) {

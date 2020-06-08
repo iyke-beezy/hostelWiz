@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Keyboard, Image, Dimensions, Text, View, StyleSheet, Alert, AsyncStorage } from 'react-native';
+import { Keyboard, Image, Dimensions, Text, View, StyleSheet, Alert, AsyncStorage, ScrollView } from 'react-native';
 import { AntDesign, Entypo, FontAwesome5, FontAwesome, MaterialIcons } from '@expo/vector-icons';
 
 import { getUser } from '../api';
