@@ -17,22 +17,30 @@ class ConfirmPassword extends React.Component {
     loading:false,
   }
 
+  async storeToken(token) {
+    try {
+      await AsyncStorage.setItem("userToken", JSON.stringify(token));
+      this.setState({ loading: false })
+      this.props.navigation.navigate("Root", {
+        screen: 'Explore',
+      }
+      )
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
+  }
+
   _login = async () => {
     this.setState({ loading: true })
     try {
       const token = await loginUser(this.state.username, this.state.password);
       const t = { token }
-      console.log(t)
       //SecureStore.setItemAsync('token', token)
       this.setState({ loading: false })
-      this.props.navigation.navigate("Root", {
-        screen: 'Explore',
-        params: { t: t },
-      }
-      )
-
+      this.storeToken(t)
     }
     catch (err) {
+      console.log(err.errMessage)
       this.setState({ err: err.errMessage, loading: false })
     }
 
@@ -61,7 +69,7 @@ class ConfirmPassword extends React.Component {
             50
           );
          console.log(response)
-           this._login
+           this._login()
          //this.props.navigation.navigate('Login')
         }
        

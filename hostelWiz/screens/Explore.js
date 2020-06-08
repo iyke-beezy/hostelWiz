@@ -84,8 +84,6 @@ class ExploreScreen extends React.Component {
     //console.log(profile)
   }
 
-
-
   getSearchedImages = images => {
     var imagesSet = []
     for (var i = 0; i < images.length; i++) {
