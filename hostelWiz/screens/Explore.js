@@ -122,8 +122,13 @@ class ExploreScreen extends React.Component {
   }
 
   save = (pr) => {
-    this.setState({ save: !this.state.save });
+    //this.setState({ save: !this.state.save });
+    if(this.checkIfIdExistInSave(pr)){
+          
+    }
     this.saveProperty(pr);
+   
+   
   }
 
   _onChangeSearch = query => {
