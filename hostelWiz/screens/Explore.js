@@ -216,7 +216,6 @@ class ExploreScreen extends React.Component {
                                   ImageComponentStyle={{ borderTopLeftRadius: 15, borderTopRightRadius: 15, width: screenWidth * 0.9, marginLeft: - screenWidth * 0.1 }}
                                 />
 
-
                                 <TouchableOpacity
                                   onPress={() => this.save(property.id)}
                                   style={styles.saveButton}>

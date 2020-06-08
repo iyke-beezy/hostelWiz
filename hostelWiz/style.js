@@ -58,7 +58,8 @@ export default {
     flexDirection: 'column',
     backgroundColor: 'white',
     paddingRight: screenWidth * 0.05,
-    height: screenHeight * 0.18
+    height: screenHeight * 0.20,
+    marginBottom: screenHeight * 0.05,
   },
   backAndSave: {
     flex: 1,

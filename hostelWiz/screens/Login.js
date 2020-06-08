@@ -236,6 +236,7 @@ class LoginScreen extends React.Component {
                       //onPress={() => this.onLoginPress()}
                       onPress={this._login}
                       title="Login"
+                      loading={this.state.loading}
                     />
 
                     <TouchableNativeFeedback onPress={() => alert('coming soon')}>

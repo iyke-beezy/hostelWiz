@@ -101,80 +101,81 @@ class ProfileScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-
-        <View style={styles.user}>
-          {this.state.user.photourl ?
-            <Image
-              style={styles.image}
-              source={require('../assets/images/user-active.png')}
-            />
-            :
-            <Image
-              style={styles.image}
-              source={{uri: this.state.user.photourl}}
-            />
-        }
-
-          <View style={{ marginLeft: screenWidth * 0.05, }}>
-            {this.state.loginSource && this.state.loginSource === 'token' ?
-              <Text style={styles.username}>
-                {this.state.user.first_name} {this.state.user.last_name}
-              </Text>
+        <ScrollView>
+          <View style={styles.user}>
+            {this.state.user.photourl ?
+              <Image
+                style={styles.image}
+                source={require('../assets/images/user-active.png')}
+              />
               :
-              <Text style={styles.username}>
-                {this.state.user.displayName}
-              </Text>
+              <Image
+                style={styles.image}
+                source={{ uri: this.state.user.photourl }}
+              />
             }
-            <Text style={styles.email}>
-              {this.state.user.email}
-            </Text>
-          </View>
-        </View>
 
-        <View style={styles.listView}>
-          <View style={styles.detailDivider}></View>
-          <View style={styles.listItems}>
-            <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('edit')}>
-              <Text style={styles.itemText}>
-                <FontAwesome5 size={20} color={'grey'} name={'pen'} />    Edit Profile
-         </Text></TouchableOpacity>
-            <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('notification')}>
-              <Text style={styles.itemText}>
-                <FontAwesome size={25} color={'grey'} name={'bell'} />   Notifications
-         </Text></TouchableOpacity>
-            <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('hosting')}>
-              <Text style={styles.itemText}>
-                <FontAwesome size={25} color={'grey'} name={'exchange'} />   Become a hostel manager
-         </Text></TouchableOpacity>
-            <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('feedback')}>
-              <Text style={styles.itemText}>
-                <MaterialIcons size={25} color={'grey'} name={'feedback'} />   Get feedback
-         </Text></TouchableOpacity>
-            <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('term')}>
-              <Text style={styles.itemText}>
-                <Entypo size={25} color={'grey'} name={'text'} />   Terms and Condition
-         </Text></TouchableOpacity>
-            <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('other')}>
-              <Text style={styles.itemText}>
-                <Entypo color={'grey'} size={25} name={'dots-three-horizontal'} />   Others
-         </Text></TouchableOpacity>
+            <View style={{ marginLeft: screenWidth * 0.05, }}>
+              {this.state.loginSource && this.state.loginSource === 'token' ?
+                <Text style={styles.username}>
+                  {this.state.user.first_name} {this.state.user.last_name}
+                </Text>
+                :
+                <Text style={styles.username}>
+                  {this.state.user.displayName}
+                </Text>
+              }
+              <Text style={styles.email}>
+                {this.state.user.email}
+              </Text>
+            </View>
           </View>
-          <View style={styles.detailDividerTwo}></View>
-          <View style={styles.logoutContainer}>
 
-            <Text style={styles.logoutText} onPress={() => {
-              firebase.auth().signOut().then(function () {
-                // Sign-out successful.
-              }).catch(function (error) {
-                // An error happened.
-              });
-              AsyncStorage.removeItem('userData')
-              AsyncStorage.removeItem('userToken')
-              this.switchRoute('Logout')
-            }}>
-              <AntDesign size={25} name={'poweroff'} />   logout</Text>
+          <View style={styles.listView}>
+            <View style={styles.detailDivider}></View>
+            <View style={styles.listItems}>
+              <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('edit')}>
+                <Text style={styles.itemText}>
+                  <FontAwesome5 size={20} color={'grey'} name={'pen'} />    Edit Profile
+         </Text></TouchableOpacity>
+              <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('notification')}>
+                <Text style={styles.itemText}>
+                  <FontAwesome size={25} color={'grey'} name={'bell'} />   Notifications
+         </Text></TouchableOpacity>
+              <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('hosting')}>
+                <Text style={styles.itemText}>
+                  <FontAwesome size={25} color={'grey'} name={'exchange'} />   Become a hostel manager
+         </Text></TouchableOpacity>
+              <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('feedback')}>
+                <Text style={styles.itemText}>
+                  <MaterialIcons size={25} color={'grey'} name={'feedback'} />   Get feedback
+         </Text></TouchableOpacity>
+              <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('term')}>
+                <Text style={styles.itemText}>
+                  <Entypo size={25} color={'grey'} name={'text'} />   Terms and Condition
+         </Text></TouchableOpacity>
+              <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('other')}>
+                <Text style={styles.itemText}>
+                  <Entypo color={'grey'} size={25} name={'dots-three-horizontal'} />   Others
+         </Text></TouchableOpacity>
+            </View>
+            <View style={styles.detailDividerTwo}></View>
+            <View style={styles.logoutContainer}>
+
+              <Text style={styles.logoutText} onPress={() => {
+                firebase.auth().signOut().then(function () {
+                  // Sign-out successful.
+                }).catch(function (error) {
+                  // An error happened.
+                });
+                AsyncStorage.removeItem('userData')
+                AsyncStorage.removeItem('userToken')
+                this.switchRoute('Logout')
+              }}>
+                <AntDesign size={25} name={'poweroff'} />logout</Text>
+            </View>
           </View>
-        </View>
+        </ScrollView>
       </View>
 
 
@@ -226,7 +227,8 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     //  alignItems:"center",
     flexDirection: "row",
-    marginTop: 0
+    marginTop: 0,
+    marginBottom: screenHeight * 0.06
   },
   logout: {
     height: 20,
@@ -263,7 +265,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   username: {
-    fontSize: 35,
+    fontSize: 25,
     fontFamily: 'Baloo-Paaji',
   },
   email: {

@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Keyboard, Modal, StatusBar, Image, TouchableOpacity, Animated, ScrollView, ImageBackground, Text, View, Alert, AsyncStorage, Dimensions, TouchableHighlight } from 'react-native';
-import { Card, Button, Icon } from 'react-native-elements';
+import { Keyboard, Modal, Image, TouchableOpacity, ScrollView, Linking, Text, View, Alert, AsyncStorage, Dimensions, TouchableHighlight } from 'react-native';
 import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
 import styles from "../style";
 import Colors from '../constants/Colors';
@@ -18,7 +17,7 @@ class DetailsScreen extends React.Component {
     newRating: 0,
     modalVisible: false,
   };
-  componentDidMount(){
+  componentDidMount() {
     this.getToken()
   }
   save = () => {
@@ -27,7 +26,7 @@ class DetailsScreen extends React.Component {
   async getToken() {
     try {
       let userToken = await AsyncStorage.getItem("userToken");
-      this.setState({token: userToken})
+      this.setState({ token: userToken })
     } catch (error) {
       console.log("Something went wrong", error);
     }
@@ -47,7 +46,7 @@ class DetailsScreen extends React.Component {
     var imagesSet = []
     for (var i = 0; i < images.length; i++) {
       images.map(image => {
-        if(image.image.startsWith("https://hostelwiz.herokuapp.com")){
+        if (image.image.startsWith("https://hostelwiz.herokuapp.com")) {
           imagesSet.push(image.image)
         }
         else {
@@ -108,7 +107,7 @@ class DetailsScreen extends React.Component {
           showsVerticalScrollIndicator={false}
         >
           <ScrollView style={styles.detailHeader} showsHorizontalScrollIndicator={false} horizontal={true} >
-            {this.getImages(property.images).map(image => <Image key={image} style={styles.detailImages} source={{uri:`${image}`}} />)}
+            {this.getImages(property.images).map(image => <Image key={image} style={styles.detailImages} source={{ uri: `${image}` }} />)}
           </ScrollView>
           <View style={{ paddingRight: screenWidth * 0.07, flex: 1, flexDirection: 'column', paddingBottom: 10 }}>
             <Text style={styles.detailText}>
@@ -124,7 +123,13 @@ class DetailsScreen extends React.Component {
 
         <View style={styles.spaceBelow}>
           <View style={styles.spaceBelowContent}>
-            <TouchableOpacity style={styles.callButton}>
+            <TouchableOpacity style={styles.callButton}
+              onPress={() => { 
+                console.log(property)
+                Linking.openURL(`tel:${property.contact}`) 
+                }
+              }
+            >
               {/* <Button
                 title='Call Now'
                 buttonStyle={{ borderRadius: 5, height: screenHeight / 15, backgroundColor: 'gold' }} /> */}
