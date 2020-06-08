@@ -11,8 +11,6 @@ import { getSavedProperties } from '../api';
 
 
 class SavedScreen extends React.Component {
-
-
   state = {
     searchQuery: '',
     rating: 2,
@@ -51,8 +49,6 @@ class SavedScreen extends React.Component {
       console.log(err)
     }
     //this.setState({property:data});
-
-
   }
 
   save = () => {
