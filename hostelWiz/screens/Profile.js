@@ -58,7 +58,6 @@ class ProfileScreen extends React.Component {
   getUserDetails = async () => {
     const profile = await getUser(this.state.token)
     this.setState({ user: profile.user })
-    console.log(profile)
   }
 
   switchRoute = (param) => {
@@ -103,7 +102,7 @@ class ProfileScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.user}>
-            {this.state.user.photourl ?
+            {this.state.loginSource === 'token' ?
               <Image
                 style={styles.image}
                 source={require('../assets/images/user-active.png')}
@@ -115,7 +114,7 @@ class ProfileScreen extends React.Component {
               />
             }
 
-            <View style={{ marginLeft: screenWidth * 0.05, }}>
+            <View style={{ marginLeft: screenWidth * 0.05, marginRight: screenWidth * 0.05 }}>
               {this.state.loginSource && this.state.loginSource === 'token' ?
                 <Text style={styles.username}>
                   {this.state.user.first_name} {this.state.user.last_name}
@@ -136,27 +135,27 @@ class ProfileScreen extends React.Component {
             <View style={styles.listItems}>
               <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('edit')}>
                 <Text style={styles.itemText}>
-                  <FontAwesome5 size={20} color={'grey'} name={'pen'} />    Edit Profile
+                  <FontAwesome5 size={20} color={'#92A5A3'} name={'pen'} />    Edit Profile
          </Text></TouchableOpacity>
               <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('notification')}>
                 <Text style={styles.itemText}>
-                  <FontAwesome size={25} color={'grey'} name={'bell'} />   Notifications
+                  <FontAwesome size={25} color={'#92A5A3'} name={'bell'} />   Notifications
          </Text></TouchableOpacity>
               <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('hosting')}>
                 <Text style={styles.itemText}>
-                  <FontAwesome size={25} color={'grey'} name={'exchange'} />   Become a hostel manager
+                  <FontAwesome size={25} color={'#92A5A3'} name={'exchange'} />   Become a hostel manager
          </Text></TouchableOpacity>
               <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('feedback')}>
                 <Text style={styles.itemText}>
-                  <MaterialIcons size={25} color={'grey'} name={'feedback'} />   Get feedback
+                  <MaterialIcons size={25} color={'#92A5A3'} name={'feedback'} />   Get feedback
          </Text></TouchableOpacity>
               <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('term')}>
                 <Text style={styles.itemText}>
-                  <Entypo size={25} color={'grey'} name={'text'} />   Terms and Condition
+                  <Entypo size={25} color={'#92A5A3'} name={'text'} />   Terms and Condition
          </Text></TouchableOpacity>
               <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('other')}>
                 <Text style={styles.itemText}>
-                  <Entypo color={'grey'} size={25} name={'dots-three-horizontal'} />   Others
+                  <Entypo color={'#92A5A3'} size={25} name={'dots-three-horizontal'} />   Others
          </Text></TouchableOpacity>
             </View>
             <View style={styles.detailDividerTwo}></View>
@@ -172,7 +171,7 @@ class ProfileScreen extends React.Component {
                 AsyncStorage.removeItem('userToken')
                 this.switchRoute('Logout')
               }}>
-                <AntDesign size={25} name={'poweroff'} />logout</Text>
+                <AntDesign size={18} name={'poweroff'} /> logout</Text>
             </View>
           </View>
         </ScrollView>
@@ -204,11 +203,11 @@ const styles = StyleSheet.create({
     marginLeft: screenWidth * 0.05,
   },
   image: {
-    height: 100,
-    width: 100,
+    height: 70,
+    width: 70,
     borderRadius: 100,
     borderWidth: 0.5,
-    borderColor: 'grey',
+    borderColor: '#92A5A3',
   },
   item: {
     padding: 10,
@@ -265,13 +264,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   username: {
-    fontSize: 25,
+    fontSize: 22,
     fontFamily: 'Baloo-Paaji',
   },
   email: {
     fontSize: 20,
     fontFamily: 'Baloo-Paaji-Medium',
-    color: 'grey',
+    color: '#92A5A3',
   },
 
 })

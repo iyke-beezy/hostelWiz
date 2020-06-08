@@ -202,3 +202,20 @@ throw new Error(errMessage)
 //final Step to add to customer group or table
 
 
+//retrieve hostel managers information
+export const getHostelManager = async (token, id) => {
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/hostel_managers/${id}`, {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json',
+                    'Authorization':`Token ${token}`
+                }
+    })
+    if (response.ok) {
+        const manager = await response.json() 
+        return manager
+    }
+
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+
+}
