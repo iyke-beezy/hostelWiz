@@ -1,16 +1,16 @@
 import * as React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, AsyncStorage } from 'react-native';
 import { SplashScreen, Notifications } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
-import Login from './screens/Login';
+import LoadingScreen from './components/LoadingScreen'
 import SignUpScreen from './screens/SignUp';
 import HostingOne from './screens/HostingOne';
 import ConfirmPassword from './screens/ConfirmPassword';
-import DetailsScreen  from './screens/DetailsScreen';
+import DetailsScreen from './screens/DetailsScreen';
 import HostingTwo from './screens/HostingTwo';
 import HMBottomTabNavigator from './navigation/HMBottomTabNavigation';
 import useLinking from './navigation/useLinking';
@@ -19,43 +19,66 @@ import Notification from './screens/notification';
 import Others from './screens/others';
 import Feedback from './screens/feedback';
 import Terms from './screens/terms';
+import LoginScreen from './screens/Login'
 
+import firebase from './screens/firebase';
 
-import * as SecureStore from 'expo-secure-store';
 const Stack = createStackNavigator();
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const [initialNavigationState, setInitialNavigationState] = React.useState();
   const [initialRouteName, setinitialRouteName] = React.useState('Login');
+
   const containerRef = React.useRef();
   const { getInitialState } = useLinking(containerRef);
 
+  async function storeUser(user) {
+    try {
+      await AsyncStorage.setItem("userData", JSON.stringify(user));
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
+  }
+
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
+    let mounted = true;
     async function loadResourcesAndDataAsync() {
       try {
         SplashScreen.preventAutoHide();
 
         // Load our initial navigation state
-        setInitialNavigationState(await getInitialState());
-        if(SecureStore.getItemAsync('token')){
-          setinitialRouteName('Root')
+        if (mounted) {
+          setInitialNavigationState(await getInitialState());
+
+          firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+              storeUser(user.providerData)
+              setinitialRouteName('Root')
+            } else {
+
+              setinitialRouteName('Login');
+            }
+          });
+          // Load fonts
+          await Font.loadAsync({
+            ...Ionicons.font,
+            'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+            'Baloo-Paaji': require('./assets/fonts/BalooPaaji2-Regular.ttf'),
+            'Baloo-Paaji-Medium': require('./assets/fonts/BalooPaaji2-Medium.ttf')
+          });
         }
-        // Load fonts
-        await Font.loadAsync({
-          ...Ionicons.font,
-          'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-          'Baloo-Paaji': require('./assets/fonts/BalooPaaji2-Regular.ttf'),
-          'Baloo-Paaji-Medium': require('./assets/fonts/BalooPaaji2-Medium.ttf')
-        });
+
+
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);
       } finally {
-        setLoadingComplete(true);
+          setLoadingComplete(true);
         SplashScreen.hide();
       }
+      return () => mounted = false;
     }
 
     loadResourcesAndDataAsync();
@@ -68,76 +91,77 @@ export default function App(props) {
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <Stack.Navigator>
-          <Stack.Screen
-           name="Login"
-            component={Login}
-            options={{
-              headerShown: false,
-            
-            }}
+          <Stack.Navigator initialRouteName={initialRouteName}>
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{
+                headerShown: false,
+
+              }}
             />
-            <Stack.Screen name="Root" 
-               options={{
+            <Stack.Screen name="SignUp"
+              options={{
                 headerShown: false,
-              
+
               }}
-            component={BottomTabNavigator} />
-              <Stack.Screen name="SignUp" 
-               options={{
+              component={SignUpScreen} />
+
+            <Stack.Screen name="Root"
+              options={{
                 headerShown: false,
-              
-              }}
-            component={SignUpScreen} />
 
-              <Stack.Screen name="Hone" 
-               options={{
+              }}
+              component={BottomTabNavigator} />
+
+            <Stack.Screen name="Hone"
+              options={{
                 headerShown: false,
-              
+
               }}
-            component={HostingOne} />
-            
-             <Stack.Screen name="Htwo" 
-               options={{
+              component={HostingOne} />
+
+            <Stack.Screen name="Htwo"
+              options={{
                 headerShown: false,
-              
+
               }}
-            component={HostingTwo} />
-            
-             <Stack.Screen name="details" 
-               options={{
+              component={HostingTwo} />
+
+            <Stack.Screen name="details"
+              options={{
                 headerShown: false,
-              
+
               }}
-            component={DetailsScreen} />
+              component={DetailsScreen} />
 
-              <Stack.Screen name="HMnav" 
-               options={{ headerShown: false, }}
-            component={HMBottomTabNavigator} />
+            <Stack.Screen name="HMnav"
+              options={{ headerShown: false, }}
+              component={HMBottomTabNavigator} />
 
-              <Stack.Screen name="edit" 
-               options={{ headerShown: false, }}
-            component={EditProfile} />
+            <Stack.Screen name="edit"
+              options={{ headerShown: false, }}
+              component={EditProfile} />
 
-            <Stack.Screen name="others" 
-               options={{ headerShown: false, }}
-            component={Others} />
+            <Stack.Screen name="others"
+              options={{ headerShown: false, }}
+              component={Others} />
 
-             <Stack.Screen name="feedback" 
-               options={{ headerShown: false, }}
-            component={Feedback} />
+            <Stack.Screen name="feedback"
+              options={{ headerShown: false, }}
+              component={Feedback} />
 
-            <Stack.Screen name="terms" 
-               options={{ headerShown: false, }}
-            component={Terms} />
+            <Stack.Screen name="terms"
+              options={{ headerShown: false, }}
+              component={Terms} />
 
-            <Stack.Screen name="notification" 
-               options={{ headerShown: false, }}
-            component={Notification} />
+            <Stack.Screen name="notification"
+              options={{ headerShown: false, }}
+              component={Notification} />
 
-           <Stack.Screen name="ConfirmPassword" 
-               options={{ headerShown: false, }}
-            component={ConfirmPassword} />
+            <Stack.Screen name="ConfirmPassword"
+              options={{ headerShown: false, }}
+              component={ConfirmPassword} />
 
           </Stack.Navigator>
         </NavigationContainer>

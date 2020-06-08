@@ -67,7 +67,7 @@ export const registerUser = async (data) => {
 
 export const editUser = async (data = {},id,token) => {
  
-    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/users/${id}`, {
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/users/${id}/`, {
 
         method: 'PUT',
         headers: { 'Content-Type': 'application/json',

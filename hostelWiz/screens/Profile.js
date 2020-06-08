@@ -1,15 +1,13 @@
 import * as React from 'react';
-import { Keyboard, Image, Dimensions, Text, View, StyleSheet, TextInput, FlatList, TouchableWithoutFeedback, Alert, KeyboardAvoidingView, AsyncStorage } from 'react-native';
-import { Card, Button, Icon } from 'react-native-elements';
-import { grey } from 'ansi-colors';
+import { Keyboard, Image, Dimensions, Text, View, StyleSheet, Alert, AsyncStorage } from 'react-native';
 import { AntDesign, Entypo, FontAwesome5, FontAwesome, MaterialIcons } from '@expo/vector-icons';
-import Colors from '../constants/Colors';
+
 import { getUser } from '../api';
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
 import Constants from 'expo-constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import firebase from './firebase';
+import firebase from 'firebase';
 
 
 
@@ -20,28 +18,38 @@ class ProfileScreen extends React.Component {
     loginSource: null
   }
   componentDidMount() {
-    this.getUser()
+    this.init()
+    // if (AsyncStorage.getItem('userToken')) {
+    //   this.getToken()
+    // } else {
+    //   this.getUser()
+    // }
+
     //this.getUserDetails();
   }
-
+  init = async () => {
+    const status = await AsyncStorage.getItem('userToken')
+    if (status) {
+      this.getToken()
+    } else {
+      this.getUser()
+    }
+  }
   async getUser() {
     try {
       let userData = await AsyncStorage.getItem("userData");
       let data = JSON.parse(userData);
-      console.log(data[0]);
       this.setState({ user: data[0], loginSource: 'facebook' })
     } catch (error) {
       console.log("Something went wrong", error);
-      this.setState({ loginSource: 'token' })
-      this.getToken()
     }
   }
 
   getToken = async () => {
     try {
       let userToken = await AsyncStorage.getItem("userToken");
-      let data = JSON.parse(userToken)
-      this.setState({ token: data.token })
+      let token = JSON.parse(userToken)
+      this.setState({ token, loginSource: 'token' })
       this.getUserDetails();
     } catch (error) {
       console.log("Something went wrong", error);
@@ -95,10 +103,18 @@ class ProfileScreen extends React.Component {
       <View style={styles.container}>
 
         <View style={styles.user}>
-          <Image
-            style={styles.image}
-            source={this.state.user.photourl ? { uri: this.state.user.photourl } : require('../assets/images/user-active.png')}
-          />
+          {this.state.user.photourl ?
+            <Image
+              style={styles.image}
+              source={require('../assets/images/user-active.png')}
+            />
+            :
+            <Image
+              style={styles.image}
+              source={{uri: this.state.user.photourl}}
+            />
+        }
+
           <View style={{ marginLeft: screenWidth * 0.05, }}>
             {this.state.loginSource && this.state.loginSource === 'token' ?
               <Text style={styles.username}>

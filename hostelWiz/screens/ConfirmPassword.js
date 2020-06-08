@@ -1,11 +1,13 @@
 import * as React from 'react';
-import { ToastAndroid, Text, View, TextInput, TouchableNativeFeedback, TouchableWithoutFeedback, Image, ImageBackground, Alert } from 'react-native';
+import { ToastAndroid, Text, View, TextInput, AsyncStorage, TouchableWithoutFeedback, Image, ImageBackground, Alert } from 'react-native';
 import styles from "../style";
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { registerUser,loginUser } from '../api';
 
+import 'firebase/firestore';
+import firebase from 'firebase';
 
 class ConfirmPassword extends React.Component {
   state = {
@@ -17,14 +19,27 @@ class ConfirmPassword extends React.Component {
     loading:false,
   }
 
+  signInWithEmail = async () => {
+    await firebase
+      .auth()
+      .createUserWithEmailAndPassword(this.state.data.email, this.state.password)
+      .then(this._signUp)
+      .catch(error => {
+          let errorCode = error.code;
+          let errorMessage = error.message;
+          if (errorCode == 'auth/weak-password') {
+              this.onLoginFailure.bind(this)('Weak Password!');
+          } else {
+              this.onLoginFailure.bind(this)(errorMessage);
+          }
+      });
+  }
+
   async storeToken(token) {
     try {
       await AsyncStorage.setItem("userToken", JSON.stringify(token));
       this.setState({ loading: false })
-      this.props.navigation.navigate("Root", {
-        screen: 'Explore',
-      }
-      )
+      this.props.navigation.navigate("Root")
     } catch (error) {
       console.log("Something went wrong", error);
     }
@@ -131,7 +146,7 @@ class ConfirmPassword extends React.Component {
           <Button
             buttonStyle={styles.loginButton}
             //onPress={() => this.onLoginPress()}
-            onPress={() => this._signUp()}
+            onPress={() => this.signInWithEmail()}
             title="Sign Up"
             loading={this.state.loading}
           />
@@ -142,28 +157,6 @@ class ConfirmPassword extends React.Component {
               
               <View><Text></Text></View>
           }
-
-          <TouchableNativeFeedback onPress={() => this.signInWithGoogleAsync()}>
-            <View style={styles.googleLoginButton}>
-              <Text style={{ fontFamily: 'Baloo-Paaji', color: '#fff', fontSize: 18 }}>
-                <Icon
-                  name="google"
-                  size={18}
-                  color="white"
-                />  Login with Google</Text>
-            </View>
-
-          </TouchableNativeFeedback>
-
-          <TouchableNativeFeedback>
-            <View style={styles.fbLoginButton}>
-              <Text style={{ fontFamily: 'Baloo-Paaji', color: '#fff', fontSize: 18 }}>
-                <Icon name="facebook"
-                  size={18}
-                  color="white" />  Login with Facebook</Text>
-            </View>
-          </TouchableNativeFeedback>
-
           <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('Login')} style={{ paddingLeft: 10, }}>
           <View style={{paddingLeft: 10, paddingBottom: 10}}>
             <Text style={{ fontFamily: "Baloo-Paaji" }}>Already have an account?  <Text style={{ fontWeight: 'bold', fontFamily: 'Baloo-Paaji-Medium', color: '#92A5A3' }}>Login</Text></Text>

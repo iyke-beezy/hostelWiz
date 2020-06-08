@@ -1,16 +1,17 @@
 import React from 'react';
-import { Text, View, TextInput, TouchableWithoutFeedback, TouchableNativeFeedback, Image, ImageBackground, AsyncStorage } from 'react-native';
+import { Text, View, TextInput, SafeAreaView, TouchableWithoutFeedback, TouchableNativeFeedback, Image, ImageBackground, AsyncStorage, ActivityIndicator } from 'react-native';
 import styles from "../style";
 import { Asset } from 'expo-asset';
 import { AppLoading } from 'expo';
 import { Button, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import * as SecureStore from 'expo-secure-store';
-import { loginUser } from '../api'
+import { loginUser, getUser } from '../api'
 
 import * as GoogleSignIn from 'expo-google-sign-in';
-import firebase from './firebase';
+const firebase = require('firebase');
+//import firebase from 'firebase';
+import "firebase/firestore";
 import * as Facebook from 'expo-facebook';
 //import * as Google from 'expo-google-app-auth';
 
@@ -24,45 +25,26 @@ class LoginScreen extends React.Component {
     isReady: false,
     username: '',
     password: '',
+    error: ''
   }
 
-  async storeUser(user) {
-    try {
-      await AsyncStorage.setItem("userData", JSON.stringify(user));
-      this.setState({ loading: false })
-      this.props.navigation.navigate("Root", {
-        screen: 'Explore',
-      }
-      )
-    } catch (error) {
-      console.log("Something went wrong", error);
-    }
-  }
-  
   async storeToken(token) {
     try {
       await AsyncStorage.setItem("userToken", JSON.stringify(token));
       this.setState({ loading: false })
-      this.props.navigation.navigate("Root", {
-        screen: 'Explore',
-      }
-      )
+      this.props.navigation.navigate("Root")
     } catch (error) {
       console.log("Something went wrong", error);
     }
   }
-  componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user != null) {
-        console.log("We are authenticated now!");
-        this.storeUser(user.providerData)
-      }
 
-      // Do other things
-    });
-    //this.initAsync();
+  onLoginSuccess() {
+    this.props.navigation.navigate('Root');
   }
 
+  onLoginFailure(errorMessage) {
+    this.setState({ error: errorMessage, loading: false });
+  }
   /*initAsync = async () => {
     try {
       await GoogleSignIn.initAsync({
@@ -118,46 +100,75 @@ class LoginScreen extends React.Component {
    }
  */
 
+  renderLoading() {
+    if (this.state.loading) {
+      return (
+        <View>
+          <ActivityIndicator size={'large'} />
+        </View>
+      );
+    }
+  }
 
   //facebook signin
   FacebooklogIn = async () => {
     await Facebook.initializeAsync(
       '2547147542165666',
     );
-
-    const { type, token } = await Facebook.logInWithReadPermissionsAsync(
-      { permissions: ['public_profile'] }
-    );
-
-    if (type === 'success') {
-      console.log(token)
-      // Build Firebase credential with the Facebook access token.
-      const credential = firebase.auth.FacebookAuthProvider.credential(token);
-
-      // Sign in with credential from the Facebook user.
-      firebase.auth().signInWithCredential(credential).catch((error) => {
-        // Handle Errors here.
-        alert(`facebook error : ${error}`)
+    try {
+      const { type, token } = await Facebook.logInWithReadPermissionsAsync({
+        permissions: ['public_profile'],
       });
+      if (type === 'success') {
+        await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+        const credential = firebase.auth.FacebookAuthProvider.credential(token);
+        const facebookProfileData = await firebase.auth().signInWithCredential(credential);
+        this.onLoginSuccess()
+      }
+    } catch ({ message }) {
+      alert(`Facebook Login Error: ${message}`);
     }
   }
 
+  getUserEmail = async (token) => {
+    const profile = await getUser(token)
+    return profile.user.email
+  }
 
-
-  _login = async () => {
-    this.setState({ loading: true })
+  _login = async (status=false) => {
+    /*
+    this.storeToken(t)*/
     try {
       const token = await loginUser(this.state.username, this.state.password);
-      const t = { token }
-      //SecureStore.setItemAsync('token', token)
-      this.setState({ loading: false })
-      this.storeToken(t)
+      const email = await this.getUserEmail(token)
+      if(status === true){
+        this.storeToken(token)
+      } else{
+        this.signInWithEmail(email)
+      }
+      
     }
     catch (err) {
       console.log(err.errMessage)
-      this.setState({ err: err.errMessage, loading: false })
+      this.setState({ error: err.errMessage, loading: false })
     }
+  }
 
+  signInWithEmail = async (email) => {
+    this.setState({ loading: true })
+    await firebase
+      .auth()
+      .signInWithEmailAndPassword(email, this.state.password)
+      .then(this._login(true))
+      .catch(error => {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        if (errorCode == 'auth/weak-password') {
+          this.onLoginFailure('Weak Password!');
+        } else {
+          this.onLoginFailure(errorMessage);
+        }
+      });
   }
 
   handleUsername = username => {
@@ -200,50 +211,66 @@ class LoginScreen extends React.Component {
                   source={require("../assets/images/splash.png")}
                 />
               </View>
-              <KeyboardAwareScrollView style={styles.content}>
-                <Text>{this.state.err}</Text>
-                <TextInput placeholder="Username" placeholderColor="#fff" style={[styles.loginFormTextInput, { fontFamily: "Baloo-Paaji", color: '#fff' }]} onChangeText={this.handleUsername} autoCapitalize="none" />
-                <TextInput placeholder="Password" placeholderColor="#fff" style={[styles.loginFormTextInput, { fontFamily: "Baloo-Paaji", color: '#fff' }]} secureTextEntry={true} onChangeText={this.handlePassword} />
+              <TouchableWithoutFeedback
+              >
+                <SafeAreaView style={{ flex: 1 }}>
+                  <KeyboardAwareScrollView style={styles.content}>
+                    <Text>{this.state.err}</Text>
+                    <TextInput placeholder="Username" placeholderColor="#fff" style={[styles.loginFormTextInput, { fontFamily: "Baloo-Paaji", color: '#fff' }]} onChangeText={this.handleUsername} autoCapitalize="none" />
+                    <TextInput placeholder="Password" placeholderColor="#fff" style={[styles.loginFormTextInput, { fontFamily: "Baloo-Paaji", color: '#fff' }]} secureTextEntry={true} onChangeText={this.handlePassword} />
 
-                <Button
-                  buttonStyle={styles.loginButton}
-                  //onPress={() => this.onLoginPress()}
-                  onPress={this._login}
-                  title="Login"
-                  loading={this.state.loading}
-                />
+                    {this.renderLoading()}
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        fontFamily: 'Baloo-Paaji-Medium',
+                        textAlign: "center",
+                        color: "red",
+                        width: "80%"
+                      }}
+                    >
+                      {this.state.error}
+                    </Text>
+                    <Button
+                      buttonStyle={styles.loginButton}
+                      //onPress={() => this.onLoginPress()}
+                      onPress={this._login}
+                      title="Login"
+                    />
 
-                <TouchableNativeFeedback onPress={() => this.signInWithGoogleAsync()}>
-                  <View style={styles.googleLoginButton}>
-                    <Text style={{ fontFamily: 'Baloo-Paaji', color: '#fff', fontSize: 18 }}>
-                      <Icon
-                        name="google"
-                        size={18}
-                        color="white"
-                      />  Login with Google</Text>
-                  </View>
+                    <TouchableNativeFeedback onPress={() => alert('coming soon')}>
+                      <View style={styles.googleLoginButton}>
+                        <Text style={{ fontFamily: 'Baloo-Paaji', color: '#fff', fontSize: 18 }}>
+                          <Icon
+                            name="google"
+                            size={18}
+                            color="white"
+                          />  Login with Google</Text>
+                      </View>
 
-                </TouchableNativeFeedback>
+                    </TouchableNativeFeedback>
 
-                <TouchableNativeFeedback onPress={() => this.FacebooklogIn()}>
-                  <View style={styles.fbLoginButton}>
-                    <Text style={{ fontFamily: 'Baloo-Paaji', color: '#fff', fontSize: 18 }}>
-                      <Icon name="facebook"
-                        size={18}
-                        color="white" />  Login with Facebook</Text>
-                  </View>
-                </TouchableNativeFeedback>
+                    <TouchableNativeFeedback onPress={() => this.FacebooklogIn()}>
+                      <View style={styles.fbLoginButton}>
+                        <Text style={{ fontFamily: 'Baloo-Paaji', color: '#fff', fontSize: 18 }}>
+                          <Icon name="facebook"
+                            size={18}
+                            color="white" />  Login with Facebook</Text>
+                      </View>
+                    </TouchableNativeFeedback>
 
-                <Text style={{ fontFamily: "Baloo-Paaji", paddingLeft: 10, }}>
-                  Forgot Password?
+                    <Text style={{ fontFamily: "Baloo-Paaji", paddingLeft: 10, }}>
+                      Forgot Password?
                 </Text>
 
-                <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('SignUp')}>
-                  <View style={{ paddingLeft: 10 }}>
-                    <Text style={{ fontFamily: "Baloo-Paaji" }}>Don't have an account?  <Text style={{ fontFamily: 'Baloo-Paaji-Medium', paddingLeft: 10, color: '#92A5A3' }}>Sign up here</Text></Text>
-                  </View>
-                </TouchableWithoutFeedback>
-              </KeyboardAwareScrollView>
+                    <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('SignUp')}>
+                      <View style={{ paddingLeft: 10 }}>
+                        <Text style={{ fontFamily: "Baloo-Paaji" }}>Don't have an account?  <Text style={{ fontFamily: 'Baloo-Paaji-Medium', paddingLeft: 10, color: '#92A5A3' }}>Sign up here</Text></Text>
+                      </View>
+                    </TouchableWithoutFeedback>
+                  </KeyboardAwareScrollView>
+                </SafeAreaView>
+              </TouchableWithoutFeedback>
             </ImageBackground>
           )
       );

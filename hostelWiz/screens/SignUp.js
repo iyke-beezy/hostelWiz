@@ -4,8 +4,6 @@ import styles from "../style";
 import { Button } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-
-
 class SignUpScreen extends React.Component {
   state = {
     first_name:'',
@@ -14,10 +12,10 @@ class SignUpScreen extends React.Component {
     contact:'',
     loading:false,
   }
+
   _signUp = () => {
     try {
         const data = {
-            
             first_name: this.state.first_name,
             last_name: this.state.last_name,
             email: this.state.email,
@@ -44,8 +42,6 @@ class SignUpScreen extends React.Component {
           />
         </View>
         <KeyboardAwareScrollView style={styles.content}>
-         
-
             <TextInput
             placeholder="Email"
             placeholderColor="#fff"

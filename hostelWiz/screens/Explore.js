@@ -30,14 +30,15 @@ class ExploreScreen extends React.Component {
 
   componentDidMount() {
     //console.log(this.state.token)
+    
     this.getToken();
     this.getProperties();
   }
   async getToken() {
     try {
       let userToken = await AsyncStorage.getItem("userToken");
-      let data = JSON.parse(userToken)
-      this.setState({token: data.token})
+      let token = JSON.parse(userToken)
+      this.setState({token})
       this.getSaveProperties();
       //console.log(this.state.token)
     } catch (error) {
