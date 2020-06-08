@@ -5,7 +5,7 @@ import styles from "../style";
 import Colors from '../constants/Colors';
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
-import { rateProperties } from '../api'
+import { rateProperties, getHostelManager } from '../api'
 
 class DetailsScreen extends React.Component {
 
@@ -26,7 +26,8 @@ class DetailsScreen extends React.Component {
   async getToken() {
     try {
       let userToken = await AsyncStorage.getItem("userToken");
-      this.setState({ token: userToken })
+      let token = JSON.parse(userToken)
+      this.setState({ token })
     } catch (error) {
       console.log("Something went wrong", error);
     }
@@ -40,6 +41,17 @@ class DetailsScreen extends React.Component {
     const hostel = this.state.hostel
     const data = await rateProperties(hostel.id, this.state.token, this.state.newRating);
 
+  }
+
+  getHostelManager = async (id) => {
+    try {
+      const data = await getHostelManager(this.state.token, id)
+      return data.user.contact
+    }
+    catch(err) {
+      console.log(err)
+      return null
+    }
   }
 
   getImages = images => {
@@ -124,9 +136,9 @@ class DetailsScreen extends React.Component {
         <View style={styles.spaceBelow}>
           <View style={styles.spaceBelowContent}>
             <TouchableOpacity style={styles.callButton}
-              onPress={() => { 
-                console.log(property)
-                Linking.openURL(`tel:${property.contact}`) 
+              onPress={async () => { 
+                const phone = await this.getHostelManager(property.manager)
+                Linking.openURL(`tel:${phone}`) 
                 }
               }
             >
