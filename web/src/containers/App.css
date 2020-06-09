@@ -35,7 +35,7 @@ button:hover {
 .explore {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-content: center;
   height: auto;
   margin: 20px auto !important;
@@ -45,10 +45,14 @@ button:hover {
   padding-left: 80px !important;
   flex-wrap: wrap;
 }
-
 .explore .exploreItem {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.explore .exploreItem .propertyItem {
   flex: 0 0 512px;
   border-radius: 16px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
   margin: 18px;
 }

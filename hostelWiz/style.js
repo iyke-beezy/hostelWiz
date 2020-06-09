@@ -58,7 +58,8 @@ export default {
     flexDirection: 'column',
     backgroundColor: 'white',
     paddingRight: screenWidth * 0.05,
-    height: screenHeight * 0.18
+    height: screenHeight * 0.20,
+    marginBottom: screenHeight * 0.05,
   },
   backAndSave: {
     flex: 1,
@@ -95,7 +96,7 @@ export default {
   },
   subTitle: {
     fontSize: 14,
-    color: '#92A5A3',
+    color: 'grey',
     fontFamily: 'Baloo-Paaji-Medium',
   },
   detailTitle: {
@@ -127,18 +128,13 @@ export default {
   },
   detailTitleText: {
     fontSize: 15,
-    color: '#92A5A3',
+    color: 'grey',
     marginBottom: 15,
     fontFamily: 'Baloo-Paaji'
   },
   detailText: {
     fontSize: 15,
-    color: '#92A5A3',
-    fontFamily: 'Baloo-Paaji'
-  },
-  headlineText: {
-    fontSize: 13,
-    color: '#92A5A3',
+    color: 'grey',
     fontFamily: 'Baloo-Paaji'
   },
   spaceBelow: {
@@ -147,6 +143,11 @@ export default {
     marginLeft: -screenWidth * 0.03,
     paddingLeft: screenWidth * 0.02
   },
+  rating: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start'
+  },
   spaceBelowContent: {
     flex: 1,
     flexDirection: 'row',
@@ -154,7 +155,7 @@ export default {
     alignItems: 'center',
     paddingBottom: 10,
   },
-  detailPriceAndRating: {
+  detailRating: {
 
   },
   rateButton: {
@@ -572,4 +573,35 @@ export default {
   hosting: {
 
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+ 
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  }
 };

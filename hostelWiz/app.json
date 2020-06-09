@@ -1,15 +1,19 @@
 {
   "expo": {
-    "name": "HelloWorld",
+    "name": "Hostel Wiz",
+    "description": "An application for finding the best hostels and apartments in Ghana",
     "slug": "hostelWiz",
+    "primaryColor": "#E7C654",
     "platforms": [
-      "ios",
       "android",
       "web"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
+    "facebookScheme": "fb2919104958174912",
+    "facebookAppId": "2919104958174912",
+    "facebookDisplayName": "hostelwiz",
     "scheme": "myapp",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -22,9 +26,6 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
       "package": "com.hostelWiz.app",
       "googleServicesFile": "./google-services.json"

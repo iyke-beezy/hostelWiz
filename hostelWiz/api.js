@@ -1,13 +1,23 @@
 //functions for API calls to the server
 //login requires username, and password
-export const loginUser = async (username, password) => {
-    const response = await fetch(`https://hostelwiz.herokuapp.com/hostelwiz/login/`, {
+
+//const REACT_APP_API_URL= ' 192.168.43.80:8000'
+const REACT_APP_API_URL= 'https://hostelwiz.herokuapp.com'
+//const REACT_APP_FIREBASE_API_KEY= AIzaSyCUcV5erWI5t4vvDNVYs_RdG7s-WtzUDxc
+//const REACT_APP_FIREBASE_AUTH_DOMAIN= hostelwiz.firebaseapp.com
+//const REACT_APP_FIREBASE_DATABASE_URL= https://hostelwiz.firebaseio.com
+
+export const loginUser = async(username, password) => {
+   // const response = await fetch(REACT_APP_API_URL + '/hostelwiz/login/', {
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/login/`, {
         method: 'POST',
         headers: {
-            'content-type': 'application/json',
+
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ username:username, password:password })
     })
+      
 
     if (response.ok) {
         const { token } = await response.json()
@@ -18,11 +28,51 @@ export const loginUser = async (username, password) => {
     throw new Error(errMessage)
 }
 
+export const searchProperty = async(loca) => {
+ 
+     const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/search_property/`, {
+        method: 'POST',
+        headers: {
+             
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ location:loca })
+     })
+       
+     if(response.ok){
+        const data = await response.json()
+        return data
+    }
+
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+ }
+
 //register new user
-export const registerUser = async (data = {}) => {
-    const response = await fetch(`https://hostelwiz.herokuapp.com/hostelwiz/users/`, {
+export const registerUser = async (data) => {
+ 
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/users/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    if (response.ok) {
+        console.log('registraion complete')
+        return true
+
+    }
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+}
+
+export const editUser = async (data = {},id,token) => {
+ 
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/users/${id}/`, {
+
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json',
+                   'Authorization':`token ${token}`,
+     },
         body: JSON.stringify(data)
     })
     if (response.ok) {
@@ -34,9 +84,30 @@ export const registerUser = async (data = {}) => {
 
 //get property details
 export const getProperties = async () => {
-    const response = await fetch(`https://hostelwiz.herokuapp.com/hostelwiz/properties/`, {
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/`, {
+
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
+    })
+    if(response.ok){
+        const data = await response.json()
+        return data
+    }
+
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+}
+
+
+
+//get property details
+export const getUser = async (token) => {
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/users/get_user/`, {
+
+        method: 'GET',
+        headers: {'Content-Type': 'application/json',
+                    'Authorization':`token ${token}`
+                }
     })
     if(response.ok){
         const data = await response.json()
@@ -52,7 +123,7 @@ export const rateProperties = async (property_id,token,number_of_stars) => {
     const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/${property_id}/rate_property/`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json' ,
-               'Authorization':token 
+               'Authorization':`token ${token}`
              }
                ,
                body: JSON.stringify({ stars:number_of_stars })
@@ -61,22 +132,44 @@ export const rateProperties = async (property_id,token,number_of_stars) => {
       
         return true
     }
+    
 
     const errMessage = await response.text()
     throw new Error(errMessage)
 }
 
 //save property
-export const saveProperties = async (property_id, token,) => {
-    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/${property_id}/save_property/`, {
+export const saveProperties = async (property,token,user) => {
+    console.log(property,user)
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/saved/`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json' ,
-               'Authorization':token 
-             }
+               'Authorization':`token ${token}`
+             },
+             body: JSON.stringify({ property_id:property, user:user })
+
     })
     if(response.ok){
-        const {message} = await response.json()
-        return message
+        //console.log(response.json())
+        return response.json()
+        
+    }
+
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+}
+
+export const getSavedProperties = async (token) => {
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/saved/get_saved/`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json' ,
+               'Authorization':`token ${token}`
+             }
+
+    })
+    if(response.ok){
+        const saved = response.json()
+        return saved
     }
 
     const errMessage = await response.text()
@@ -104,4 +197,25 @@ if (response.ok) {
 
 const errMessage = await response.text()
 throw new Error(errMessage)
+}
+
+//final Step to add to customer group or table
+
+
+//retrieve hostel managers information
+export const getHostelManager = async (token, id) => {
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/hostel_managers/${id}`, {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json',
+                    'Authorization':`Token ${token}`
+                }
+    })
+    if (response.ok) {
+        const manager = await response.json() 
+        return manager
+    }
+
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+
 }
