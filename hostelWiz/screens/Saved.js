@@ -34,7 +34,7 @@ class SavedScreen extends React.Component {
     try {
       let userToken = await AsyncStorage.getItem("userToken");
       let data = JSON.parse(userToken)
-      this.setState({token:data.token})
+      this.setState({token:data})
       this.getProperties();
     } catch (error) {
       console.log("Something went wrong", error);

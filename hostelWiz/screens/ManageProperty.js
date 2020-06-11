@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { Keyboard, StyleSheet, TouchableHighlight, Text, View, TouchableOpacity, ScrollView, AsyncStorage, Dimensions } from 'react-native';
-import { AntDesign, Entypo } from '@expo/vector-icons';
+import { AntDesign, Entypo, FontAwesome5, EvilIcons } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 import { Card, Button, Icon } from 'react-native-elements';
 import { SliderBox } from "react-native-image-slider-box";
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
 import styles from './explore-styles'
-import { getSavedProperties } from '../api';
+import { getMyProperties } from '../api';
 
 
 class ManageProperty extends React.Component {
@@ -33,7 +33,8 @@ class ManageProperty extends React.Component {
     try {
       let userToken = await AsyncStorage.getItem("userToken");
       let data = JSON.parse(userToken)
-      this.setState({token: data.token})
+      console.log(data)
+      this.setState({token: data})
       this.getProperties();
     } catch (error) {
       console.log("Something went wrong", error);
@@ -41,8 +42,8 @@ class ManageProperty extends React.Component {
   }
   getProperties = async () => {
     try {
-      const data = await getSavedProperties(this.state.token);
-      //console.log(data); 
+      const data = await getMyProperties(this.state.token);
+      console.log(data); 
       this.setState({ property: data.result, save: true }); 
     }
     catch (err) {
@@ -80,7 +81,7 @@ class ManageProperty extends React.Component {
 
           this.state.property.length == 0 || this.state.property === undefined ? (
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-              <Text style={{ color: 'grey' }}> You have no saved properties</Text>
+              <Text style={{ color: 'grey' }}> You have not posted any properties</Text>
             </View>
 
           )
@@ -90,34 +91,40 @@ class ManageProperty extends React.Component {
                 <View style={styles.belowSearchBar}>
 
                   <Text style={{ fontSize: 25, fontFamily: 'Baloo-Paaji-Medium' }}>
-                    Saved properties
+                    My properties
                       </Text>
                   {/* Max card details */}
                   {this.state.property.map(property => {
                     return (
                       <View key={property.id} style={styles.maxCardComponent}>
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('details', { property: property.property, token: this.state.token, save: this.state.save })}>
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('details', { property: property, token: this.state.token, save: this.state.save })}>
                           <View style={[styles.maxCard]}>
 
                             <SliderBox 
                             dotColor={'orange'} 
-                            onCurrentImagePressed={() => this.props.navigation.navigate('details', { property: property.property, token: this.state.token, save: this.state.save })} 
+                            onCurrentImagePressed={() => this.props.navigation.navigate('details', { property: property, token: this.state.token, save: this.state.save })} 
                             autoplay={true} 
                             sliderBoxHeight={screenHeight / 4 - 5} 
-                            images={this.getImages(property.property.images)} 
+                            images={this.getImages(property.images)} 
                             ImageComponentStyle={{ borderTopLeftRadius: 15, borderTopRightRadius: 15, width: screenWidth * 0.9, marginLeft: - screenWidth * 0.1 }} >
                             </SliderBox>
 
 
                             <TouchableOpacity
                               onPress={() => this.save()}
-                              style={styles.saveButton}>
+                              style={styles.editButton}>
                               <View>
-                                {
-                                  this.state.save ? <AntDesign color='red' style={{ marginTop: 7 }} size={25} name="heart" />
-                                    :
-                                    <AntDesign color='white' style={{ marginTop: 7 }} size={25} name="heart" />
-                                }
+                             
+                              <FontAwesome5 color='white' style={{ marginTop: 7 }} size={25} name="pen" />
+                                
+                              </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                              onPress={() => this.save()}
+                              style={styles.deleteButton}>
+                              <View>
+                                <EvilIcons color='white' style={{ marginTop: 7 }} size={35} name="trash" />
+                                 
 
                               </View>
                             </TouchableOpacity>
@@ -126,30 +133,30 @@ class ManageProperty extends React.Component {
                               <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between', }}>
                                 <View>
                                   <Text style={styles.title}>
-                                    {property.property.name}
+                                    {property.name}
                                   </Text>
                                 </View>
                                 <View>
                                   <Text style={styles.price}>
-                                    Ghc {property.property.price}
+                                    Ghc {property.price}
                                   </Text>
                                   <Text style={{ color: 'grey', fontFamily: 'Baloo-Paaji' }} >/per day</Text>
                                 </View>
                               </View>
                               <View style={styles.description}>
                                 <View>
-                                  <Text style={{ color: 'grey', fontSize: 10, fontFamily: 'Baloo-Paaji' }} >{property.property.location} , 0.2 km from your location</Text>
+                                  <Text style={{ color: 'grey', fontSize: 10, fontFamily: 'Baloo-Paaji' }} >{property.location} , 0.2 km from your location</Text>
                                 </View>
 
 
                               </View>
 
                               <View style={styles.rating}>
-                                <AntDesign size={20} color={property.property.avg_rating > 0 ? 'orange' : Colors.tabIconDefault} name="star" />
-                                <AntDesign size={20} color={property.property.avg_rating > 1 ? 'orange' : Colors.tabIconDefault} name="star" />
-                                <AntDesign size={20} color={property.property.avg_rating > 2 ? 'orange' : Colors.tabIconDefault} name="star" />
-                                <AntDesign size={20} color={property.property.avg_rating > 3 ? 'orange' : Colors.tabIconDefault} name="star" />
-                                <AntDesign size={20} color={property.property.avg_rating > 4 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                <AntDesign size={20} color={property.avg_rating > 0 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                <AntDesign size={20} color={property.avg_rating > 1 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                <AntDesign size={20} color={property.avg_rating > 2 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                <AntDesign size={20} color={property.avg_rating > 3 ? 'orange' : Colors.tabIconDefault} name="star" />
+                                <AntDesign size={20} color={property.avg_rating > 4 ? 'orange' : Colors.tabIconDefault} name="star" />
                               </View>
 
                             </View>

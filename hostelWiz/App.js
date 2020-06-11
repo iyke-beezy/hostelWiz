@@ -8,7 +8,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import LoadingScreen from './components/LoadingScreen'
 import SignUpScreen from './screens/SignUp';
-import HostingOne from './screens/HostingOne';
 import ConfirmPassword from './screens/ConfirmPassword';
 import DetailsScreen from './screens/DetailsScreen';
 import HostingTwo from './screens/HostingTwo';
@@ -114,12 +113,7 @@ export default function App(props) {
               }}
               component={BottomTabNavigator} />
 
-            <Stack.Screen name="Hone"
-              options={{
-                headerShown: false,
-
-              }}
-              component={HostingOne} />
+       
 
             <Stack.Screen name="Htwo"
               options={{

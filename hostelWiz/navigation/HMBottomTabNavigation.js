@@ -1,11 +1,16 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
-import { AntDesign,Entypo } from '@expo/vector-icons';
+import { AntDesign,Entypo,FontAwesome } from '@expo/vector-icons';
 import TabBarIcon from '../components/TabBarIcon';
 import HostingScreen from '../screens/HostingScreen';
 import ManagerProfile from '../screens/ManagerProfile';
 import ManageProperty from '../screens/ManageProperty';
 import Colors from '../constants/Colors';
+import { Dimensions } from "react-native";
+const screenWidth = Math.round(Dimensions.get('window').width);
+const screenHeight = Math.round(Dimensions.get('window').height);
+
+
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'ManagerProperty';
@@ -18,18 +23,18 @@ export default function HMBottomTabNavigator({ navigation, route }) {
   
 
   return (
-    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
+    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME} tabBarOptions={{style:{height:screenHeight*0.07}}}>
      
      
      <BottomTab.Screen
         name="ManagerProperty"
         component={ManageProperty}
         options={{
-          title: 'My Properties',
+          title: '',
           tabBarIcon: ({ focused }) => <Entypo
           size={30}
           style={{ marginBottom: -3 }}
-          color={focused ? Colors.tabIconSelected : Colors.tabIconDefault} name="home" />,
+          color={focused ? '#E7C654' : '#92A5A3'} name="home" />,
         }}
       />
      
@@ -38,8 +43,8 @@ export default function HMBottomTabNavigator({ navigation, route }) {
         name="HostingPage"
         component={HostingScreen}
         options={{
-       
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-search" />,
+          title: '',
+          tabBarIcon: ({ focused }) => <AntDesign size={30} focused={focused} name={focused ? "plussquare":"plussquareo"}   color={focused ? '#E7C654' : '#92A5A3'} />,
 
         }}
       />
@@ -50,11 +55,12 @@ export default function HMBottomTabNavigator({ navigation, route }) {
         name="ManagerProfile"
         component={ManagerProfile}
         options={{
-          title: 'Profile',
-          tabBarIcon: ({ focused }) => <AntDesign
-          size={30}
-          style={{ marginBottom: -3 }}
-          color={focused ? Colors.tabIconSelected : Colors.tabIconDefault} name="user" />,
+          title: '',
+          tabBarIcon: ({ focused }) => <FontAwesome
+            size={25}
+
+            color={focused ? '#E7C654' : '#92A5A3'}
+            name={focused ? 'user-circle' : 'user-circle-o'} />,
         }}
       />
     </BottomTab.Navigator>
