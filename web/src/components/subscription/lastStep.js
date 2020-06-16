@@ -9,6 +9,7 @@ import DetailsConfirm from './detailsConfirm';
 import AddPhotos from './addPhotos';
 import Security from './security';
 import Pricing from './pricing';
+import PublishListing from './publishListing';
 const {Header}=Layout;
 const {TabPane}=Tabs;
 
@@ -77,7 +78,7 @@ class LastStep extends React.Component{
                 <Pricing handleNext={this.handleNext} handleBack={this.handleBack}/>
                 </TabPane>                
                 <TabPane  tab={'Publish Listing'} key={6}>
-                 
+                 <PublishListing handleBack={this.handleBack}/>
                 </TabPane>
             </Tabs>
             <div style={{marginBottom:500}}>

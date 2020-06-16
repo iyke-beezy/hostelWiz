@@ -34,8 +34,12 @@ class Security extends React.Component{
       }
           
       
-      componentWillUpdate(nextProps,nextState){
+      getSnapshotBeforeUpdate(nextProps,nextState){
         localStorage.setItem('security',JSON.stringify(nextState));
+        return null;
+    }
+    componentDidUpdate(prevProps,prevState,snapshot){
+
     }
     render(){
         const {numbers} =this.state;

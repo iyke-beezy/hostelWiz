@@ -90,15 +90,35 @@ class PropertyItem extends React.Component {
            <Button key="back" onClick={this.handleCancel}>
             Return
           </Button>,
-            <Button key="link" type="primary"  onClick={this.handleOk}>
-              View On Map
-            </Button>,
+        <Button key="link" type="primary" onClick={this.handleOk}>
+        <a href='https://www.google.com.gh/maps/place/Jean+Nelson+Aka+Hall/@5.6353794,-0.1884183,19.1z/data=!4m5!3m4!1s0xfdf9b82cd331fcf:0x1f7df347a9ab45d6!8m2!3d5.6352795!4d-0.1886103'>View On Map</a>
+        </Button>,
             <Button key="submit" type="primary" onClick={this.handleOk}>
-              Call Host
+          Call Host
+              
             </Button>,
+
           ]}
         >
                 <h1>{this.props.property.name}</h1>
+                <div>                        
+                        <FontAwesome name="star" className={this.props.property.avg_rating > 1 ? 'orange' : ''} />
+                        <FontAwesome name="star" className={this.props.property.avg_rating > 2 ? 'orange' : ''} />
+                        <FontAwesome name="star" className={this.props.property.avg_rating > 3 ? 'orange' : ''} />
+                        <FontAwesome name="star" className={this.props.property.avg_rating > 4 ? 'orange' : ''} />
+                            ({this.props.property.no_of_ratings})
+
+                        { /*<div className="rate-container">
+                            <h2>Rate it!!!</h2>
+                            {[...Array(5)].map((e, i) => {
+                                return <FontAwesome name="star" key={i} className={this.state.highlighted > i - 1 ? 'purple' : ''}
+                                    onMouseEnter={this.highlightRate(i)}
+                                    onMouseLeave={this.highlightRate(-1)}
+                                    onClick={this.clickRate(i)} />
+                            })}
+                        </div> */}
+
+                    </div>
                 <Divider/>
                 <Slider images={this.props.property.images} />
                 <Space style={{height:'50px'}}></Space>
@@ -106,10 +126,11 @@ class PropertyItem extends React.Component {
 
                 <div>
                 <h2>Location</h2>
+                <h3>Located at {this.props.property.location}</h3>
                 </div>
                 <Divider/>
                 <div>
-                <h2>Amenities</h2>
+                 <h2>Amenities</h2>
                 </div>
             
 
