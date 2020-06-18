@@ -46,8 +46,8 @@ class App extends Component {
             <Route path="/listing" component={Subscribe} />
             <Route path="/join" component={Join} />
             <Route path="/test" component={Test} />
-            <Route path="/:explore" component={Explore} />
             <Route path="/lastStep" component={LastStep} />
+            <Route path="/:explore" component={Explore} />
             {/* <Route path="/signup" component={SignUpUI} /> */}
           </Switch>
         </CookiesProvider>

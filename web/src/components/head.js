@@ -28,7 +28,7 @@ class Head extends React.Component {
                         <Header className="pg-header">
                             <div className="header-second">
                             <div className="header-first" >
-                                <img src={require("../Assets/logo.png")} alt="hostelWiz" onClick={()=> console.log('success') }/>
+                                <img src={require("../Assets/logo.png")} alt="hostelWiz" onClick={()=> window.location.href = "/" }/>
                             </div>
                                 <Menu onClick={this.handleClicked} theme="light" mode="horizontal">
                                     <Menu.Item key="listing">List Property</Menu.Item>
@@ -42,7 +42,7 @@ class Head extends React.Component {
                     ) : (
                             <Header className="pg-header">
                                 <div className="header-first">
-                                    <img src={require("../Assets/logo.png")} alt="hostelWiz" />
+                                    <img src={require("../Assets/logo.png")} alt="hostelWiz" onClick={()=> window.location.href = "/" }/>
                                 </div>
                                 <div className="header-second">
                                     <Menu theme="light" mode="horizontal" onClick={this.handleClicked}>

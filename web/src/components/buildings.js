@@ -48,7 +48,7 @@ class Building extends React.Component {
                     :
                     (
                         <div className="no-data">
-                            <h3 style={{ fontFamily: 'Baloo Paaji Medium', fontSize: 45, color: '#92A5A3' }}>No buildings on sale</h3>
+                            <h3 style={{ fontFamily: 'Baloo Paaji Medium', fontSize: 45, color: '#92A5A3' }}>No buildings for rent</h3>
                         </div>
                     )
 
