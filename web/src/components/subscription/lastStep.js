@@ -11,7 +11,6 @@ import AddPhotos from './addPhotos';
 import Security from './security';
 import Pricing from './pricing';
 import PublishListing from './publishListing';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
 const {Header}=Layout;
 const {TabPane}=Tabs;
 
