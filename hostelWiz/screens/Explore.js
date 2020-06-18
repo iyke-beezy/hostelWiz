@@ -70,7 +70,6 @@ class ExploreScreen extends React.Component {
   saveProperty = async (property_id) => {
     try {
       const user_id = await this.getUser()
-      console.log(user_id)
       const data = await saveProperties(property_id, this.state.token, user_id);
       return data
       //console.log("save me")
