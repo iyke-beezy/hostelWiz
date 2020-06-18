@@ -25,7 +25,8 @@ class LoginScreen extends React.Component {
     isReady: false,
     username: '',
     password: '',
-    error: ''
+    error: '',
+   
   }
 
   async storeToken(token) {

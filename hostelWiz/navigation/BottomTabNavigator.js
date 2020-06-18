@@ -38,7 +38,7 @@ export default function BottomTabNavigator({ navigation, route }) {
   });
 
   return (
-    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME} tabBarOptions={{style:{height:screenHeight*0.07}}}>
+    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME} tabBarOptions={{style:{height:screenHeight*0.07,paddingTop:screenHeight*0.015}}}>
       <BottomTab.Screen
         name="Explore"
         component={ExploreScreen}
