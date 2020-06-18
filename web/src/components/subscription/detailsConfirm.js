@@ -39,8 +39,12 @@ class DetailsConfirm extends React.Component{
             propertyType:value
         });
     }
-    componentWillUpdate(nextProps,nextState){
+    getSnapshotBeforeUpdate(nextProps,nextState){
         localStorage.setItem('propertyDetails',JSON.stringify(nextState));
+        return null;
+    }
+    componentDidUpdate(prevProps,prevState,snapshot){
+
     }
     render(){
  

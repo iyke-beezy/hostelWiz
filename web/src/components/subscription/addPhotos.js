@@ -28,10 +28,13 @@ class AddPhotos extends React.Component{
         this.setState({ fileList });
       };
 
-      componentWillUpdate(nextProps,nextState){
+      getSnapshotBeforeUpdate(nextProps,nextState){
         localStorage.setItem('addPhotos',JSON.stringify(nextState));
+        return null;
     }
+    componentDidUpdate(prevProps,prevState,snapshot){
 
+    }
     render(){
         const props = {
             action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',

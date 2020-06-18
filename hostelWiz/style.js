@@ -197,7 +197,7 @@ export default {
   },
   loginFormTextInput: {
     height: 55,
-    fontSize: 14,
+    fontSize: 16,
     borderRadius: 5,
     borderWidth: 1,
     borderColor: '#eaeaea',

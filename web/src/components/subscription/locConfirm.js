@@ -23,8 +23,12 @@ class LocConfirm extends React.Component{
         cred[event.target.name] = event.target.value;
         this.setState({state: cred});
     }
-    componentWillUpdate(nextProps,nextState){
+    getSnapshotBeforeUpdate(nextProps,nextState){
         localStorage.setItem('locationDetails',JSON.stringify(nextState));
+        return null;
+    }
+    componentDidUpdate(prevProps,prevState,snapshot){
+
     }
     handleNext=()=>{
         this.props.handleNext();

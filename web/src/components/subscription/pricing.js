@@ -28,8 +28,12 @@ class Pricing extends React.Component{
         cred[event.target.name] = event.target.value;
         this.setState({state: cred});
     };
-    componentWillUpdate(nextProps,nextState){
+    getSnapshotBeforeUpdate(nextProps,nextState){
         localStorage.setItem('pricing',JSON.stringify(nextState));
+        return null;
+    }
+    componentDidUpdate(prevProps,prevState,snapshot){
+
     }
     render(){
 
