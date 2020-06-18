@@ -1,12 +1,13 @@
 import React from 'react'
-import Building from './components/buildings'
+import LastStep from './components/subscription/lastStep'
+
 
 
 export default class Test extends React.Component{
     render() {
         return (
             <div>
-                <Building />
+                <LastStep />
             </div>
         )
     }

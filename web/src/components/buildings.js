@@ -43,7 +43,7 @@ class Building extends React.Component {
             <React.Fragment>
                 {this.state.data.map(property => {
                     return (
-                        <div className="propertyItem" key={property.id}>
+                        <div className="propertyItem" key={property.id} style={{marginRight:'8%'}}>
                             <PropertyItem property={property} loading={this.state.loading} loggedIn={this.state.loggedIn} />
                         </div>
                     )

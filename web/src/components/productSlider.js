@@ -13,27 +13,34 @@ const proptypes = {
 // require("assets/image.jpg") for local images
 // or url for online images
 
-const Slider = () => {
+const Slider = (props) => {
   const images = [
     require('../Assets/apart1.jpg'),
     require('../Assets/apart2.jpg'),
     require('../Assets/sale.jpg')
-  ]
+  ];
+  var imagess=props.images;
+
+  console.log(imagess)
   return (
     <Pane
       elevation={1}
       border="none"
       borderTopLeftRadius={16}
       borderTopRightRadius={16}
-      width={512}
+      width={'100%'}
       height={'auto'}
       margin={0}
     >
-      <Carousel autoplay >
-        {images.map(image => {
-          return <div key={image} style={{borderTopRightRadius: 16}}><img className='image'  src={image} alt="item" style={{ borderRadius: "16px 16px 0px 0px", }} /></div>
+      {
+        props.images?
+        <Carousel autoplay >
+        {props.images.map(image => {
+          return <div key={image.id} style={{borderTopRightRadius: 16}}><img className='image'  src={image.image} alt="item" style={{ borderRadius: "16px 16px 0px 0px", }} /></div>
         })}
       </Carousel>
+        : null
+      }
     </Pane>
 
 
