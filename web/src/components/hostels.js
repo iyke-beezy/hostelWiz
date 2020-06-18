@@ -3,7 +3,7 @@ import PropertyItem from './misc/property'
 import { withCookies } from 'react-cookie'
 import { getProperties } from '../api'
 
-class Hostel extends React.Component {
+class Building extends React.Component {
 
     state = {
         loading: true,
@@ -53,4 +53,4 @@ class Hostel extends React.Component {
     }
 }
 
-export default withCookies(Hostel)
+export default withCookies(Building)

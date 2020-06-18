@@ -8,6 +8,10 @@ import Dashboard from '../components/Dashboard';
 import About from '../components/About';
 import Profile from '../components/Profile';
 import withAuthentication from '../containers/withAuthentication';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
+
+
 
 import './App.css';
 import Subscribe from '../components/subscription/subscribe'
@@ -25,7 +29,7 @@ import LastStep from '../components/subscription/lastStep';
 import Test from '../test';
 import Explore from './explore';
 import history from '../services/history'
-
+library.add(faStar)
 
 class App extends Component {
   render() {

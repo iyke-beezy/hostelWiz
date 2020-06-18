@@ -12,12 +12,13 @@
 .footer-content {
     color: white;
     font-family: "Baloo Paaji Medium";
+    font-size: 25px;
 }
 
 .foot {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     border-radius: 80px 80px 0px 0px;
     background-color: #E7C654;
     border-color: #E7C654;
@@ -27,7 +28,7 @@
 .first-foot-div {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    /*justify-content: space-around;*/
 }
 
 .first-child-1 {
@@ -75,15 +76,15 @@
 }
 
 .second-child-2 img {
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
 }
 
 .pg-header {
     background-color: #FFFFFF;
     display: flex;
     justify-content: space-evenly;
-    height: 120px;
+    height: 180px;
     align-items: center;
 }
 
@@ -97,11 +98,13 @@
     flex: 50%;
     display: flex;
     justify-content: flex-end;
+    font-size: 20px;
 }
 
 .header-first img {
-    width: 120px;
-    height: 120px;
+    width: 180px;
+    height: 180px;
+    cursor: pointer;
 }
 
 .bigdiv {
@@ -151,7 +154,7 @@
 }
 
 .filtDesc {
-    font-size: 16px;
+    font-size: 20px;
     margin-top: -10px;
 }
 
@@ -162,7 +165,7 @@
     justify-content: center;
     align-content: center;
     height: auto;
-    margin: 20px auto !important;
+    margin: 20px auto 50px auto !important;
     position: relative !important;
     max-width: 1760px !important;
     padding-right: 80px !important;
@@ -222,13 +225,13 @@
 }
 
 .filtMeta{
-    font-size:12px;
+    font-size:18px;
     margin-top:-20px;
     margin-bottom:-10px;
     font-family:"Baloo Paaji Medium";
 }
 .filtTitle{
-    font-size:18px;
+    font-size:25px;
     color:#E7C654;
     margin-bottom:-18px;
     font-family:"Baloo Paaji Medium";
@@ -295,8 +298,11 @@
 
 .newsHead span {
     font-family: "Baloo Paaji Medium";
-    font-size: 30px;
-    color: #0B549E;
+    font-size: 35px;
+    background: -webkit-linear-gradient(rgb(183, 142, 0) 9.38%, rgb(231, 198, 84) 88.54%);
+    background-clip: unset;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .newsContent {
@@ -316,23 +322,27 @@
     justify-content: space-around;
     align-items: center;
 }
+.ant-menu-horizontal > .ant-menu-item {
+    font-size: 20px;
+}
 
 .innerWrap {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     margin: 20px;
     border-radius: 10px;
     border-width: 5px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
     height: auto;
-    width: 700px;
-    justify-content: space-between;
+    width: auto;
+    justify-content: center;
     align-items: center;
+    padding: 15px;
 }
 
 .locDiv {
-    flex: 30%;
+    flex: 40%;
     margin: 10px;
     color: #E7C654;
 }
@@ -342,8 +352,17 @@
     color: #E7C654;
 }
 
+.inputField {
+    border-width: 0;
+    display: flex;
+    flex: 100%;
+    width: 350px;
+    font-size: 20px;
+}
+
 .innerWrap span {
     font-family: "Baloo Paaji Medium";
+    font-size: 25px;
 }
 
 .searchButton {
@@ -353,4 +372,19 @@
     color: white;
     border-radius: 10px;
     background: linear-gradient(to right, rgb(183, 142, 0) 9.38%, rgb(231, 198, 84) 88.54%);
+    margin-left: 15px;
+}
+
+.orange {
+    color: orange;
+    font-size: 20px;
+}
+.star {
+    font-size: 20px;
+}
+
+.no-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

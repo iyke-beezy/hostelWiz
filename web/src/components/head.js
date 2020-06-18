@@ -1,9 +1,11 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
+import { useHistory } from "react-router-dom";
 import { UserOutlined } from '@ant-design/icons'
 import 'antd/dist/antd.css';
 const { SubMenu } = Menu;
 const { Header } = Layout;
+
 
 class Head extends React.Component {
     state = {
@@ -24,10 +26,10 @@ class Head extends React.Component {
                 {
                     this.props.loggedIn ? (
                         <Header className="pg-header">
-                            <div className="header-first">
-                                <img src={require("../Assets/logo.png")} alt="hostelWiz" />
-                            </div>
                             <div className="header-second">
+                            <div className="header-first" >
+                                <img src={require("../Assets/logo.png")} alt="hostelWiz" onClick={()=> console.log('success') }/>
+                            </div>
                                 <Menu onClick={this.handleClicked} theme="light" mode="horizontal">
                                     <Menu.Item key="listing">List Property</Menu.Item>
                                     <SubMenu title="Account" icon={<UserOutlined />}>

@@ -40,7 +40,7 @@ const Foot=()=>{
                flexShrink:"0",
                marginRight:"10px"   
             }}>
-               {'\u00A9'}2020.SlitCorp,All Rights Reserved
+               {'\u00A9'}2020 Slitcorp,     All Rights Reserved
             </h4>
             <h4 className="footer-content"
                 style={{

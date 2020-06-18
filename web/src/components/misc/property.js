@@ -4,7 +4,6 @@ import { Skeleton, Switch, Card, Avatar,Modal,Button,Divider,Space } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import Slider from '../productSlider'
-var FontAwesome = require('react-fontawesome')
 
 const propTypes = {
     property: PropTypes.object.isRequired,
@@ -53,11 +52,12 @@ class PropertyItem extends React.Component {
                     
                 />
                 {this.props.property ? (
-                    <div>                        
-                        <FontAwesome name="star" className={this.props.property.avg_rating > 1 ? 'orange' : ''} />
-                        <FontAwesome name="star" className={this.props.property.avg_rating > 2 ? 'orange' : ''} />
-                        <FontAwesome name="star" className={this.props.property.avg_rating > 3 ? 'orange' : ''} />
-                        <FontAwesome name="star" className={this.props.property.avg_rating > 4 ? 'orange' : ''} />
+                    <div style={{flex: 1, fontSize: 20}}>                        
+                        <FontAwesomeIcon icon="star" className={this.props.property.avg_rating > 0 ? 'orange' : 'star'} />
+                        <FontAwesomeIcon icon="star" className={this.props.property.avg_rating > 1 ? 'orange' : 'star'} />
+                        <FontAwesomeIcon icon="star" className={this.props.property.avg_rating > 2 ? 'orange' : 'star'} />
+                        <FontAwesomeIcon icon="star" className={this.props.property.avg_rating > 3 ? 'orange' : 'star'} />
+                        <FontAwesomeIcon icon="star" className={this.props.property.avg_rating > 4 ? 'orange' : 'star'} />
                             ({this.props.property.no_of_ratings})
 
                         { /*<div className="rate-container">
@@ -101,12 +101,14 @@ class PropertyItem extends React.Component {
           ]}
         >
                 <h1>{this.props.property.name}</h1>
-                <div>                        
-                        <FontAwesome name="star" className={this.props.property.avg_rating > 1 ? 'orange' : ''} />
-                        <FontAwesome name="star" className={this.props.property.avg_rating > 2 ? 'orange' : ''} />
-                        <FontAwesome name="star" className={this.props.property.avg_rating > 3 ? 'orange' : ''} />
-                        <FontAwesome name="star" className={this.props.property.avg_rating > 4 ? 'orange' : ''} />
+                <div style={{fontSize: 20}}>                        
+                <FontAwesomeIcon icon="star" className={this.props.property.avg_rating > 0 ? 'orange' : 'star'} />
+                        <FontAwesomeIcon icon="star" className={this.props.property.avg_rating > 1 ? 'orange' : 'star'} />
+                        <FontAwesomeIcon icon="star" className={this.props.property.avg_rating > 2 ? 'orange' : 'star'} />
+                        <FontAwesomeIcon icon="star" className={this.props.property.avg_rating > 3 ? 'orange' : 'star'} />
+                        <FontAwesomeIcon icon="star" className={this.props.property.avg_rating > 4 ? 'orange' : 'star'} />
                             ({this.props.property.no_of_ratings})
+
 
                         { /*<div className="rate-container">
                             <h2>Rate it!!!</h2>

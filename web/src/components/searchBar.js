@@ -14,11 +14,11 @@ class SearchBar extends React.Component{
 
                 <div className="locDiv">
                     <span>Location</span><br/>
-                    <Input style={{borderWidth:"0px 0px 0px 2px",}} placeholder="Add city, Address or Landmark"/>
+                    <Input className="inputField" placeholder="Add city, Address or Landmark"/>
                 </div>
                 <div className="buildDiv">
                     <span>Building Type</span><br/>
-                    <Input style={{borderWidth:"0px 0px 0px 2px",}} placeholder="Apply Building Type filter"/>
+                    <Input className="inputField" placeholder="Apply Building Type filter"/>
                 </div>
                 <Button className="searchButton">
                     {<SearchOutlined/>}
