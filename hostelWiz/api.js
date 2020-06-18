@@ -176,6 +176,23 @@ export const getSavedProperties = async (token) => {
     throw new Error(errMessage)
 }
 
+export const getMyProperties = async (token) => {
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/hostel_managers/get_my_properties/`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json' ,
+               'Authorization':`token ${token}`
+             }
+
+    })
+    if(response.ok){
+        const saved = response.json()
+        return saved
+    }
+
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+}
+
 //final Step to create hostelmanager or change customer to hostel manager
 
 export const add_to_hostel_manager_table = async (subscriptionType,status,token,) => {

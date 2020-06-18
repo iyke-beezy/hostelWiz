@@ -72,7 +72,7 @@ class ProfileScreen extends React.Component {
         break;
 
       case 'hosting':
-        this.props.navigation.navigate('feedback')
+        this.props.navigation.navigate('HMnav')
         break;
 
       case 'feedback':
@@ -136,6 +136,10 @@ class ProfileScreen extends React.Component {
               <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('edit')}>
                 <Text style={styles.itemText}>
                   <FontAwesome5 size={20} color={'#92A5A3'} name={'pen'} />    Edit Profile
+         </Text></TouchableOpacity>
+         <TouchableOpacity  style={styles.item} onPress={() => this.switchRoute('notification')}>
+         <Text style={styles.itemText}>
+                  <FontAwesome5 size={20} color={'#92A5A3'} name={'pen'} />    Change Password
          </Text></TouchableOpacity>
               <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('notification')}>
                 <Text style={styles.itemText}>

@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image, AsyncStorage } from 'react-native'
+import { Image, AsyncStorage,Dimensions } from 'react-native'
 import * as React from 'react';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import TabBarIcon from '../components/TabBarIcon';
@@ -10,6 +10,8 @@ import Colors from '../constants/Colors';
 import firebase from 'firebase'
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Explore';
+const screenWidth = Math.round(Dimensions.get('window').width);
+const screenHeight = Math.round(Dimensions.get('window').height);
 
 
 
@@ -36,7 +38,7 @@ export default function BottomTabNavigator({ navigation, route }) {
   });
 
   return (
-    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
+    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME} tabBarOptions={{style:{height:screenHeight*0.07,paddingTop:screenHeight*0.015}}}>
       <BottomTab.Screen
         name="Explore"
         component={ExploreScreen}

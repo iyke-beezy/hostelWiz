@@ -28,12 +28,13 @@ class SavedScreen extends React.Component {
 
   componentDidMount() {
     this.getToken();
+    
   }
   getToken = async () => {
     try {
       let userToken = await AsyncStorage.getItem("userToken");
-      let token = JSON.parse(userToken)
-      this.setState({token})
+      let data = JSON.parse(userToken)
+      this.setState({token:data})
       this.getProperties();
     } catch (error) {
       console.log("Something went wrong", error);
@@ -42,7 +43,7 @@ class SavedScreen extends React.Component {
   getProperties = async () => {
     try {
       const data = await getSavedProperties(this.state.token);
-      //console.log(data); 
+      console.log(data); 
       this.setState({ property: data.result, save: true }); 
     }
     catch (err) {
