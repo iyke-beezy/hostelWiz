@@ -4,12 +4,14 @@ import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/
 import 'antd/dist/antd.css';
 import './hostForm.css';
 import Head from '../head';
+import { withCookies } from 'react-cookie';
 import LocConfirm from './locConfirm';
 import DetailsConfirm from './detailsConfirm';
 import AddPhotos from './addPhotos';
 import Security from './security';
 import Pricing from './pricing';
 import PublishListing from './publishListing';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 const {Header}=Layout;
 const {TabPane}=Tabs;
 
@@ -17,7 +19,19 @@ class LastStep extends React.Component{
     state={
         current:'1',
         percent:14.29,
+        loggedIn: false
     }
+
+    componentDidMount(){
+        if(this.props.cookies.get('mr-token'))
+        this.setState({loggedIn:true})
+    }
+
+    logOut = () => {
+        this.setState({loggedIn: false})
+        this.props.cookies.remove('mr-token')
+    }
+
     handleBack=()=>{
         let currentNumber=parseInt(this.state.current)
         currentNumber=currentNumber-1
@@ -46,7 +60,7 @@ class LastStep extends React.Component{
         return(
         <div style={{fontFamily:'Baloo Paaji Medium'}}>
             <Header className='lStepHeaderCover' >
-            <Head list={false}></Head>
+            <Head list={false} loggedIn = {this.state.loggedIn} logOut={this.logOut}/>
             <div className='lStepHeader'>
                 <div className='progress' >
                 <h3 className='medText'>Progress</h3>
@@ -92,4 +106,4 @@ class LastStep extends React.Component{
         );
     }
 }
-export default LastStep;
+export default withCookies(LastStep);

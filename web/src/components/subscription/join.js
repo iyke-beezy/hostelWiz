@@ -4,6 +4,8 @@ import './hostForm.css';
 import '../../UI/loginUI.css';
 import 'antd/dist/antd.css';
 import { ArrowLeftOutlined } from '@ant-design/icons';
+import { loginUser } from '../../api'
+import { withCookies } from 'react-cookie'
 
 class Join extends React.Component {
     joins;
@@ -11,6 +13,7 @@ class Join extends React.Component {
         fname: '',
         lname: '',
         email: '',
+        username: '',
         id: '',
         code: '+233',
         number: '',
@@ -26,6 +29,17 @@ class Join extends React.Component {
     }
     handleBackJoin = () => {
         this.props.goBack();
+    }
+    _login = async () => {
+        try {
+            const token = await loginUser(this.state.username, this.state.password)
+            this.props.cookies.set('mr-token', token);
+            this.setState({ loading: false })
+            window.location.href = "/lastStep";
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
     loginSignUp = () => {
         this.setState({
@@ -53,8 +67,8 @@ class Join extends React.Component {
                             <span className="smallText" style={{ color: '#000000' }}>Don't have an account?</span><Button className="link-button" type="link" onClick={this.loginSignUp}>Sign Up</Button>
                             <div style={{ display: 'flex', flexDirection: 'row' }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', marginRight: 19 }}>
-                                    <span className='smSpan'>Email</span>
-                                    <Input name="email" value={this.state.email} onChange={this.handleChange} style={{ width: 163 }} />
+                                    <span className='smSpan'>Username</span>
+                                    <Input name="username" value={this.state.username} onChange={this.handleChange} style={{ width: 163 }} />
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                                     <span className='smSpan'>Password</span>
@@ -64,7 +78,7 @@ class Join extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <Button className="form-button">Next</Button>
+                    <Button className="form-button" onClick={this._login}>Login</Button>
                 </div>
             );
         } else {
@@ -126,4 +140,4 @@ class Join extends React.Component {
         );
     }
 }
-export default Join;
+export default withCookies(Join);

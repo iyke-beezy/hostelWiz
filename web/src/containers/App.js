@@ -24,8 +24,8 @@ import Item from '../components/subscription/item';
 import Uploads from '../components/subscription/upload';
 import Amenities from '../components/subscription/amenities';
 import Details from '../components/subscription/details';
-import LastStep from '../components/subscription/lastStep';
 */
+import LastStep from '../components/subscription/lastStep';
 import Test from '../test';
 import Explore from './explore';
 import history from '../services/history'
@@ -47,6 +47,7 @@ class App extends Component {
             <Route path="/join" component={Join} />
             <Route path="/test" component={Test} />
             <Route path="/:explore" component={Explore} />
+            <Route path="/lastStep" component={LastStep} />
             {/* <Route path="/signup" component={SignUpUI} /> */}
           </Switch>
         </CookiesProvider>
