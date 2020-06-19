@@ -12,6 +12,5 @@ const BigImage=()=>{
         <Button className="buttonArea" onClick={()=>window.location.href = '/listing'}> Host your property</Button>
     </div>
     );
-
 }
 export default BigImage;
