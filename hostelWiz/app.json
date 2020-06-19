@@ -14,7 +14,7 @@
     "facebookScheme": "fb2919104958174912",
     "facebookAppId": "2919104958174912",
     "facebookDisplayName": "hostelwiz",
-    "scheme": "myapp",
+    "scheme": "hostelwiz",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
