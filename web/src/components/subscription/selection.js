@@ -29,6 +29,7 @@ class Selection extends React.Component {
     }
 
     handlePage = () => {
+        this.props.setStepNo(2)
         this.state.buildingType === 'Apartment' ?
             this.setState({
                 next: true,
@@ -101,7 +102,7 @@ class Selection extends React.Component {
                         </div>)
                     :           //if apartment is chosen, move to registration component else show amentities for hostel
                     (<div>
-                        {this.state.jump ? <Join /> : <Amenities goBack={this.handleBack} />}
+                        {this.state.jump ? <Join setStepNo={this.props.setStepNo} /> : <Amenities setStepNo={this.props.setStepNo} goBack={this.handleBack} />}
                     </div>)
 
                 }
