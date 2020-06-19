@@ -26,11 +26,13 @@ class Amenities extends React.Component{
 
 
       handlePage=()=>{
+          this.props.setStepNo(3)
             this.setState({
                 page:false
             });
     }
     handleBackUp=()=>{
+        this.props.setStepNo(3)
         this.setState({
             page:true
         });

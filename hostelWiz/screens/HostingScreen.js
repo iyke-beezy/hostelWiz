@@ -22,9 +22,13 @@ class HostingScreen extends React.Component {
       headline: '',
       description: '',
       price: '',
-      rate_type: '',
+      rate_type: 'month',
       number_of_rooms: null,
-      room_type: '',
+      Single: false,
+      Duo: false,
+      Trio: false,
+      Quadro: false,
+      building_type: 'hostel',
       wifi: false,
       tv_room: false,
       car_park: false,
@@ -49,13 +53,9 @@ class HostingScreen extends React.Component {
 
   }
 
-
-
   toggleSwitch = () => {
     this.setState({ wifi: !this.state.wifi });
   }
-
-
 
   render() {
 
@@ -110,49 +110,46 @@ class HostingScreen extends React.Component {
           </View>
 
 
-          {//number of rooms and type
+          {
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ justifyContent: 'flex-start', alignSelf: 'flex-start' }}>
               <View style={{ alignItems: "center", justifyContent: "center", marginBottom: 15 }} >
                 <Text style={{ fontSize: 20, fontFamily: 'Baloo-Paaji-Medium' }}>Kindly tell us how many rooms are available and the type of room(Hostel/Apartment).
                 Correspondingly set your price and rate type below.</Text>
               </View>
               <Text style={styles.label}></Text>
-              <View style={styles.input, { flexDirection: 'row' }}>
-                <TextInput
-                  editable={false}
-                  placeholder={"Type"}
-                  placeholderColor="#fff"
-                  defaultValue={this.state.type}
-                  style={{ width: screenWidth * (0.6), fontSize: 20, fontFamily: 'Baloo-Paaji', color: 'grey' }}
-                  onChangeText={(text) => this.setState({ room_type: text })}
-                />
+
               <Picker
-                // selectedValue={this.state.selectedValue}
-                style={{ width: screenWidth * 0.3 }}
-                onValueChange={(itemValue, itemIndex) => this.setState({ type: itemValue }, console.log(this.state.selectedValue))}
+                selectedValue={this.state.building_type}
+                style={{ width: screenWidth * (0.6), fontSize: 20, fontFamily: 'Baloo-Paaji', color: 'grey' }}
+                onValueChange={(itemValue, itemIndex) => this.setState({ building_type: itemValue })}
               >
-                <Picker.Item value='' label='' />
                 <Picker.Item label="Hostel" value="hostel" />
                 <Picker.Item label="Rent Apartment" value="apartment" />
                 <Picker.Item label="Building for Sale" value="building" />
               </Picker>
-              </View>
+
               <View style={styles.divider} ></View>
 
               <Text style={styles.label}></Text>
 
-              <TextInput
-                placeholder="Number of rooms"
-                placeholderColor="#fff"
-                defaultValue={this.state.number_of_rooms}
-                style={styles.input}
-                keyboardType='numeric'
-                onChangeText={(text) => this.setState({ number_of_rooms: text })}
-              />
-              <View style={styles.divider} ></View>
+              {/* Room type */}
+              {this.state.building_type !== 'hostel' ?
+                <View>
+                  <TextInput
+                    placeholder="Number of rooms"
+                    placeholderColor="#fff"
+                    value={this.state.number_of_rooms}
+                    style={styles.input}
+                    keyboardType='numeric'
+                    onChangeText={(text) => this.setState({ number_of_rooms: text })}
+                  />
+                  <View style={styles.divider} ></View>
+                  <Text style={styles.label}></Text>
+                </View>
+                :
+                null
+              }
 
-
-              <Text style={styles.label}></Text>
 
               <TextInput
 
@@ -160,50 +157,40 @@ class HostingScreen extends React.Component {
                 placeholderColor="#fff"
                 defaultValue={this.state.price}
                 style={styles.input}
+                keyboardType='decimal-pad'
                 onChangeText={(text) => this.setState({ price: text })}
               />
               <View style={styles.divider} ></View>
 
-
               <Text style={styles.label}></Text>
-              <View style={styles.input, { flexDirection: 'row' }}>
-                <TextInput
-                  editable={false}
-                  placeholder={"Rate Charge"}
-                  placeholderColor="#fff"
-                  defaultValue={this.state.selectedValue}
-                  style={{ width: screenWidth * (0.6), fontSize: 20, fontFamily: 'Baloo-Paaji', color: 'grey' }}
-                  onChangeText={(text) => this.setState({ rate_type: text })}
-                />
 
-                <Picker
-                  // selectedValue={this.state.selectedValue}
-                  style={{ width: screenWidth * 0.3 }}
-
-                  onValueChange={(itemValue, itemIndex) => this.setState({ selectedValue: itemValue }, console.log(this.state.selectedValue))}
-                >
-                  <Picker.Item value='' label='' />
-                  <Picker.Item label="Per Month" value="month" />
-                  <Picker.Item label="Per Year" value="year" />
-                  <Picker.Item label="Per Week" value="week" />
-                  <Picker.Item label="Per Day" value="day" />
-                </Picker>
-
-              </View>
-              <View style={styles.divider} ></View>
+              {this.state.building_type !== 'building' ?
+                <View>
+                  <Picker
+                    selectedValue={this.state.rate_type}
+                    style={{ width: screenWidth * (0.6), fontSize: 20, fontFamily: 'Baloo-Paaji', color: 'grey' }}
+                    onValueChange={(itemValue, itemIndex) => this.setState({ rate_type: itemValue })}
+                  >
+                    <Picker.Item label="Per Month" value="month" />
+                    <Picker.Item label="Per Year" value="year" />
+                    <Picker.Item label="Per Week" value="week" />
+                    <Picker.Item label="Per Day" value="day" />
+                  </Picker>
+                  <View style={styles.divider} ></View>
+                </View>
+                :
+                null
+              }
 
               <Button
                 buttonStyle={styles.secNextButton}
-                disabled={!this.state.room_type || !this.state.price || !this.state.number_of_rooms || this.state.selectedValue === ''}
+                disabled={!this.state.price ? true : false}
                 onPress={() => this.setState({ screen: 'three' })}
                 title="Next"
               />
 
-
-
-
             </KeyboardAwareScrollView>}
-        </View>
+        </View >
 
       )
     }
@@ -222,11 +209,9 @@ class HostingScreen extends React.Component {
           </View>
 
 
-          {//number of rooms and type
-
-
+          {
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ justifyContent: 'flex-start', alignSelf: 'flex-start' }}>
-              <View style={{ alignItems: "center", justifyContent: "center", marginBottom: 35 }} >
+              <View style={{ alignItems: "center", justifyContent: "center" }} >
                 <Text style={styles.title}>Give a catchy headline to attract users ,and a description of how
            your hostel looks and the features it has and tell us where your hostel/apartment is situated . </Text>
               </View>
@@ -234,7 +219,6 @@ class HostingScreen extends React.Component {
               <Text style={styles.label}></Text>
 
               <TextInput
-
                 placeholder="Headline"
                 placeholderColor="#fff"
                 defaultValue={this.state.headline}
@@ -275,10 +259,6 @@ class HostingScreen extends React.Component {
                 onPress={() => this.setState({ screen: 'four' })}
                 title="Next"
               />
-
-
-
-
             </KeyboardAwareScrollView>}
         </View>
 
@@ -299,7 +279,7 @@ class HostingScreen extends React.Component {
           </View>
 
 
-          {//number of rooms and type
+          {
 
 
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ justifyContent: 'flex-start', alignSelf: 'flex-start' }}>
@@ -400,20 +380,12 @@ class HostingScreen extends React.Component {
               </View>
 
               <View style={styles.divider} ></View>
-
-
-
-
               <Button
                 buttonStyle={styles.secNextButton}
                 //disabled={!this.state.headline || !this.state.description || !this.state.location }
                 onPress={() => this.setState({ screen: 'five' })}
                 title="Next"
               />
-
-
-
-
             </KeyboardAwareScrollView>}
         </View>
 
@@ -434,7 +406,7 @@ class HostingScreen extends React.Component {
           </View>
 
 
-          {//number of rooms and type
+          {
 
 
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ justifyContent: 'flex-start', alignSelf: 'flex-start' }}>
@@ -553,7 +525,7 @@ class HostingScreen extends React.Component {
             </TouchableHighlight>
 
           </View>
-          {//number of rooms and type
+          {
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ justifyContent: 'flex-start', alignSelf: 'flex-start' }}>
               <View style={{ alignItems: "center", justifyContent: "center", marginBottom: 35 }} >
                 <Text style={styles.title}>Kindly post few images of your property to complete the listing </Text>
@@ -607,8 +579,6 @@ class HostingScreen extends React.Component {
       )
     }
     else if (this.state.screen === 'seven') {
-
-
       return (
         <View style={styles.container}>
           <View style={styles.backAndSave}>
@@ -621,9 +591,7 @@ class HostingScreen extends React.Component {
           </View>
 
 
-          {//number of rooms and type
-
-
+          {
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ justifyContent: 'flex-start', alignSelf: 'flex-start' }}>
               <View style={{ alignItems: "center", justifyContent: "center", marginBottom: 35 }} >
                 <Text style={styles.title}>Kindly post few images of your property to complete the listing </Text>
@@ -677,7 +645,7 @@ const styles = StyleSheet.create({
   },
   title: {
     alignSelf: "center",
-    fontSize: 25,
+    fontSize: 20,
     fontFamily: 'Baloo-Paaji-Medium',
     //color:'gainsboro'
 
@@ -690,13 +658,13 @@ const styles = StyleSheet.create({
     marginTop: 5, fontSize: 20, color: 'grey', fontFamily: 'Baloo-Paaji'
   },
   divider: {
-    borderBottomWidth: 1, marginTop: 20, borderColor: "gainsboro", marginBottom: 20
+    borderBottomWidth: 1, marginTop: 10, borderColor: "gainsboro", marginBottom: 10
   },
   nextButton: {
     height: screenHeight * 0.07,
     borderRadius: 5,
     backgroundColor: "#E7C654",
-    marginTop: screenHeight * 0.4,
+    marginTop: 20,
     alignSelf: 'flex-end',
     width: screenWidth * 0.25
 
@@ -705,7 +673,7 @@ const styles = StyleSheet.create({
     height: screenHeight * 0.07,
     borderRadius: 5,
     backgroundColor: "#E7C654",
-    marginTop: screenHeight * 0.2,
+    marginTop: 20,
     alignSelf: 'flex-end',
     width: screenWidth * 0.25
 

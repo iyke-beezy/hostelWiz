@@ -138,6 +138,16 @@
     font-family: "Baloo Paaji Medium";
     background: linear-gradient(to right, rgb(183, 142, 0) 9.38%, rgb(231, 198, 84) 88.54%);
 }
+.buttonArea:focus, .buttonArea:hover, .buttonArea:active {
+    font-size: 18px;
+    height: 55px;
+    color: white;
+    border-width: 0px;
+    border-radius: 8px;
+    font-family: "Baloo Paaji Medium";
+    background: linear-gradient(to right, rgb(183, 142, 0) 9.38%, rgb(231, 198, 84) 88.54%);
+    border-color: none;
+}
 
 .ta-sp-1 {
     font-size: 25px;
