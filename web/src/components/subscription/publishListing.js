@@ -3,6 +3,7 @@ import { Layout, Menu,Progress,Button ,Tabs, Divider} from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import './hostForm.css';
+import { create_hostel } from '../../api'
 let locationDetails;
 let pricing
 let security
@@ -15,7 +16,11 @@ class PublishListing extends React.Component{
         pricing:{},
         security:{},
         propertyDetails:{},
-        addPhotos:{}
+        addPhotos:{},
+        numberOfRooms:0,//Issah add this
+        name:'hostelname',//Issah add this
+
+      
     };
     componentDidMount(){
         locationDetails=JSON.parse(localStorage.getItem('locationDetails'));
@@ -23,6 +28,7 @@ class PublishListing extends React.Component{
          security=JSON.parse(localStorage.getItem('security'));
          propertyDetails=JSON.parse(localStorage.getItem('propertyDetails'));
          addPhotos=JSON.parse(localStorage.getItem('addPhotos'));
+
         this.setState({
             locationDetails:locationDetails,
             pricing:pricing,
@@ -30,7 +36,38 @@ class PublishListing extends React.Component{
             propertyDetails:propertyDetails,
             addPhotos:addPhotos
         })
+
     };
+
+    _publish = async () => {
+        /*
+        this.storeToken(t)*/
+        try {
+            const data = {
+                address:locationDetails.streetAddress,
+                city:locationDetails.city,
+                region:locationDetails.region,
+                headline:propertyDetails.headline,
+                hostel_type:propertyDetails.propertyType,
+                price:pricing.price,
+                rate_type:pricing.time,
+                accomodates:propertyDetails.accomodates,
+                description:propertyDetails.description,
+                bathrooms:propertyDetails.bathrooms,
+                bedrooms:propertyDetails.bedrooms,
+               number_of_rooms:this.state.numberOfRooms,
+               name:this.state.name,
+            }
+            console.log(data)
+            const token = '286ffbb3abfacc19e516ae4327deae01bb7132b5'
+          const response = await create_hostel(data,token);
+          
+        }
+        catch (err) {
+          console.log(err.errMessage)
+          this.setState({ error: err.errMessage, loading: false })
+        }
+      }
     render(){
 
         return(
@@ -99,8 +136,8 @@ class PublishListing extends React.Component{
     }</div>                
                 </div>
             <div className='dC1'>
-            <Button className='finalButton' onClick={this.props.handleBack}>Back</Button>
-                <Button className='finalButton'>Next</Button> 
+                <Button className='finalButton' onClick={this.props.handleBack}>Back</Button>
+                <Button className='finalButton' onClick={this._publish}>Finish</Button> 
             </div>
             </div>
         )

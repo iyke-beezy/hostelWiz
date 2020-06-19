@@ -362,8 +362,8 @@ export default {
 
   Logoimg: {
     resizeMode: "contain",
-    height: 100,
-    width: 100,
+    height: 120,
+    width: 120,
     justifyContent: 'center',
     alignSelf: "center",
     marginTop: 10,
@@ -374,7 +374,7 @@ export default {
     transform: [{ rotate: "5deg" }],
     width: "105%",
     backgroundColor: "#fff",
-    height: 100,
+    height: 120,
     position: 'absolute',
     top: 0,
     left: -10,
