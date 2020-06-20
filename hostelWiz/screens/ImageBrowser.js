@@ -137,6 +137,7 @@ export default class ImageBrowser extends React.Component {
   renderEmptyStay = () => this.props.emptyStayComponent || null;
 
   renderImages() {
+    console.log(this.state.photos)
     return (
       <FlatList
         data={this.state.photos}

@@ -63,10 +63,10 @@ class HostingScreen extends React.Component {
   };
 
   updateHandler = (count, onSubmit) => {
-    this.props.navigation.setOptions({
-      headerTitle: count + "selected",
-      headerRight: onSubmit,
-    });
+    // this.props.navigation.setOptions({
+    //   headerTitle: count + "selected",
+    //   headerRight: onSubmit,
+    // });
     console.log("List Of Images" + Images);
   }
   renderSelectedComponent = (number) => (
@@ -546,14 +546,20 @@ class HostingScreen extends React.Component {
               <Text style={styles.label}></Text>
 
               <View style={styles.switchColumn}>
-                <ImageBrowser
+                {/* <ImageBrowser
                   max={4}
                   onChange={this.updateHandler}
                   callback={this.imagesCallback}
                   renderSelectedComponent={this.renderSelectedComponent}
                   emptyStayComponent={emptyStayComponent}
                   noCameraPermissionComponent={noCameraPermissionComponent}
-                />
+                /> */}
+                <Button
+                buttonStyle={styles.secNextButton}
+                // disabled={!this.state.headline || !this.state.description || !this.state.location }
+                onPress={() => this.props.navigation.navigate('Images')}
+                title="Add Photos"
+              />
               </View>
               <Text style={styles.label}></Text>
 

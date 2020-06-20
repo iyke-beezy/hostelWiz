@@ -21,6 +21,7 @@ import Terms from './screens/terms';
 import LoginScreen from './screens/Login'
 
 import firebase from './screens/firebase';
+import ImagePicker from './screens/ImagesPicker';
 
 const Stack = createStackNavigator();
 
@@ -74,7 +75,7 @@ export default function App(props) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);
       } finally {
-          setLoadingComplete(true);
+        setLoadingComplete(true);
         SplashScreen.hide();
       }
       return () => mounted = false;
@@ -113,14 +114,19 @@ export default function App(props) {
               }}
               component={BottomTabNavigator} />
 
-       
-
             <Stack.Screen name="Htwo"
               options={{
                 headerShown: false,
 
               }}
               component={HostingTwo} />
+
+            <Stack.Screen name="Images"
+              options={{
+                headerShown: false,
+
+              }}
+              component={ImagePicker} />
 
             <Stack.Screen name="details"
               options={{
