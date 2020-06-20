@@ -64,7 +64,7 @@ class HostingScreen extends React.Component {
     try {
       let images = await AsyncStorage.getItem("photos");
       let photos = JSON.parse(images)
-      console.log(photos)
+      console.log(images)
       if (photos) this.setState({ photos, screen: 'six', found: true })
     }
     catch (error) {
