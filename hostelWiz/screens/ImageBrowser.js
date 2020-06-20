@@ -79,8 +79,8 @@ export default class ImageBrowser extends React.Component {
     //if (!newSelected) newSelected = [];
     SelectedImages = newSelected
     this.setState({ selected: newSelected });
-    //console.log(SelectedImages)
-    this.props.onChange(newSelected.length, () => this.prepareCallback());
+    console.log(SelectedImages)
+    this.props.onChange(SelectedImages.length, () => this.prepareCallback());
   }
 
   getPhotos = async () => {
@@ -100,12 +100,12 @@ export default class ImageBrowser extends React.Component {
     if (data.totalCount) {
       if (this.state.after === data.endCursor) return;
       const uris = data.assets;
-      
       this.setState({
         photos: [...this.state.photos, ...uris],
         after: data.endCursor,
         hasNextPage: data.hasNextPage
       });
+      //console.log(this.state.photos)
       //console.log(this.state.photos[0])
     } else {
       this.setState({ isEmpty: true });
@@ -125,6 +125,7 @@ export default class ImageBrowser extends React.Component {
     //assetsInfo.then(photos => console.log(photos))
     //console.log(assetsInfo)
     //console.log(selectedPhotos)
+    //console.log(photos)
     this.props.callback(selectedPhotos);
   }
 

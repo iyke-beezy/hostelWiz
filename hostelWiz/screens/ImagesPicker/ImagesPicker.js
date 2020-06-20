@@ -7,16 +7,16 @@ import ImageBrowser from '../ImageBrowser';
 
 export default class ImageBrowserScreen extends Component {
   static navigationOptions = ({ navigation, route }) => {
-   // const { submit } = route.params;
+    // const { submit } = route.params;
     return {
       headerTitle: "Choose Images",
-      headerRight: () => 
+      headerRight: () =>
         <Button
-       //   onPress={()=> {return submit}}
+          //   onPress={()=> {return submit}}
           title="Done"
           color="#000"
         />
-      
+
     }
   };
 
@@ -28,7 +28,7 @@ export default class ImageBrowserScreen extends Component {
 
   componentDidMount() {
     //console.log(this.props.route.params)
-   // this.props.navigation.setParams({ submit: this._onSubmit() });
+    // this.props.navigation.setParams({ submit: this._onSubmit });
   }
 
 
@@ -36,8 +36,8 @@ export default class ImageBrowserScreen extends Component {
     const { navigation } = this.props;
     navigation.setParams({ loading: true });
     let photos = []
-    selectedPhotos.map(uri => {
-      photos.push(uri)
+    selectedPhotos.map(photo => {
+      photos.push(photo.uri)
     })
     this.setState({ photos: [...this.state.photos, ...photos] })
     console.log(photos)
@@ -54,10 +54,11 @@ export default class ImageBrowserScreen extends Component {
   }
 
   updateHandler = (count, onSubmit) => {
-    // this.props.navigation.setParams({
-    //   headerTitle: `Selected ${count} files`,
-    //   headerRight: onSubmit,
-    // });
+    this.props.navigation.setParams({
+      headerTitle: `Selected ${count} files`,
+      headerRight: this._onSubmit,
+    });
+    onSubmit()
   };
 
   renderSelectedComponent = (number) => (
@@ -69,8 +70,8 @@ export default class ImageBrowserScreen extends Component {
   _onSubmit = async () => {
     const { photos } = this.state
     await AsyncStorage.setItem("photos", JSON.stringify(photos));
-    this.props.navigation.navigate("HostingPage");
-    console.log(this.state.photos)
+    this.props.navigation.navigate("HMnav", { screen: 'HostingPage' });
+    //console.log(this.state.photos)
   }
 
 
@@ -78,19 +79,19 @@ export default class ImageBrowserScreen extends Component {
     const emptyStayComponent = <Text style={styles.emptyStay}>Empty =(</Text>;
 
     return (
-      <View style={[styles.flex, styles.container,{backgroundColor:'white'}]}>
-        <View style={{flexDirection:'row',justifyContent:'space-between',backgroundColor:'white',marginBottom:30}}>
-          <TouchableOpacity onPress={()=> this.props.navigation.goBack()}>
+      <View style={[styles.flex, styles.container, { backgroundColor: 'white' }]}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', backgroundColor: 'white', marginBottom: 30 }}>
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
             <Text>
-            Back
+              Back
             </Text>
-         
+
           </TouchableOpacity>
           <Button
-         onPress={()=> this._onSubmit()}
-          title="Done"
-          color="#000"
-        />
+            onPress={() => this._onSubmit()}
+            title="Done"
+            color="#000"
+          />
         </View>
         <ImageBrowser
           max={20}

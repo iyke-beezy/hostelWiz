@@ -68,7 +68,7 @@ class HostingScreen extends React.Component {
       if (photos) this.setState({ photos, screen: 'six', found: true })
     }
     catch (error) {
-      console.log(error)
+      console.log('success')
     }
   }
 
