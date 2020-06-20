@@ -5,18 +5,89 @@ import './hostForm.css';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import Join from './join';
+import axios from 'axios';
+import { create_hostel } from '../../api'
 
 
 
 class Uploads extends React.Component{
     upload;
     state = {
+      id:localStorage.getItem('id'),
+        content: '',
+        image: [],
+        imageSet:[],
         page:true,
+        disable:false,
         fileList: [
         ],
       };
+
+      componentDidMount(){
+        console.log(this.state.id)
+      }
     
-      handleChange = info => {
+      handleChange = (e) => {
+        this.setState({
+          [e.target.id]: e.target.value
+        })
+      };
+    
+      handleImageChange = (e) => {
+        this.setState({
+          image:[...this.state.image, ...e.target.files]
+        })
+      };
+
+      
+    
+      handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(this.state);
+        const token = '286ffbb3abfacc19e516ae4327deae01bb7132b5';
+        this.setState({disabled:true});
+        for (var i = 0; i < this.state.image.length; i++) {
+          let form_data = new FormData();
+          form_data.append('image', this.state.image[i] , this.state.image[i].name);
+
+        
+      
+        form_data.append('property', this.state.id);
+     
+
+       let url = 'http://127.0.0.1:8000/hostelwiz/images/';
+        axios.post(url, form_data, {
+          headers: {
+            'content-type': 'multipart/form-data',
+            'Authorization':`Token ${token}`
+          }
+        })
+            .then(res => {
+              console.log(res.data);
+            })
+            .catch(err => console.log(err))
+
+          }
+      };
+
+      _publish = async (data) => {
+        /*
+        this.storeToken(t)*/
+        try {
+          
+           
+            const token = '286ffbb3abfacc19e516ae4327deae01bb7132b5'
+          const response = await create_hostel(data,token);
+          
+        }
+        catch (err) {
+          console.log(err.errMessage)
+          this.setState({ error: err.errMessage, loading: false })
+        }
+      }
+    
+
+     /* handleChange = info => {
         let fileList = [...info.fileList];
     
         // 1. Limit the number of uploaded files
@@ -54,10 +125,10 @@ class Uploads extends React.Component{
     }
     handleBackUp=()=>{
         this.props.goBack();
-    }
+    }*/
 
     render(){
-        const props = {
+      /*  const props = {
             action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
             onChange: this.handleChange,
             multiple: true,
@@ -90,6 +161,22 @@ class Uploads extends React.Component{
 
 
 
+        );*/
+        return (
+          <div className="App">
+            <form onSubmit={this.handleSubmit}>
+              <p>
+                Select photos you wish to add
+              </p>
+            
+              <p>
+                <input type="file"
+                       id="image"
+                       accept="image/png, image/jpeg" multiple onChange={this.handleImageChange} required/>
+              </p>
+              <input disabled={this.state.disabled} type="submit"/>
+            </form>
+          </div>
         );
 
 

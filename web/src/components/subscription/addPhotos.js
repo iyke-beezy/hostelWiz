@@ -4,9 +4,11 @@ import { PlusOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import './hostForm.css';
 
+
 class AddPhotos extends React.Component{
     state={
         fileList:[],
+      
     };
 
     handleChange = info => {

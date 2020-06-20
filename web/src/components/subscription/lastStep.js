@@ -7,7 +7,7 @@ import Head from '../head';
 import { withCookies } from 'react-cookie';
 import LocConfirm from './locConfirm';
 import DetailsConfirm from './detailsConfirm';
-import AddPhotos from './addPhotos';
+import Uploads from './upload';
 import Security from './security';
 import Pricing from './pricing';
 import PublishListing from './publishListing';
@@ -80,18 +80,18 @@ class LastStep extends React.Component{
                 </TabPane>
                 <TabPane tab={'Details'} key={2}>
                  <DetailsConfirm handleNext={this.handleNext} handleBack={this.handleBack}></DetailsConfirm>
-                </TabPane>
-                <TabPane  tab={'Photos'} key={3}>
-                 <AddPhotos handleNext={this.handleNext} handleBack={this.handleBack}/>
-                </TabPane>                
-                <TabPane  tab={'Security'} key={4}>
+                </TabPane>               
+                <TabPane  tab={'Security'} key={3}>
                 <Security handleNext={this.handleNext} handleBack={this.handleBack}/>
                 </TabPane>                
-                <TabPane  tab={'Pricing'} key={5}>
+                <TabPane  tab={'Pricing'} key={4}>
                 <Pricing handleNext={this.handleNext} handleBack={this.handleBack}/>
-                </TabPane>                
-                <TabPane  tab={'Publish Listing'} key={6}>
-                 <PublishListing handleBack={this.handleBack}/>
+                </TabPane>                 
+                <TabPane  tab={'Publish Listing'} key={5}>
+                 <PublishListing handleNext={this.handleNext} handleBack={this.handleBack}/>
+                </TabPane>
+                <TabPane  tab={'Photos'} key={6}>
+                 <Uploads handleNext={this.handleNext} handleBack={this.handleBack}/>
                 </TabPane>
             </Tabs>
             <div style={{marginBottom:500}}>
