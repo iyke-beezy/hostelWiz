@@ -8,9 +8,13 @@ import * as Permissions from 'expo-permissions';
 import { RadioButton } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Select, InputLabel, MenuItem } from '@material-ui/core';
+
+import ImageBrowser from './ImageBrowser'
+
+
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
-
+var Images = []
 class HostingScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -46,34 +50,53 @@ class HostingScreen extends React.Component {
       bedroom_value: '',
       hasCameraPermission: null,
       hasCameraRollPermission: null,
-      image: null,
-      images: null,
-
+      image: [],
+      images: [],
     };
-
   }
+
+  imagesCallback = (callback) => {
+    callback.then((photos) => {
+      Images = photos;
+      console.log(photos);
+    }).catch((e) => console.log(e))
+  };
+
+  updateHandler = (count, onSubmit) => {
+    this.props.navigation.setOptions({
+      headerTitle: count + "selected",
+      headerRight: onSubmit,
+    });
+    console.log("List Of Images" + Images);
+  }
+  renderSelectedComponent = (number) => (
+    <View style={styles.countBadge}>
+      <Text style={styles.countBadgeText}>{number}</Text>
+    </View>
+  );
 
   toggleSwitch = () => {
     this.setState({ wifi: !this.state.wifi });
+  }
+  componentDidMount() {
+    this._unSubscribe = this.props.navigation.addListener('blur', () => {
+      console.log(Images)
+    });
+  }
+  UNSAFE_componentWillMount() {
+    this._unSubscribe;
   }
 
   render() {
 
     const emptyStayComponent = <Text style={styles.emptyStay}>Empty =(</Text>;
-    const noCameraPermissionComponent = (
-      <Text style={styles.emptyStay}>No access to camera</Text>
-    );
+    const noCameraPermissionComponent = <Text style={styles.emptyStay}>No access to camera</Text>;
 
     if (this.state.screen === 'one') {
 
       return (
         <View style={styles.container}>
-
-
-
           {//name
-
-
             <View Style={{ justifyContent: 'flex-start', alignSelf: 'flex-start' }}>
               <View style={{ alignItems: "center", justifyContent: "flex-start", marginBottom: 15 }} >
                 <Text style={styles.title}>Kindly enter the  name for your hostel/apartment</Text>
@@ -405,17 +428,11 @@ class HostingScreen extends React.Component {
 
           </View>
 
-
           {
-
-
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ justifyContent: 'flex-start', alignSelf: 'flex-start' }}>
               <View style={{ alignItems: "center", justifyContent: "center", marginBottom: 35 }} >
                 <Text style={styles.title}>Almost done, we need to know the type of bedrooms and bathrooms you have available </Text>
               </View>
-
-
-
               <Text style={styles.label}></Text>
               <Text style={styles.label}>Bathroom</Text>
               <Text style={styles.label}></Text>
@@ -429,7 +446,7 @@ class HostingScreen extends React.Component {
                     color={'#E7C654'}
                     onPress={() => { this.setState({ bathroom_value: 'private' }); }}
                   />
-                  <Text style={{ fontSize: 25, color: 'grey' }}>Private</Text>
+                  <Text style={{ fontSize: 20, fontFamily: 'Baloo-Paaji-Medium', color: 'grey' }}>Private</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
 
@@ -439,7 +456,7 @@ class HostingScreen extends React.Component {
                     color={'#E7C654'}
                     onPress={() => { this.setState({ bathroom_value: 'shared' }); }}
                   />
-                  <Text style={{ fontSize: 25, color: 'grey' }}>shared</Text>
+                  <Text style={{ fontSize: 20, fontFamily: 'Baloo-Paaji-Medium', color: 'grey' }}>shared</Text>
                 </View>
               </View>
               <Text style={styles.label}></Text>
@@ -460,7 +477,7 @@ class HostingScreen extends React.Component {
                     color={'#E7C654'}
                     onPress={() => { this.setState({ bedroom_value: 'single' }); }}
                   />
-                  <Text style={{ fontSize: 25, color: 'grey' }}>Single</Text>
+                  <Text style={{ fontSize: 20, fontFamily: 'Baloo-Paaji-Medium', color: 'grey' }}>Single</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
 
@@ -470,7 +487,7 @@ class HostingScreen extends React.Component {
                     color={'#E7C654'}
                     onPress={() => { this.setState({ bedroom_value: 'duo' }); }}
                   />
-                  <Text style={{ fontSize: 25, color: 'grey' }}>Duo</Text>
+                  <Text style={{ fontSize: 20, fontFamily: 'Baloo-Paaji-Medium', color: 'grey' }}>Duo</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
 
@@ -480,7 +497,7 @@ class HostingScreen extends React.Component {
                     color={'#E7C654'}
                     onPress={() => { this.setState({ bedroom_value: 'trio' }); }}
                   />
-                  <Text style={{ fontSize: 25, color: 'grey' }}>Trio</Text>
+                  <Text style={{ fontSize: 20, fontFamily: 'Baloo-Paaji-Medium', color: 'grey' }}>Trio</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
 
@@ -490,7 +507,7 @@ class HostingScreen extends React.Component {
                     color={'#E7C654'}
                     onPress={() => { this.setState({ bedroom_value: 'quatrio' }); }}
                   />
-                  <Text style={{ fontSize: 25, color: 'grey' }}>quatrio</Text>
+                  <Text style={{ fontSize: 20, fontFamily: 'Baloo-Paaji-Medium', color: 'grey' }}>quatrio</Text>
                 </View>
               </View>
               <Text style={styles.label}></Text>
@@ -502,10 +519,6 @@ class HostingScreen extends React.Component {
                 onPress={() => this.setState({ screen: 'six' })}
                 title="Next"
               />
-
-
-
-
             </KeyboardAwareScrollView>}
         </View>
 
@@ -513,8 +526,6 @@ class HostingScreen extends React.Component {
     }
 
     else if (this.state.screen === 'six') {
-
-
       return (
         <View style={styles.container}>
           <View style={styles.backAndSave}>
@@ -526,42 +537,27 @@ class HostingScreen extends React.Component {
 
           </View>
           {
-            <KeyboardAwareScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ justifyContent: 'flex-start', alignSelf: 'flex-start' }}>
+            <View Style={{ justifyContent: 'flex-start', alignSelf: 'flex-start' }}>
               <View style={{ alignItems: "center", justifyContent: "center", marginBottom: 35 }} >
                 <Text style={styles.title}>Kindly post few images of your property to complete the listing </Text>
               </View>
               <Text style={styles.label}></Text>
-              <Text style={styles.label}>Bathroom</Text>
+              <Text style={styles.label}>Please select at least 6 images and a limit of 20 images</Text>
               <Text style={styles.label}></Text>
 
               <View style={styles.switchColumn}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-
-                  <RadioButton
-                    value={this.state.bathroom_value}
-                    status={this.state.bathroom_value === 'private' ? 'checked' : 'unchecked'}
-                    color={'#E7C654'}
-                    onPress={() => { this.setState({ bathroom_value: 'private' }); }}
-                  />
-                  <Text style={{ fontSize: 25, color: 'grey' }}>Private</Text>
-                </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-
-                  <RadioButton
-                    value={this.state.bathroom_value}
-                    status={this.state.bathroom_value === 'shared' ? 'checked' : 'unchecked'}
-                    color={'#E7C654'}
-                    onPress={() => { this.setState({ bathroom_value: 'shared' }); }}
-                  />
-                  <Text style={{ fontSize: 25, color: 'grey' }}>shared</Text>
-                </View>
+                <ImageBrowser
+                  max={4}
+                  onChange={this.updateHandler}
+                  callback={this.imagesCallback}
+                  renderSelectedComponent={this.renderSelectedComponent}
+                  emptyStayComponent={emptyStayComponent}
+                  noCameraPermissionComponent={noCameraPermissionComponent}
+                />
               </View>
               <Text style={styles.label}></Text>
 
               <View style={styles.divider} ></View>
-
-
-
 
               <Button
                 buttonStyle={styles.secNextButton}
@@ -569,11 +565,7 @@ class HostingScreen extends React.Component {
                 onPress={() => this.setState({ screen: 'seven' })}
                 title="Next"
               />
-
-
-
-
-            </KeyboardAwareScrollView>}
+            </View>}
         </View>
 
       )
@@ -650,9 +642,29 @@ const styles = StyleSheet.create({
     //color:'gainsboro'
 
   },
+  emptyStay: {
+    textAlign: 'center',
+  },
+  countBadge: {
+    paddingHorizontal: 8.6,
+    paddingVertical: 5,
+    borderRadius: 50,
+    position: 'absolute',
+    right: 3,
+    bottom: 3,
+    justifyContent: 'center',
+    backgroundColor: '#ffa45c'
+  },
+  countBadgeText: {
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    padding: 'auto',
+    color: '#5d5d5a'
+  },
   label: {
-    fontSize: 25,
-    color: 'grey'
+    fontSize: 20,
+    color: 'grey',
+    fontFamily: 'Baloo-Paaji-Medium'
   },
   input: {
     marginTop: 5, fontSize: 20, color: 'grey', fontFamily: 'Baloo-Paaji'
