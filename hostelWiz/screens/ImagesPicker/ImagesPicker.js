@@ -3,14 +3,20 @@ import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator, AsyncStora
 import * as ImageManipulator from 'expo-image-manipulator';
 import ImageBrowser from '../ImageBrowser';
 
+
+
 export default class ImageBrowserScreen extends Component {
-  static navigationOptions = ({ navigation }) => ({
+ 
+
+  static navigationOptions = ({ navigation}) => ({
     headerTitle: "Choose Photos",
     headerLeft: <TouchableOpacity onPress={() => navigation.goBack()}><Text style={{ fontFamily: 'Baloo-Paaji-Medium', fontSize: 20, margin: 10 }}>Back</Text></TouchableOpacity>,
     headerRight: <TouchableOpacity title={'Done'} onPress={() => this._onSubmit()}><Text style={{ fontFamily: 'Baloo-Paaji-Medium', fontSize: 20, margin: 10 }}>      Done
         </Text>
     </TouchableOpacity>
   });
+
+
 
   state = {
     photos: []
@@ -50,7 +56,7 @@ export default class ImageBrowserScreen extends Component {
     </View>
   );
 
-  _onSubmit = () => {
+  _onSubmit = async() => {
     const {photos} = this.state
     await AsyncStorage.setItem("photos", JSON.stringify(photos));
     navigation.navigate("HostingPage")

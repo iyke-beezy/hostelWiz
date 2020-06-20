@@ -134,7 +134,7 @@ export default function App(props) {
               component={HostingTwo} />
 
             <Stack.Screen name="Images"
-              options={{
+              options= {{
                 headerLeft: () => (
                   <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Text>
