@@ -115,7 +115,6 @@ export default function App(props) {
             <Stack.Screen name="SignUp"
               options={{
                 headerShown: false,
-
               }}
               component={SignUpScreen} />
 
@@ -134,22 +133,7 @@ export default function App(props) {
               component={HostingTwo} />
 
             <Stack.Screen name="Images"
-              options= {{
-                headerLeft: () => (
-                  <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Text>
-                      Back
-                    </Text>
-                  </TouchableOpacity>
-                ),
-                headerRight: () => (
-                  <TouchableOpacity title={'Done'}>
-                    <Text>
-                      Done
-                    </Text>
-                  </TouchableOpacity>
-                )
-              }}
+              options={ImagePicker.navigationOptions}
               component={ImagePicker} />
 
             <Stack.Screen name="details"
