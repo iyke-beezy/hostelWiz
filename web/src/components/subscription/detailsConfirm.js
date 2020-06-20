@@ -90,8 +90,9 @@ class DetailsConfirm extends React.Component{
                         <Select defaultValue={this.state.propertyType}  size={'large'} className='entries' onChange={this.handleTypeChange}>
                             <Option value="Apartment">Apartment</Option>
                             <Option value="Hostel">Hostel</Option>
-                        </Select>              
+                        </Select>
               </div>
+ 
               <div className='dC'>
                         <span className='smSpan'>Bedrooms</span>
                         <Input size='large' name="bedrooms" value={this.state.bedrooms}   onChange={this.handleChange} className='entries'/>

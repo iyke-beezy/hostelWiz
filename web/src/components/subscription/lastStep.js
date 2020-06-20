@@ -83,14 +83,11 @@ class LastStep extends React.Component{
                 </TabPane>
                 <TabPane  tab={'Photos'} key={3}>
                  <AddPhotos handleNext={this.handleNext} handleBack={this.handleBack}/>
-                </TabPane>                
-                <TabPane  tab={'Security'} key={4}>
-                <Security handleNext={this.handleNext} handleBack={this.handleBack}/>
-                </TabPane>                
-                <TabPane  tab={'Pricing'} key={5}>
+                </TabPane>                                
+                <TabPane  tab={'Pricing'} key={4}>
                 <Pricing handleNext={this.handleNext} handleBack={this.handleBack}/>
                 </TabPane>                
-                <TabPane  tab={'Publish Listing'} key={6}>
+                <TabPane  tab={'Publish Listing'} key={5}>
                  <PublishListing handleBack={this.handleBack}/>
                 </TabPane>
             </Tabs>
