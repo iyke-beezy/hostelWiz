@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Platform, StatusBar, StyleSheet, View, AsyncStorage } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, AsyncStorage, TouchableOpacity, Text } from 'react-native';
 import { SplashScreen, Notifications } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
@@ -21,6 +21,7 @@ import Terms from './screens/terms';
 import LoginScreen from './screens/Login'
 
 import firebase from './screens/firebase';
+import ImagePicker from './screens/ImagesPicker/ImagesPicker';
 
 const Stack = createStackNavigator();
 
@@ -74,7 +75,7 @@ export default function App(props) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);
       } finally {
-          setLoadingComplete(true);
+        setLoadingComplete(true);
         SplashScreen.hide();
       }
       return () => mounted = false;
@@ -86,6 +87,18 @@ export default function App(props) {
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return null;
   } else {
+    const headerLeft =
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Text>
+          Back
+        </Text>
+      </TouchableOpacity>;
+    const headerRight =
+      <TouchableOpacity title={'Done'}>
+        <Text>
+          Done
+        </Text>
+      </TouchableOpacity>;
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
@@ -102,7 +115,6 @@ export default function App(props) {
             <Stack.Screen name="SignUp"
               options={{
                 headerShown: false,
-
               }}
               component={SignUpScreen} />
 
@@ -113,8 +125,6 @@ export default function App(props) {
               }}
               component={BottomTabNavigator} />
 
-       
-
             <Stack.Screen name="Htwo"
               options={{
                 headerShown: false,
@@ -122,10 +132,14 @@ export default function App(props) {
               }}
               component={HostingTwo} />
 
+            <Stack.Screen name="Images"
+              options={ImagePicker.navigationOptions}
+              component={ImagePicker} />
+
             <Stack.Screen name="details"
               options={{
                 headerShown: false,
-
+                title: 'Selected 0 files',
               }}
               component={DetailsScreen} />
 

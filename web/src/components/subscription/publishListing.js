@@ -61,7 +61,9 @@ class PublishListing extends React.Component{
             console.log(data)
             const token = '286ffbb3abfacc19e516ae4327deae01bb7132b5'
           const response = await create_hostel(data,token);
-          
+          console.log('the response:'+ JSON.stringify(response)+response.result.id)
+          this.setState({id:response.result.id})
+          localStorage.setItem('id',response.result.id);
         }
         catch (err) {
           console.log(err.errMessage)
@@ -139,6 +141,10 @@ class PublishListing extends React.Component{
                 <Button className='finalButton' onClick={this.props.handleBack}>Back</Button>
                 <Button className='finalButton' onClick={this._publish}>Finish</Button> 
             </div>
+            <div className='dC1'>
+                <Button className='finalButton' onClick={this.props.handleBack}>Back</Button>
+                <Button className='finalButton' onClick={this.props.handleNext}>Next</Button>                 
+               </div> 
             </div>
         )
     }

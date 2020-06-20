@@ -7,7 +7,7 @@ import Head from '../head';
 import { withCookies } from 'react-cookie';
 import LocConfirm from './locConfirm';
 import DetailsConfirm from './detailsConfirm';
-import AddPhotos from './addPhotos';
+import Uploads from './upload';
 import Security from './security';
 import Pricing from './pricing';
 import PublishListing from './publishListing';
@@ -89,6 +89,7 @@ class LastStep extends React.Component{
                 </TabPane>                
                 <TabPane  tab={'Publish Listing'} key={5}>
                  <PublishListing handleBack={this.handleBack}/>
+
                 </TabPane>
             </Tabs>
             <div style={{marginBottom:500}}>

@@ -247,4 +247,20 @@ export const loginUser = async(username, password) => {
 
 }
 
- 
+export const post_images = async (data,token) => {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/hostelwiz/images/`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json',
+                    'Authorization':`Token ${token}`
+                },
+         body: JSON.parse(data)
+    })
+    if (response.ok) {
+        const manager = await response.json() 
+        return manager
+    }
+
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+
+}
