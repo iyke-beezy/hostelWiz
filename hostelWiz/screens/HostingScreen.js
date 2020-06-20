@@ -57,7 +57,6 @@ class HostingScreen extends React.Component {
   }
 
   getPhotos = async () => {
-    console.log('success')
     try {
       let images = await AsyncStorage.getItem("photos");
       let photos = JSON.parse(images)
@@ -65,7 +64,7 @@ class HostingScreen extends React.Component {
       if (photos) this.setState({ photos, screen: 'six', found: true })
     }
     catch (error) {
-      console.log('success')
+      console.log(error)
     }
   }
 
