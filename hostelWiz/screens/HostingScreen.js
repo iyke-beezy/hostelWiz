@@ -26,6 +26,7 @@ class HostingScreen extends React.Component {
       headline: '',
       description: '',
       price: '',
+      found: false,
       rate_type: 'month',
       number_of_rooms: null,
       Single: false,
@@ -51,7 +52,7 @@ class HostingScreen extends React.Component {
       hasCameraPermission: null,
       hasCameraRollPermission: null,
       image: [],
-      images: [],
+      photos: [],
     };
   }
 
@@ -68,6 +69,32 @@ class HostingScreen extends React.Component {
     //   headerRight: onSubmit,
     // });
     console.log("List Of Images" + Images);
+  }
+  componentDidUpdate() {
+    this.getPhotos()
+  }
+
+  getPhotos = async () => {
+    try {
+          const photos = await AsyncStorage.getItem("photos")) {
+      let images = await AsyncStorage.getItem("photos");
+      let photos = JSON.parse(images)
+      console.log(photos)
+      if (photos) this.setState({ photos, screen: 'six', found: true })
+    }
+    }
+
+
+  }
+
+  renderImage(item, i) {
+    return (
+      <Image
+        style={{ height: 100, width: 100 }}
+        source={{ uri: item.uri }}
+        key={i}
+      />
+    )
   }
   renderSelectedComponent = (number) => (
     <View style={styles.countBadge}>
@@ -554,12 +581,20 @@ class HostingScreen extends React.Component {
                   emptyStayComponent={emptyStayComponent}
                   noCameraPermissionComponent={noCameraPermissionComponent}
                 /> */}
-                <Button
-                buttonStyle={styles.secNextButton}
-                // disabled={!this.state.headline || !this.state.description || !this.state.location }
-                onPress={() => this.props.navigation.navigate('Images')}
-                title="Add Photos"
-              />
+                {this.state.found ?
+                  <ScrollView>
+                    {this.state.photos.map((item, i) => this.renderImage(item, i))}
+                  </ScrollView>
+                  :
+                  <Button
+                    buttonStyle={styles.secNextButton}
+                    // disabled={!this.state.headline || !this.state.description || !this.state.location }
+                    onPress={() => this.props.navigation.navigate('Images')}
+                    title="Add Photos"
+                  />
+                }
+
+
               </View>
               <Text style={styles.label}></Text>
 

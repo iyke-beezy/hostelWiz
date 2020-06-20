@@ -84,7 +84,7 @@ class ProfileScreen extends React.Component {
         break;
 
       case 'other':
-        this.props.navigation.navigate('others')
+        this.props.navigation.navigate('Images')
         break;
 
       case 'Logout':
@@ -137,8 +137,8 @@ class ProfileScreen extends React.Component {
                 <Text style={styles.itemText}>
                   <FontAwesome5 size={20} color={'#92A5A3'} name={'pen'} />    Edit Profile
          </Text></TouchableOpacity>
-         <TouchableOpacity  style={styles.item} onPress={() => this.switchRoute('notification')}>
-         <Text style={styles.itemText}>
+              <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('notification')}>
+                <Text style={styles.itemText}>
                   <FontAwesome5 size={20} color={'#92A5A3'} name={'pen'} />    Change Password
          </Text></TouchableOpacity>
               <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('notification')}>

@@ -6,12 +6,13 @@ import {
   Dimensions,
   ActivityIndicator,
 } from 'react-native'
-import { ScreenOrientation } from 'expo';
+import * as ScreenOrientation from 'expo-screen-orientation';
 import * as MediaLibrary from 'expo-media-library'
 import * as Permissions from 'expo-permissions'
 import ImageTile from './ImageTile'
 
 const { width } = Dimensions.get('window');
+var SelectedImages = []
 
 export default class ImageBrowser extends React.Component {
   is_mounted = false
@@ -33,10 +34,11 @@ export default class ImageBrowser extends React.Component {
 
   setScreenOrientation = async () => {
     await this.getPermissionsAsync();
-    ScreenOrientation.addOrientationChangeListener(this.onOrientationChange);
-    const orientation = await ScreenOrientation.getOrientationAsync();
+    //ScreenOrientation.addOrientationChangeListener(this.onOrientationChange);
+    // const orientation = await ScreenOrientation.getOrientationLockAsync();
+    // console.log(ScreenOrientation.OrientationLock)
     if (this.is_mounted) {
-      const numColumns = this.getNumColumns(orientation.orientation);
+      const numColumns = 4;
       this.setState({ numColumns });
       this.getPhotos();
     }
@@ -65,6 +67,7 @@ export default class ImageBrowser extends React.Component {
   getNumColumns = orientation => orientation.indexOf('PORTRAIT') !== -1 ? 4 : 7;
 
   selectImage = (index) => {
+    //console.log(index)
     let newSelected = Array.from(this.state.selected);
     if (newSelected.indexOf(index) === -1) {
       newSelected.push(index);
@@ -73,8 +76,10 @@ export default class ImageBrowser extends React.Component {
       newSelected.splice(deleteIndex, 1);
     }
     if (newSelected.length > this.props.max) return;
-    if (!newSelected) newSelected = [];
+    //if (!newSelected) newSelected = [];
+    SelectedImages = newSelected
     this.setState({ selected: newSelected });
+    //console.log(SelectedImages)
     this.props.onChange(newSelected.length, () => this.prepareCallback());
   }
 
@@ -95,26 +100,32 @@ export default class ImageBrowser extends React.Component {
     if (data.totalCount) {
       if (this.state.after === data.endCursor) return;
       const uris = data.assets;
+      
       this.setState({
         photos: [...this.state.photos, ...uris],
         after: data.endCursor,
         hasNextPage: data.hasNextPage
       });
+      //console.log(this.state.photos[0])
     } else {
       this.setState({ isEmpty: true });
     }
   }
-
   getItemLayout = (data, index) => {
     const length = width / 4;
     return { length, offset: length * index, index };
   }
 
   prepareCallback() {
-    const { selected, photos } = this.state;
+    //console.log('success')
+    const {photos} = this.state;
+    const selected = SelectedImages
     const selectedPhotos = selected.map(i => photos[i]);
-    const assetsInfo = Promise.all(selectedPhotos.map(i => MediaLibrary.getAssetInfoAsync(i)));
-    this.props.callback(assetsInfo);
+    //const assetsInfo = Promise.all(selectedPhotos.map(i => MediaLibrary.getAssetInfoAsync(i)));
+    //assetsInfo.then(photos => console.log(photos))
+    //console.log(assetsInfo)
+    //console.log(selectedPhotos)
+    this.props.callback(selectedPhotos);
   }
 
   renderImageTile = ({ item, index }) => {
@@ -137,7 +148,6 @@ export default class ImageBrowser extends React.Component {
   renderEmptyStay = () => this.props.emptyStayComponent || null;
 
   renderImages() {
-    console.log(this.state.photos)
     return (
       <FlatList
         data={this.state.photos}
