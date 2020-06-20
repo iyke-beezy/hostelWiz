@@ -1,27 +1,38 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator, AsyncStorage } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator, AsyncStorage, Button } from 'react-native';
 import * as ImageManipulator from 'expo-image-manipulator';
 import ImageBrowser from '../ImageBrowser';
 
 export default class ImageBrowserScreen extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    headerTitle: "Choose Photos",
-    headerLeft: <TouchableOpacity onPress={() => navigation.goBack()}><Text style={{ fontFamily: 'Baloo-Paaji-Medium', fontSize: 20, margin: 10 }}>Back</Text></TouchableOpacity>,
-    headerRight: <TouchableOpacity title={'Done'} onPress={() => this._onSubmit()}><Text style={{ fontFamily: 'Baloo-Paaji-Medium', fontSize: 20, margin: 10 }}>      Done
-        </Text>
-    </TouchableOpacity>
-  });
+  static navigationOptions = ({ navigation, route }) => {
+    return {
+      headerTitle: "ChooseImages",
+      headerRight: (
+        <Button
+          onPress={()=> console.log("success")}
+          title="Done"
+          color="#000"
+        />
+      ),
+    }
+  };
 
   state = {
     photos: []
   }
 
+  componentDidMount() {
+    //console.log(this.props.route.params)
+    this.props.navigation.setParams({ submit: this._onSubmit() });
+  }
+
+
   imagesCallback = (selectedPhotos) => {
     const { navigation } = this.props;
     navigation.setParams({ loading: true });
     let photos = []
-    selectedPhotos.map(photo => {
-      photos.push(photo.uri)
+    selectedPhotos.map(uri => {
+      photos.push(uri)
     })
     this.setState({ photos: [...this.state.photos, ...photos] })
     console.log(photos)
@@ -38,10 +49,10 @@ export default class ImageBrowserScreen extends Component {
   }
 
   updateHandler = (count, onSubmit) => {
-    this.props.navigation.setParams({
-      headerTitle: `Selected ${count} files`,
-      headerRight: onSubmit,
-    });
+    // this.props.navigation.setParams({
+    //   headerTitle: `Selected ${count} files`,
+    //   headerRight: onSubmit,
+    // });
   };
 
   renderSelectedComponent = (number) => (
@@ -50,8 +61,8 @@ export default class ImageBrowserScreen extends Component {
     </View>
   );
 
-  _onSubmit = () => {
-    const {photos} = this.state
+  _onSubmit = async () => {
+    const { photos } = this.state
     await AsyncStorage.setItem("photos", JSON.stringify(photos));
     navigation.navigate("HostingPage")
   }

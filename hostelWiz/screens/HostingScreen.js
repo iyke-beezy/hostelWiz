@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Keyboard, StyleSheet, CheckBox, ScrollView, Switch, Picker, Text, View, TextInput, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback, Alert, KeyboardAvoidingView, Dimensions } from 'react-native';
+import { Keyboard, StyleSheet, AsyncStorage, ScrollView, Switch, Picker, Text, View, TextInput, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback, Alert, KeyboardAvoidingView, Dimensions } from 'react-native';
 import { Card, Button, Icon } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
 import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
@@ -77,7 +77,7 @@ renderImage(item, i) {
   return (
     <Image
       style={{ height: 100, width: 100 }}
-      source={{ uri: item.uri }}
+      source={{ uri: item }}
       key={i}
     />
   )
