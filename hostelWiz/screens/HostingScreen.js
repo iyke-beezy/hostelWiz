@@ -40,7 +40,7 @@ class HostingScreen extends React.Component {
       gym: false,
       laundry: false,
       study_room: false,
-      screen: 'one',
+      screen: 'six',
       private: false,
       shared: false,
       single: false,

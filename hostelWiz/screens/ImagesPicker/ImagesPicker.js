@@ -7,15 +7,16 @@ import ImageBrowser from '../ImageBrowser';
 
 export default class ImageBrowserScreen extends Component {
   static navigationOptions = ({ navigation, route }) => {
+   // const { submit } = route.params;
     return {
-      headerTitle: "ChooseImages",
-      headerRight: (
+      headerTitle: "Choose Images",
+      headerRight: () => 
         <Button
-          onPress={()=> console.log("success")}
+       //   onPress={()=> {return submit}}
           title="Done"
           color="#000"
         />
-      ),
+      
     }
   };
 
@@ -27,7 +28,7 @@ export default class ImageBrowserScreen extends Component {
 
   componentDidMount() {
     //console.log(this.props.route.params)
-    this.props.navigation.setParams({ submit: this._onSubmit() });
+   // this.props.navigation.setParams({ submit: this._onSubmit() });
   }
 
 
@@ -68,7 +69,8 @@ export default class ImageBrowserScreen extends Component {
   _onSubmit = async () => {
     const { photos } = this.state
     await AsyncStorage.setItem("photos", JSON.stringify(photos));
-    navigation.navigate("HostingPage")
+    this.props.navigation.navigate("HostingPage");
+    console.log(this.state.photos)
   }
 
 
@@ -76,9 +78,22 @@ export default class ImageBrowserScreen extends Component {
     const emptyStayComponent = <Text style={styles.emptyStay}>Empty =(</Text>;
 
     return (
-      <View style={[styles.flex, styles.container]}>
+      <View style={[styles.flex, styles.container,{backgroundColor:'white'}]}>
+        <View style={{flexDirection:'row',justifyContent:'space-between',backgroundColor:'white',marginBottom:30}}>
+          <TouchableOpacity onPress={()=> this.props.navigation.goBack()}>
+            <Text>
+            Back
+            </Text>
+         
+          </TouchableOpacity>
+          <Button
+         onPress={()=> this._onSubmit()}
+          title="Done"
+          color="#000"
+        />
+        </View>
         <ImageBrowser
-          max={4}
+          max={20}
           onChange={this.updateHandler}
           callback={this.imagesCallback}
           renderSelectedComponent={this.renderSelectedComponent}
