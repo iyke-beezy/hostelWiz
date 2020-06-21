@@ -1,29 +1,25 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator, AsyncStorage, Button } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator, AsyncStorage, Dimensions } from 'react-native';
 import * as ImageManipulator from 'expo-image-manipulator';
+import { Button } from 'react-native-elements';
 import ImageBrowser from '../ImageBrowser';
+const screenWidth = Math.round(Dimensions.get('window').width);
+const screenHeight = Math.round(Dimensions.get('window').height);
 
-
-
+var images = []
 export default class ImageBrowserScreen extends Component {
   static navigationOptions = ({ navigation, route }) => {
     // const { submit } = route.params;
     return {
       headerTitle: "Choose Images",
-      headerRight: () =>
-        <Button
-          //   onPress={()=> {return submit}}
-          title="Done"
-          color="#000"
-        />
-
     }
   };
 
 
 
   state = {
-    photos: []
+    photos: [],
+    done: false
   }
 
   componentDidMount() {
@@ -36,12 +32,17 @@ export default class ImageBrowserScreen extends Component {
     const { navigation } = this.props;
     navigation.setParams({ loading: true });
     let photos = []
-    selectedPhotos.map(photo => {
-      photos.push(photo.uri)
+    selectedPhotos.map(async (photo) => {
+      const compressed = await this._processImageAsync(photo.uri)
+      photos.push({
+        uri: compressed.uri,
+        name: photo.filename,
+        type: photo.mediaType        
+      })
+      images = photos
+      //console.log(photos)
+      this.setState({ photos: [...this.state.photos, ...photos], done: true })
     })
-    this.setState({ photos: [...this.state.photos, ...photos] })
-    console.log(photos)
-    //this.setState({ photos: cPhotos })
   };
 
   async _processImageAsync(uri) {
@@ -54,9 +55,9 @@ export default class ImageBrowserScreen extends Component {
   }
 
   updateHandler = (count, onSubmit) => {
-    this.props.navigation.setParams({
+    this.props.navigation.setOptions({
       headerTitle: `Selected ${count} files`,
-      headerRight: this._onSubmit,
+      //headerRight: this._onSubmit,
     });
     onSubmit()
   };
@@ -80,17 +81,18 @@ export default class ImageBrowserScreen extends Component {
 
     return (
       <View style={[styles.flex, styles.container, { backgroundColor: 'white' }]}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', backgroundColor: 'white', marginBottom: 30 }}>
-          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-            <Text>
-              Back
-            </Text>
-
-          </TouchableOpacity>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', margin: 10 }}>
           <Button
             onPress={() => this._onSubmit()}
             title="Done"
-            color="#000"
+            disabled={!this.state.done}
+            buttonStyle={{
+              height: screenHeight * 0.07,
+              borderRadius: 5,
+              backgroundColor: "#E7C654",
+              //alignSelf: 'flex-end',
+              width: screenWidth * 0.25
+            }}
           />
         </View>
         <ImageBrowser

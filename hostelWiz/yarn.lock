@@ -2997,20 +2997,6 @@ expo-image-manipulator@^8.1.0:
   resolved "https://registry.yarnpkg.com/expo-image-manipulator/-/expo-image-manipulator-8.1.0.tgz#63ae66e1a65e5be8c6ee7036fe88d53af551853f"
   integrity sha512-ephPXtzEx32Js1SQ1B2IXdpi4Gn34DIMQGAOwrwOPfUuWXQX9jGxyX3tktIGMmQ7lHueVr0a8zdh6ME0YGHjkw==
 
-expo-image-picker-multiple@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/expo-image-picker-multiple/-/expo-image-picker-multiple-1.1.5.tgz#1b30ebf1245b485c9b316267d3b6ab1f61347636"
-  integrity sha512-05C7OecqrHUIqKZFBpdQKJ9eN9S18yZAEiE0t7GzSvQ1ASIz9Yd9Lv/D17FCEuhz2PMG2TEPg1Gof/7Z4Dz08g==
-  dependencies:
-    expo-media-library "^8.0.0"
-    expo-permissions "^8.0.0"
-
-expo-image-picker@~8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/expo-image-picker/-/expo-image-picker-8.1.0.tgz#014e4f4aaef4c1daf56d13de27a41ef78660aa15"
-  dependencies:
-    expo-permissions "~8.1.0"
-
 expo-keep-awake@~8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/expo-keep-awake/-/expo-keep-awake-8.1.0.tgz#3a1d8aa5a8395d40c7d79e1c93020ae5f848e664"
@@ -3033,12 +3019,12 @@ expo-location@~8.1.0:
   dependencies:
     invariant "^2.2.4"
 
-expo-media-library@^8.0.0, expo-media-library@~8.1.0:
+expo-media-library@~8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/expo-media-library/-/expo-media-library-8.1.0.tgz#f5d4b24819aa518e69d971f92b55c12f60c85ba5"
   integrity sha512-2oO6UtV4akgX9o5Ok9BRwLh5NZzDk43QBW5RP/EHVSzuVn2yn7IXstmr9wnTl1BpqkPoV8u6w3g9EeU1I2Jljw==
 
-expo-permissions@^8.0.0, expo-permissions@~8.1.0:
+expo-permissions@~8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/expo-permissions/-/expo-permissions-8.1.0.tgz#a7f2ee91ba76ce3a467e7b10adaa9ca5201b226f"
 
@@ -7325,6 +7311,21 @@ yargs@^3.10.0:
 yargs@^9.0.0:
   version "9.0.1"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-9.0.1.tgz#52acc23feecac34042078ee78c0c007f5085db4c"
+  dependencies:
+    camelcase "^4.1.0"
+    cliui "^3.2.0"
+    decamelize "^1.1.1"
+    get-caller-file "^1.0.1"
+    os-locale "^2.0.0"
+    read-pkg-up "^2.0.0"
+    require-directory "^2.1.1"
+    require-main-filename "^1.0.1"
+    set-blocking "^2.0.0"
+    string-width "^2.0.0"
+    which-module "^2.0.0"
+    y18n "^3.2.1"
+    yargs-parser "^7.0.0"
+registry.yarnpkg.com/yargs/-/yargs-9.0.1.tgz#52acc23feecac34042078ee78c0c007f5085db4c"
   dependencies:
     camelcase "^4.1.0"
     cliui "^3.2.0"

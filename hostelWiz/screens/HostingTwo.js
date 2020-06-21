@@ -1,12 +1,9 @@
 import * as React from 'react';
 import {Keyboard,StyleSheet, CheckBox,ScrollView, Switch ,Picker, Text, View, TextInput, TouchableWithoutFeedback, Alert, KeyboardAvoidingView,Dimensions} from 'react-native';
 import { Card,Button, Icon } from 'react-native-elements';
-import * as ImagePicker from 'expo-image-picker';
 import styles from "../style";
-import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
-import { RadioButton } from 'react-native-paper';
-import { Select,InputLabel,MenuItem } from '@material-ui/core';
+
+
 
 
 

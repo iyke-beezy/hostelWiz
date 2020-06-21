@@ -5,6 +5,7 @@ import { Input, Button, Tooltip } from 'antd';
 import { UserOutlined, LockOutlined, LeftOutlined } from '@ant-design/icons';
 import { withCookies } from 'react-cookie'
 import { loginUser } from '../api'
+import { Link } from 'react-router-dom';
 
 const propTypes = {
     children: PropTypes.node.isRequired,
@@ -15,7 +16,7 @@ class LoginUI extends React.Component {
         username: '',
         password: '',
     }
-    
+
     _login = async () => {
         try {
             const token = await loginUser(this.state.username, this.state.password)
@@ -85,13 +86,13 @@ class LoginUI extends React.Component {
                         <p>
                             Or login with other accounts
         </p>
-                        <div>
+                        <div className="buttons">
                             {this.props.children}
                         </div>
                         <div className="footer">
-                            <Button type="link">Privacy Policy</Button>
-                            <Button type="link">Terms and Conditions</Button>
-                            <Button type="link" className="copyright">{'\u00A9'}2020 Slitcorp. All Rights Reserved</Button>
+                            <Link to="/"><p>Privacy Policy</p></Link>
+                            <Link to="/"><p>Terms and Conditions</p></Link>
+                            <p>{'\u00A9'}2020 Slitcorp. All Rights Reserved</p>
                         </div>
                     </div>
 

@@ -1,23 +1,10 @@
 import * as React from 'react';
-import {Keyboard,StyleSheet, CheckBox,ScrollView, Switch ,Picker, Text, View, TextInput,TouchableHighlight,TouchableOpacity, TouchableWithoutFeedback, Alert, KeyboardAvoidingView,Dimensions} from 'react-native';
-import { Card,Button, Icon } from 'react-native-elements';
-import * as ImagePicker from 'expo-image-picker';
-import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
-import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
-import { RadioButton } from 'react-native-paper';
+import {StyleSheet,Text, View, TextInput,TouchableHighlight,Dimensions} from 'react-native';
+import { Button } from 'react-native-elements';
+import { AntDesign} from '@expo/vector-icons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Select,InputLabel,MenuItem } from '@material-ui/core';
-const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
 import { editUser } from '../api';
-
-
-
-
-
-
-
 
 class EditProfile extends React.Component{
     constructor(props) {  

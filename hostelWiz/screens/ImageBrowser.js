@@ -79,7 +79,7 @@ export default class ImageBrowser extends React.Component {
     //if (!newSelected) newSelected = [];
     SelectedImages = newSelected
     this.setState({ selected: newSelected });
-    console.log(SelectedImages)
+    //console.log(SelectedImages)
     this.props.onChange(SelectedImages.length, () => this.prepareCallback());
   }
 

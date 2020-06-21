@@ -14,14 +14,6 @@ const proptypes = {
 // or url for online images
 
 const Slider = (props) => {
-  const images = [
-    require('../Assets/apart1.jpg'),
-    require('../Assets/apart2.jpg'),
-    require('../Assets/sale.jpg')
-  ];
-  var imagess=props.images;
-
-  console.log(imagess)
   return (
     <Pane
       elevation={1}

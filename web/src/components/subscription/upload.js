@@ -1,10 +1,6 @@
 import React from 'react';
-import {Upload,Button} from 'antd';
-import {PlusOutlined} from '@ant-design/icons';
 import './hostForm.css';
-import { ArrowLeftOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
-import Join from './join';
 import axios from 'axios';
 import { create_hostel } from '../../api'
 
@@ -75,8 +71,6 @@ class Uploads extends React.Component{
         /*
         this.storeToken(t)*/
         try {
-          
-           
             const token = '286ffbb3abfacc19e516ae4327deae01bb7132b5'
           const response = await create_hostel(data,token);
           

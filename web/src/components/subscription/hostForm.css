@@ -4,7 +4,7 @@
     padding-left: 50px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
     font-family: "Baloo Paaji Medium";
-    width: 669px;
+    max-width: 552px;
     height: 552px;
 }
 
@@ -104,6 +104,7 @@
 .subHeader img {
     width: 120px;
     height: 120px;
+    cursor: pointer;
 }
 
 .medText1 {
@@ -151,7 +152,7 @@
 
 .dWhyDiv {
     flex: 30%;
-    width: 500px;
+    width: auto;
     flex-shrink: 0;
 }
 
@@ -391,9 +392,12 @@ input.ant-radio-input {
         height: auto;
     }
 }
+.Details {
+    display: flex;
+    flex-direction: column;
+}
 .detailsTop{
-    display:flex;
-    flex-direction:column;
+    flex: 1;
     align-items:center;
 }
 .dC{

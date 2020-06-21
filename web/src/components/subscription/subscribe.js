@@ -8,15 +8,13 @@ const {Header}=Layout;
 
 const Subscribe=()=>{
     return(
-        <div>
+        <div style={{flex: 1}}>
             <Header className="subHeader">
-                <img src={require("../../Assets/logo.png")} alt="lampopo"/>
+                <img src={require("../../Assets/logo.png")} alt="lampopo" onClick={()=> window.location.href="/"}/>
             </Header>
     
         <div className="subscribe">
-            <div>
             <HostForm/>
-            </div>
             
         </div>
         <Details ></Details>
