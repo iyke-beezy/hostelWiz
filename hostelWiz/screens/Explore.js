@@ -276,9 +276,6 @@ class ExploreScreen extends React.Component {
                     </View>
                   </ScrollView>
                   :
-
-
-
                   //screen to show when user searches for hoste
                   <ScrollView>
                     <View style={styles.belowSearchBar}>

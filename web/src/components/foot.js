@@ -53,9 +53,9 @@ const Foot=()=>{
             </div>
          <div className="second-child-2">
          <Space>
-            <img src={require('../Assets/facebook.png')}/>
-            <img src={require('../Assets/twitter.png')}/>
-            <img src={require('../Assets/instagram.png')}/>
+            <img src={require('../Assets/facebook.png')} alt="facebook-logo"/>
+            <img src={require('../Assets/twitter.png')} alt="twitter-logo"/>
+            <img src={require('../Assets/instagram.png')} alt="instagtam-logo"/>
         </Space>
          </div>
         

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Layout, Menu,Progress,Button ,Tabs} from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
+import { Layout, Progress ,Tabs} from 'antd';
 import 'antd/dist/antd.css';
 import './hostForm.css';
 import Head from '../head';

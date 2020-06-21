@@ -1,6 +1,5 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
-import { useHistory } from "react-router-dom";
 import { UserOutlined } from '@ant-design/icons'
 import 'antd/dist/antd.css';
 const { SubMenu } = Menu;

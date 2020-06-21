@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import { Skeleton, Switch, Card, Avatar,Modal,Button,Divider,Space } from 'antd';
+import { Card, Modal,Button,Divider,Space } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import Slider from '../productSlider'
 
 const propTypes = {
