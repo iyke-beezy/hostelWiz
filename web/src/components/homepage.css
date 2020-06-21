@@ -179,16 +179,17 @@
 .filterWrap {
    /* margin: 60px auto;*/
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-content: center;
     height: auto;
-    /*margin: 20px auto 50px auto !important;*/
+    margin: 20px auto 60px auto !important;
     position: relative !important;
-    /*max-width: 1760px !important;
+    /*max-width: 1760px !important;*/
     padding-right: 80px !important;
     padding-left: 80px !important;
-    */
+    
     align-items: center;
 }
 
@@ -244,7 +245,7 @@
     font-family:"Baloo Paaji Medium" ;
 }
 .filt{
-    flex:31%;
+    flex:1;
     border-radius:16px;
     box-shadow:rgba(0,0,0,0.15) 0px 2px 8px;
     margin:18px
@@ -313,9 +314,10 @@
 
 .newsWrap {
     display: flex;
-    flex-direction: column;
-    margin-left: 40px;
-    margin-right: 40px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* margin-left: 40px;
+    margin-right: 40px; */
 }
 
 .newsHead {
