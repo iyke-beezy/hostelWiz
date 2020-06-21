@@ -100,19 +100,20 @@ p {
 .otherBtns {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     font-family: "Baloo Paaji Medium";
 }
 
 .googlebtn {
-    height: 48px;
-    width: 230px;
+    height: auto;
+    width: auto;
     box-shadow: rgba(0, 0, 0,0.5)  1px 1px 3px 1px;
     text-align: center;
-    display: flex;
+    flex: 1;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    margin-right: 30px;
+    margin-bottom: 30px;
 }
 .googlebtn {
     font-size: 18px;
@@ -124,11 +125,11 @@ p {
     margin-right: 10px;
 }
 .fbbtn {
-    height: 48px;
-    width: 247px;
+    height: auto;
+    width: auto;
     box-shadow: rgba(0, 0, 0,0.5)  1px 1px 3px 1px;
     text-align: center;
-    display: flex;
+    flex: 1;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
@@ -149,9 +150,15 @@ p {
     border-bottom: 1px solid rgba(57.3, 64.7, 63.9, 0.3);
 }
 
+.buttons {
+    display: flex;
+}
+
 .footer {
+    flex: 1;
     margin-top: 40px;
     flex-direction: row;
+    flex-wrap: wrap;
     bottom: 0;
 }
 .footer button {
@@ -164,6 +171,7 @@ p {
 .footer p {
     font-family: "Baloo Paaji Medium";
     font-size: 18px;
+    color: #92a5a3;
 }
 .footer button:hover {
     color: #e7c654;

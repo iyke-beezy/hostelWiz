@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import renderEmpty from "antd/lib/config-provider/renderEmpty";
-import { Form, Card, CardBody, Container, Row, Label, Input, FormGroup, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Form, Card, CardBody, FormGroup } from 'reactstrap';
 import { withCookies } from 'react-cookie';
 import { Button } from 'antd'
 import { loginUser, registerUser } from '../api'

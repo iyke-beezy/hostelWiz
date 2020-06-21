@@ -1,6 +1,5 @@
 import React from 'react';
 import {Button,Input ,Select,Radio} from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import './hostForm.css';
 const {Option}=Select;

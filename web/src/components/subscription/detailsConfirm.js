@@ -1,6 +1,6 @@
 import React from 'react';
-import { Input, Dropdown,Button,Select,Menu } from 'antd';
-import { UserOutlined, LaptopOutlined, DownOutlined,UpOutlined } from '@ant-design/icons';
+import { Input, Button,Select} from 'antd';
+import { DownOutlined,UpOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import './hostForm.css';
 import TextArea from 'antd/lib/input/TextArea';

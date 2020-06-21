@@ -1,6 +1,5 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
-import { useHistory } from "react-router-dom";
 import { UserOutlined } from '@ant-design/icons'
 import 'antd/dist/antd.css';
 const { SubMenu } = Menu;
@@ -22,7 +21,7 @@ class Head extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div style={{flex: 1}}>
                 {
                     this.props.loggedIn ? (
                         <Header className="pg-header">

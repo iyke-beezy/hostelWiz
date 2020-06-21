@@ -1,10 +1,7 @@
 import * as React from 'react';
-import { Keyboard, StyleSheet, AsyncStorage, ScrollView, Switch, Picker, Text, View, TextInput, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback, Alert, KeyboardAvoidingView, Dimensions, Image } from 'react-native';
+import { StyleSheet, AsyncStorage, ScrollView, Switch, Picker, Text, View, TextInput, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback, Alert, KeyboardAvoidingView, Dimensions, Image } from 'react-native';
 import { Card, Button, Icon } from 'react-native-elements';
-import * as ImagePicker from 'expo-image-picker';
-import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
-import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
+import { AntDesign} from '@expo/vector-icons';
 import { RadioButton } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Select, InputLabel, MenuItem } from '@material-ui/core';
@@ -125,6 +122,7 @@ class HostingScreen extends React.Component {
   toggleSwitch = () => {
     this.setState({ wifi: !this.state.wifi });
   }
+
   componentDidMount() {
     //AsyncStorage.removeItem("photos")
     this.getPhotos()
@@ -132,6 +130,7 @@ class HostingScreen extends React.Component {
       console.log(Images)
     });
   }
+
   UNSAFE_componentWillMount() {
     this._unSubscribe;
   }

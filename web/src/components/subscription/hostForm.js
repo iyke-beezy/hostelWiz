@@ -1,11 +1,8 @@
 import React from 'react';
-import {Button,Card} from 'antd';
+import {Card} from 'antd';
 import './hostForm.css';
 import 'antd/dist/antd.css';
 import Selection from './selection'
-import Amenities from './amenities';
-import Uploads from './upload';
-import Join from './join';
 class HostForm extends React.Component{
 
     state = {
