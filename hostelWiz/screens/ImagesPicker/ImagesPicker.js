@@ -66,6 +66,7 @@ export default class ImageBrowserScreen extends Component {
 
   _onSubmit = async () => {
     const { photos } = this.state
+    console.log(photos)
     await AsyncStorage.setItem("photos", JSON.stringify(photos));
     this.props.navigation.navigate("HMnav", { screen: 'HostingPage' });
     //console.log(this.state.photos)
