@@ -32,7 +32,7 @@ class HomePage extends React.Component{
 
     render(){
         return(
-        <div>
+        <div className="root">
             <Head loggedIn = {this.state.loggedIn} logOut={this.logOut}/>
             <div
                 style={{

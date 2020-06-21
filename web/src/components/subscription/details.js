@@ -24,7 +24,7 @@ const Details=({props})=>{
         ]
     }
     return(
-        <div>
+        <div className="Details">
         <div className="detailsTop">
             <h2 className="medText1" >A marketplace for all hostels and apartments</h2> 
         <div className="topTier">
@@ -36,7 +36,7 @@ const Details=({props})=>{
             
             <div className='dWhyDiv'>
                 <h4>Why host on HostelWiz?</h4>
-                <p className="dP" style={{width:"400px"}}>HostelWiz gives you simplicity in setting your prices, house rules, and offers you tools to ensure you're in control. You are given the opportunity to place your properties in front of a nationwide and global network of people looking for the perfect match.</p>
+                <p className="dP">HostelWiz gives you simplicity in setting your prices, house rules, and offers you tools to ensure you're in control. You are given the opportunity to place your properties in front of a nationwide and global network of people looking for the perfect match.</p>
             </div>
             
             </div>

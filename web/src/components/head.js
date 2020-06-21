@@ -21,7 +21,7 @@ class Head extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div style={{flex: 1}}>
                 {
                     this.props.loggedIn ? (
                         <Header className="pg-header">

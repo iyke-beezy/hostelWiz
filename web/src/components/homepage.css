@@ -89,7 +89,7 @@
 }
 
 .header-first {
-    flex: 50%;
+    flex: 0.5;
     display: flex;
     justify-content: flex-start;
 }
@@ -102,9 +102,17 @@
 }
 
 .header-first img {
-    width: 180px;
-    height: 180px;
+    width: 150px;
+    height: 150px;
     cursor: pointer;
+}
+#root {
+    display: flex;
+}
+.root {
+    flex: 1;
+    justify-content: center;
+    align-items: center;
 }
 
 .bigdiv {
@@ -175,11 +183,13 @@
     justify-content: center;
     align-content: center;
     height: auto;
-    margin: 20px auto 50px auto !important;
+    /*margin: 20px auto 50px auto !important;*/
     position: relative !important;
-    max-width: 1760px !important;
+    /*max-width: 1760px !important;
     padding-right: 80px !important;
     padding-left: 80px !important;
+    */
+    align-items: center;
 }
 
 .heading {
@@ -191,6 +201,12 @@
     font-family: "Baloo Paaji Medium";
     font-size: 48px;
     background: -webkit-linear-gradient(rgb(183, 142, 0) 9.38%, rgb(231, 198, 84) 88.54%)
+}
+
+@media screen and (max-width: 450px) {
+    .heading span {
+        font-size: 28px !important;
+    }
 }
 .ant-menu-horizontal  .ant-menu-item a:hover, .ant-menu-horizontal > .ant-menu-submenu .ant-menu-submenu-title:hover{
     color: #E7C654;
@@ -231,7 +247,7 @@
     flex:31%;
     border-radius:16px;
     box-shadow:rgba(0,0,0,0.15) 0px 2px 8px;
-    margin:18px;
+    margin:18px
 }
 
 .filtMeta{
@@ -258,7 +274,7 @@
 
 .filterSection {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 }
 
 .filterSection .ant-card-bordered {
@@ -339,7 +355,7 @@
 .innerWrap {
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     margin: 20px;
     border-radius: 10px;
     border-width: 5px;
@@ -352,21 +368,21 @@
 }
 
 .locDiv {
-    flex: 40%;
+    flex: 30%;
     margin: 10px;
     color: #E7C654;
 }
 
 .buildDiv {
-    flex: 40%;
+    flex: 30%;
     color: #E7C654;
 }
 
 .inputField {
     border-width: 0;
     display: flex;
-    flex: 100%;
-    width: 350px;
+    flex: 1;
+    /*width: 350px;*/
     font-size: 20px;
 }
 
