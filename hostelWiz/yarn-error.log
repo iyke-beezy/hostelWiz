@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add react-navigation
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js remove material-ui/core
 
 PATH: 
-  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files\Git\cmd;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\sbt\bin;C:\Program Files (x86)\Brackets\command;C:\ProgramData\chocolatey\bin;C:\Users\Isaac\AppData\Local\Android\Sdk\tools;C:\Users\Isaac\AppData\Local\Android\Sdk\platform-tools;C:\Users\Isaac\AppData\Local\Android\Sdk\tools\bin;D:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\nodejs\;C:\Users\Isaac\Desktop\flutter\bin;C:\Users\Isaac\Anaconda3\Lib\site-packages\numpy\.libs;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Java\jdk1.8.0_251\bin;C:\Program Files\Java\jdk.1.8.0_251\bin\keytool.exe;C:\Users\Isaac\AppData\Local\Programs\Python\Python35\Scripts\;C:\Users\Isaac\AppData\Local\Programs\Python\Python35\;C:\Users\Isaac\AppData\Local\Microsoft\WindowsApps;C:\Users\Isaac\AppData\Local\GitHubDesktop\bin;C:\Program Files\Microsoft VS Code\bin;C:\Users\Isaac\AppData\Local\Microsoft\WindowsApps;C:\Program Files (x86)\sbt\\bin;C:\Users\Isaac\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Isaac\AppData\Roaming\Composer\vendor\bin;C:\Users\Isaac\AppData\Roaming\npm;C:\Users\Isaac\AppData\Local\Yarn\bin;C:\Program Files\Java\jdk1.8.0_251\bin\keytool.exe
+  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files\Git\cmd;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\sbt\bin;C:\Program Files (x86)\Brackets\command;C:\ProgramData\chocolatey\bin;C:\Users\Isaac\AppData\Local\Android\Sdk\tools;C:\Users\Isaac\AppData\Local\Android\Sdk\platform-tools;C:\Users\Isaac\AppData\Local\Android\Sdk\tools\bin;D:\xampp\php;C:\Program Files\nodejs\;C:\Users\Isaac\Desktop\flutter\bin;C:\Users\Isaac\Anaconda3\Lib\site-packages\numpy\.libs;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Java\jdk1.8.0_251\bin;C:\Program Files\Java\jdk.1.8.0_251\bin\keytool.exe;C:\Windows\System32;C:\Users\Isaac\AppData\Local\Programs\Python\Python35\Scripts\;C:\Users\Isaac\AppData\Local\Programs\Python\Python35\;C:\Users\Isaac\AppData\Local\Microsoft\WindowsApps;C:\Users\Isaac\AppData\Local\GitHubDesktop\bin;C:\Program Files\Microsoft VS Code\bin;C:\Users\Isaac\AppData\Local\Microsoft\WindowsApps;C:\Program Files (x86)\sbt\\bin;C:\Users\Isaac\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Isaac\AppData\Roaming\Composer\vendor\bin;C:\Users\Isaac\AppData\Roaming\npm;C:\Users\Isaac\Desktop\flutter\bin;C:\Users\Isaac\Anaconda3\Lib\site-packages\numpy\.libs;C:\Users\Isaac\AppData\Local\Yarn\bin;C:\Program Files\Java\jdk1.8.0_251\bin;C:\Program Files\Java\jdk1.8.0_251\bin\keytool.exe;
 
 Yarn version: 
   1.22.4
@@ -14,7 +14,15 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'D:\Documents\projects\Hostel Wiz\hostelWiz\hostelWiz\node_modules\@babel\compat-data\node_modules\.bin'
+  SyntaxError: Invalid value type 6215:0 in D:\Documents\projects\Hostel Wiz\hostelWiz\hostelWiz\yarn.lock
+      at Parser.unexpected (C:\Program Files (x86)\Yarn\lib\cli.js:63441:11)
+      at Parser.parse (C:\Program Files (x86)\Yarn\lib\cli.js:63569:16)
+      at parse (C:\Program Files (x86)\Yarn\lib\cli.js:63646:21)
+      at module.exports.exports.default (C:\Program Files (x86)\Yarn\lib\cli.js:63208:96)
+      at Function.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:3064:63)
+      at Generator.next (<anonymous>)
+      at step (C:\Program Files (x86)\Yarn\lib\cli.js:310:30)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:321:13
 
 npm manifest: 
   {
@@ -38,23 +46,25 @@ npm manifest:
       "@react-navigation/native": "^5.0.0",
       "@react-navigation/stack": "^5.0.0",
       "@react-navigation/web": "~1.0.0-alpha.9",
-      "expo": "~37.0.3",
+      "expo": "^37.0.12",
       "expo-asset": "~8.1.3",
       "expo-constants": "~9.0.0",
       "expo-facebook": "^8.1.0",
       "expo-font": "~8.1.0",
       "expo-google-app-auth": "^8.1.0",
       "expo-google-sign-in": "~8.1.0",
-      "expo-image-picker": "~8.1.0",
+      "expo-image-manipulator": "^8.1.0",
+      "expo-media-library": "~8.1.0",
+      "expo-screen-orientation": "~1.0.0",
       "expo-secure-store": "^8.1.0",
-      "expo-web-browser": "~8.1.0",
+      "expo-web-browser": "~8.2.1",
       "firebase": "7.9.0",
       "react": "~16.9.0",
       "react-dom": "~16.9.0",
       "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
       "react-native-elements": "^1.2.7",
       "react-native-gesture-handler": "~1.6.0",
-      "react-native-image-crop-picker": "^0.31.1",
+      "react-native-image-crop-picker": "^0.32.0",
       "react-native-image-picker": "^2.3.1",
       "react-native-image-slider-box": "^1.0.12",
       "react-native-keyboard-aware-scroll-view": "^0.9.1",
@@ -64,6 +74,7 @@ npm manifest:
       "react-native-safe-area-view": "^1.1.1",
       "react-native-screens": "~2.2.0",
       "react-native-web": "~0.11.7",
+      "react-navigation": "^4.3.9",
       "react-navigation-shared-element": "^2.3.0"
     },
     "devDependencies": {
@@ -1567,6 +1578,15 @@ Lockfile:
       color "^3.1.2"
       react-native-iphone-x-helper "^1.2.1"
   
+  "@react-navigation/core@^3.7.6":
+    version "3.7.6"
+    resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-3.7.6.tgz#e0244fcdc22937825b252197f70308bbe5709c58"
+    dependencies:
+      hoist-non-react-statics "^3.3.2"
+      path-to-regexp "^1.8.0"
+      query-string "^6.11.1"
+      react-is "^16.13.0"
+  
   "@react-navigation/core@^5.3.4":
     version "5.3.4"
     resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-5.3.4.tgz#272eb48381c4db251f4dc5cd044db1606a551551"
@@ -1577,6 +1597,13 @@ Lockfile:
       query-string "^6.12.0"
       react-is "^16.13.0"
       use-subscription "^1.4.0"
+  
+  "@react-navigation/native@^3.7.13":
+    version "3.7.13"
+    resolved "https://registry.yarnpkg.com/@react-navigation/native/-/native-3.7.13.tgz#5fdf879d5af40fb5bf751b6d932dd30656c9991e"
+    dependencies:
+      hoist-non-react-statics "^3.3.2"
+      react-native-safe-area-view "^0.14.9"
   
   "@react-navigation/native@^5.0.0":
     version "5.1.6"
@@ -1759,9 +1786,9 @@ Lockfile:
     dependencies:
       compare-versions "^3.4.0"
   
-  "@unimodules/react-native-adapter@~5.1.1":
-    version "5.1.1"
-    resolved "https://registry.yarnpkg.com/@unimodules/react-native-adapter/-/react-native-adapter-5.1.1.tgz#bb67a021c722772e716eaa3817084cd988642e4e"
+  "@unimodules/react-native-adapter@~5.2.0":
+    version "5.2.0"
+    resolved "https://registry.yarnpkg.com/@unimodules/react-native-adapter/-/react-native-adapter-5.2.0.tgz#96bfd4cfbad5083b3aa1152ee0a4ac84fa9dfb69"
     dependencies:
       invariant "^2.2.4"
       lodash "^4.5.0"
@@ -2506,6 +2533,12 @@ Lockfile:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
   
+  compare-urls@^2.0.0:
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/compare-urls/-/compare-urls-2.0.0.tgz#9b378c4abd43980a8700fffec9afb85de4df9075"
+    dependencies:
+      normalize-url "^2.0.1"
+  
   compare-versions@^3.4.0:
     version "3.6.0"
     resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-3.6.0.tgz#1a5689913685e5a87637b8d3ffca75514ec41d62"
@@ -2992,9 +3025,19 @@ Lockfile:
     dependencies:
       invariant "^2.2.4"
   
-  expo-asset@~8.1.3, expo-asset@~8.1.4:
+  expo-asset@~8.1.3:
     version "8.1.4"
     resolved "https://registry.yarnpkg.com/expo-asset/-/expo-asset-8.1.4.tgz#5265c28c1c279b2f9779269195bec4caf250ba5d"
+    dependencies:
+      blueimp-md5 "^2.10.0"
+      invariant "^2.2.4"
+      md5-file "^3.2.3"
+      path-browserify "^1.0.0"
+      url-parse "^1.4.4"
+  
+  expo-asset@~8.1.5:
+    version "8.1.5"
+    resolved "https://registry.yarnpkg.com/expo-asset/-/expo-asset-8.1.5.tgz#6d0e3504cd719e9b888d32978d419d6522eed799"
     dependencies:
       blueimp-md5 "^2.10.0"
       invariant "^2.2.4"
@@ -3040,11 +3083,10 @@ Lockfile:
     dependencies:
       invariant "^2.2.4"
   
-  expo-image-picker@~8.1.0:
+  expo-image-manipulator@^8.1.0:
     version "8.1.0"
-    resolved "https://registry.yarnpkg.com/expo-image-picker/-/expo-image-picker-8.1.0.tgz#014e4f4aaef4c1daf56d13de27a41ef78660aa15"
-    dependencies:
-      expo-permissions "~8.1.0"
+    resolved "https://registry.yarnpkg.com/expo-image-manipulator/-/expo-image-manipulator-8.1.0.tgz#63ae66e1a65e5be8c6ee7036fe88d53af551853f"
+    integrity sha512-ephPXtzEx32Js1SQ1B2IXdpi4Gn34DIMQGAOwrwOPfUuWXQX9jGxyX3tktIGMmQ7lHueVr0a8zdh6ME0YGHjkw==
   
   expo-keep-awake@~8.1.0:
     version "8.1.0"
@@ -3054,15 +3096,33 @@ Lockfile:
     version "8.1.0"
     resolved "https://registry.yarnpkg.com/expo-linear-gradient/-/expo-linear-gradient-8.1.0.tgz#6933765cf1e76ef2928fd8495e779929699ac4c6"
   
+  expo-linking@~1.0.0:
+    version "1.0.1"
+    resolved "https://registry.yarnpkg.com/expo-linking/-/expo-linking-1.0.1.tgz#2c1b6e68f8d5f4e54add5670290a4eacb263199d"
+    dependencies:
+      expo-constants "~9.0.0"
+      qs "^6.5.0"
+      url-parse "^1.4.4"
+  
   expo-location@~8.1.0:
     version "8.1.0"
     resolved "https://registry.yarnpkg.com/expo-location/-/expo-location-8.1.0.tgz#6a71ad9a8b78d5f016a30a02013c3b28f46d0b1b"
     dependencies:
       invariant "^2.2.4"
   
+  expo-media-library@~8.1.0:
+    version "8.1.0"
+    resolved "https://registry.yarnpkg.com/expo-media-library/-/expo-media-library-8.1.0.tgz#f5d4b24819aa518e69d971f92b55c12f60c85ba5"
+    integrity sha512-2oO6UtV4akgX9o5Ok9BRwLh5NZzDk43QBW5RP/EHVSzuVn2yn7IXstmr9wnTl1BpqkPoV8u6w3g9EeU1I2Jljw==
+  
   expo-permissions@~8.1.0:
     version "8.1.0"
     resolved "https://registry.yarnpkg.com/expo-permissions/-/expo-permissions-8.1.0.tgz#a7f2ee91ba76ce3a467e7b10adaa9ca5201b226f"
+  
+  expo-screen-orientation@~1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/expo-screen-orientation/-/expo-screen-orientation-1.0.0.tgz#a168b7493e7a7b45da2c80b1b0d4e89e1f8e7698"
+    integrity sha512-McYHWSA3KVgh3IeztKg0oxkHtSRzDfqGRSHg6GgIici5C93LOF4tGzO38tLNVGXIjbu8EdvBRB7pslKS73AXGg==
   
   expo-secure-store@^8.1.0:
     version "8.1.0"
@@ -3076,13 +3136,15 @@ Lockfile:
       "@types/websql" "^0.0.27"
       lodash "^4.17.15"
   
-  expo-web-browser@~8.1.0:
-    version "8.1.1"
-    resolved "https://registry.yarnpkg.com/expo-web-browser/-/expo-web-browser-8.1.1.tgz#93a3d4af834e7bbd1afd54f0cc588016d592c5ae"
+  expo-web-browser@~8.2.1:
+    version "8.2.1"
+    resolved "https://registry.yarnpkg.com/expo-web-browser/-/expo-web-browser-8.2.1.tgz#993ba53371862ed85cfd277ba59a7004ed412905"
+    dependencies:
+      compare-urls "^2.0.0"
   
-  expo@~37.0.3:
-    version "37.0.7"
-    resolved "https://registry.yarnpkg.com/expo/-/expo-37.0.7.tgz#fdfb54cc91d06d58aa4839c3d0c1c4bd499f601e"
+  expo@^37.0.12:
+    version "37.0.12"
+    resolved "https://registry.yarnpkg.com/expo/-/expo-37.0.12.tgz#9e1a7ce138cd6c580a112e20992754c7c7e9c97e"
     dependencies:
       "@babel/runtime" "^7.1.2"
       "@expo/vector-icons" "^10.0.2"
@@ -3091,21 +3153,22 @@ Lockfile:
       "@types/lodash.zipobject" "^4.1.4"
       "@types/qs" "^6.5.1"
       "@unimodules/core" "~5.1.0"
-      "@unimodules/react-native-adapter" "~5.1.1"
+      "@unimodules/react-native-adapter" "~5.2.0"
       babel-preset-expo "~8.1.0"
       badgin "^1.1.2"
       cross-spawn "^6.0.5"
-      expo-asset "~8.1.4"
+      expo-asset "~8.1.5"
       expo-constants "~9.0.0"
       expo-error-recovery "~1.1.0"
       expo-file-system "~8.1.0"
       expo-font "~8.1.0"
       expo-keep-awake "~8.1.0"
       expo-linear-gradient "~8.1.0"
+      expo-linking "~1.0.0"
       expo-location "~8.1.0"
       expo-permissions "~8.1.0"
       expo-sqlite "~8.1.0"
-      expo-web-browser "~8.1.0"
+      expo-web-browser "~8.2.1"
       fbemitter "^2.1.1"
       invariant "^2.2.2"
       lodash "^4.6.0"
@@ -3856,6 +3919,10 @@ Lockfile:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/is-obj/-/is-obj-1.0.1.tgz#3e4729ac1f5fde025cd7d83a896dab9f4f67db0f"
   
+  is-plain-obj@^1.0.0:
+    version "1.1.0"
+    resolved "https://registry.yarnpkg.com/is-plain-obj/-/is-plain-obj-1.1.0.tgz#71a50c8429dfca773c92a390a4a03b39fcd51d3e"
+  
   is-plain-object@^2.0.3, is-plain-object@^2.0.4:
     version "2.0.4"
     resolved "https://registry.yarnpkg.com/is-plain-object/-/is-plain-object-2.0.4.tgz#2c163b3fafb1b606d9d17928f05c2a1c38e07677"
@@ -3893,6 +3960,10 @@ Lockfile:
   is-wsl@^1.1.0:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/is-wsl/-/is-wsl-1.1.0.tgz#1f16e4aa22b04d1336b66188a66af3c600c3a66d"
+  
+  isarray@0.0.1:
+    version "0.0.1"
+    resolved "https://registry.yarnpkg.com/isarray/-/isarray-0.0.1.tgz#8a18acfca9a8f4177e09abfc6038939b05d1eedf"
   
   isarray@1.0.0, isarray@~1.0.0:
     version "1.0.0"
@@ -5193,6 +5264,14 @@ Lockfile:
     dependencies:
       remove-trailing-separator "^1.0.1"
   
+  normalize-url@^2.0.1:
+    version "2.0.1"
+    resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-2.0.1.tgz#835a9da1551fa26f70e92329069a23aa6574d7e6"
+    dependencies:
+      prepend-http "^2.0.0"
+      query-string "^5.0.1"
+      sort-keys "^2.0.0"
+  
   npm-bundled@^1.0.1:
     version "1.1.1"
     resolved "https://registry.yarnpkg.com/npm-bundled/-/npm-bundled-1.1.1.tgz#1edd570865a94cdb1bc8220775e29466c9fb234b"
@@ -5506,6 +5585,12 @@ Lockfile:
     version "1.0.6"
     resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.6.tgz#d62dbb5679405d72c4737ec58600e9ddcf06d24c"
   
+  path-to-regexp@^1.8.0:
+    version "1.8.0"
+    resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-1.8.0.tgz#887b3ba9d84393e87a0a0b9f4cb756198b53548a"
+    dependencies:
+      isarray "0.0.1"
+  
   path-type@^2.0.0:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/path-type/-/path-type-2.0.0.tgz#f012ccb8415b7096fc2daa1054c3d72389594c73"
@@ -5593,6 +5678,10 @@ Lockfile:
   prelude-ls@~1.1.2:
     version "1.1.2"
     resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
+  
+  prepend-http@^2.0.0:
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-2.0.0.tgz#e92434bfa5ea8c19f41cdfd401d741a3c819d897"
   
   pretty-format@^23.6.0:
     version "23.6.0"
@@ -5706,6 +5795,22 @@ Lockfile:
     version "6.5.2"
     resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   
+  query-string@^5.0.1:
+    version "5.1.1"
+    resolved "https://registry.yarnpkg.com/query-string/-/query-string-5.1.1.tgz#a78c012b71c17e05f2e3fa2319dd330682efb3cb"
+    dependencies:
+      decode-uri-component "^0.2.0"
+      object-assign "^4.1.0"
+      strict-uri-encode "^1.0.0"
+  
+  query-string@^6.11.1:
+    version "6.13.0"
+    resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.13.0.tgz#8d875f66581c854d7480ac79478abb847de742f6"
+    dependencies:
+      decode-uri-component "^0.2.0"
+      split-on-first "^1.0.0"
+      strict-uri-encode "^2.0.0"
+  
   query-string@^6.12.0, query-string@^6.2.0:
     version "6.12.1"
     resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.12.1.tgz#2ae4d272db4fba267141665374e49a1de09e8a7c"
@@ -5780,13 +5885,14 @@ Lockfile:
       invariant "^2.2.4"
       prop-types "^15.7.2"
   
-  react-native-image-crop-picker@^0.31.1:
-    version "0.31.1"
-    resolved "https://registry.yarnpkg.com/react-native-image-crop-picker/-/react-native-image-crop-picker-0.31.1.tgz#b56248a9e31d62f1c6e7c2f85d296869c32af4cd"
+  react-native-image-crop-picker@^0.32.0:
+    version "0.32.0"
+    resolved "https://registry.yarnpkg.com/react-native-image-crop-picker/-/react-native-image-crop-picker-0.32.0.tgz#c881d309fb0950d63fec40cfd0a5679b381f9a75"
   
   react-native-image-picker@^2.3.1:
     version "2.3.1"
     resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-2.3.1.tgz#1977b65e07793d2c0b2d1976fb675c5f75ad7f11"
+    integrity sha512-c/a2h7/T7yBo5KlNQhcSn4xf4+6Li6LfJ59+GZT1ZzzWrj/6X8DiJ/TJBOlOZMC5tJriZKuRkWSsr74k6z+brw==
   
   react-native-image-slider-box@^1.0.12:
     version "1.0.12"
@@ -5828,7 +5934,7 @@ Lockfile:
     version "0.7.3"
     resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-0.7.3.tgz#ad6bd4abbabe195332c53810e4ce5851eb21aa2a"
   
-  react-native-safe-area-view@^0.14.6:
+  react-native-safe-area-view@^0.14.6, react-native-safe-area-view@^0.14.9:
     version "0.14.9"
     resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.14.9.tgz#90ee8383037010d9a5055a97cf97e4c1da1f0c3d"
     dependencies:
@@ -5915,6 +6021,13 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-navigation-shared-element/-/react-navigation-shared-element-2.3.0.tgz#d64a150cb7300c064233af210875cfa82506cd60"
     dependencies:
       hoist-non-react-statics "^3.3.2"
+  
+  react-navigation@^4.3.9:
+    version "4.3.9"
+    resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-4.3.9.tgz#3b6a7224ac2ef6388593412c33aed6eacca10cbb"
+    dependencies:
+      "@react-navigation/core" "^3.7.6"
+      "@react-navigation/native" "^3.7.13"
   
   react-refresh@^0.4.0:
     version "0.4.2"
@@ -6408,6 +6521,12 @@ Lockfile:
       source-map-resolve "^0.5.0"
       use "^3.1.0"
   
+  sort-keys@^2.0.0:
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/sort-keys/-/sort-keys-2.0.0.tgz#658535584861ec97d730d6cf41822e1f56684128"
+    dependencies:
+      is-plain-obj "^1.0.0"
+  
   source-map-resolve@^0.5.0:
     version "0.5.3"
     resolved "https://registry.yarnpkg.com/source-map-resolve/-/source-map-resolve-0.5.3.tgz#190866bece7553e1f8f267a2ee82c606b5509a1a"
@@ -6515,6 +6634,10 @@ Lockfile:
   stream-buffers@~2.2.0:
     version "2.2.0"
     resolved "https://registry.yarnpkg.com/stream-buffers/-/stream-buffers-2.2.0.tgz#91d5f5130d1cef96dcfa7f726945188741d09ee4"
+  
+  strict-uri-encode@^1.0.0:
+    version "1.1.0"
+    resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-1.1.0.tgz#279b225df1d582b1f54e65addd4352e18faa0713"
   
   strict-uri-encode@^2.0.0:
     version "2.0.0"
@@ -7279,6 +7402,21 @@ Lockfile:
   yargs@^9.0.0:
     version "9.0.1"
     resolved "https://registry.yarnpkg.com/yargs/-/yargs-9.0.1.tgz#52acc23feecac34042078ee78c0c007f5085db4c"
+    dependencies:
+      camelcase "^4.1.0"
+      cliui "^3.2.0"
+      decamelize "^1.1.1"
+      get-caller-file "^1.0.1"
+      os-locale "^2.0.0"
+      read-pkg-up "^2.0.0"
+      require-directory "^2.1.1"
+      require-main-filename "^1.0.1"
+      set-blocking "^2.0.0"
+      string-width "^2.0.0"
+      which-module "^2.0.0"
+      y18n "^3.2.1"
+      yargs-parser "^7.0.0"
+  registry.yarnpkg.com/yargs/-/yargs-9.0.1.tgz#52acc23feecac34042078ee78c0c007f5085db4c"
     dependencies:
       camelcase "^4.1.0"
       cliui "^3.2.0"
