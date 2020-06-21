@@ -34,9 +34,13 @@ export default class ImageBrowserScreen extends Component {
     let photos = []
     selectedPhotos.map(async (photo) => {
       const compressed = await this._processImageAsync(photo.uri)
-      photos.push(compressed.uri)
+      photos.push({
+        uri: compressed.uri,
+        name: photo.filename,
+        type: photo.mediaType        
+      })
       images = photos
-      //console.log(images)
+      //console.log(photos)
       this.setState({ photos: [...this.state.photos, ...photos], done: true })
     })
   };
