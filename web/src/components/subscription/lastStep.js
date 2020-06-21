@@ -7,7 +7,7 @@ import Head from '../head';
 import { withCookies } from 'react-cookie';
 import LocConfirm from './locConfirm';
 import DetailsConfirm from './detailsConfirm';
-import Uploads from './upload';
+import AddPhotos from './addPhotos';
 import Security from './security';
 import Pricing from './pricing';
 import PublishListing from './publishListing';

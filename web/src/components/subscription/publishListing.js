@@ -141,10 +141,7 @@ class PublishListing extends React.Component{
                 <Button className='finalButton' onClick={this.props.handleBack}>Back</Button>
                 <Button className='finalButton' onClick={this._publish}>Finish</Button> 
             </div>
-            <div className='dC1'>
-                <Button className='finalButton' onClick={this.props.handleBack}>Back</Button>
-                <Button className='finalButton' onClick={this.props.handleNext}>Next</Button>                 
-               </div> 
+    
             </div>
         )
     }
