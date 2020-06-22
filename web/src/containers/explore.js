@@ -11,7 +11,7 @@ import Head from '../components/head'
 export default function Explore() {
     let { explore } = useParams();
     return (
-        <div>
+        <div className='root'>
             <Head />
             <div className="heading" style={{paddingLeft:'80px'}}>
                 <div></div>

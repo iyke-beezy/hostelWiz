@@ -3,7 +3,7 @@ import PropertyItem from './misc/property'
 import { withCookies } from 'react-cookie'
 import { getProperties } from '../api'
 
-class Building extends React.Component {
+class Hostel extends React.Component {
 
     state = {
         loading: true,
@@ -44,7 +44,7 @@ class Building extends React.Component {
                 {this.state.data.map(property => {
                     return (
                         <div className="propertyItem" key={property.id} style={{marginRight:'8%'}}>
-                            <PropertyItem property={property} loading={this.state.loading} loggedIn={this.state.loggedIn} />
+                            <PropertyItem property={property} loading={this.state.loading} loggedIn={this.state.loggedIn} allowEdit={this.props.allowEdit}/>
                         </div>
                     )
                 })}
@@ -53,4 +53,4 @@ class Building extends React.Component {
     }
 }
 
-export default withCookies(Building)
+export default withCookies(Hostel)
