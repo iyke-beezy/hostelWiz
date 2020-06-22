@@ -21,9 +21,6 @@ class Join extends React.Component {
         password: '',
         cpassword: ''
     }
-    componentDidMount(){
-       // this.props.setStepNo(3)
-    }
     handleChange = event => {
         let cred = this.state;
         cred[event.target.name] = event.target.value;

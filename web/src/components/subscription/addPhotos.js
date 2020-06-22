@@ -100,10 +100,10 @@ class AddPhotos extends React.Component{
             multiple: true,
           };
         return(
-            <div style={{paddingLeft:20}}>
+            <div style={{paddingLeft:80}}>
                 <div style={{marginBottom:15}}>
                     <span className='medText'>Add Photos of your property</span>
-                    <h4>Let guests see why they should pick your property with well-lit, landscape-oriented photos of the areas they will be able to access.</h4>
+                    <h3>Let guests see why they should pick your property with well-lit, landscape-oriented photos of the areas they will be able to access.</h3>
                 </div>
                   <div>
                   <div className="App">
@@ -124,7 +124,7 @@ class AddPhotos extends React.Component{
                 </div>   
                 <div style={{marginBottom:15}}>
                     <span className='medText'>You need at least 6 photos</span>
-                    <h4>Photos must be JPEG or PNG format and at least 1024x683 pixels. Up to 50 photos may be added.</h4>
+                    <h3>Photos must be JPEG or PNG format and at least 1024x683 pixels. Up to 20 photos may be added.</h3>
                 </div>  
                 <div className='dC1'>
                 <Button className='finalButton' onClick={this.props.handleBack}>Back</Button>
