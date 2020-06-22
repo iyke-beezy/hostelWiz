@@ -16,12 +16,10 @@ class HostForm extends React.Component{
     render(){
         return(
             <Card className="form-wrapper">
-                <h3 className="smallText">Step 1</h3>
+                <h3 className="smallText">Step {this.state.step_no}</h3>
                 <span className="largeText">Host With Us and Get More</span>
                 <Selection setStepNo={this.setStepNo}/>
             </Card>
-
-
         );
     }
 };

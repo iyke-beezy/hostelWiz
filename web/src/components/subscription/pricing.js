@@ -37,18 +37,18 @@ class Pricing extends React.Component{
     render(){
 
         return(
-            <div style={{paddingLeft:20}}>
+            <div style={{paddingLeft:80}}>
                 <div className='dC'>
                     <span className='medText'>How much do you want to charge?</span>
                     <span className='smallText'>We recommend starting with a low price to get a few bookings and earn some initial guest reviews. You can update your rates at any time.</span>
                 </div>
                 <div className='dC'>
                     <span className='medText'>Rate type</span>
-                    <span className='smallText2'>Based on how frequent you accept payments. Per month, per annum or per semester for students</span>
+                    <span className='smallText1'>Based on how frequent you accept payments. Per month, per annum or per semester for students</span>
                     <Select defaultValue={this.state.time} size={'large'} className='entries' onChange={this.handleTimeChange}>
-                                            <Option value="Monthly">Monthly</Option>
-                                            <Option value="Per Semester">Per Semester</Option>
-                                            <Option value="Yearly">Yearly</Option>
+                        <Option value="Monthly">Monthly</Option>
+                        <Option value="Per Semester">Per Semester</Option>
+                        <Option value="Yearly">Yearly</Option>
                   </Select>                
                 </div>
                 <div className='dC'>
@@ -65,8 +65,6 @@ class Pricing extends React.Component{
                             <span className="smallText">We’ll let travelers know your property is new to Vrbo and they’ll get 20% off for bookings with you. Your property will be eligible to be featured on the first page of traveler search results. Your discount will be active for 90 days or until you get three bookings - whichever comes first. When the discount is no longer active your base rate will return to the original amount. </span>
                             <Radio value={2} className="smallText">No</Radio>
                             <span className="smallText">If you choose not to offer this discount now, you won’t be able to offer it later. You can continue to offer your guests other discounts after your property goes live, but you won’t get additional benefits like more visibility with travelers.</span>
-               
-
                 </Radio.Group>                    
                 </div>    
                 <div className='dC1'>

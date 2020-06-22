@@ -21,14 +21,14 @@ class Head extends React.Component {
     }
     render() {
         return (
-            <div style={{flex: 1}}>
+            <div style={{ flex: 1 }}>
                 {
                     this.props.loggedIn ? (
                         <Header className="pg-header">
-                            <div className="header-second">
                             <div className="header-first" >
-                                <img src={require("../Assets/logo.png")} alt="hostelWiz" onClick={()=> window.location.href = "/" }/>
+                                <img src={require("../Assets/logo.png")} alt="hostelWiz" onClick={() => window.location.href = "/"} />
                             </div>
+                            <div className="header-second">
                                 <Menu onClick={this.handleClicked} theme="light" mode="horizontal">
                                     <Menu.Item key="listing">List Property</Menu.Item>
                                     <SubMenu title="Account" icon={<UserOutlined />}>
@@ -41,7 +41,7 @@ class Head extends React.Component {
                     ) : (
                             <Header className="pg-header">
                                 <div className="header-first">
-                                    <img src={require("../Assets/logo.png")} alt="hostelWiz" onClick={()=> window.location.href = "/" }/>
+                                    <img src={require("../Assets/logo.png")} alt="hostelWiz" onClick={() => window.location.href = "/"} />
                                 </div>
                                 <div className="header-second">
                                     <Menu theme="light" mode="horizontal" onClick={this.handleClicked}>
