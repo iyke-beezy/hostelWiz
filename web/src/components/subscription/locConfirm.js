@@ -38,16 +38,16 @@ class LocConfirm extends React.Component{
         <div style={{paddingLeft:20}}>
             <h2 className='medText'>Where is property located</h2>
             <div className='dC'>
-            <span style={{fontSize:12}}>Street Address</span>
+            <span style={{fontSize:18}}>Street Address</span>
            <Input size='large' name="streetAddress" value={this.state.streetAddress}   onChange={this.handleChange} className='entries'/>
            </div>
         
         <div className='dC'>
-            <span style={{fontSize:12}}>City</span>
+            <span style={{fontSize:18}}>City</span>
            <Input size='large' name="city" value={this.state.city}   onChange={this.handleChange} className='entries'/>
         </div>
         <div className='dC'>
-                    <span style={{fontSize:12}}>Region</span>
+                    <span style={{fontSize:18}}>Region</span>
                     <Select defaultValue={this.state.region}  size={'large'} className='entries' onChange={this.handleRegionChange}>
                       <Option value="Greater Accra">Greater Accra</Option>
                       <Option value="Ashanti Region">Ashanti Region</Option>

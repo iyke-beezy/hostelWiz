@@ -74,52 +74,52 @@ class PublishListing extends React.Component{
 
         return(
             <div>
-                <div>
+                <div className='dC'>
                 <span className='medText'>Location Details</span>
                 
         <div>{
             this.state.locationDetails?
-            <div>
-            <span>{this.state.locationDetails.region}</span>
-            <span>{this.state.locationDetails.streetAddress}</span>
-            <span>{this.state.locationDetails.city}</span>
+            <div className='dC'>
+            <span className='smallText1'>{this.state.locationDetails.region}</span>
+            <span className='smallText1'>{this.state.locationDetails.streetAddress}</span>
+            <span className='smallText1'>{this.state.locationDetails.city}</span>
             </div>
            
     :null
     }</div>
 
                 </div>
-                <div>
+                <div className='dC'>
                 <span className='medText'>Property Details</span>
                 
         <div>{
             this.state.propertyDetails?
-            <div>
-            <span>{this.state.propertyDetails.headline}</span>
-            <span>{this.state.propertyDetails.description}</span>
-            <span>{this.state.propertyDetails.propertyType}</span>
-            <span>{this.state.propertyDetails.bedrooms}</span>
-            <span>{this.state.propertyDetails.accomodates}</span>
-            <span>{this.state.propertyDetails.bathrooms}</span>
+            <div className='dC'>
+            <span className='smallText1'>{this.state.propertyDetails.headline}</span>
+            <span className='smallText1'>{this.state.propertyDetails.description}</span>
+            <span className='smallText1'>{this.state.propertyDetails.propertyType}</span>
+            <span className='smallText1'>{this.state.propertyDetails.bedrooms}</span>
+            <span className='smallText1'>{this.state.propertyDetails.accomodates}</span>
+            <span className='smallText1'>{this.state.propertyDetails.bathrooms}</span>
            
             </div>
            
     :null
     }</div>
                 </div>
-                <div>
+                <div className='dC'>
                 <span className='medText'>Property Photos</span>
-      <div>{
+                <div className='dC'>{
             this.state.addPhotos.fileList?
-            this.state.addPhotos.fileList.map(fileList=><span key={fileList.uid}>{fileList.name}</span>)
+            this.state.addPhotos.fileList.map(fileList=><span className='smallText1' key={fileList.uid}>{fileList.name}</span>)
             :null
     }</div>
                 </div>
                 <div>
                 <span className='medText'>Security</span>
-                <div>{
+                <div className='dC'>{
             this.state.security.numbers?
-                this.state.security.numbers.map(number=><span key={number}>{number}</span>)
+                this.state.security.numbers.map(number=><span className='smallText1' key={number}>{number}</span>)
             :null
             }</div>
                 </div>
@@ -128,9 +128,9 @@ class PublishListing extends React.Component{
                 
         <div>{
             this.state.pricing?
-            <div>
-            <span>{this.state.pricing.price}</span>
-            <span>{this.state.pricing.time}</span>
+            <div className='dC'>
+            <span className='smallText1'>{this.state.pricing.price}</span>
+            <span className='smallText1'>{this.state.pricing.time}</span>
        
             </div>
            
@@ -141,10 +141,7 @@ class PublishListing extends React.Component{
                 <Button className='finalButton' onClick={this.props.handleBack}>Back</Button>
                 <Button className='finalButton' onClick={this._publish}>Finish</Button> 
             </div>
-            <div className='dC1'>
-                <Button className='finalButton' onClick={this.props.handleBack}>Back</Button>
-                <Button className='finalButton' onClick={this.props.handleNext}>Next</Button>                 
-               </div> 
+    
             </div>
         )
     }

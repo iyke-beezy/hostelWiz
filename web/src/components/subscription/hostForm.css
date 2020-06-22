@@ -5,7 +5,7 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
     font-family: "Baloo Paaji Medium";
     max-width: 552px;
-    height: 552px;
+    height: auto;
 }
 
 .ant-select-selector {
@@ -35,12 +35,14 @@
 }
 
 .medText {
-    font-size: 22px;
+    font-size: 25px;
     font-family: "Baloo Paaji Medium";
     margin: 10px 0px 10px;
     color: #92A5A3;
 }
-
+.ant-tabs .ant-tabs-left-bar .ant-tabs-tab {
+    font-size: 25px !important;
+}
 .building {
     margin-bottom: 15px;
     flex: 50%;
@@ -353,7 +355,7 @@ input.ant-radio-input {
 
 
 .medText2 {
-    font-size: 25px;
+    font-size: 28px;
     font-family: "Baloo Paaji Medium";
     color: #92A5A3;
     margin: 16px 0px;
@@ -389,7 +391,7 @@ input.ant-radio-input {
 @media(max-width: 720px) {
     .form-wrapper {
         width: 468.3px;
-        height: auto;
+        height: auto !important;
     }
 }
 .Details {
@@ -411,7 +413,7 @@ input.ant-radio-input {
      width:40%;
 }
 .smSpan{
-    font-size: 12px;
+    font-size: 18px;
 }
 .tips{
 display:flex;flex-direction:column;padding-left:20px;

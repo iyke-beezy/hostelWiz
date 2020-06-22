@@ -23,7 +23,7 @@ class SearchBar extends React.Component {
         }
         catch (err) {
             this.setState({ responseMessage: null })
-            console.log(err.errMessage)
+            console.log(err)
         }
     }
 

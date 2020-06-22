@@ -21,11 +21,10 @@ export const loginUser = async(username, password) => {
  }
  
  export const searchProperty = async(loca) => {
-  
+  console.log(loca)
       const response = await fetch(`${process.env.REACT_APP_API_URL}/hostelwiz/properties/search_property/`, {
          method: 'POST',
          headers: {
-              
              'Content-Type': 'application/json',
          },
          body: JSON.stringify({ location:loca })

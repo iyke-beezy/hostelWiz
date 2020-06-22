@@ -2,12 +2,15 @@
     font-family: baloo Paaji;
     box-sizing: border-box;
 }
-
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    width: auto !important;
+    height: auto !important;
+}
 .ant-menu-horizontal>.ant-menu-item:hover, .ant-menu-horizontal>.ant-menu-submenu:hover, .ant-menu-horizontal>.ant-menu-item-active, .ant-menu-horizontal>.ant-menu-submenu-active, .ant-menu-horizontal>.ant-menu-item-open, .ant-menu-horizontal>.ant-menu-submenu-open, .ant-menu-horizontal>.ant-menu-item-selected, .ant-menu-horizontal>.ant-menu-submenu-selected {
     color: #E7C654;
 }
-
-
 
 .footer-content {
     color: white;

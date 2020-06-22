@@ -605,13 +605,6 @@ class HostingScreen extends React.Component {
               <Text style={styles.label}></Text>
 
               <View style={styles.divider} ></View>
-
-              <Button
-                buttonStyle={styles.secNextButton}
-                // disabled={!this.state.headline || !this.state.description || !this.state.location }
-                onPress={() =>{this.props.navigation.navigate('ImageManagement')}}
-                title="Next"
-              />
             </View>}
         </View>
 

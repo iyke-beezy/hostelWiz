@@ -52,11 +52,11 @@ class DetailsConfirm extends React.Component{
             <div >
                 <div style={{marginBottom:15}}>
                     <span className='medText'>Give your property a proper headline and and description</span>
-                    <h4>Describe what makes your property special to let travelers know your home is the perfect place for their stay.</h4>
+                    <h3>Describe what makes your property special to let travelers know your home is the perfect place for their stay.</h3>
                 </div>
                 <div style={{marginBottom:15}}>
                     <span className='medText'>Property Headline</span>
-                    <h4>An engaging headline can grab a traveler’s attention as they browse search results.</h4>
+                    <h3>An engaging headline can grab a traveler’s attention as they browse search results.</h3>
                     <Button type='link' className='tipsButton' onClick={this.handletoggle}>Headline Tips {this.state.toggle?<DownOutlined />:<UpOutlined />}</Button>
                     <div className='tips' hidden={this.state.toggle}>
                         <span>Important details to include:</span>
@@ -71,7 +71,7 @@ class DetailsConfirm extends React.Component{
                 </div>
                 <div>                
                     <span className='medText'>Property Description</span>
-                    <h4>Let travelers know the story behind your home by describing your floor plan, what's unique about it, and what their stay might be like.</h4>
+                    <h3>Let travelers know the story behind your home by describing your floor plan, what's unique about it, and what their stay might be like.</h3>
                     <Button type='link' className='tipsButton' onClick={this.handletoggle1}>Description Tips {this.state.toggle1?<DownOutlined />:<UpOutlined />}</Button>
                     <div className='tips' hidden={this.state.toggle1}>
                         <span>Important details to include:</span>
@@ -90,8 +90,9 @@ class DetailsConfirm extends React.Component{
                         <Select defaultValue={this.state.propertyType}  size={'large'} className='entries' onChange={this.handleTypeChange}>
                             <Option value="Apartment">Apartment</Option>
                             <Option value="Hostel">Hostel</Option>
-                        </Select>              
+                        </Select>
               </div>
+ 
               <div className='dC'>
                         <span className='smSpan'>Bedrooms</span>
                         <Input size='large' name="bedrooms" value={this.state.bedrooms}   onChange={this.handleChange} className='entries'/>
