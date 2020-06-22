@@ -9,8 +9,8 @@ import { Asset } from 'expo-asset';
 import { AppLoading } from 'expo';
 const screenHeight = Math.round(Dimensions.get('window').height);
 const screenWidth = Math.round(Dimensions.get('window').width);
-import { getProperties, searchProperty, saveProperties, getSavedProperties, getUser } from '../api';
-import styles from './explore-styles'
+import { getProperties, searchProperty, saveProperties, getSavedProperties, getUser } from '../../api';
+import styles from './styles'
 
 class Apartments extends React.Component {
 
@@ -145,7 +145,7 @@ class Apartments extends React.Component {
       "https://source.unsplash.com/1024x768/?girl",
       "https://source.unsplash.com/1024x768/?tree",
       "https://hostelwiz.herokuapp.com/media/hostelpics/Property%20object%20(3)/alberto-castillo-q-mx4mSkK9zeo-unsplash.jpg",
-      require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')];
+      require('../../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')];
 
     const cacheImages = images.map(image => {
       return Asset.fromModule(image).downloadAsync();

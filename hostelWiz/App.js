@@ -24,7 +24,7 @@ import ImageManagementScreen from './screens/imageManagementScreen';
 import firebase from './screens/firebase';
 import ImagePicker from './screens/ImagesPicker/ImagesPicker';
 import Hostels from './screens/Hostels';
-import Hostels from './screens/Apartments';
+import Apartments from './screens/Apartments';
 
 const Stack = createStackNavigator();
 

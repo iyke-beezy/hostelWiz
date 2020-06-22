@@ -10,7 +10,6 @@ import axios from 'axios';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
-var Images = []
 
 class ImageManagementScreen extends React.Component {
   constructor(props) {
@@ -29,7 +28,7 @@ class ImageManagementScreen extends React.Component {
       let images = await AsyncStorage.getItem("photos");
       let photos = JSON.parse(images)
       if (photos) this.setState({
-        photos, screen: 'six',// found: true
+        photos
       })
       console.log(photos)
     }
@@ -39,7 +38,6 @@ class ImageManagementScreen extends React.Component {
   }
 
   postPhotos = async () => {
-
     for (var i = 0; i < this.state.photos.length; i++) {
       let body = new FormData();
       console.log(this.state.photos[i])
@@ -87,7 +85,8 @@ class ImageManagementScreen extends React.Component {
     // AsyncStorage.removeItem("photos")
     //  this.getPhotos()
     // this._unSubscribe = this.props.navigation.addListener('blur', () => {
-    console.log(Images)
+    //console.log(Images)
+    this.getPhotos()
     //  });
   }
 
@@ -122,14 +121,6 @@ class ImageManagementScreen extends React.Component {
             <Text style={styles.label}></Text>
 
             <View>
-              {/* <ImageBrowser
-                  max={4}
-                  onChange={this.updateHandler}
-                  callback={this.imagesCallback}
-                  renderSelectedComponent={this.renderSelectedComponent}
-                  emptyStayComponent={emptyStayComponent}
-                  noCameraPermissionComponent={noCameraPermissionComponent}
-                /> */}
               <Button
                 buttonStyle={styles.secNextButton}
                 //disabled={!this.state.found}
