@@ -23,6 +23,8 @@ import ImageManagementScreen from './screens/imageManagementScreen';
 
 import firebase from './screens/firebase';
 import ImagePicker from './screens/ImagesPicker/ImagesPicker';
+import Hostels from './screens/Hostels';
+import Hostels from './screens/Apartments';
 
 const Stack = createStackNavigator();
 
@@ -132,6 +134,20 @@ export default function App(props) {
 
               }}
               component={HostingTwo} />
+
+            <Stack.Screen name="Hostels"
+              options={{
+                headerShown: false,
+
+              }}
+              component={Hostels} />
+
+            <Stack.Screen name="Apartments"
+              options={{
+                headerShown: false,
+
+              }}
+              component={Apartments} />
 
             <Stack.Screen name="Images"
               options={ImagePicker.navigationOptions}
