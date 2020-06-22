@@ -49,9 +49,6 @@ class HomePage extends React.Component{
                 <BigImage/>
                 <NewsClass/>
 
-
-
-
             </div>
             <Foot></Foot>
         </div>

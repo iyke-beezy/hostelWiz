@@ -12,7 +12,6 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 
-
 import './App.css';
 import Subscribe from '../components/subscription/subscribe'
 import Join from '../components/subscription/join';
