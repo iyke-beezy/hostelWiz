@@ -117,7 +117,7 @@ class Uploads extends React.Component{
             <div className="App">
               <form onSubmit={this.handleSubmit}>
               <p>
-                Select photos you wish to add
+                Select photos you want to add
               </p>
             
               <p>
