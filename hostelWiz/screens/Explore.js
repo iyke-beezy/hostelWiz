@@ -131,8 +131,6 @@ class ExploreScreen extends React.Component {
           
     }
     this.saveProperty(pr);
-   
-   
   }
 
   _onChangeSearch = query => {
