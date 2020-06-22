@@ -3,16 +3,16 @@ import { Text, View, TouchableHighlight, TouchableOpacity, Dimensions, ScrollVie
 import { Card } from 'react-native-elements';
 import { Searchbar } from 'react-native-paper';
 import { AntDesign } from '@expo/vector-icons';
-import Colors from '../constants/Colors';
+import Colors from '../../constants/Colors';
 import { SliderBox } from "react-native-image-slider-box";
 import { Asset } from 'expo-asset';
 import { AppLoading } from 'expo';
 const screenHeight = Math.round(Dimensions.get('window').height);
 const screenWidth = Math.round(Dimensions.get('window').width);
-import { getProperties, searchProperty, saveProperties, getSavedProperties, getUser } from '../api';
-import styles from './explore-styles'
+import { getProperties, searchProperty, saveProperties, getSavedProperties, getUser } from '../../api';
+import styles from './styles'
 
-class ExploreScreen extends React.Component {
+class Apartments extends React.Component {
 
   state = {
     savedProperties: [],
@@ -22,7 +22,7 @@ class ExploreScreen extends React.Component {
     isReady: false,
     property: [],
     searchedProp: [],
-    //token:1,
+    filter: "apartment",
     token: null,//this.props.route.params.t,
     images: [],
     responseMessage: null
@@ -30,7 +30,7 @@ class ExploreScreen extends React.Component {
 
   componentDidMount() {
     //console.log(this.state.token)
-
+    
     this.getToken();
     this.getProperties();
   }
@@ -38,7 +38,7 @@ class ExploreScreen extends React.Component {
     try {
       let userToken = await AsyncStorage.getItem("userToken");
       let token = JSON.parse(userToken)
-      this.setState({ token })
+      this.setState({token})
       this.getSaveProperties();
       //console.log(this.state.token)
     } catch (error) {
@@ -55,7 +55,7 @@ class ExploreScreen extends React.Component {
       console.log(err.errMessage)
     }
   }
-
+/* Get Properties based on filter
   getProperties = async () => {
     try {
       const data = await getProperties();
@@ -66,6 +66,7 @@ class ExploreScreen extends React.Component {
     }
 
   }
+  */
 
   saveProperty = async (property_id) => {
     try {
@@ -81,9 +82,9 @@ class ExploreScreen extends React.Component {
 
   getUser = async () => {
     try {
-      const profile = await getUser(this.state.token)
-      return profile.user.id
-    } catch (err) {
+       const profile = await getUser(this.state.token)
+       return profile.user.id
+    }catch(err){
       console.log(err)
       return null
     }
@@ -127,8 +128,8 @@ class ExploreScreen extends React.Component {
 
   save = (pr) => {
     //this.setState({ save: !this.state.save });
-    if (this.checkIfIdExistInSave(pr)) {
-
+    if(this.checkIfIdExistInSave(pr)){
+          
     }
     this.saveProperty(pr);
   }
@@ -144,7 +145,7 @@ class ExploreScreen extends React.Component {
       "https://source.unsplash.com/1024x768/?girl",
       "https://source.unsplash.com/1024x768/?tree",
       "https://hostelwiz.herokuapp.com/media/hostelpics/Property%20object%20(3)/alberto-castillo-q-mx4mSkK9zeo-unsplash.jpg",
-      require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')];
+      require('../../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')];
 
     const cacheImages = images.map(image => {
       return Asset.fromModule(image).downloadAsync();
@@ -184,29 +185,8 @@ class ExploreScreen extends React.Component {
                   <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={styles.belowSearchBar}>
                       <Text style={{ fontSize: 25, fontFamily: 'Baloo-Paaji-Medium' }}>
-                        Explore Hostel Wiz
+                        Explore Hostels
                       </Text>
-
-                      {/* Mini Card details */}
-                      <View style={styles.miniCardComponent}>
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Apartments')}>
-                          <Card containerStyle={styles.miniCard}
-                            image={require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')}>
-                            <Text style={{ textAlign: 'center', marginBottom: 10, fontFamily: 'Baloo-Paaji-Medium' }}>
-                              Explore Apartments
-                            </Text>
-                          </Card>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Hostels')}>
-                          <Card containerStyle={styles.miniCard}
-                            image={require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')}>
-                            <Text style={{ textAlign: 'center', marginBottom: 10, fontFamily: 'Baloo-Paaji-Medium' }}>
-                              Explore Hostels
-                            </Text>
-                          </Card>
-                        </TouchableHighlight>
-                      </View>
 
                       {/* Max card details */}
                       {this.state.property.map(property => {
@@ -372,4 +352,4 @@ class ExploreScreen extends React.Component {
   }
 }
 
-export default ExploreScreen;
+export default Apartments;

@@ -19,9 +19,12 @@ import Others from './screens/others';
 import Feedback from './screens/feedback';
 import Terms from './screens/terms';
 import LoginScreen from './screens/Login'
+import ImageManagementScreen from './screens/imageManagementScreen';
 
 import firebase from './screens/firebase';
 import ImagePicker from './screens/ImagesPicker/ImagesPicker';
+import Hostels from './screens/Hostels';
+import Apartments from './screens/Apartments';
 
 const Stack = createStackNavigator();
 
@@ -132,6 +135,20 @@ export default function App(props) {
               }}
               component={HostingTwo} />
 
+            <Stack.Screen name="Hostels"
+              options={{
+                headerShown: false,
+
+              }}
+              component={Hostels} />
+
+            <Stack.Screen name="Apartments"
+              options={{
+                headerShown: false,
+
+              }}
+              component={Apartments} />
+
             <Stack.Screen name="Images"
               options={ImagePicker.navigationOptions}
               component={ImagePicker} />
@@ -160,7 +177,11 @@ export default function App(props) {
               component={Feedback} />
 
             <Stack.Screen name="terms"
-              options={{ headerShown: false, }}
+              options={{ headerShown: true, title:'Terms and conditions',headerStyle:{
+                backgroundColor:'black',
+               
+              },
+            headerTintColor:'white'}}
               component={Terms} />
 
             <Stack.Screen name="notification"
@@ -170,6 +191,10 @@ export default function App(props) {
             <Stack.Screen name="ConfirmPassword"
               options={{ headerShown: false, }}
               component={ConfirmPassword} />
+
+          <Stack.Screen name="ImageManagement"
+              options={{ headerShown: false, }}
+              component={ImageManagementScreen} />
 
           </Stack.Navigator>
         </NavigationContainer>

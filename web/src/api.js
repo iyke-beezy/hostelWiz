@@ -21,11 +21,10 @@ export const loginUser = async(username, password) => {
  }
  
  export const searchProperty = async(loca) => {
-  
+  console.log(loca)
       const response = await fetch(`${process.env.REACT_APP_API_URL}/hostelwiz/properties/search_property/`, {
          method: 'POST',
          headers: {
-              
              'Content-Type': 'application/json',
          },
          body: JSON.stringify({ location:loca })
@@ -250,7 +249,7 @@ export const loginUser = async(username, password) => {
 export const post_images = async (data,token) => {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/hostelwiz/images/`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json',
+        headers: {'Content-Type': 'multipart/form-data',
                     'Authorization':`Token ${token}`
                 },
          body: JSON.parse(data)

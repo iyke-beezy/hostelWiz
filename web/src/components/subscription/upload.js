@@ -48,7 +48,8 @@ class Uploads extends React.Component{
         const token = '286ffbb3abfacc19e516ae4327deae01bb7132b5';
         this.setState({disabled:true});
         for (var i = 0; i < this.state.image.length; i++) {
-          let form_data = new FormData();
+          console.log(this.state.image[i])
+        /*  let form_data = new FormData();
           form_data.append('image', this.state.image[i] , this.state.image[i].name);
 
         
@@ -66,7 +67,7 @@ class Uploads extends React.Component{
             .then(res => {
               console.log(res.data);
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err))*/
 
           }
       };

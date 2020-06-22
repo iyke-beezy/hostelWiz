@@ -14,9 +14,6 @@ export default class ImageBrowserScreen extends Component {
       headerTitle: "Choose Images",
     }
   };
-
-
-
   state = {
     photos: [],
     done: false
@@ -41,8 +38,8 @@ export default class ImageBrowserScreen extends Component {
       })
       images = photos
       //console.log(photos)
-      this.setState({ photos: [...this.state.photos, ...photos], done: true })
     })
+    this.setState({ photos, done: true })
   };
 
   async _processImageAsync(uri) {
@@ -70,11 +67,11 @@ export default class ImageBrowserScreen extends Component {
 
   _onSubmit = async () => {
     const { photos } = this.state
+    console.log(photos)
     await AsyncStorage.setItem("photos", JSON.stringify(photos));
-    this.props.navigation.navigate("HMnav", { screen: 'HostingPage' });
+    this.props.navigation.navigate("ImageManagement");
     //console.log(this.state.photos)
   }
-
 
   render() {
     const emptyStayComponent = <Text style={styles.emptyStay}>Empty =(</Text>;
