@@ -30,7 +30,7 @@ class ExploreScreen extends React.Component {
 
   componentDidMount() {
     //console.log(this.state.token)
-    
+
     this.getToken();
     this.getProperties();
   }
@@ -38,7 +38,7 @@ class ExploreScreen extends React.Component {
     try {
       let userToken = await AsyncStorage.getItem("userToken");
       let token = JSON.parse(userToken)
-      this.setState({token})
+      this.setState({ token })
       this.getSaveProperties();
       //console.log(this.state.token)
     } catch (error) {
@@ -81,9 +81,9 @@ class ExploreScreen extends React.Component {
 
   getUser = async () => {
     try {
-       const profile = await getUser(this.state.token)
-       return profile.user.id
-    }catch(err){
+      const profile = await getUser(this.state.token)
+      return profile.user.id
+    } catch (err) {
       console.log(err)
       return null
     }
@@ -127,8 +127,8 @@ class ExploreScreen extends React.Component {
 
   save = (pr) => {
     //this.setState({ save: !this.state.save });
-    if(this.checkIfIdExistInSave(pr)){
-          
+    if (this.checkIfIdExistInSave(pr)) {
+
     }
     this.saveProperty(pr);
   }
@@ -189,18 +189,23 @@ class ExploreScreen extends React.Component {
 
                       {/* Mini Card details */}
                       <View style={styles.miniCardComponent}>
-                        <Card containerStyle={styles.miniCard}
-                          image={require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')}>
-                          <Text style={{ textAlign: 'center', marginBottom: 10, fontFamily: 'Baloo-Paaji-Medium' }}>
-                            Explore Apartments
-                    </Text>
-                        </Card>
-                        <Card containerStyle={styles.miniCard}
-                          image={require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')}>
-                          <Text style={{ textAlign: 'center', marginBottom: 10, fontFamily: 'Baloo-Paaji-Medium' }}>
-                            Explore Hostels
-                    </Text>
-                        </Card>
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Apartments')}>
+                          <Card containerStyle={styles.miniCard}
+                            image={require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')}>
+                            <Text style={{ textAlign: 'center', marginBottom: 10, fontFamily: 'Baloo-Paaji-Medium' }}>
+                              Explore Apartments
+                            </Text>
+                          </Card>
+                        </TouchableHighlight>
+
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Hostels')}>
+                          <Card containerStyle={styles.miniCard}
+                            image={require('../assets/images/patrick-perkins-3wylDrjxH-E-unsplash.jpg')}>
+                            <Text style={{ textAlign: 'center', marginBottom: 10, fontFamily: 'Baloo-Paaji-Medium' }}>
+                              Explore Hostels
+                            </Text>
+                          </Card>
+                        </TouchableHighlight>
                       </View>
 
                       {/* Max card details */}
