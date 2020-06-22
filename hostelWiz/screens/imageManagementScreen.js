@@ -10,7 +10,6 @@ import axios from 'axios';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
-
 class ImageManagementScreen extends React.Component {
   constructor(props) {
     super(props);
