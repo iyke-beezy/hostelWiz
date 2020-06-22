@@ -39,6 +39,7 @@ class ProfileScreen extends React.Component {
     try {
       let userData = await AsyncStorage.getItem("userData");
       let data = JSON.parse(userData);
+      console.log(data)
       this.setState({ user: data[0], loginSource: 'facebook' })
     } catch (error) {
       console.log("Something went wrong", error);

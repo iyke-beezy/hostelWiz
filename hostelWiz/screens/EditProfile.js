@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {StyleSheet,Text, View, TextInput,TouchableHighlight,Dimensions} from 'react-native';
+import {StyleSheet,Text, View, TextInput,TouchableHighlight,Dimensions,AsyncStorage} from 'react-native';
 import { Button } from 'react-native-elements';
 import { AntDesign} from '@expo/vector-icons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -19,13 +19,16 @@ class EditProfile extends React.Component{
            email:this.props.route.params.user.email,
            groups:this.props.route.params.user.groups,
            contact:this.props.route.params.user.contact,
+           profile:this.props.route.params.user.profile,
            token:null,
            
         };  
        
     }  
     componentDidMount(){
-      console.log(this.state.username)
+      console.log(this.state.user);
+      this.getToken()
+
     }
 
      init = async () => {
@@ -49,17 +52,20 @@ class EditProfile extends React.Component{
 
 
     _edit = async () => {
+      console.log(this.state.token)
       try {
           const data = {
               username: this.state.username,
-              password: this.state.password,
+              password: 'isaacbotwe',
               first_name: this.state.first_name,
               last_name: this.state.last_name,
               email: this.state.email,
               groups: this.state.groups,
               contact: this.state.contact,
+              profile:this.state.profile,
 
           }
+          console.log(data)
    
           const response = await editUser(data,this.state.user.id,this.state.token)
           if(response){
@@ -164,7 +170,7 @@ class EditProfile extends React.Component{
           <Button
             buttonStyle={styles.loginButton}
             disabled={!this.state.username || !this.state.email || !this.state.first_name || !this.state.last_name || !this.state.contact}
-            onPress={() => this._edit()}
+            onPress={() => {this._edit();this.props.navigation.goBack();}}
             title="Done"
           />
 

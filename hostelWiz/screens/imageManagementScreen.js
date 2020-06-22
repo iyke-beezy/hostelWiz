@@ -14,7 +14,7 @@ import ImageManagementScreen from './ImageBrowser'
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
 var Images = []
-class HostingScreen extends React.Component {
+class ImageManagementScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
