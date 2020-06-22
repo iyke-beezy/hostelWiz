@@ -48,6 +48,27 @@ export const searchProperty = async(loca) => {
     throw new Error(errMessage)
  }
 
+
+ export const filterProperty = async(loca) => {
+ 
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/filter_property/`, {
+       method: 'POST',
+       headers: {
+            
+           'Content-Type': 'application/json',
+       },
+       body: JSON.stringify({ hostel_type:loca })
+    })
+      
+    if(response.ok){
+       const data = await response.json()
+       return data
+   }
+
+   const errMessage = await response.text()
+   throw new Error(errMessage)
+}
+
 //register new user
 export const registerUser = async (data) => {
  
