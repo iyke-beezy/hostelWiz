@@ -1,20 +1,18 @@
 import * as React from 'react';
 import { StyleSheet, AsyncStorage, ScrollView, Switch, Picker, Text, View, TextInput, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback, Alert, KeyboardAvoidingView, Dimensions, Image } from 'react-native';
 import { Card, Button, Icon } from 'react-native-elements';
-import { AntDesign} from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { RadioButton } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Select, InputLabel, MenuItem } from '@material-ui/core';
 import { post_images } from '../api';
 import axios from 'axios';
 
-import ImageManagementScreen from './ImageBrowser'
-
-
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
 var Images = []
-class HostingScreen extends React.Component {
+
+class ImageManagementScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,7 +20,7 @@ class HostingScreen extends React.Component {
       hasCameraRollPermission: null,
       image: [],
       photos: [],
-      id:4
+      id: 4
     };
   }
 
@@ -30,45 +28,41 @@ class HostingScreen extends React.Component {
     try {
       let images = await AsyncStorage.getItem("photos");
       let photos = JSON.parse(images)
-      if (photos) this.setState({ photos, screen: 'six',// found: true
-     })
-     console.log(photos)
+      if (photos) this.setState({
+        photos, screen: 'six',// found: true
+      })
+      console.log(photos)
     }
     catch (error) {
       console.log(error)
     }
   }
 
- postPhotos = async() =>{
-  
-  for (var i = 0; i < this.state.photos.length; i++) {
-    let body = new FormData();
-    console.log(this.state.photos[i])
-  // body.append('image', this.state.photos[i].uri,this.state.photos[i].name);
-    body.append('property', this.state.id);
-    let token = await AsyncStorage.getItem("userToken");
- // body.append('image', {uri: this.state.photos[i],name:Z,filename :Z});
- // body.append('Content-Type', 'image/png')
- let url = 'https://hostelwiz.herokuapp.com/hostelwiz/images/';
- axios.post(url, body, {
-   headers: {
-     'content-type': 'multipart/form-data',
-     'Authorization':`Token ${token}`
-   }
- })
-     .then(res => {
-       console.log(res.data);
-     })
-     .catch(err => console.log(err))
+  postPhotos = async () => {
 
-   }
-     //const upload = await post_images(body,token)
-     //console.log(upload)
-
- 
-
-}
-
+    for (var i = 0; i < this.state.photos.length; i++) {
+      let body = new FormData();
+      console.log(this.state.photos[i])
+      // body.append('image', this.state.photos[i].uri,this.state.photos[i].name);
+      body.append('property', this.state.id);
+      let token = await AsyncStorage.getItem("userToken");
+      // body.append('image', {uri: this.state.photos[i],name:Z,filename :Z});
+      // body.append('Content-Type', 'image/png')
+      let url = 'https://hostelwiz.herokuapp.com/hostelwiz/images/';
+      axios.post(url, body, {
+        headers: {
+          'content-type': 'multipart/form-data',
+          'Authorization': `Token ${token}`
+        }
+      })
+        .then(res => {
+          console.log(res.data);
+        })
+        .catch(err => console.log(err))
+    }
+    //const upload = await post_images(body,token)
+    //console.log(upload)
+  }
 
   renderImage(item, i) {
     return (
@@ -90,11 +84,11 @@ class HostingScreen extends React.Component {
   }
 
   componentDidMount() {
-   // AsyncStorage.removeItem("photos")
-  //  this.getPhotos()
-   // this._unSubscribe = this.props.navigation.addListener('blur', () => {
-      console.log(Images)
-  //  });
+    // AsyncStorage.removeItem("photos")
+    //  this.getPhotos()
+    // this._unSubscribe = this.props.navigation.addListener('blur', () => {
+    console.log(Images)
+    //  });
   }
 
   UNSAFE_componentWillMount() {
@@ -103,32 +97,32 @@ class HostingScreen extends React.Component {
 
   render() {
 
-   // const emptyStayComponent = <Text style={styles.emptyStay}>Empty =(</Text>;
+    // const emptyStayComponent = <Text style={styles.emptyStay}>Empty =(</Text>;
     //const noCameraPermissionComponent = <Text style={styles.emptyStay}>No access to camera</Text>;
 
-   
 
-      return (
-        <View style={styles.container}>
-          <View style={styles.backAndSave}>
-            <TouchableHighlight
-              onPress={() => this.props.navigation.goBack()}
-              style={styles.back}>
-              <AntDesign color='black' size={20} name="left" />
-            </TouchableHighlight>
 
-          </View>
-          {
-            <View Style={{ justifyContent: 'flex-start', alignSelf: 'flex-start' }}>
-              <View style={{ alignItems: "center", justifyContent: "center", marginBottom: 5 }} >
-                <Text style={styles.title}>Kindly post few images of your property to complete the listing </Text>
-              </View>
-              <Text style={styles.label}></Text>
-              <Text style={styles.label}>Please select at least 6 images and a limit of 20 images</Text>
-              <Text style={styles.label}></Text>
+    return (
+      <View style={styles.container}>
+        <View style={styles.backAndSave}>
+          <TouchableHighlight
+            onPress={() => this.props.navigation.goBack()}
+            style={styles.back}>
+            <AntDesign color='black' size={20} name="left" />
+          </TouchableHighlight>
 
-              <View>
-                {/* <ImageBrowser
+        </View>
+        {
+          <View Style={{ justifyContent: 'flex-start', alignSelf: 'flex-start' }}>
+            <View style={{ alignItems: "center", justifyContent: "center", marginBottom: 5 }} >
+              <Text style={styles.title}>Kindly post few images of your property to complete the listing </Text>
+            </View>
+            <Text style={styles.label}></Text>
+            <Text style={styles.label}>Please select at least 6 images and a limit of 20 images</Text>
+            <Text style={styles.label}></Text>
+
+            <View>
+              {/* <ImageBrowser
                   max={4}
                   onChange={this.updateHandler}
                   callback={this.imagesCallback}
@@ -136,38 +130,38 @@ class HostingScreen extends React.Component {
                   emptyStayComponent={emptyStayComponent}
                   noCameraPermissionComponent={noCameraPermissionComponent}
                 /> */}
-               <Button
-                    buttonStyle={styles.secNextButton}
-                    //disabled={!this.state.found}
-                    onPress={() => this.props.navigation.navigate('Images')}
-                    title="Add Photos"
-                  />
-
-                   <Text style={styles.label}></Text>
-                  <ScrollView style={{height:screenHeight*0.19}} >
-                    <View style={{ flex: 1, flexDirection: "row", flexWrap: 'wrap', justifyContent: 'center', margin: 10 }}>
-                      {this.state.photos.map((item, i) => this.renderImage(item.uri, i))}
-                    </View>
-
-                  </ScrollView>
-                  
-
-              </View>
-              <Text style={styles.label}></Text>
-
-              <View style={styles.divider} ></View>
-
               <Button
                 buttonStyle={styles.secNextButton}
-                // disabled={!this.state.headline || !this.state.description || !this.state.location }
-                onPress={() =>{ this.setState({ screen: 'seven' });this.postPhotos()}}
-                title="Next"
+                //disabled={!this.state.found}
+                onPress={() => this.props.navigation.navigate('Images')}
+                title="Add Photos"
               />
-            </View>}
-        </View>
 
-      )
-    
+              <Text style={styles.label}></Text>
+              <ScrollView style={{ height: screenHeight * 0.19 }} >
+                <View style={{ flex: 1, flexDirection: "row", flexWrap: 'wrap', justifyContent: 'center', margin: 10 }}>
+                  {this.state.photos.map((item, i) => this.renderImage(item.uri, i))}
+                </View>
+
+              </ScrollView>
+
+
+            </View>
+            <Text style={styles.label}></Text>
+
+            <View style={styles.divider} ></View>
+
+            <Button
+              buttonStyle={styles.secNextButton}
+              // disabled={!this.state.headline || !this.state.description || !this.state.location }
+              onPress={() => { this.setState({ screen: 'seven' }); this.postPhotos() }}
+              title="Next"
+            />
+          </View>}
+      </View>
+
+    )
+
 
   }
 }
