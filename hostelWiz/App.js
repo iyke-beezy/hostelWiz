@@ -177,7 +177,11 @@ export default function App(props) {
               component={Feedback} />
 
             <Stack.Screen name="terms"
-              options={{ headerShown: false, }}
+              options={{ headerShown: true, title:'Terms and conditions',headerStyle:{
+                backgroundColor:'black',
+               
+              },
+            headerTintColor:'white'}}
               component={Terms} />
 
             <Stack.Screen name="notification"
