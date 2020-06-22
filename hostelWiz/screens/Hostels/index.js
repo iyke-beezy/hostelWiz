@@ -9,7 +9,7 @@ import { Asset } from 'expo-asset';
 import { AppLoading } from 'expo';
 const screenHeight = Math.round(Dimensions.get('window').height);
 const screenWidth = Math.round(Dimensions.get('window').width);
-import { getProperties, searchProperty, saveProperties, getSavedProperties, getUser } from '../../api';
+import { filterProperty, searchProperty, saveProperties, getSavedProperties, getUser } from '../../api';
 import styles from './styles'
 
 class Hostels extends React.Component {
@@ -55,18 +55,19 @@ class Hostels extends React.Component {
       console.log(err.errMessage)
     }
   }
-/* Get Properties based on filter
+/* Get Properties based on filter */
   getProperties = async () => {
     try {
-      const data = await getProperties();
-      this.setState({ property: data });
+      const data = await filterProperty(this.state.filter);
+      //console.log(data)
+      this.setState({ property: data.result });
       //console.log(this.state.property)
     } catch (err) {
       console.log(err.errMessage)
     }
 
   }
-  */
+  
 
   saveProperty = async (property_id) => {
     try {

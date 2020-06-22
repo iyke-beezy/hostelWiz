@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Keyboard, Image, Dimensions, Text, View, StyleSheet, Alert, AsyncStorage, ScrollView } from 'react-native';
+import { Image, Dimensions, Text, View, StyleSheet, Alert, AsyncStorage, ScrollView } from 'react-native';
 import { AntDesign, Entypo, FontAwesome5, FontAwesome, MaterialIcons } from '@expo/vector-icons';
 
 import { getUser } from '../api';
@@ -8,8 +8,6 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 import Constants from 'expo-constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import firebase from 'firebase';
-
-
 
 class ProfileScreen extends React.Component {
   state = {
@@ -85,7 +83,7 @@ class ProfileScreen extends React.Component {
         break;
 
       case 'other':
-        this.props.navigation.navigate('Images')
+        this.props.navigation.navigate('others')
         break;
 
       case 'Logout':
@@ -138,10 +136,10 @@ class ProfileScreen extends React.Component {
                 <Text style={styles.itemText}>
                   <FontAwesome5 size={20} color={'#92A5A3'} name={'pen'} />    Edit Profile
          </Text></TouchableOpacity>
-              <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('notification')}>
+              {/* <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('notification')}>
                 <Text style={styles.itemText}>
                   <FontAwesome5 size={20} color={'#92A5A3'} name={'pen'} />    Change Password
-         </Text></TouchableOpacity>
+         </Text></TouchableOpacity> */}
               <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('notification')}>
                 <Text style={styles.itemText}>
                   <FontAwesome size={25} color={'#92A5A3'} name={'bell'} />   Notifications
@@ -158,10 +156,10 @@ class ProfileScreen extends React.Component {
                 <Text style={styles.itemText}>
                   <Entypo size={25} color={'#92A5A3'} name={'text'} />   Terms and Condition
          </Text></TouchableOpacity>
-              <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('other')}>
+              {/* <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('other')}>
                 <Text style={styles.itemText}>
                   <Entypo color={'#92A5A3'} size={25} name={'dots-three-horizontal'} />   Others
-         </Text></TouchableOpacity>
+         </Text></TouchableOpacity> */}
             </View>
             <View style={styles.detailDividerTwo}></View>
             <View style={styles.logoutContainer}>
