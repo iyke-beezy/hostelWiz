@@ -28,6 +28,7 @@ import LastStep from '../components/subscription/lastStep';
 import Test from '../test';
 import Explore from './explore';
 import history from '../services/history'
+import ManagerProfile from '../components/Manager_profile';
 library.add(faStar)
 
 class App extends Component {
@@ -38,7 +39,7 @@ class App extends Component {
           <Switch>
             <Route path="/" exact component={HomePage} />
             <Route path="/dashboard" component={withAuthentication(Dashboard)} />
-            <Route path="/profile" component={Profile} />
+            <Route path="/profile" component={ManagerProfile} />
             <Route path="/about" component={About} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
