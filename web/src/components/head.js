@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Menu } from 'antd';
 import { UserOutlined } from '@ant-design/icons'
 import 'antd/dist/antd.css';
+import './homepage.css'
 const { SubMenu } = Menu;
 const { Header } = Layout;
 
@@ -32,9 +33,9 @@ class Head extends React.Component {
                                 <Menu onClick={this.handleClicked} theme="light" mode="horizontal">
                                     <Menu.Item key="listing">List Property</Menu.Item>
                                     <SubMenu title="Account" icon={<UserOutlined />}>
+                                        <Menu.Item key="profile">Profile</Menu.Item>
                                         <Menu.Item key="logout">Logout</Menu.Item>
                                     </SubMenu>
-                                    <Menu.Item key="help">Help?</Menu.Item>
                                 </Menu>
                             </div>
                         </Header>

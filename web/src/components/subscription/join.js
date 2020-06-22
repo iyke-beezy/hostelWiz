@@ -22,7 +22,7 @@ class Join extends React.Component {
         cpassword: ''
     }
     componentDidMount(){
-        this.props.setStepNo(3)
+       // this.props.setStepNo(3)
     }
     handleChange = event => {
         let cred = this.state;

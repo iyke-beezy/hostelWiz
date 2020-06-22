@@ -88,6 +88,7 @@ class Uploads extends React.Component{
 
      
       handlePage=()=>{
+        
             this.setState({
                 page:false
             });
@@ -96,6 +97,7 @@ class Uploads extends React.Component{
 
     }
     handleBackJoin=()=>{
+     
         this.setState({
             page:true
         });
