@@ -1,6 +1,10 @@
 import React from 'react';
+import { Button } from 'antd';
 import './hostForm.css';
+import Join from "./join";
+import '../../UI/loginUI.css';
 import 'antd/dist/antd.css';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { create_hostel } from '../../api'
 
