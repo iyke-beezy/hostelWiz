@@ -5,7 +5,7 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
     font-family: "Baloo Paaji Medium";
     max-width: 552px;
-    height: 552px;
+    height: auto;
 }
 
 .ant-select-selector {
@@ -389,7 +389,7 @@ input.ant-radio-input {
 @media(max-width: 720px) {
     .form-wrapper {
         width: 468.3px;
-        height: auto;
+        height: auto !important;
     }
 }
 .Details {

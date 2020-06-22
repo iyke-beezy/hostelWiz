@@ -39,7 +39,8 @@ class HomePage extends React.Component{
                     display:"flex",
                     flexDirection:"column",
                     justifyContent:"center",
-                    alignContent:"space-between"
+                    width: "auto",
+                    height: "auto"
                 }}
                 className="homepage"
             >
@@ -47,9 +48,6 @@ class HomePage extends React.Component{
                 <FilterClass filter={filterImages}/>
                 <BigImage/>
                 <NewsClass/>
-
-
-
 
             </div>
             <Foot></Foot>
