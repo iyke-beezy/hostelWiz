@@ -4,6 +4,12 @@ import { Card, Button, Icon } from 'react-native-elements';
 import { AntDesign} from '@expo/vector-icons';
 import { RadioButton } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Select, InputLabel, MenuItem } from '@material-ui/core';
+import { post_images } from '../api';
+import axios from 'axios';
+
+import ImageBrowser from './ImageBrowser'
+
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
@@ -33,7 +39,7 @@ class HostingScreen extends React.Component {
       gym: false,
       laundry: false,
       study_room: false,
-      screen: 'one',
+      screen: 'five',
       private: false,
       shared: false,
       single: false,
@@ -46,6 +52,7 @@ class HostingScreen extends React.Component {
       hasCameraRollPermission: null,
       image: [],
       photos: [],
+      id:4
     };
   }
 
@@ -53,13 +60,44 @@ class HostingScreen extends React.Component {
     try {
       let images = await AsyncStorage.getItem("photos");
       let photos = JSON.parse(images)
-      //console.log(photos)
-      if (photos) this.setState({ photos, screen: 'six', found: true })
+      if (photos) this.setState({ photos, screen: 'six',// found: true
+     })
+     console.log(photos)
     }
     catch (error) {
       console.log(error)
     }
   }
+
+ postPhotos = async() =>{
+  
+  for (var i = 0; i < this.state.photos.length; i++) {
+    let body = new FormData();
+    console.log(this.state.photos[i])
+  // body.append('image', this.state.photos[i].uri,this.state.photos[i].name);
+    body.append('property', this.state.id);
+    let token = await AsyncStorage.getItem("userToken");
+ // body.append('image', {uri: this.state.photos[i],name:Z,filename :Z});
+ // body.append('Content-Type', 'image/png')
+ let url = 'https://hostelwiz.herokuapp.com/hostelwiz/images/';
+ axios.post(url, body, {
+   headers: {
+     'content-type': 'multipart/form-data',
+     'Authorization':`Token ${token}`
+   }
+ })
+     .then(res => {
+       console.log(res.data);
+     })
+     .catch(err => console.log(err))
+
+   }
+     //const upload = await post_images(body,token)
+     //console.log(upload)
+
+ 
+
+}
 
 
   renderImage(item, i) {
@@ -82,6 +120,7 @@ class HostingScreen extends React.Component {
   }
 
   componentDidMount() {
+   // AsyncStorage.removeItem("photos")
     this.getPhotos()
     this._unSubscribe = this.props.navigation.addListener('blur', () => {
       console.log(Images)
@@ -551,30 +590,16 @@ class HostingScreen extends React.Component {
               <Text style={styles.label}></Text>
 
               <View>
-                {/* <ImageBrowser
-                  max={4}
-                  onChange={this.updateHandler}
-                  callback={this.imagesCallback}
-                  renderSelectedComponent={this.renderSelectedComponent}
-                  emptyStayComponent={emptyStayComponent}
-                  noCameraPermissionComponent={noCameraPermissionComponent}
-                /> */}
-                {this.state.found ?
-                  <ScrollView
-                  >
-                    <View style={{ flex: 1, flexDirection: "row", flexWrap: 'wrap', justifyContent: 'center', margin: 10 }}>
-                      {this.state.photos.map((item, i) => this.renderImage(item, i))}
-                    </View>
-                  </ScrollView>
-                  :
-                  <Button
+              
+               <Button
                     buttonStyle={styles.secNextButton}
-                    disabled={!this.state.found}
+                    //disabled={!this.state.found}
                     onPress={() => this.props.navigation.navigate('Images')}
                     title="Add Photos"
                   />
-                }
 
+                 
+                  
 
               </View>
               <Text style={styles.label}></Text>
@@ -584,7 +609,7 @@ class HostingScreen extends React.Component {
               <Button
                 buttonStyle={styles.secNextButton}
                 // disabled={!this.state.headline || !this.state.description || !this.state.location }
-                onPress={() => this.setState({ screen: 'seven' })}
+                onPress={() =>{this.props.navigation.navigate('ImageManagement')}}
                 title="Next"
               />
             </View>}
@@ -607,24 +632,10 @@ class HostingScreen extends React.Component {
 
           {
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ justifyContent: 'flex-start', alignSelf: 'flex-start' }}>
-              <View style={{ alignItems: "center", justifyContent: "center", marginBottom: 35 }} >
-                <Text style={styles.title}>Kindly post few images of your property to complete the listing </Text>
-              </View>
-
-
-
-              <Text style={styles.label}></Text>
-              <Text style={styles.label}>Add pictures here</Text>
+            
               <Text style={styles.label}></Text>
 
-              <View style={{ width: screenWidth, height: screenHeight * 0.7 }}>
-
-                <View>
-
-                </View>
-
-              </View>
-              <Text style={styles.label}></Text>
+              <Text style={styles.label}>Your Hostel/Apartment was succesfully created</Text>
 
               <View style={styles.divider} ></View>
 
@@ -634,7 +645,7 @@ class HostingScreen extends React.Component {
               <Button
                 buttonStyle={styles.secNextButton}
                 // disabled={!this.state.headline || !this.state.description || !this.state.location }
-                onPress={() => this.setState({ screen: 'one' })}
+                //onPress={() => this.setState({ screen: 'one' })}
                 title="Next"
               />
 

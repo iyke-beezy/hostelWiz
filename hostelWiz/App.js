@@ -19,6 +19,7 @@ import Others from './screens/others';
 import Feedback from './screens/feedback';
 import Terms from './screens/terms';
 import LoginScreen from './screens/Login'
+import ImageManagementScreen from './screens/imageManagementScreen';
 
 import firebase from './screens/firebase';
 import ImagePicker from './screens/ImagesPicker/ImagesPicker';
@@ -170,6 +171,10 @@ export default function App(props) {
             <Stack.Screen name="ConfirmPassword"
               options={{ headerShown: false, }}
               component={ConfirmPassword} />
+
+          <Stack.Screen name="ImageManagement"
+              options={{ headerShown: false, }}
+              component={ImageManagementScreen} />
 
           </Stack.Navigator>
         </NavigationContainer>

@@ -1,7 +1,7 @@
 //functions for API calls to the server
 //login requires username, and password
 
-//const REACT_APP_API_URL= ' 192.168.43.80:8000'
+//const REACT_APP_API_URL= '192.168.42.2:8000'
 const REACT_APP_API_URL= 'https://hostelwiz.herokuapp.com'
 //const REACT_APP_FIREBASE_API_KEY= AIzaSyCUcV5erWI5t4vvDNVYs_RdG7s-WtzUDxc
 //const REACT_APP_FIREBASE_AUTH_DOMAIN= hostelwiz.firebaseapp.com
@@ -226,6 +226,24 @@ export const getHostelManager = async (token, id) => {
         headers: {'Content-Type': 'application/json',
                     'Authorization':`Token ${token}`
                 }
+    })
+    if (response.ok) {
+        const manager = await response.json() 
+        return manager
+    }
+
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+
+}
+
+export const post_images = async (body,token) => {
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/images/`, {
+        method: 'POST',
+        headers: {'Content-Type': 'multipart/form-data',
+                    'Authorization':`Token ${token}`
+                },
+         body: body
     })
     if (response.ok) {
         const manager = await response.json() 
