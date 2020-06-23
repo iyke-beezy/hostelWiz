@@ -39,6 +39,8 @@ class Hostel extends React.Component {
     }
 
     render() {
+        const {properties} = this.props
+        //console.log(properties)
         return (
             <React.Fragment>
                 {this.state.data.map(property => {

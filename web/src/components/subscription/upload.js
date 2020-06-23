@@ -108,9 +108,7 @@ class Uploads extends React.Component{
         localStorage.setItem('uploads',JSON.stringify(nextState));
         return null;
     }
-    componentDidMount(nextProps,nextState,snapshot){
 
-    }
     handleBackUp=()=>{
         this.props.goBack();
     }
