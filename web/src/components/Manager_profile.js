@@ -41,7 +41,7 @@ class ManagerProfile extends React.Component {
         try {
             const manager = await getHostelManager(token)
             const properties = await getHMProperties(manager.id)
-            console.log(properties)
+            //console.log(properties)
             this.setState({properties})
         }
         catch (err) {
