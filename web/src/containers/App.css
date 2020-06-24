@@ -56,3 +56,11 @@ button:hover {
   border-radius: 16px;
   margin: 18px;
 }
+
+a{
+  color: antiquewhite;
+}
+a:hover{
+  color: orange;
+  font-weight: 500;
+}

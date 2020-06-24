@@ -11,19 +11,18 @@ const Foot=()=>{
     <div className="first-foot-div">
         <div className="first-child-1">
             <h2 className="footer-content">About</h2>
-            <h4 className="footer-content">About</h4>
-            <h4 className="footer-content">Trust & Safety</h4>
-            <h4 className="footer-content">Accessibility</h4>
-            <h4 className="footer-content">NewsRoom</h4>
+            <h4 className="footer-content"><a href='/about'>About</a></h4>
+            <h4 className="footer-content"><a href='/trust'>Trust & Safety</a></h4>
+            <h4 className="footer-content"><a href='/accessibility'>Accessibility</a></h4>
+            <h4 className="footer-content"><a href='/newsroom'>NewsRoom</a></h4>
         </div>
         <div className="first-child-2">
             <h2 className="footer-content">Community</h2>
-            <h4 className="footer-content">Invite A Friend</h4>
-            <h4 className="footer-content">FAQ</h4>        
+            <h4 className="footer-content"><a href='/faqs'>FAQ</a></h4>        
         </div>
         <div className="first-child-3">
             <h2 className="footer-content">Support</h2>
-            <h4 className="footer-content">Help Center</h4>
+            <h4 className="footer-content"><a href='/help'>Help Center</a></h4>
           
         </div>
 
@@ -46,9 +45,9 @@ const Foot=()=>{
                 style={{
                  marginRight:"10px"
                 }}>
-                Privacy
+                <a href='/terms'>Privacy</a>
             </h4>
-            <h4 className="footer-content">Terms</h4>
+            <h4 className="footer-content"><a href='/terms'>Terms</a></h4>
                 
             </div>
          <div className="second-child-2">

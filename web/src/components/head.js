@@ -47,7 +47,6 @@ class Head extends React.Component {
                                 <div className="header-second">
                                     <Menu theme="light" mode="horizontal" onClick={this.handleClicked}>
                                         <Menu.Item key="listing">List Property</Menu.Item>
-                                        <Menu.Item key="help">Help?</Menu.Item>
                                         <Menu.Item key="login">Login</Menu.Item>
                                         <Menu.Item key="register">Sign Up</Menu.Item>
                                     </Menu>

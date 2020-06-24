@@ -29,6 +29,11 @@ import Test from '../test';
 import Explore from './explore';
 import history from '../services/history'
 import ManagerProfile from '../components/Manager_profile';
+import Terms from '../components/terms';
+import Trust from '../components/trust';
+import Accessibility from '../components/accessibility';
+import FAQS from '../components/faqs';
+import NewsRoom from '../components/newsroom';
 library.add(faStar)
 
 class App extends Component {
@@ -45,6 +50,11 @@ class App extends Component {
             <Route path="/register" component={Register} />
             <Route path="/listing" component={Subscribe} />
             <Route path="/join" component={Join} />
+            <Route path="/terms" component={Terms} />
+            <Route path="/trust" component={Trust} />
+            <Route path="/faqs" component={FAQS} />
+            <Route path="/newsroom" component={NewsRoom} />
+            <Route path="/accessibility" component={Accessibility} />
             <Route path="/test" component={Test} />
             <Route path="/lastStep" component={LastStep} />
             <Route path="/:explore" component={Explore} />

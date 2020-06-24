@@ -130,6 +130,18 @@ html, body {
     background-repeat: no-repeat;
     height: 550px;
 }
+.bigdiv2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: space-between;
+    align-items: center;
+    background-image: url("../Assets/apart1.jpg");
+    background-position: center 70%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 400px;
+}
 
 .textArea {
     margin-bottom: 30px;
