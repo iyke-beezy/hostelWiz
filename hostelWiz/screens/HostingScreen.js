@@ -60,19 +60,7 @@ class HostingScreen extends React.Component {
     };
   }
 
-  getPhotos = async () => {
-    try {
-      let images = await AsyncStorage.getItem("photos");
-      let photos = JSON.parse(images)
-      if (photos) this.setState({ photos// found: true
-     })
-     console.log(photos)
-    }
-    catch (error) {
-      console.log(error)
-    }
-  }
-
+  
   postProperties = async() =>{
     try {
 
@@ -112,61 +100,19 @@ class HostingScreen extends React.Component {
     }
   }
 
- postPhotos = async() =>{
-  
-  for (var i = 0; i < this.state.photos.length; i++) {
-    let body = new FormData();
-    console.log(this.state.photos[i])
-    body.append('image', this.state.photos[i].uri,this.state.photos[i].name);
-    body.append('property', this.state.id);
-    let token = await AsyncStorage.getItem("userToken");
- // body.append('image', {uri: this.state.photos[i],name:Z,filename :Z});
- // body.append('Content-Type', 'image/png')
- let url = 'https://hostelwiz.herokuapp.com/hostelwiz/images/';
- axios.post(url, body, {
-   headers: {
-     'content-type': 'multipart/form-data',
-     'Authorization':`Token ${token}`
-   }
- })
-     .then(res => {
-       console.log(res.data);
-     })
-     .catch(err => console.log(err))
-
-   }
-     //const upload = await post_images(body,token)
-     //console.log(upload)
-
- 
-
-}
 
 
-  renderImage(item, i) {
-    return (
-      <Image
-        style={{ height: 100, width: 100, margin: 10 }}
-        source={{ uri: item }}
-        key={i}
-      />
-    )
-  }
-  renderSelectedComponent = (number) => (
-    <View style={styles.countBadge}>
-      <Text style={styles.countBadgeText}>{number}</Text>
-    </View>
-  );
 
   toggleSwitch = () => {
     this.setState({ wifi: !this.state.wifi });
   }
 
   componentDidMount() {
-   // AsyncStorage.removeItem("photos")
-    this.getPhotos()
+    if(this.props.route.params){
+      this.setState({screen: this.props.route.params.screen})
+    }
     this._unSubscribe = this.props.navigation.addListener('blur', () => {
-      console.log(Images)
+      
     });
   }
 
@@ -700,10 +646,6 @@ class HostingScreen extends React.Component {
                     onPress={() => this.props.navigation.navigate('Images')}
                     title="Add Photos"
                   />
-
-                 
-                  
-
               </View>
               <Text style={styles.label}></Text>
 
@@ -741,8 +683,8 @@ class HostingScreen extends React.Component {
               <Button
                 buttonStyle={styles.secNextButton}
                 // disabled={!this.state.headline || !this.state.description || !this.state.location }
-                //onPress={() => this.setState({ screen: 'one' })}
-                title="Next"
+                onPress={() => this.props.navigation.navigate('HMnav', {screen: 'ManagerProperty'})}
+                title="Done"
               />
 
 

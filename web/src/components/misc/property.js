@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import { Card, Modal,Button,Divider,Space } from 'antd';
+import { Card, Modal,Button,Divider,Space, Input  } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Slider from '../productSlider'
 
@@ -18,7 +18,20 @@ const { Meta } = Card;
 
 class PropertyItem extends React.Component {
     state={
-        visible:false
+        visible:false,
+        property:''
+    }
+    componentDidMount(){
+        this.setState({
+            property:this.props.property,
+        })
+    }
+    handleEdit=event=>{
+        let proper=this.state.property
+        proper[event.target.name]=event.target.value
+        this.setState({
+            property:proper
+        })
     }
     showModal = () => {
         this.setState({
@@ -27,6 +40,7 @@ class PropertyItem extends React.Component {
       };
     
       handleOk = () => {
+        console.log(this.state.property)
         this.setState({
             visible: false,
           });
@@ -46,6 +60,7 @@ class PropertyItem extends React.Component {
                         style={{borderRadius: "16px 16px 0px 0px", width:'300px'}}
                         onClick={this.showModal}
                     >
+                        {console.log(this.state.property)}
                         <div style={{display:'flex',justifyContent:'space-between'}}>
                         <div>
                         <Meta
@@ -82,62 +97,62 @@ class PropertyItem extends React.Component {
         
         
                     </Card>
-                { /*   <Modal
+                   <Modal
                   visible={this.state.visible}
                   width={800}
                   onOk={this.handleOk}
                   onCancel={this.handleCancel}
                   footer={[
                    <Button key="back" onClick={this.handleCancel}>
-                    Return
+                    Cancel
                   </Button>,
-                <Button key="link" type="primary" onClick={this.handleOk}>
-                <a href='https://www.google.com.gh/maps/place/Jean+Nelson+Aka+Hall/@5.6353794,-0.1884183,19.1z/data=!4m5!3m4!1s0xfdf9b82cd331fcf:0x1f7df347a9ab45d6!8m2!3d5.6352795!4d-0.1886103'>View On Map</a>
-                </Button>,
                     <Button key="submit" type="primary" onClick={this.handleOk}>
-                  Call Host
+                        Update
                       
                     </Button>,
         
                   ]}
                 >
-                        <h1>{this.props.property.name}</h1>
-                        <div style={{fontSize: 20}}>                        
-                        <FontAwesomeIcon icon="star" className={this.props.property.avg_rating > 0 ? 'orange' : 'star'} />
-                                <FontAwesomeIcon icon="star" className={this.props.property.avg_rating > 1 ? 'orange' : 'star'} />
-                                <FontAwesomeIcon icon="star" className={this.props.property.avg_rating > 2 ? 'orange' : 'star'} />
-                                <FontAwesomeIcon icon="star" className={this.props.property.avg_rating > 3 ? 'orange' : 'star'} />
-                                <FontAwesomeIcon icon="star" className={this.props.property.avg_rating > 4 ? 'orange' : 'star'} />
-                                    ({this.props.property.no_of_ratings})
-        
-        
-                                { /*<div className="rate-container">
-                                    <h2>Rate it!!!</h2>
-                                    {[...Array(5)].map((e, i) => {
-                                        return <FontAwesome name="star" key={i} className={this.state.highlighted > i - 1 ? 'purple' : ''}
-                                            onMouseEnter={this.highlightRate(i)}
-                                            onMouseLeave={this.highlightRate(-1)}
-                                            onClick={this.clickRate(i)} />
-                                    })}
-                                </div> }
-        
-                            </div>
+                        <h1>Edit Property Details</h1>
                         <Divider/>
-                        <Slider images={this.props.property.images} />
-                        <Space style={{height:'50px'}}></Space>
-                        <Divider/>
-        
-                        <div>
-                        <h2>Location</h2>
-                        <h3>Located at {this.props.property.location}</h3>
-                        </div>
-                        <Divider/>
-                        <div>
-                         <h2>Amenities</h2>
+                        <div style={{marginBottom:15}}>
+                            <h3>Name</h3>
+                            <Input name='name' onChange={this.handleEdit} value={this.state.property.name}/>
                         </div>
                     
+                        <div style={{marginBottom:15}}>
+                            <h3>Accomodation Number</h3>
+                            <Input name='accomodates' onChange={this.handleEdit} value={this.state.property.accomodates}/>
+                        </div>
+                        <div style={{marginBottom:15}}>
+                            <h3>Address</h3>
+                            <Input name='address' onChange={this.handleEdit} value={this.state.property.address}/>
+                        </div>
+                        <div style={{marginBottom:15}}>
+                            <h3>Description</h3>
+                            <Input name='description' onChange={this.handleEdit} value={this.state.property.description}/>
+                        </div>
+                        <div style={{marginBottom:15}}>
+                            <h3>City</h3>
+                            <Input name='city' onChange={this.handleEdit} value={this.state.property.city}/>
+                        </div>
+                        <div style={{marginBottom:15}}>
+                            <h3>Rate Type</h3>
+                            <Input name='rate_type' onChange={this.handleEdit} value={this.state.property.rate_type}/>
+                        </div>
+                        <div style={{marginBottom:15}}>
+                            <h3>Number of Rooms</h3>
+                            <Input name='numberOfRooms' onChange={this.handleEdit} value={this.state.property.numberOfRooms}/>
+                        </div>
+                        <div style={{marginBottom:15}}>
+                            <h3>Price</h3>
+                            <Input name='price' onChange={this.handleEdit} value={this.state.property.price}/>
+                        </div>
+                        <Space style={{height:'50px'}}></Space>
+                        <Divider/>
+                    
         
-                            </Modal>   */}        
+                            </Modal>           
                     </div>
                 ):(
                               <div>
@@ -229,7 +244,7 @@ class PropertyItem extends React.Component {
                 <Divider/>
 
                 <div>
-                <h2>Location</h2>
+                 style={{marginBottom:15}}<h2>Location</h2>
                 <h3>Located at {this.props.property.location}</h3>
                 </div>
                 <Divider/>

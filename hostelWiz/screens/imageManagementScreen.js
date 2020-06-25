@@ -29,7 +29,7 @@ class ImageManagementScreen extends React.Component {
       if (photos) this.setState({
         photos
       })
-      console.log(photos)
+      //console.log(photos)
     }
     catch (error) {
       console.log(error)
@@ -37,25 +37,29 @@ class ImageManagementScreen extends React.Component {
   }
 
   postPhotos = async () => {
-    const token = await AsyncStorage.getItem("userToken");
-    console.log(this.state.id)
-    for (var i = 0; i < this.state.photos.length; i++) {
-      console.log(this.state.photos[i])
+    const {photos} = this.state
+    for (var i = 0; i < photos.length; i++) {
       let body = new FormData();
-      body.append('image',this.state.photos[i],this.state.photos[i].name);
+      //console.log(photos[i].uri)
+      body.append('image', {uri: photos[i].uri, name:photos[i].name, type: 'image/jpg'});
       body.append('property', this.state.id);
-     /* let url = 'https://hostelwiz.herokuapp.com/hostelwiz/images/';
+      let token = await AsyncStorage.getItem("userToken");
+      // body.append('image', {uri: photos[i],name:Z,filename :Z});
+      // body.append('Content-Type', 'image/png')
+      let url = 'https://hostelwiz.herokuapp.com/hostelwiz/images/';
       axios.post(url, body, {
         headers: {
-          'content-type': 'multipart/form-data',
+          'Accept': 'application/json',
+          'Content-Type': 'multipart/form-data',
           'Authorization': `Token ${token}`
         }
       })
         .then(res => {
           console.log(res.data);
+          this.props.navigation.navigate('HMnav', {screen: 'HostingPage', params:{screen: 'seven'}})
         })
         .catch(err => console.log(err))
-    */
+    
    const upload = await post_images(body,token)
    console.log(upload)
    }
