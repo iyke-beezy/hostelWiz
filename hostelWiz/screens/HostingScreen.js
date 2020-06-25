@@ -5,7 +5,7 @@ import { AntDesign} from '@expo/vector-icons';
 import { RadioButton } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Select, InputLabel, MenuItem } from '@material-ui/core';
-import { post_images } from '../api';
+import { create_property } from '../api';
 import axios from 'axios';
 
 import ImageBrowser from './ImageBrowser'
@@ -27,19 +27,20 @@ class HostingScreen extends React.Component {
       price: '',
       found: false,
       rate_type: 'month',
-      number_of_rooms: null,
+      number_of_rooms: 0,
       Single: false,
       Duo: false,
       Trio: false,
       Quadro: false,
       building_type: 'hostel',
+      hostel_type:'hostel',
       wifi: false,
       tv_room: false,
       car_park: false,
       gym: false,
       laundry: false,
       study_room: false,
-      screen: 'five',
+      screen: 'one',
       private: false,
       shared: false,
       single: false,
@@ -52,7 +53,10 @@ class HostingScreen extends React.Component {
       hasCameraRollPermission: null,
       image: [],
       photos: [],
-      id:4
+      id:4,
+      bedroom_number:null,
+      bathroom_number:null,
+      accomodates:0,
     };
   }
 
@@ -60,9 +64,48 @@ class HostingScreen extends React.Component {
     try {
       let images = await AsyncStorage.getItem("photos");
       let photos = JSON.parse(images)
-      if (photos) this.setState({ photos, screen: 'six',// found: true
+      if (photos) this.setState({ photos// found: true
      })
      console.log(photos)
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+
+  postProperties = async() =>{
+    try {
+
+      let userToken = await AsyncStorage.getItem("userToken");
+      let token = JSON.parse(userToken)
+    
+          const data =
+          {
+            name : this.state.name,
+            description : this.state.description,
+            address : this.state.address,
+            city : this.state.city,
+            region : this.state.region,
+            bedrooms : this.state.bedroom_number,
+            bathrooms : this.state.bathroom_number,
+            accomodates : this.state.accomodates,
+            number_of_rooms : this.state.number_of_rooms,
+            hostel_type : this.state.hostel_type,
+            rate_type : this.state.rate_type,
+            headline : this.state.headline,
+            price : this.state.price,
+            wifi : this.state.wifi,
+            car_park : this.state.car_park,
+            gym : this.state.gym,
+            laundry: this.state.laundry,
+            study_room : this.state.study_room,
+            tv_room : this.state.tv_room,
+            bathroom_type : this.state.bathroom_value,
+            bedroom_type : this.state.bedroom_value,
+          }
+          const response = await create_property(token,data);
+          console.log(response.result.id)
+          await AsyncStorage.setItem("property_id", JSON.stringify(response.result.id));
     }
     catch (error) {
       console.log(error)
@@ -74,7 +117,7 @@ class HostingScreen extends React.Component {
   for (var i = 0; i < this.state.photos.length; i++) {
     let body = new FormData();
     console.log(this.state.photos[i])
-  // body.append('image', this.state.photos[i].uri,this.state.photos[i].name);
+    body.append('image', this.state.photos[i].uri,this.state.photos[i].name);
     body.append('property', this.state.id);
     let token = await AsyncStorage.getItem("userToken");
  // body.append('image', {uri: this.state.photos[i],name:Z,filename :Z});
@@ -186,13 +229,13 @@ class HostingScreen extends React.Component {
               <Text style={styles.label}></Text>
 
               <Picker
-                selectedValue={this.state.building_type}
+                selectedValue={this.state.hostel_type}
                 style={{ width: screenWidth * (0.6), fontSize: 20, fontFamily: 'Baloo-Paaji', color: 'grey' }}
-                onValueChange={(itemValue, itemIndex) => this.setState({ building_type: itemValue })}
+                onValueChange={(itemValue, itemIndex) => this.setState({ hostel_type: itemValue })}
               >
                 <Picker.Item label="Hostel" value="hostel" />
                 <Picker.Item label="Rent Apartment" value="apartment" />
-                <Picker.Item label="Building for Sale" value="building" />
+             
               </Picker>
 
               <View style={styles.divider} ></View>
@@ -305,6 +348,18 @@ class HostingScreen extends React.Component {
                 onChangeText={(text) => this.setState({ description: text })}
               />
               <View style={styles.divider} ></View>
+              
+              <Text style={styles.label}></Text>
+
+              <TextInput
+
+                placeholder="Address"
+                placeholderColor="#fff"
+                defaultValue={this.state.address}
+                style={styles.input}
+                onChangeText={(text) => this.setState({ address: text })}
+              />
+              <View style={styles.divider} ></View>
 
               <Text style={styles.label}></Text>
 
@@ -312,17 +367,28 @@ class HostingScreen extends React.Component {
 
                 placeholder="City"
                 placeholderColor="#fff"
-                defaultValue={this.state.location}
+                defaultValue={this.state.city}
                 style={styles.input}
-                onChangeText={(text) => this.setState({ location: text })}
+                onChangeText={(text) => this.setState({ city: text })}
               />
               <View style={styles.divider} ></View>
 
+              <Text style={styles.label}></Text>
+
+             <TextInput
+
+                  placeholder="Region"
+                  placeholderColor="#fff"
+                  defaultValue={this.state.region}
+                  style={styles.input}
+                  onChangeText={(text) => this.setState({ region: text })}
+                />
+                <View style={styles.divider} ></View>
 
 
               <Button
                 buttonStyle={styles.secNextButton}
-                disabled={!this.state.headline || !this.state.description || !this.state.location}
+                disabled={!this.state.headline || !this.state.description || !this.state.city || !this.state.address || !this.state.region}
                 onPress={() => this.setState({ screen: 'four' })}
                 title="Next"
               />
@@ -477,6 +543,43 @@ class HostingScreen extends React.Component {
               <View style={{ alignItems: "center", justifyContent: "center", marginBottom: 35 }} >
                 <Text style={styles.title}>Almost done, we need to know the type of bedrooms and bathrooms you have available </Text>
               </View>
+
+              <Text style={styles.label}>How many people can it accomodate?</Text>
+
+                  <TextInput
+
+                    placeholder=""
+                    placeholderColor="#fff"
+                    defaultValue={this.state.accomodates}
+                    style={styles.input}
+                    onChangeText={(text) => this.setState({ accomodates: text })}
+                  />
+                  <View style={styles.divider} ></View>
+              
+              <Text style={styles.label}>How many bathrooms do you have?</Text>
+
+              <TextInput
+
+                placeholder=""
+                placeholderColor="#fff"
+                defaultValue={this.state.bathroom_number}
+                style={styles.input}
+                onChangeText={(text) => this.setState({ bathroom_number: text })}
+              />
+              <View style={styles.divider} ></View>
+
+
+                              <Text style={styles.label}>How many bedrooms do you have?</Text>
+
+                <TextInput
+
+                  placeholder=""
+                  placeholderColor="#fff"
+                  defaultValue={this.state.bedroom_number}
+                  style={styles.input}
+                  onChangeText={(text) => this.setState({ bedroom_number: text })}
+                />
+                <View style={styles.divider} ></View>
               <Text style={styles.label}></Text>
               <Text style={styles.label}>Bathroom</Text>
               <Text style={styles.label}></Text>
@@ -560,7 +663,7 @@ class HostingScreen extends React.Component {
               <Button
                 buttonStyle={styles.secNextButton}
                 // disabled={!this.state.headline || !this.state.description || !this.state.location }
-                onPress={() => this.setState({ screen: 'six' })}
+                onPress={() => { this.setState({ screen: 'six' });this.postProperties();}}
                 title="Next"
               />
             </KeyboardAwareScrollView>}

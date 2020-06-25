@@ -105,6 +105,7 @@ export default class ImageBrowser extends React.Component {
         after: data.endCursor,
         hasNextPage: data.hasNextPage
       });
+      
       //console.log(this.state.photos)
       //console.log(this.state.photos[0])
     } else {

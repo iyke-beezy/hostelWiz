@@ -86,6 +86,24 @@ export const registerUser = async (data) => {
     throw new Error(errMessage)
 }
 
+export const create_property = async (token,data) => {
+ 
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/create_property/`, {
+        method: 'POST',
+        headers: {  'Content-Type': 'application/json',
+                    'Authorization':`token ${token}`, },
+        body: JSON.stringify(data)
+    })
+    if (response.ok) {
+        
+        const data = await response.json()
+        return data
+
+    }
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+}
+
 export const editUser = async (data = {},id,token) => {
  
     const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/users/${id}/`, {
@@ -216,15 +234,15 @@ export const getMyProperties = async (token) => {
 
 //final Step to create hostelmanager or change customer to hostel manager
 
-export const add_to_hostel_manager_table = async (subscriptionType,status,token,) => {
+export const add_to_hostel_manager_table = async (token,subscriptionType) => {
 const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/hostel_managers/create_hostel_manager/`, {
     method: 'POST',
     headers: {
 
         'Content-Type': 'application/json',
-        'Authorization':token 
+        'Authorization':`token ${token}`
     },
-    body: JSON.stringify({ subscriptionType:subscriptionType, status:status })
+    body: JSON.stringify({ subscriptionType:subscriptionType })
 })
   
 
@@ -241,11 +259,11 @@ throw new Error(errMessage)
 
 
 //retrieve hostel managers information
-export const getHostelManager = async (token, id) => {
-    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/hostel_managers/${id}`, {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json',
-                    'Authorization':`Token ${token}`
+export const getHostelManager = async (token) => {
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/users/is_manager/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json',
+                     'Authorization':`token ${token}`
                 }
     })
     if (response.ok) {

@@ -18,8 +18,9 @@ import Notification from './screens/notification';
 import Others from './screens/others';
 import Feedback from './screens/feedback';
 import Terms from './screens/terms';
-import LoginScreen from './screens/Login'
+import LoginScreen from './screens/Login';
 import ImageManagementScreen from './screens/imageManagementScreen';
+import checkManager from './screens/checkManager'
 
 import firebase from './screens/firebase';
 import ImagePicker from './screens/ImagesPicker/ImagesPicker';
@@ -196,6 +197,9 @@ export default function App(props) {
               options={{ headerShown: false, }}
               component={ImageManagementScreen} />
 
+         <Stack.Screen name="checkManager"
+              options={{ headerShown: false, }}
+              component={checkManager} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>

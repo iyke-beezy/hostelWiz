@@ -37,15 +37,14 @@ class ImageManagementScreen extends React.Component {
   }
 
   postPhotos = async () => {
+    const token = await AsyncStorage.getItem("userToken");
+    console.log(this.state.id)
     for (var i = 0; i < this.state.photos.length; i++) {
-      let body = new FormData();
       console.log(this.state.photos[i])
-      // body.append('image', this.state.photos[i].uri,this.state.photos[i].name);
+      let body = new FormData();
+      body.append('image',this.state.photos[i],this.state.photos[i].name);
       body.append('property', this.state.id);
-      let token = await AsyncStorage.getItem("userToken");
-      // body.append('image', {uri: this.state.photos[i],name:Z,filename :Z});
-      // body.append('Content-Type', 'image/png')
-      let url = 'https://hostelwiz.herokuapp.com/hostelwiz/images/';
+     /* let url = 'https://hostelwiz.herokuapp.com/hostelwiz/images/';
       axios.post(url, body, {
         headers: {
           'content-type': 'multipart/form-data',
@@ -56,9 +55,11 @@ class ImageManagementScreen extends React.Component {
           console.log(res.data);
         })
         .catch(err => console.log(err))
-    }
-    //const upload = await post_images(body,token)
-    //console.log(upload)
+    */
+   const upload = await post_images(body,token)
+   console.log(upload)
+   }
+   
   }
 
   renderImage(item, i) {
@@ -85,8 +86,16 @@ class ImageManagementScreen extends React.Component {
     //  this.getPhotos()
     // this._unSubscribe = this.props.navigation.addListener('blur', () => {
     //console.log(Images)
-    this.getPhotos()
+    this.getPhotos();
+   this.getid();
     //  });
+  }
+
+
+  getid = async() =>{
+    let property_id = await AsyncStorage.getItem("property_id");
+    let p_id = JSON.parse(property_id)
+    this.setState({id:p_id})
   }
 
   UNSAFE_componentWillMount() {
@@ -144,7 +153,7 @@ class ImageManagementScreen extends React.Component {
             <Button
               buttonStyle={styles.secNextButton}
               // disabled={!this.state.headline || !this.state.description || !this.state.location }
-              onPress={() => { this.setState({ screen: 'seven' }); this.postPhotos() }}
+              onPress={() => { this.postPhotos();this.props.navigation.navigate('HMnav',{screen:'ManagerProperty'}); }}
               title="Next"
             />
           </View>}

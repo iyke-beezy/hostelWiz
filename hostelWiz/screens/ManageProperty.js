@@ -7,7 +7,7 @@ import { SliderBox } from "react-native-image-slider-box";
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
 import styles from './explore-styles'
-import { getMyProperties } from '../api';
+import { getMyProperties,getHostelManager } from '../api';
 
 
 class ManageProperty extends React.Component {
@@ -17,6 +17,7 @@ class ManageProperty extends React.Component {
     save: false,
     property: [],
     token: null,
+    isManager:false,
     images: [
       "https://source.unsplash.com/1024x768/?nature",
       "https://source.unsplash.com/1024x768/?water",
@@ -28,6 +29,7 @@ class ManageProperty extends React.Component {
 
   componentDidMount() {
     this.getToken();
+    this.getManager();
   }
   getToken = async () => {
     try {
@@ -45,6 +47,21 @@ class ManageProperty extends React.Component {
       const data = await getMyProperties(this.state.token);
       console.log(data); 
       this.setState({ property: data.result, save: true }); 
+    }
+    catch (err) {
+      console.log(err)
+    }
+    //this.setState({property:data});
+
+
+  }
+
+  getManager = async () => {
+    try {
+      console.log(this.state.token);
+      const datas = await getHostelManager(this.state.token);
+      console.log(datas); 
+    
     }
     catch (err) {
       console.log(err)
