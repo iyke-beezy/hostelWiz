@@ -9,7 +9,7 @@ import { Asset } from 'expo-asset';
 import { AppLoading } from 'expo';
 const screenHeight = Math.round(Dimensions.get('window').height);
 const screenWidth = Math.round(Dimensions.get('window').width);
-import { getProperties, searchProperty, saveProperties, getSavedProperties, getUser } from '../../api';
+import { filterProperty, searchProperty, saveProperties, getSavedProperties, getUser } from '../../api';
 import styles from './styles'
 
 class Apartments extends React.Component {
@@ -55,18 +55,19 @@ class Apartments extends React.Component {
       console.log(err.errMessage)
     }
   }
-/* Get Properties based on filter
+/* Get Properties based on filter */
   getProperties = async () => {
     try {
-      const data = await getProperties();
-      this.setState({ property: data });
+      const data = await filterProperty(this.state.filter);
+      //console.log(data)
+      this.setState({ property: data.result });
       //console.log(this.state.property)
     } catch (err) {
       console.log(err.errMessage)
     }
 
   }
-  */
+  
 
   saveProperty = async (property_id) => {
     try {
@@ -185,11 +186,13 @@ class Apartments extends React.Component {
                   <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={styles.belowSearchBar}>
                       <Text style={{ fontSize: 25, fontFamily: 'Baloo-Paaji-Medium' }}>
-                        Explore Hostels
+                        Explore Apartments
                       </Text>
 
                       {/* Max card details */}
-                      {this.state.property.map(property => {
+                      {this.state.property.length > 0 ?
+
+                        this.state.property.map(property => {
                         return (
                           <View key={property.id} style={styles.maxCardComponent}>
                             <TouchableHighlight onPress={() => this.props.navigation.navigate('details', { property: property, token: this.state.token, save: this.checkIfIdExistInSave(property.id) })}>
@@ -252,10 +255,12 @@ class Apartments extends React.Component {
                           </View>
                         );
 
-                      })}
-
-
-
+                      })
+                      :
+                      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                        <Text style={{fontFamily: 'Baloo-Paaji-Medium', fontSize: 25}}>None Found</Text>
+                      </View>
+                      }
                     </View>
                   </ScrollView>
                   :
