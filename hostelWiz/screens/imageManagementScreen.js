@@ -29,7 +29,7 @@ class ImageManagementScreen extends React.Component {
       if (photos) this.setState({
         photos
       })
-      console.log(photos)
+      //console.log(photos)
     }
     catch (error) {
       console.log(error)
@@ -37,23 +37,26 @@ class ImageManagementScreen extends React.Component {
   }
 
   postPhotos = async () => {
-    for (var i = 0; i < this.state.photos.length; i++) {
+    const {photos} = this.state
+    for (var i = 0; i < photos.length; i++) {
       let body = new FormData();
-      console.log(this.state.photos[i])
-      // body.append('image', this.state.photos[i].uri,this.state.photos[i].name);
+      //console.log(photos[i].uri)
+      body.append('image', {uri: photos[i].uri, name:photos[i].name, type: 'image/jpg'});
       body.append('property', this.state.id);
       let token = await AsyncStorage.getItem("userToken");
-      // body.append('image', {uri: this.state.photos[i],name:Z,filename :Z});
+      // body.append('image', {uri: photos[i],name:Z,filename :Z});
       // body.append('Content-Type', 'image/png')
       let url = 'https://hostelwiz.herokuapp.com/hostelwiz/images/';
       axios.post(url, body, {
         headers: {
-          'content-type': 'multipart/form-data',
+          'Accept': 'application/json',
+          'Content-Type': 'multipart/form-data',
           'Authorization': `Token ${token}`
         }
       })
         .then(res => {
           console.log(res.data);
+          this.props.navigation.navigate('HMnav', {screen: 'HostingPage', params:{screen: 'seven'}})
         })
         .catch(err => console.log(err))
     }
@@ -144,7 +147,7 @@ class ImageManagementScreen extends React.Component {
             <Button
               buttonStyle={styles.secNextButton}
               // disabled={!this.state.headline || !this.state.description || !this.state.location }
-              onPress={() => { this.setState({ screen: 'seven' }); this.postPhotos() }}
+              onPress={() => { this.postPhotos() }}
               title="Next"
             />
           </View>}
