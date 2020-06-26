@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Keyboard, StyleSheet, TouchableHighlight, Text, View, TouchableOpacity, ScrollView, AsyncStorage, Dimensions } from 'react-native';
+import { Keyboard,RefreshControl, StyleSheet, TouchableHighlight, Text, View, TouchableOpacity, ScrollView, AsyncStorage, Dimensions } from 'react-native';
 import { AntDesign, Entypo, FontAwesome5, EvilIcons } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 import { Card, Button, Icon } from 'react-native-elements';
@@ -18,6 +18,7 @@ class ManageProperty extends React.Component {
     property: [],
     token: null,
     isManager:false,
+    refresh:false,
     images: [
       "https://source.unsplash.com/1024x768/?nature",
       "https://source.unsplash.com/1024x768/?water",
@@ -31,6 +32,19 @@ class ManageProperty extends React.Component {
     this.getToken();
     this.getManager();
   }
+
+  setRefreshing = () =>{
+    this.setState({refresh:true});
+    this.getProperties();
+    this.wait(2000).then(() => this.setState({refresh:false}));
+  }
+
+   wait =(timeout)=> {
+    return new Promise(resolve => {
+      setTimeout(resolve, timeout);
+    });
+  }
+
   getToken = async () => {
     try {
       let userToken = await AsyncStorage.getItem("userToken");
@@ -97,14 +111,25 @@ class ManageProperty extends React.Component {
         {
 
           this.state.property.length == 0 || this.state.property === undefined ? (
+            <ScrollView showsVerticalScrollIndicator={false}
+              refreshControl={
+                <RefreshControl refreshing={this.state.refresh} onRefresh={this.setRefreshing} />
+              }
+              >
+                
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
               <Text style={{ color: 'grey' }}> You have not posted any properties</Text>
             </View>
+            </ScrollView>
 
           )
             :
             (
-              <ScrollView showsVerticalScrollIndicator={false}>
+              <ScrollView showsVerticalScrollIndicator={false}
+              refreshControl={
+                <RefreshControl refreshing={this.state.refresh} onRefresh={this.setRefreshing} />
+              }
+              >
                 <View style={styles.belowSearchBar}>
 
                   <Text style={{ fontSize: 25, fontFamily: 'Baloo-Paaji-Medium' }}>

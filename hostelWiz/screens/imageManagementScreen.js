@@ -18,9 +18,12 @@ class ImageManagementScreen extends React.Component {
       hasCameraRollPermission: null,
       image: [],
       photos: [],
-      id: 4
+      id: 4,
+      refresh:false,
     };
   }
+
+ 
 
   getPhotos = async () => {
     try {
@@ -44,6 +47,7 @@ class ImageManagementScreen extends React.Component {
       body.append('image', {uri: photos[i].uri, name:photos[i].name, type: 'image/jpg'});
       body.append('property', this.state.id);
       let token = await AsyncStorage.getItem("userToken");
+      console.log(photos[i])
       // body.append('image', {uri: photos[i],name:Z,filename :Z});
       // body.append('Content-Type', 'image/png')
       let url = 'https://hostelwiz.herokuapp.com/hostelwiz/images/';

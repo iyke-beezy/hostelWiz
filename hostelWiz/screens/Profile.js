@@ -163,7 +163,7 @@ class ProfileScreen extends React.Component {
                 <Text style={styles.itemText}>
                   <FontAwesome size={25} color={'#92A5A3'} name={'bell'} />   Notifications
          </Text></TouchableOpacity>
-              <TouchableOpacity style={styles.item} onPress={() => this.props.navigation.navigate('checkManager')}>
+              <TouchableOpacity style={styles.item} onPress={() => this.getManager()}>
                 <Text style={styles.itemText}>
                   <FontAwesome size={25} color={'#92A5A3'} name={'exchange'} />   Become a hostel manager
          </Text></TouchableOpacity>

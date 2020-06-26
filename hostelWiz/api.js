@@ -104,9 +104,9 @@ export const create_property = async (token,data) => {
     throw new Error(errMessage)
 }
 
-export const editUser = async (data = {},id,token) => {
+export const editUser = async (data,id,token) => {
  
-    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/users/${id}/`, {
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/users/update/`, {
 
         method: 'PUT',
         headers: { 'Content-Type': 'application/json',

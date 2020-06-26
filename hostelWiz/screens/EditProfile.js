@@ -56,7 +56,6 @@ class EditProfile extends React.Component{
       try {
           const data = {
               username: this.state.username,
-              password: 'isaacbotwe',
               first_name: this.state.first_name,
               last_name: this.state.last_name,
               email: this.state.email,

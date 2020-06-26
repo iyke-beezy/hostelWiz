@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, TouchableHighlight, TouchableOpacity, Dimensions, ScrollView, AsyncStorage } from 'react-native';
+import { Text, View,RefreshControl, TouchableHighlight, TouchableOpacity, Dimensions, ScrollView, AsyncStorage } from 'react-native';
 import { Card } from 'react-native-elements';
 import { Searchbar } from 'react-native-paper';
 import { AntDesign } from '@expo/vector-icons';
@@ -25,7 +25,8 @@ class ExploreScreen extends React.Component {
     //token:1,
     token: null,//this.props.route.params.t,
     images: [],
-    responseMessage: null
+    responseMessage: null,
+    refresh:false,
   }
 
   componentDidMount() {
@@ -44,6 +45,20 @@ class ExploreScreen extends React.Component {
     } catch (error) {
       console.log("Something went wrong", error);
     }
+  }
+  setRefreshing = () =>{
+    this.setState({refresh:true});
+    this.getToken();
+    this.getProperties();
+    this.wait(2000).then(() => this.setState({refresh:false}));
+  }
+
+  
+
+   wait =(timeout)=> {
+    return new Promise(resolve => {
+      setTimeout(resolve, timeout);
+    });
   }
   getSaveProperties = async () => {
     try {
@@ -170,7 +185,9 @@ class ExploreScreen extends React.Component {
             <View style={styles.container}>
               <ScrollView
                 stickyHeaderIndices={[0]}
-                showsVerticalScrollIndicator={false}>
+                showsVerticalScrollIndicator={false}
+               
+                >
                 <View style={styles.SearchBar}>
                   <Searchbar
                     placeholder="Search"
@@ -181,7 +198,9 @@ class ExploreScreen extends React.Component {
               </ScrollView>
               {
                 this.state.searchQuery === '' ?
-                  <ScrollView showsVerticalScrollIndicator={false}>
+                  <ScrollView showsVerticalScrollIndicator={false}  refreshControl={
+                    <RefreshControl refreshing={this.state.refresh} onRefresh={this.setRefreshing} />
+                  }>
                     <View style={styles.belowSearchBar}>
                       <Text style={{ fontSize: 25, fontFamily: 'Baloo-Paaji-Medium' }}>
                         Explore Hostel Wiz
@@ -280,7 +299,7 @@ class ExploreScreen extends React.Component {
                   </ScrollView>
                   :
                   //screen to show when user searches for hoste
-                  <ScrollView>
+                  <ScrollView  >
                     <View style={styles.belowSearchBar}>
 
                       {/* Max card details */}
