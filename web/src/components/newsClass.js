@@ -8,7 +8,7 @@ const NewsClass=(props)=>{
             {
                 props.forNews?
                 (<div><div>
-                <h1 style={{fontSize:55}}>Latest News</h1>
+                <h1 style={{fontSize:60,fontWeight:'bolder'}}>Latest News</h1>
              </div>
          <div style={{display:'flex',flexDirection:'row',flexWrap:'wrap',justifyContent:'space-between'}}>
             <News></News>

@@ -34,6 +34,7 @@ import Trust from '../components/trust';
 import Accessibility from '../components/accessibility';
 import FAQS from '../components/faqs';
 import NewsRoom from '../components/newsroom';
+import Help from '../components/help';
 library.add(faStar)
 
 class App extends Component {
@@ -51,6 +52,8 @@ class App extends Component {
             <Route path="/listing" component={Subscribe} />
             <Route path="/join" component={Join} />
             <Route path="/terms" component={Terms} />
+            <Route path="/help" component={Help} />
+            
             <Route path="/trust" component={Trust} />
             <Route path="/faqs" component={FAQS} />
             <Route path="/newsroom" component={NewsRoom} />
