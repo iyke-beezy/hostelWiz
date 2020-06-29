@@ -7,7 +7,7 @@ import { SliderBox } from "react-native-image-slider-box";
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
 import styles from './explore-styles'
-import { getMyProperties,getHostelManager } from '../api';
+import { getMyProperties,getHostelManager,deleteProperty } from '../api';
 
 
 class ManageProperty extends React.Component {
@@ -33,6 +33,12 @@ class ManageProperty extends React.Component {
     this.getManager();
   }
 
+  edit_property = async(property) => {
+    
+    await AsyncStorage.setItem("property_to_edit", JSON.stringify(property));
+    this.props.navigation.navigate('editProperty',{property:property})
+  }
+
   setRefreshing = () =>{
     this.setState({refresh:true});
     this.getProperties();
@@ -56,6 +62,11 @@ class ManageProperty extends React.Component {
       console.log("Something went wrong", error);
     }
   }
+
+  delete_Property = async(token,id)=>{
+    const response = deleteProperty(id,token);
+  }
+
   getProperties = async () => {
     try {
       const data = await getMyProperties(this.state.token);
@@ -91,12 +102,13 @@ class ManageProperty extends React.Component {
 
 
   getImages = images => {
+    console.log(images);
     var imagesSet = []
-    for (var i = 0; i < images.length; i++) {
+    
       images.map(image => {
         imagesSet.push("https://hostelwiz.herokuapp.com" + image.image)
       })
-    }
+    
     //console.log(imagesSet)
     return imagesSet
   }
@@ -153,7 +165,7 @@ class ManageProperty extends React.Component {
 
 
                             <TouchableOpacity
-                              onPress={() => this.save()}
+                              onPress={() =>this.edit_property(property)}
                               style={styles.editButton}>
                               <View>
                              
@@ -162,7 +174,7 @@ class ManageProperty extends React.Component {
                               </View>
                             </TouchableOpacity>
                             <TouchableOpacity
-                              onPress={() => this.save()}
+                              onPress={() =>  this.delete_Property(this.state.token,property.id)}
                               style={styles.deleteButton}>
                               <View>
                                 <EvilIcons color='white' style={{ marginTop: 7 }} size={35} name="trash" />

@@ -56,7 +56,7 @@ class DetailsScreen extends React.Component {
 
   getImages = images => {
     var imagesSet = []
-    for (var i = 0; i < images.length; i++) {
+   
       images.map(image => {
         if (image.image.startsWith("https://hostelwiz.herokuapp.com")) {
           imagesSet.push(image.image)
@@ -65,7 +65,8 @@ class DetailsScreen extends React.Component {
           imagesSet.push("https://hostelwiz.herokuapp.com" + image.image)
         }
       })
-    }
+    
+    console.log(images)
     console.log(imagesSet)
     return imagesSet
   }

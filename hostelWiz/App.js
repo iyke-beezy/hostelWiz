@@ -21,7 +21,8 @@ import Terms from './screens/terms';
 import LoginScreen from './screens/Login';
 import ImageManagementScreen from './screens/imageManagementScreen';
 import checkManager from './screens/checkManager'
-
+import EditProperty from './screens/EditProperty';
+import EditImage from './screens/EditImage';
 import firebase from './screens/firebase';
 import ImagePicker from './screens/ImagesPicker/ImagesPicker';
 import Hostels from './screens/Hostels';
@@ -200,7 +201,19 @@ export default function App(props) {
          <Stack.Screen name="checkManager"
               options={{ headerShown: false, }}
               component={checkManager} />
+
+          
+         <Stack.Screen name="editProperty"
+              options={{ headerShown: false, }}
+              component={EditProperty} />
+
+          
+         <Stack.Screen name="editImage"
+              options={{ headerShown: false, }}
+              component={EditImage} />  
+
           </Stack.Navigator>
+          
         </NavigationContainer>
       </View>
     );

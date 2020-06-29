@@ -104,6 +104,24 @@ export const create_property = async (token,data) => {
     throw new Error(errMessage)
 }
 
+export const edit_property = async (token,data) => {
+ 
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/create_property/`, {
+        method: 'PUT',
+        headers: {  'Content-Type': 'application/json',
+                    'Authorization':`token ${token}`, },
+        body: JSON.stringify(data)
+    })
+    if (response.ok) {
+        
+        const data = await response.json()
+        return data
+
+    }
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+}
+
 export const editUser = async (data,id,token) => {
  
     const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/users/update/`, {
@@ -113,6 +131,23 @@ export const editUser = async (data,id,token) => {
                    'Authorization':`token ${token}`,
      },
         body: JSON.stringify(data)
+    })
+    if (response.ok) {
+        return true
+    }
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+}
+
+export const deleteProperty = async (id,token) => {
+ 
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/${id}/`, {
+
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json',
+                   'Authorization':`token ${token}`,
+     },
+      
     })
     if (response.ok) {
         return true
@@ -293,3 +328,22 @@ export const post_images = async (body,token) => {
     throw new Error(errMessage)
 
 }
+
+export const delete_images = async (id) => {
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/images/${id}/`, {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json',
+                   // 'Authorization':`Token ${token}`
+                },
+         body: body
+    })
+    if (response.ok) {
+        const manager = await response.json() 
+        return manager
+    }
+
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+
+}
+
