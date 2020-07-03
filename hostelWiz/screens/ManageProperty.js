@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Keyboard, StyleSheet, TouchableHighlight, Text, View, TouchableOpacity, ScrollView, AsyncStorage, Dimensions } from 'react-native';
+import { Keyboard,RefreshControl, StyleSheet, TouchableHighlight, Text, View, TouchableOpacity, ScrollView, AsyncStorage, Dimensions } from 'react-native';
 import { AntDesign, Entypo, FontAwesome5, EvilIcons } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 import { Card, Button, Icon } from 'react-native-elements';
@@ -7,7 +7,7 @@ import { SliderBox } from "react-native-image-slider-box";
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
 import styles from './explore-styles'
-import { getMyProperties } from '../api';
+import { getMyProperties,getHostelManager,deleteProperty } from '../api';
 
 
 class ManageProperty extends React.Component {
@@ -17,6 +17,8 @@ class ManageProperty extends React.Component {
     save: false,
     property: [],
     token: null,
+    isManager:false,
+    refresh:false,
     images: [
       "https://source.unsplash.com/1024x768/?nature",
       "https://source.unsplash.com/1024x768/?water",
@@ -28,7 +30,27 @@ class ManageProperty extends React.Component {
 
   componentDidMount() {
     this.getToken();
+    this.getManager();
   }
+
+  edit_property = async(property) => {
+    
+    await AsyncStorage.setItem("property_to_edit", JSON.stringify(property));
+    this.props.navigation.navigate('editProperty',{property:property})
+  }
+
+  setRefreshing = () =>{
+    this.setState({refresh:true});
+    this.getProperties();
+    this.wait(2000).then(() => this.setState({refresh:false}));
+  }
+
+   wait =(timeout)=> {
+    return new Promise(resolve => {
+      setTimeout(resolve, timeout);
+    });
+  }
+
   getToken = async () => {
     try {
       let userToken = await AsyncStorage.getItem("userToken");
@@ -40,11 +62,31 @@ class ManageProperty extends React.Component {
       console.log("Something went wrong", error);
     }
   }
+
+  delete_Property = async(token,id)=>{
+    const response = deleteProperty(id,token);
+  }
+
   getProperties = async () => {
     try {
       const data = await getMyProperties(this.state.token);
       console.log(data); 
       this.setState({ property: data.result, save: true }); 
+    }
+    catch (err) {
+      console.log(err)
+    }
+    //this.setState({property:data});
+
+
+  }
+
+  getManager = async () => {
+    try {
+      console.log(this.state.token);
+      const datas = await getHostelManager(this.state.token);
+      console.log(datas); 
+    
     }
     catch (err) {
       console.log(err)
@@ -60,12 +102,13 @@ class ManageProperty extends React.Component {
 
 
   getImages = images => {
+    console.log(images);
     var imagesSet = []
-    for (var i = 0; i < images.length; i++) {
+    
       images.map(image => {
         imagesSet.push("https://hostelwiz.herokuapp.com" + image.image)
       })
-    }
+    
     //console.log(imagesSet)
     return imagesSet
   }
@@ -80,14 +123,25 @@ class ManageProperty extends React.Component {
         {
 
           this.state.property.length == 0 || this.state.property === undefined ? (
+            <ScrollView showsVerticalScrollIndicator={false}
+              refreshControl={
+                <RefreshControl refreshing={this.state.refresh} onRefresh={this.setRefreshing} />
+              }
+              >
+                
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
               <Text style={{ color: 'grey' }}> You have not posted any properties</Text>
             </View>
+            </ScrollView>
 
           )
             :
             (
-              <ScrollView showsVerticalScrollIndicator={false}>
+              <ScrollView showsVerticalScrollIndicator={false}
+              refreshControl={
+                <RefreshControl refreshing={this.state.refresh} onRefresh={this.setRefreshing} />
+              }
+              >
                 <View style={styles.belowSearchBar}>
 
                   <Text style={{ fontSize: 25, fontFamily: 'Baloo-Paaji-Medium' }}>
@@ -111,7 +165,7 @@ class ManageProperty extends React.Component {
 
 
                             <TouchableOpacity
-                              onPress={() => this.save()}
+                              onPress={() =>this.edit_property(property)}
                               style={styles.editButton}>
                               <View>
                              
@@ -120,7 +174,7 @@ class ManageProperty extends React.Component {
                               </View>
                             </TouchableOpacity>
                             <TouchableOpacity
-                              onPress={() => this.save()}
+                              onPress={() =>  this.delete_Property(this.state.token,property.id)}
                               style={styles.deleteButton}>
                               <View>
                                 <EvilIcons color='white' style={{ marginTop: 7 }} size={35} name="trash" />

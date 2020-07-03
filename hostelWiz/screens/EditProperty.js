@@ -5,7 +5,7 @@ import { AntDesign} from '@expo/vector-icons';
 import { RadioButton } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Select, InputLabel, MenuItem } from '@material-ui/core';
-import { create_property } from '../api';
+import { edit_property } from '../api';
 import axios from 'axios';
 
 import ImageBrowser from './ImageBrowser'
@@ -14,32 +14,37 @@ import ImageBrowser from './ImageBrowser'
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
 var Images = []
-class HostingScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+
+
+
+class EditProperty extends React.Component {
+
+    state = {
+      property:this.props.route.params.property,
       selectedValue: '',
       type: '',
-      name: '',
-      location: '',
-      headline: '',
-      description: '',
-      price: '',
+      name: this.props.route.params.property.name,
+      address: this.props.route.params.property.address,
+      city: this.props.route.params.property.city,
+      region: this.props.route.params.property.region,
+      headline: this.props.route.params.property.headline,
+      description: this.props.route.params.property.description,
+      price: this.props.route.params.property.price,
       found: false,
-      rate_type: 'month',
-      number_of_rooms: 0,
+      rate_type: this.props.route.params.property.rate_type,
+      number_of_rooms: this.props.route.params.property.number_of_rooms,
       Single: false,
       Duo: false,
       Trio: false,
       Quadro: false,
       building_type: 'hostel',
-      hostel_type:'hostel',
-      wifi: false,
-      tv_room: false,
-      car_park: false,
-      gym: false,
-      laundry: false,
-      study_room: false,
+      hostel_type:this.props.route.params.property.hostel_type,
+      wifi: this.props.route.params.property.wifi,
+      tv_room: this.props.route.params.property.tv_room,
+      car_park: this.props.route.params.property.car_park,
+      gym: this.props.route.params.property.gym,
+      laundry: this.props.route.params.property.laundry,
+      study_room: this.props.route.params.property.study_room,
       screen: 'one',
       private: false,
       shared: false,
@@ -47,18 +52,18 @@ class HostingScreen extends React.Component {
       duo: false,
       trio: false,
       quatro: false,
-      bathroom_value: '',
-      bedroom_value: '',
+      bathroom_value: this.props.route.params.property.bathroom_value,
+      bedroom_value: this.props.route.params.property.bedroom_value,
       hasCameraPermission: null,
       hasCameraRollPermission: null,
       image: [],
       photos: [],
       id:4,
-      bedroom_number:null,
-      bathroom_number:null,
-      accomodates:0,
+      bedroom_number:this.props.route.params.property.bedrooms,
+      bathroom_number:this.props.route.params.property.bathrooms,
+      accomodates:this.props.route.params.property.accomodates,
     };
-  }
+  
 
   
   postProperties = async() =>{
@@ -91,9 +96,8 @@ class HostingScreen extends React.Component {
             bathroom_type : this.state.bathroom_value,
             bedroom_type : this.state.bedroom_value,
           }
-          const response = await create_property(token,data);
-          console.log(response.result.id)
-          await AsyncStorage.setItem("property_id", JSON.stringify(response.result.id));
+          const response = await edit_property(token,data);
+         
     }
     catch (error) {
       console.log(error)
@@ -108,12 +112,29 @@ class HostingScreen extends React.Component {
   }
 
   componentDidMount() {
+
+    console.log(this.state.property);
+
     if(this.props.route.params){
       this.setState({screen: this.props.route.params.screen})
     }
     this._unSubscribe = this.props.navigation.addListener('blur', () => {
       
     });
+  }
+
+  getProperty = async () => {
+    try {
+      let userToken = await AsyncStorage.getItem("userToken");
+      let data = JSON.parse(userToken)
+      let property = await AsyncStorage.getItem("property_to_edit")
+      let property_to_edit = JSON.parse(property)
+      this.setState({token: data})
+      this.setState({property:property_to_edit})
+      console.log(property_to_edit);
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
   }
 
   UNSAFE_componentWillMount() {
@@ -192,6 +213,7 @@ class HostingScreen extends React.Component {
               {this.state.building_type !== 'hostel' ?
                 <View>
                   <TextInput
+                    defaultValue={this.state.number_of_rooms}
                     placeholder="Number of rooms"
                     placeholderColor="#fff"
                     value={this.state.number_of_rooms}
@@ -801,4 +823,4 @@ const styles = StyleSheet.create({
 
 
 
-export default HostingScreen;
+export default EditProperty;

@@ -18,8 +18,28 @@ class ImageManagementScreen extends React.Component {
       hasCameraRollPermission: null,
       image: [],
       photos: [],
-      id: 4
+      id: 4,
+      refresh:false,
+      token:'',
     };
+  }
+
+
+  componentDidMount() {
+    // AsyncStorage.removeItem("photos")
+    //  this.getPhotos()
+    // this._unSubscribe = this.props.navigation.addListener('blur', () => {
+    //console.log(Images)
+    this.getPhotos();
+   this.getid();
+   this.gettoken();
+    //  });
+  }
+
+  setRefreshing(){
+    this (true);
+
+    wait(2000).then(() => setRefreshing(false));
   }
 
   getPhotos = async () => {
@@ -38,30 +58,32 @@ class ImageManagementScreen extends React.Component {
 
   postPhotos = async () => {
     const {photos} = this.state
+    
     for (var i = 0; i < photos.length; i++) {
+      
       let body = new FormData();
-      //console.log(photos[i].uri)
       body.append('image', {uri: photos[i].uri, name:photos[i].name, type: 'image/jpg'});
       body.append('property', this.state.id);
-      let token = await AsyncStorage.getItem("userToken");
-      // body.append('image', {uri: photos[i],name:Z,filename :Z});
-      // body.append('Content-Type', 'image/png')
       let url = 'https://hostelwiz.herokuapp.com/hostelwiz/images/';
       axios.post(url, body, {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'multipart/form-data',
-          'Authorization': `Token ${token}`
+        //  'Authorization': `Token ${this.state.token}`
         }
       })
         .then(res => {
           console.log(res.data);
-          this.props.navigation.navigate('HMnav', {screen: 'HostingPage', params:{screen: 'seven'}})
+         
         })
-        .catch(err => console.log(err))
-    }
-    //const upload = await post_images(body,token)
-    //console.log(upload)
+        .catch(err => console.log(err)) 
+    
+ // const upload = await post_images(body,this.state.token)
+ // console.log(upload)
+   }
+
+   //this.props.navigation.navigate('HMnav', {screen: 'HostingPage', params:{screen: 'seven'}})
+   
   }
 
   renderImage(item, i) {
@@ -83,14 +105,20 @@ class ImageManagementScreen extends React.Component {
     this.setState({ wifi: !this.state.wifi });
   }
 
-  componentDidMount() {
-    // AsyncStorage.removeItem("photos")
-    //  this.getPhotos()
-    // this._unSubscribe = this.props.navigation.addListener('blur', () => {
-    //console.log(Images)
-    this.getPhotos()
-    //  });
+
+
+
+  getid = async() =>{
+    let property_id = await AsyncStorage.getItem("property_id");
+    let p_id = JSON.parse(property_id)
+    this.setState({id:p_id})
   }
+
+  gettoken = async() =>{
+    let token = await AsyncStorage.getItem("userToken");
+    this.setState({token:token})
+  }
+
 
   UNSAFE_componentWillMount() {
     this._unSubscribe;
@@ -147,7 +175,7 @@ class ImageManagementScreen extends React.Component {
             <Button
               buttonStyle={styles.secNextButton}
               // disabled={!this.state.headline || !this.state.description || !this.state.location }
-              onPress={() => { this.postPhotos() }}
+              onPress={() => { this.postPhotos();this.props.navigation.navigate('HMnav',{screen:'ManagerProperty'}); }}
               title="Next"
             />
           </View>}

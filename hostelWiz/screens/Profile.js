@@ -8,6 +8,7 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 import Constants from 'expo-constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import firebase from 'firebase';
+import { getMyProperties,getHostelManager,add_to_hostel_manager_table } from '../api';
 
 class ProfileScreen extends React.Component {
   state = {
@@ -57,6 +58,24 @@ class ProfileScreen extends React.Component {
   getUserDetails = async () => {
     const profile = await getUser(this.state.token)
     this.setState({ user: profile.user })
+  }
+  getManager = async () => {
+    try {
+     
+      console.log(this.state.token);
+      const datas = await getHostelManager(this.state.token);
+      console.log(datas); 
+      if(datas.message === 'false'){
+        this.props.navigation.navigate('checkManager')
+      }
+      else{
+        this.props.navigation.navigate('HMnav')
+      }
+
+       }
+    catch (err) {
+      console.log(err)
+    }
   }
 
   switchRoute = (param) => {
@@ -144,7 +163,7 @@ class ProfileScreen extends React.Component {
                 <Text style={styles.itemText}>
                   <FontAwesome size={25} color={'#92A5A3'} name={'bell'} />   Notifications
          </Text></TouchableOpacity>
-              <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('hosting')}>
+              <TouchableOpacity style={styles.item} onPress={() => this.getManager()}>
                 <Text style={styles.itemText}>
                   <FontAwesome size={25} color={'#92A5A3'} name={'exchange'} />   Become a hostel manager
          </Text></TouchableOpacity>

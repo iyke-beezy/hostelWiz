@@ -94,11 +94,11 @@ class Apartments extends React.Component {
 
   getSearchedImages = images => {
     var imagesSet = []
-    for (var i = 0; i < images.length; i++) {
+
       images.map(image => {
         imagesSet.push("https://hostelwiz.herokuapp.com" + image.image)
       })
-    }
+    
     //console.log(imagesSet)
     return imagesSet
 
@@ -106,11 +106,11 @@ class Apartments extends React.Component {
 
   getImages = images => {
     var imagesSet = []
-    for (var i = 0; i < images.length; i++) {
+
       images.map(image => {
-        imagesSet.push(image.image)
+        imagesSet.push("https://hostelwiz.herokuapp.com" + image.image)
       })
-    }
+    
     //console.log(imagesSet)
     return imagesSet
 
