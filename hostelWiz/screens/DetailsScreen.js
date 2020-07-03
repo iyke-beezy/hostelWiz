@@ -173,11 +173,11 @@ class DetailsScreen extends React.Component {
                 <View style={styles.modalView}>
                   <Text style={styles.modalText}>Rate this hostel</Text>
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <TouchableOpacity onPress={() => { this.setState({ newRating: 1 }) }}> <AntDesign size={20} color={this.state.newRating > 0 ? 'orange' : 'grey'} name="star" /></TouchableOpacity>
-                    <TouchableOpacity onPress={() => { this.setState({ newRating: 2 }) }}>      <AntDesign size={20} color={this.state.newRating > 1 ? 'orange' : 'grey'} name="star" /></TouchableOpacity>
-                    <TouchableOpacity onPress={() => { this.setState({ newRating: 3 }) }}> <AntDesign size={20} color={this.state.newRating > 2 ? 'orange' : 'grey'} name="star" /></TouchableOpacity>
+                    <TouchableOpacity onPress={() => { this.setState({ newRating: 1 }) }}><AntDesign size={20} color={this.state.newRating > 0 ? 'orange' : 'grey'} name="star" /></TouchableOpacity>
+                    <TouchableOpacity onPress={() => { this.setState({ newRating: 2 }) }}><AntDesign size={20} color={this.state.newRating > 1 ? 'orange' : 'grey'} name="star" /></TouchableOpacity>
+                    <TouchableOpacity onPress={() => { this.setState({ newRating: 3 }) }}><AntDesign size={20} color={this.state.newRating > 2 ? 'orange' : 'grey'} name="star" /></TouchableOpacity>
                     <TouchableOpacity onPress={() => { this.setState({ newRating: 4 }) }}><AntDesign size={20} color={this.state.newRating > 3 ? 'orange' : 'grey'} name="star" /></TouchableOpacity>
-                    <TouchableOpacity onPress={() => { this.setState({ newRating: 5 }) }}> <AntDesign size={20} color={this.state.newRating > 4 ? 'orange' : 'grey'} name="star" /></TouchableOpacity>
+                    <TouchableOpacity onPress={() => { this.setState({ newRating: 5 }) }}><AntDesign size={20} color={this.state.newRating > 4 ? 'orange' : 'grey'} name="star" /></TouchableOpacity>
                   </View>
                   <TouchableHighlight
                     style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
