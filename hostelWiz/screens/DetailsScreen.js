@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { Keyboard, Modal, Image, TouchableOpacity, ScrollView, Linking, Text, View, Alert, AsyncStorage, Dimensions, TouchableHighlight } from 'react-native';
+import { Modal, Image, TouchableOpacity, ScrollView, Linking, Text, View, Alert, AsyncStorage, Dimensions, TouchableHighlight } from 'react-native';
 import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
 import styles from "../style";
 import Colors from '../constants/Colors';
 const screenWidth = Math.round(Dimensions.get('window').width);
-const screenHeight = Math.round(Dimensions.get('window').height);
 import { rateProperties, getHostelManager } from '../api'
 
 class DetailsScreen extends React.Component {
@@ -100,6 +99,11 @@ class DetailsScreen extends React.Component {
             <View style={styles.detailTitle}>
               <Text style={[styles.mainTitle, { marginBottom: -8 }]}>{this.state.hostel.name}</Text>
               <Text style={styles.subTitle}>{this.state.hostel.location}</Text>
+              <View style={styles.rateNow}>
+                <TouchableOpacity onPress={this.setState({modalVisible: !this.state.modalVisible})}>
+                  <Text> Rate Now</Text>
+                </TouchableOpacity>
+              </View>
               <View style={styles.rating}>
                 <AntDesign size={20} color={property.avg_rating > 0 ? 'orange' : Colors.tabIconDefault} name="star" />
                 <AntDesign size={20} color={property.avg_rating > 1 ? 'orange' : Colors.tabIconDefault} name="star" />
@@ -108,6 +112,7 @@ class DetailsScreen extends React.Component {
                 <AntDesign size={20} color={property.avg_rating > 4 ? 'orange' : Colors.tabIconDefault} name="star" />
                 <Text> ({property.no_of_ratings}) </Text>
               </View>
+              
             </View>
           </View>
         </ScrollView>

@@ -148,6 +148,13 @@ export default {
     flexDirection: 'row',
     alignItems: 'flex-start'
   },
+
+  rateNow: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-end'
+  },
+
   spaceBelowContent: {
     flex: 1,
     flexDirection: 'row',
