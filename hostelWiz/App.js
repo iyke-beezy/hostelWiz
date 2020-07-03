@@ -155,8 +155,7 @@ export default function App(props) {
 
             <Stack.Screen name="details"
               options={{
-                headerShown: false,
-                title: 'Selected 0 files',
+                headerShown: false
               }}
               component={DetailsScreen} />
 

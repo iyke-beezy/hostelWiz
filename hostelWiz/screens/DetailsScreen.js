@@ -15,6 +15,7 @@ class DetailsScreen extends React.Component {
     token: null,
     newRating: 0,
     modalVisible: false,
+    manager: null
   };
   componentDidMount() {
     this.getToken()
@@ -22,11 +23,13 @@ class DetailsScreen extends React.Component {
   save = () => {
     this.setState({ save: !this.state.save })
   }
-  async getToken() {
+
+  getToken = async () => {
     try {
       let userToken = await AsyncStorage.getItem("userToken");
       let token = JSON.parse(userToken)
       this.setState({ token })
+      this.getHostelManager()
     } catch (error) {
       console.log("Something went wrong", error);
     }
@@ -39,17 +42,17 @@ class DetailsScreen extends React.Component {
   rate = async () => {
     const hostel = this.state.hostel
     const data = await rateProperties(hostel.id, this.state.token, this.state.newRating);
-
+    console.log(data)
   }
 
-  getHostelManager = async (id) => {
+  getHostelManager = async () => {
+    const id = this.state.property.manager
     try {
       const data = await getHostelManager(this.state.token, id)
-      return data.user.contact
+      this.setState({manager: data.user})
     }
-    catch(err) {
+    catch (err) {
       console.log(err)
-      return null
     }
   }
 
@@ -65,13 +68,14 @@ class DetailsScreen extends React.Component {
         }
       })
     }
-    console.log(imagesSet)
     return imagesSet
   }
 
 
   render() {
     const property = this.state.hostel
+    console.log(this.state.manager)
+    
     return (
       <View style={styles.detailContainer} >
         <ScrollView stickyHeaderIndices={[0]}
@@ -98,12 +102,7 @@ class DetailsScreen extends React.Component {
             </View>
             <View style={styles.detailTitle}>
               <Text style={[styles.mainTitle, { marginBottom: -8 }]}>{this.state.hostel.name}</Text>
-              <Text style={styles.subTitle}>{this.state.hostel.location}</Text>
-              <View style={styles.rateNow}>
-                <TouchableOpacity onPress={this.setState({modalVisible: !this.state.modalVisible})}>
-                  <Text> Rate Now</Text>
-                </TouchableOpacity>
-              </View>
+              <Text style={styles.subTitle}>{this.state.hostel.region}</Text>
               <View style={styles.rating}>
                 <AntDesign size={20} color={property.avg_rating > 0 ? 'orange' : Colors.tabIconDefault} name="star" />
                 <AntDesign size={20} color={property.avg_rating > 1 ? 'orange' : Colors.tabIconDefault} name="star" />
@@ -112,8 +111,13 @@ class DetailsScreen extends React.Component {
                 <AntDesign size={20} color={property.avg_rating > 4 ? 'orange' : Colors.tabIconDefault} name="star" />
                 <Text> ({property.no_of_ratings}) </Text>
               </View>
-              
+
             </View>
+            {/* <View style={styles.rateNow}>
+              <TouchableOpacity onPress={() => this.setState({ modalVisible: !this.state.modalVisible })}>
+                <Text> Rate Now</Text>
+              </TouchableOpacity>
+            </View> */}
           </View>
         </ScrollView>
 
@@ -127,8 +131,11 @@ class DetailsScreen extends React.Component {
             {this.getImages(property.images).map(image => <Image key={image} style={styles.detailImages} source={{ uri: `${image}` }} />)}
           </ScrollView>
           <View style={{ paddingRight: screenWidth * 0.07, flex: 1, flexDirection: 'column', paddingBottom: 10 }}>
-            <Text style={styles.detailText}>
-              {this.state.hostel.description} </Text>
+          <View style={styles.manager}>
+            <Text style="managerSubTitle">hosted by: </Text>
+            {/* <Text style="managerTitle"> {manager.first_name} {manager.last_name}</Text> */}
+          </View>
+            <Text style={styles.detailText}> {this.state.hostel.description} </Text>
             <Text style={styles.detailTitleText}>Single Room                           [YES]</Text>
             <Text style={styles.detailTitleText}>2 in a Room                           [YES]</Text>
             <Text style={styles.detailTitleText}>3 in a Room                           [YES]</Text>
@@ -141,10 +148,9 @@ class DetailsScreen extends React.Component {
         <View style={styles.spaceBelow}>
           <View style={styles.spaceBelowContent}>
             <TouchableOpacity style={styles.callButton}
-              onPress={async () => { 
-                const phone = await this.getHostelManager(property.manager)
-                Linking.openURL(`tel:${phone}`) 
-                }
+              onPress={() => {
+                //Linking.openURL(`tel:${manager.contact}`)
+              }
               }
             >
               {/* <Button
@@ -152,8 +158,14 @@ class DetailsScreen extends React.Component {
                 buttonStyle={{ borderRadius: 5, height: screenHeight / 15, backgroundColor: 'gold' }} /> */}
               <AntDesign name="phone" size={20} color="black" />
             </TouchableOpacity>
-            <View style={styles.detailPriceAndRating}>
-              <Text style={{ fontSize: 15, fontFamily: 'Baloo-Paaji' }} >Ghc {this.state.hostel.price}</Text>
+            <View style={styles.detailRating}>
+              <Text style={{ fontSize: 15, fontFamily: 'Baloo-Paaji', textAlign: 'center' }} >Ghc {this.state.hostel.price}</Text>
+              <View style={[styles.rating, {marginTop: -3}]}>
+              <Text style={{ fontSize: 13, fontFamily: 'Baloo-Paaji', paddingRight: 5 }} >/{this.state.hostel.rate_type}</Text>
+                <AntDesign size={15} color={property.avg_rating > 0 ? 'orange' : Colors.tabIconDefault} name="star" />
+                <Text style={{ fontSize: 15, fontFamily: 'Baloo-Paaji', marginTop: -2 }}>{property.avg_rating}</Text>
+                <Text style={{ fontSize: 15, fontFamily: 'Baloo-Paaji', marginTop: -2  }}> ({property.no_of_ratings}) </Text>
+              </View>
             </View>
             <TouchableOpacity style={styles.rateButton}>
               {/* <Button
@@ -165,19 +177,19 @@ class DetailsScreen extends React.Component {
               animationType="slide"
               transparent={true}
               visible={this.state.modalVisible}
-              onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
-              }}
+              // onRequestClose={() => {
+              //   Alert.alert("Modal has been closed.");
+              // }}
             >
               <View style={styles.centeredView}>
                 <View style={styles.modalView}>
                   <Text style={styles.modalText}>Rate this hostel</Text>
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <TouchableOpacity onPress={() => { this.setState({ newRating: 1 }) }}><AntDesign size={20} color={this.state.newRating > 0 ? 'orange' : 'grey'} name="star" /></TouchableOpacity>
-                    <TouchableOpacity onPress={() => { this.setState({ newRating: 2 }) }}><AntDesign size={20} color={this.state.newRating > 1 ? 'orange' : 'grey'} name="star" /></TouchableOpacity>
-                    <TouchableOpacity onPress={() => { this.setState({ newRating: 3 }) }}><AntDesign size={20} color={this.state.newRating > 2 ? 'orange' : 'grey'} name="star" /></TouchableOpacity>
-                    <TouchableOpacity onPress={() => { this.setState({ newRating: 4 }) }}><AntDesign size={20} color={this.state.newRating > 3 ? 'orange' : 'grey'} name="star" /></TouchableOpacity>
-                    <TouchableOpacity onPress={() => { this.setState({ newRating: 5 }) }}><AntDesign size={20} color={this.state.newRating > 4 ? 'orange' : 'grey'} name="star" /></TouchableOpacity>
+                    <TouchableOpacity onPress={() => { () => this.setState({ newRating: 1 }) }}><AntDesign size={20} color={this.state.newRating > 0 ? 'orange' : Colors.tabIconDefault} name="star" /></TouchableOpacity>
+                    <TouchableOpacity onPress={() => { () => this.setState({ newRating: 2 }) }}><AntDesign size={20} color={this.state.newRating > 1 ? 'orange' : Colors.tabIconDefault} name="star" /></TouchableOpacity>
+                    <TouchableOpacity onPress={() => { () => this.setState({ newRating: 3 }) }}><AntDesign size={20} color={this.state.newRating > 2 ? 'orange' : Colors.tabIconDefault} name="star" /></TouchableOpacity>
+                    <TouchableOpacity onPress={() => { () => this.setState({ newRating: 4 }) }}><AntDesign size={20} color={this.state.newRating > 3 ? 'orange' : Colors.tabIconDefault} name="star" /></TouchableOpacity>
+                    <TouchableOpacity onPress={() => { () => this.setState({ newRating: 5 }) }}><AntDesign size={20} color={this.state.newRating > 4 ? 'orange' : Colors.tabIconDefault} name="star" /></TouchableOpacity>
                   </View>
                   <TouchableHighlight
                     style={{ ...styles.openButton, backgroundColor: "#2196F3" }}

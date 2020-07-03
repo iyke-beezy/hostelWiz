@@ -132,6 +132,22 @@ export default {
     marginBottom: 15,
     fontFamily: 'Baloo-Paaji'
   },
+  manager :{
+    width: screenWidth * 0.3,
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  managerSubTitle: {
+    fontSize: 15,
+    color: 'grey',
+    fontFamily: 'Baloo-Paaji'
+  },
+  managerTitle: {
+    fontSize: 15,
+    color: 'grey',
+    fontFamily: 'Baloo-Paaji-Medium'
+  },
   detailText: {
     fontSize: 15,
     color: 'grey',
@@ -163,7 +179,7 @@ export default {
     paddingBottom: 10,
   },
   detailRating: {
-
+    height: 50,
   },
   rateButton: {
     height: 30,
@@ -584,9 +600,11 @@ export default {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    marginTop: 22,
   },
+
   modalView: {
+    width: screenWidth * 0.5,
     margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
@@ -601,7 +619,7 @@ export default {
     shadowRadius: 3.84,
     elevation: 5
   },
- 
+
   textStyle: {
     color: "white",
     fontWeight: "bold",
