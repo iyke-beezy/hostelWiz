@@ -179,6 +179,7 @@ class ExploreScreen extends React.Component {
 
   render() {
     const { searchQuery } = this.state;
+    //console.log(this.state.property)
     {
       return (
         !this.state.isReady ? (
@@ -276,12 +277,12 @@ class ExploreScreen extends React.Component {
                                       <Text style={styles.price}>
                                         Ghc {property.price}
                                       </Text>
-                                      <Text style={{ color: 'grey', fontFamily: 'Baloo-Paaji' }} >/per day</Text>
+                                      <Text style={{ color: 'grey', fontFamily: 'Baloo-Paaji' }} >/{property.rate_type}</Text>
                                     </View>
                                   </View>
                                   <View style={styles.description}>
                                     <View>
-                                      <Text style={{ color: 'grey', fontSize: 10, fontFamily: 'Baloo-Paaji' }} >{property.location} , 0.2 km from your location</Text>
+                                      <Text style={{ color: 'grey', fontSize: 13, fontFamily: 'Baloo-Paaji' }} >{property.region}</Text>
                                     </View>
                                   </View>
 
