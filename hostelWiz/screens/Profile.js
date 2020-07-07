@@ -55,6 +55,10 @@ class ProfileScreen extends React.Component {
       console.log("Something went wrong", error);
     }
   }
+
+
+
+
   getUserDetails = async () => {
     const profile = await getUser(this.state.token)
     this.setState({ user: profile.user })
@@ -189,6 +193,7 @@ class ProfileScreen extends React.Component {
                 }).catch(function (error) {
                   // An error happened.
                 });
+             
                 AsyncStorage.removeItem('userData')
                 AsyncStorage.removeItem('userToken')
                 this.switchRoute('Logout')

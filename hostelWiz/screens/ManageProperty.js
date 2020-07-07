@@ -36,7 +36,7 @@ class ManageProperty extends React.Component {
   edit_property = async(property) => {
     
     await AsyncStorage.setItem("property_to_edit", JSON.stringify(property));
-    this.props.navigation.navigate('editProperty',{property:property})
+    this.props.navigation.navigate('editImage',{property:property})
   }
 
   setRefreshing = () =>{

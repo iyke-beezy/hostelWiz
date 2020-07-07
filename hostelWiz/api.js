@@ -104,10 +104,10 @@ export const create_property = async (token,data) => {
     throw new Error(errMessage)
 }
 
-export const edit_property = async (token,data) => {
+export const edit_property = async (token,data,id) => {
  
-    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/create_property/`, {
-        method: 'PUT',
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/hostel_managers/edit_my_property/`, {
+        method: 'POST',
         headers: {  'Content-Type': 'application/json',
                     'Authorization':`token ${token}`, },
         body: JSON.stringify(data)
@@ -141,12 +141,13 @@ export const editUser = async (data,id,token) => {
 
 export const deleteProperty = async (id,token) => {
  
-    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/properties/${id}/`, {
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/hostel_managers/delete_my_property/`, {
 
-        method: 'DELETE',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json',
                    'Authorization':`token ${token}`,
      },
+     body: JSON.stringify({ property_id:id })
       
     })
     if (response.ok) {
@@ -220,7 +221,7 @@ export const saveProperties = async (property,token,user) => {
         headers: {'Content-Type': 'application/json' ,
                'Authorization':`token ${token}`
              },
-             body: JSON.stringify({ property_id:property, user:user })
+             body: JSON.stringify({ property_id:property, user_id:user })
 
     })
     if(response.ok){
@@ -312,7 +313,7 @@ export const getHostelManager = async (token) => {
 }
 
 export const post_images = async (body,token) => {
-    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/images/`, {
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/hostel_managers/add_image/`, {
         method: 'POST',
         headers: {'Content-Type': 'multipart/form-data',
                     'Authorization':`Token ${token}`
@@ -329,16 +330,17 @@ export const post_images = async (body,token) => {
 
 }
 
-export const delete_images = async (id) => {
-    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/images/${id}/`, {
-        method: 'DELETE',
-        headers: {'Content-Type': 'application/json',
-                   // 'Authorization':`Token ${token}`
+export const delete_images = async (id,token) => {
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/hostel_managers/delete_my_image/`, {
+        method: 'POST',
+        headers: {  'Content-Type': 'application/json',
+                    'Authorization':`Token ${token}`,
                 },
-         body: body
+                body: JSON.stringify({ image_id:id })
+       
     })
     if (response.ok) {
-        const manager = await response.json() 
+        const manager = 'Delete was succesful'
         return manager
     }
 

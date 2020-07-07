@@ -121,6 +121,7 @@ class LoginScreen extends React.Component {
         permissions: ['public_profile'],
       });
       if (type === 'success') {
+        console.log(token)
         await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
         const credential = firebase.auth.FacebookAuthProvider.credential(token);
         const facebookProfileData = await firebase.auth().signInWithCredential(credential);

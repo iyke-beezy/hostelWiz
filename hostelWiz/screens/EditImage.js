@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { StyleSheet, AsyncStorage, ScrollView, Switch, Picker, Text, View, TextInput, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback, Alert, KeyboardAvoidingView, Dimensions, Image } from 'react-native';
+import { StyleSheet, AsyncStorage, ScrollView, Switch, Picker,FlatList, Text, View, TextInput, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback, Alert, KeyboardAvoidingView, Dimensions, Image } from 'react-native';
 import { Card, Button, Icon } from 'react-native-elements';
 import { AntDesign} from '@expo/vector-icons';
 import { RadioButton } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Select, InputLabel, MenuItem } from '@material-ui/core';
-import { create_property } from '../api';
+import { delete_images } from '../api';
 import axios from 'axios';
 
 import ImageBrowser from './ImageBrowser'
@@ -21,7 +21,7 @@ class EditImage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-     
+      imagesSet:[],
       property:{},
       id:4,
       bedroom_number:null,
@@ -29,6 +29,23 @@ class EditImage extends React.Component {
       accomodates:0,
       token:'',
     };
+  }
+
+  getImages = images => {
+    
+   
+      images.map(image => {
+        if (image.image.startsWith("https://hostelwiz.herokuapp.com")) {
+          this.state.imagesSet.push(image.image)
+        }
+        else {
+          this.state.imagesSet.push("https://hostelwiz.herokuapp.com" + image.image)
+        }
+      })
+    
+    console.log(images)
+    console.log(this.state.imagesSet.length)
+    return this.state.imagesSet
   }
 
   
@@ -41,7 +58,30 @@ class EditImage extends React.Component {
 
   componentDidMount() {
 
-   this.getProperty();
+  // this.getProperty();
+   console.log(this.props.route.params.property.id)
+   this.set_id();
+   this.getImages(this.props.route.params.property.images)
+ 
+  }
+
+ 
+
+  set_id = async() =>{
+    await AsyncStorage.setItem("property_id", JSON.stringify(this.props.route.params.property.id));
+  }
+
+  delete = async(x) =>{
+    try{
+      let userToken = await AsyncStorage.getItem("userToken");
+      let data = JSON.parse(userToken);
+        let result = delete_images(x,data);
+        console.log(result);
+        this.props.navigation.navigate('HMnav'
+        )
+    }catch(error){
+      console.log("Something went wrong", error);
+    }
   }
 
   getProperty = async () => {
@@ -57,6 +97,8 @@ class EditImage extends React.Component {
     }
   }
 
+  
+
  
 
   render() {
@@ -65,29 +107,47 @@ class EditImage extends React.Component {
 
       return (
         <View style={styles.container}>
-          {//name
-            <View Style={{ justifyContent: 'flex-start', alignSelf: 'flex-start' }}>
-              <View style={{ alignItems: "center", justifyContent: "flex-start", marginBottom: 15 }} >
-                <Text style={styles.title}>Kindly enter the  name for your hostel/apartment</Text>
-              </View>
-              <TextInput
-                placeholder="name"
-                placeholderColor="#fff"
-                defaultValue={this.state.name}
-                style={styles.input}
-                onChangeText={(text) => this.setState({ name: text })}
+
+          <View>
+          <Button
+                buttonStyle={styles.Button}
+                //disabled={!this.state.name}
+                onPress={() => this.props.navigation.navigate('editProperty', { property: this.props.route.params.property})}
+                title="Edit the property details"
               />
+               <Button
+                buttonStyle={styles.Button}
+                //disabled={!this.state.name}
+                onPress={() => this.props.navigation.navigate('Images')}
+                title="Add More Images"
+              />
+          </View>
+          <View style={{margin:10}}>
+            <Text style={{alignSelf:'center'}}>
+              Delete images you do not want
+            </Text>
+          </View>
+         
+              <FlatList
+           data={this.props.route.params.property.images}
+           renderItem={({item}) => (
+             //console.log(image);
+                <TouchableOpacity onPress={() => this.delete(item.id)} style={styles.itemContainer}>
+                    {<Image style={styles.item} source={{ uri: "https://hostelwiz.herokuapp.com"+`${item.image}` }} />
+                    }
+                   
+                  </TouchableOpacity>
+           )}
+                keyExtractor={ item => item.id.toString()}
+                numColumns={1}
+                contentContainerStyle={{margin:4}}
+                 />        
               <View style={styles.divider} ></View>
 
-              <Button
-                buttonStyle={styles.nextButton}
-                disabled={!this.state.name}
-                onPress={() => this.setState({ screen: 'two' })}
-                title="Next"
-              />
-            </View>}
+            <View style={{marginTop:20}}></View>
+        
         </View>
-      )
+                  )
    
   }
 }
@@ -107,24 +167,14 @@ const styles = StyleSheet.create({
     //color:'gainsboro'
 
   },
-  emptyStay: {
-    textAlign: 'center',
+  itemContainer:{
+    width: screenWidth/4,
+    height: screenWidth/4,
   },
-  countBadge: {
-    paddingHorizontal: 8.6,
-    paddingVertical: 5,
-    borderRadius: 50,
-    position: 'absolute',
-    right: 3,
-    bottom: 3,
-    justifyContent: 'center',
-    backgroundColor: '#ffa45c'
-  },
-  countBadgeText: {
-    fontWeight: 'bold',
-    alignSelf: 'center',
-    padding: 'auto',
-    color: '#5d5d5a'
+  item: {
+    flex: 1,
+    margin: 3,
+    backgroundColor: 'lightblue',
   },
   label: {
     fontSize: 20,
@@ -146,15 +196,16 @@ const styles = StyleSheet.create({
     width: screenWidth * 0.25
 
   },
-  secNextButton: {
+  Button: {
     height: screenHeight * 0.07,
     borderRadius: 5,
     backgroundColor: "#E7C654",
     marginTop: 20,
     alignSelf: 'flex-end',
-    width: screenWidth * 0.25
+    width: screenWidth * 0.85
 
   },
+ 
   backAndSave: {
     flex: 1,
     flexDirection: 'row',
@@ -172,14 +223,6 @@ const styles = StyleSheet.create({
 
     alignItems: "center",
     justifyContent: 'center',
-  },
-  switchColumn: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  bed: {
-    flexDirection: 'row',
-    justifyContent: 'space-around'
   },
   button: {
     backgroundColor: 'blue',

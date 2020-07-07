@@ -56,6 +56,10 @@ class SavedScreen extends React.Component {
     this.setState({ save: !this.state.save })
   }
 
+  unsave = () => {
+    this.setState({ save: !this.state.save })
+  }
+
 
   getImages = images => {
     var imagesSet = []
@@ -109,7 +113,7 @@ class SavedScreen extends React.Component {
 
 
                             <TouchableOpacity
-                              onPress={() => this.save()}
+                              onPress={this.state.save ? () => this.save() : () => this.save()  }
                               style={styles.saveButton}>
                               <View>
                                 {

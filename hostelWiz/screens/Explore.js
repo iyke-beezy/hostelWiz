@@ -27,6 +27,7 @@ class ExploreScreen extends React.Component {
     images: [],
     responseMessage: null,
     refresh:false,
+    user:{},
   }
 
   componentDidMount() {
@@ -84,20 +85,28 @@ class ExploreScreen extends React.Component {
 
   saveProperty = async (property_id) => {
     try {
-      const user_id = await this.getUser()
-      const data = await saveProperties(property_id, this.state.token, user_id);
-      return data
-      //console.log("save me")
+      const user_id = await this.getUserDetails()
+      //let user = JSON.parse(user_id)
+      console.log("save mes"+ user_id.id)
+      const data = await saveProperties(property_id,this.state.token, user_id.id);
+     // return data
+      
     } catch (err) {
       console.log(err)
     }
 
   }
 
-  getUser = async () => {
+  getUserDetails = async () => {
     try {
-      const profile = await getUser(this.state.token)
-      return profile.user.id
+     
+      
+        const profile = await getUser(this.state.token)
+        this.setState({user:profile.user})
+        console.log("data is " + JSON.stringify(this.state.user))
+         return this.state.user
+       // this.setState({ user: data[0], loginSource: 'facebook' })
+    
     } catch (err) {
       console.log(err)
       return null

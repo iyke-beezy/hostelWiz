@@ -32,13 +32,13 @@ class EditProperty extends React.Component {
       price: this.props.route.params.property.price,
       found: false,
       rate_type: this.props.route.params.property.rate_type,
-      number_of_rooms: this.props.route.params.property.number_of_rooms,
+      number_of_rooms: this.props.route.params.property.numberOfRooms,
       Single: false,
       Duo: false,
       Trio: false,
       Quadro: false,
       building_type: 'hostel',
-      hostel_type:this.props.route.params.property.hostel_type,
+      hostel_type:this.props.route.params.property.type,
       wifi: this.props.route.params.property.wifi,
       tv_room: this.props.route.params.property.tv_room,
       car_park: this.props.route.params.property.car_park,
@@ -52,8 +52,8 @@ class EditProperty extends React.Component {
       duo: false,
       trio: false,
       quatro: false,
-      bathroom_value: this.props.route.params.property.bathroom_value,
-      bedroom_value: this.props.route.params.property.bedroom_value,
+      bathroom_value: this.props.route.params.property.bathroom_type,
+      bedroom_value: this.props.route.params.property.bedroom_type,
       hasCameraPermission: null,
       hasCameraRollPermission: null,
       image: [],
@@ -66,7 +66,7 @@ class EditProperty extends React.Component {
   
 
   
-  postProperties = async() =>{
+  editProperties = async() =>{
     try {
 
       let userToken = await AsyncStorage.getItem("userToken");
@@ -74,6 +74,7 @@ class EditProperty extends React.Component {
     
           const data =
           {
+            property_id:this.state.property.id,
             name : this.state.name,
             description : this.state.description,
             address : this.state.address,
@@ -82,8 +83,8 @@ class EditProperty extends React.Component {
             bedrooms : this.state.bedroom_number,
             bathrooms : this.state.bathroom_number,
             accomodates : this.state.accomodates,
-            number_of_rooms : this.state.number_of_rooms,
-            hostel_type : this.state.hostel_type,
+            numberOfRooms : this.state.number_of_rooms,
+            type : this.state.hostel_type,
             rate_type : this.state.rate_type,
             headline : this.state.headline,
             price : this.state.price,
@@ -115,12 +116,7 @@ class EditProperty extends React.Component {
 
     console.log(this.state.property);
 
-    if(this.props.route.params){
-      this.setState({screen: this.props.route.params.screen})
-    }
-    this._unSubscribe = this.props.navigation.addListener('blur', () => {
-      
-    });
+   
   }
 
   getProperty = async () => {
@@ -143,8 +139,7 @@ class EditProperty extends React.Component {
 
   render() {
 
-    const emptyStayComponent = <Text style={styles.emptyStay}>Empty =(</Text>;
-    const noCameraPermissionComponent = <Text style={styles.emptyStay}>No access to camera</Text>;
+ 
 
     if (this.state.screen === 'one') {
 
@@ -175,7 +170,7 @@ class EditProperty extends React.Component {
       )
     }
     else if (this.state.screen === 'two') {
-      return (
+      return(
         <View style={styles.container}>
           <View style={styles.backAndSave}>
             <TouchableHighlight
@@ -631,7 +626,7 @@ class EditProperty extends React.Component {
               <Button
                 buttonStyle={styles.secNextButton}
                 // disabled={!this.state.headline || !this.state.description || !this.state.location }
-                onPress={() => { this.setState({ screen: 'six' });this.postProperties();}}
+                onPress={() => { this.editProperties();this.props.navigation.navigate('HMnav')}}
                 title="Next"
               />
             </KeyboardAwareScrollView>}
@@ -716,6 +711,9 @@ class EditProperty extends React.Component {
         </View>
 
       )
+    }
+    else{
+      return null
     }
   }
 }

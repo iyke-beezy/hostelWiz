@@ -58,20 +58,22 @@ class ImageManagementScreen extends React.Component {
 
   postPhotos = async () => {
     const {photos} = this.state
-    
+    let m = "token"+ " "
+    let t = "token"+" "+ JSON.parse(this.state.token)
+    console.log(t)
+    const config = {
+      headers: { //'Accept': 'application/json',
+                 'Content-Type': 'multipart/form-data',
+                 'Authorization': t ,
+                }
+  };
     for (var i = 0; i < photos.length; i++) {
       
       let body = new FormData();
       body.append('image', {uri: photos[i].uri, name:photos[i].name, type: 'image/jpg'});
       body.append('property', this.state.id);
-      let url = 'https://hostelwiz.herokuapp.com/hostelwiz/images/';
-      axios.post(url, body, {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'multipart/form-data',
-        //  'Authorization': `Token ${this.state.token}`
-        }
-      })
+      let url = 'https://hostelwiz.herokuapp.com/hostelwiz/images/add_image/';
+      axios.post(url, body, config)
         .then(res => {
           console.log(res.data);
          

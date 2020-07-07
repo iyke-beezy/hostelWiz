@@ -48,6 +48,8 @@ class EditProfile extends React.Component{
         console.log("Something went wrong", error);
       }
     }
+
+    
  
 
 
