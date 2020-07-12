@@ -7,7 +7,7 @@ import { SliderBox } from "react-native-image-slider-box";
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
 import styles from './explore-styles'
-import { getSavedProperties } from '../api';
+import { getSavedProperties,removeSavedProperties } from '../api';
 
 
 class SavedScreen extends React.Component {
@@ -52,6 +52,22 @@ class SavedScreen extends React.Component {
     //this.setState({property:data});
   }
 
+  removeSaved = async (id) => {
+    
+   try {
+      console.log(this.state.token)
+      const data = await removeSavedProperties(id,this.state.token);
+      console.log(data); 
+    /// this.getProperties();
+    }
+    catch (err) {
+      console.log(err)
+    } 
+    //this.setState({property:data});
+  }
+
+  
+
   save = () => {
     this.setState({ save: !this.state.save })
   }
@@ -63,11 +79,11 @@ class SavedScreen extends React.Component {
 
   getImages = images => {
     var imagesSet = []
-    for (var i = 0; i < images.length; i++) {
+
       images.map(image => {
         imagesSet.push("https://hostelwiz.herokuapp.com" + image.image)
       })
-    }
+    
     //console.log(imagesSet)
     return imagesSet
   }
@@ -113,7 +129,7 @@ class SavedScreen extends React.Component {
 
 
                             <TouchableOpacity
-                              onPress={this.state.save ? () => this.save() : () => this.save()  }
+                              onPress={ () => this.removeSaved(property.id)  }
                               style={styles.saveButton}>
                               <View>
                                 {

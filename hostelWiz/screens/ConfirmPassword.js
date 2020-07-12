@@ -49,10 +49,9 @@ class ConfirmPassword extends React.Component {
     this.setState({ loading: true })
     try {
       const token = await loginUser(this.state.username, this.state.password);
-      const t = { token }
       //SecureStore.setItemAsync('token', token)
       this.setState({ loading: false })
-      this.storeToken(t)
+      this.storeToken(token)
     }
     catch (err) {
       console.log(err.errMessage)
@@ -60,6 +59,8 @@ class ConfirmPassword extends React.Component {
     }
 
   }
+
+
 
   _signUp = async () => {
     try {
@@ -145,8 +146,8 @@ class ConfirmPassword extends React.Component {
          
           <Button
             buttonStyle={styles.loginButton}
-            //onPress={() => this.onLoginPress()}
-            onPress={() => this.signInWithEmail()}
+            onPress={() => this._signUp()}
+            //onPress={() => this.signInWithEmail()}
             title="Sign Up"
             loading={this.state.loading}
           />

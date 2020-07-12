@@ -114,7 +114,7 @@ class LoginScreen extends React.Component {
   //facebook signin
   FacebooklogIn = async () => {
     await Facebook.initializeAsync(
-      '2547147542165666',
+      '22547147542165666',
     );
     try {
       const { type, token } = await Facebook.logInWithReadPermissionsAsync({

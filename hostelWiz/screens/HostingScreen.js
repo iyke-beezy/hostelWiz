@@ -27,7 +27,7 @@ class HostingScreen extends React.Component {
       price: '',
       found: false,
       rate_type: 'month',
-      number_of_rooms: 0,
+      number_of_rooms: '0',
       Single: false,
       Duo: false,
       Trio: false,
@@ -56,7 +56,8 @@ class HostingScreen extends React.Component {
       id:4,
       bedroom_number:null,
       bathroom_number:null,
-      accomodates:0,
+      accomodates:'',
+      phone_number:'',
     };
   }
 
@@ -66,6 +67,7 @@ class HostingScreen extends React.Component {
 
       let userToken = await AsyncStorage.getItem("userToken");
       let token = JSON.parse(userToken)
+      console.log(this.state.number_of_rooms)
     
           const data =
           {
@@ -77,8 +79,8 @@ class HostingScreen extends React.Component {
             bedrooms : this.state.bedroom_number,
             bathrooms : this.state.bathroom_number,
             accomodates : this.state.accomodates,
-            numberOfRooms : this.state.number_of_rooms,
-            type : this.state.hostel_type,
+            number_of_rooms : this.state.number_of_rooms,
+            hostel_type : this.state.hostel_type,
             rate_type : this.state.rate_type,
             headline : this.state.headline,
             price : this.state.price,
@@ -90,6 +92,7 @@ class HostingScreen extends React.Component {
             tv_room : this.state.tv_room,
             bathroom_type : this.state.bathroom_value,
             bedroom_type : this.state.bedroom_value,
+            phone_number:this.state.phone_number,
           }
           const response = await create_property(token,data);
           console.log(response.result.id)
@@ -220,7 +223,20 @@ class HostingScreen extends React.Component {
 
               <Text style={styles.label}></Text>
 
-              {this.state.building_type !== 'building' ?
+              <TextInput
+
+                placeholder="Phone number"
+                placeholderColor="#fff"
+                defaultValue={this.state.phone_number}
+                style={styles.input}
+                keyboardType='decimal-pad'
+                onChangeText={(text) => this.setState({ phone_number: text })}
+                />
+                <View style={styles.divider} ></View>
+
+              <Text style={styles.label}></Text>
+
+              {this.state.hostel_type !== 'hostel' ?
                 <View>
                   <Picker
                     selectedValue={this.state.rate_type}
@@ -643,7 +659,7 @@ class HostingScreen extends React.Component {
                <Button
                     buttonStyle={styles.secNextButton}
                     //disabled={!this.state.found}
-                    onPress={() => this.props.navigation.navigate('Images')}
+                    onPress={() => {this.props.navigation.navigate('Images');this.setState({screen:'one'})}}
                     title="Add Photos"
                   />
               </View>

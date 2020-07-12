@@ -46,7 +46,8 @@ class DetailsScreen extends React.Component {
   }
 
   getHostelManager = async () => {
-    const id = this.state.property.manager
+    const id = this.state.hostel.manager
+    console.log(id)
     try {
       const data = await getHostelManager(this.state.token, id)
       this.setState({manager: data.user})
@@ -135,10 +136,24 @@ class DetailsScreen extends React.Component {
             {/* <Text style="managerTitle"> {manager.first_name} {manager.last_name}</Text> */}
           </View>
             <Text style={styles.detailText}> {this.state.hostel.description} </Text>
-            <Text style={styles.detailTitleText}>Single Room                           [YES]</Text>
-            <Text style={styles.detailTitleText}>2 in a Room                           [YES]</Text>
-            <Text style={styles.detailTitleText}>3 in a Room                           [YES]</Text>
-            <Text style={styles.detailTitleText}>Study Room                            [YES]</Text>
+            <Text style={styles.detailTitleText}>Number of people       [{`${property.accomodates}`}]</Text>
+            <Text style={styles.detailTitleText}>Address                             [{`${property.address}`}]</Text>
+            <Text style={styles.detailTitleText}>City                                      [{`${property.city}`}]</Text>
+            <Text style={styles.detailTitleText}>Type of bathroom       [{`${property.bathroom_type}`}]</Text>
+            <Text style={styles.detailTitleText}>Accomodation type      [{`${property.type}`}]</Text>
+            <Text style={styles.detailTitleText}>Number of rooms        [{`${property.numberOfRooms}`}]</Text>
+            <Text style={styles.detailTitleText}>Number of bathrooms    [{`${property.bathrooms}`}]</Text>
+            <Text style={styles.detailTitleText}>Type of bedrooms           [{`${property.bedroom_type}`}]</Text>
+            <Text style={styles.detailTitleText}>Number of bedrooms          [{`${property.bedrooms}`}]</Text>
+            <Text style={styles.detailTitleText}>WIFI                      [{`${property.wifi}`}]</Text>
+            <Text style={styles.detailTitleText}>Car park                 [{`${property.car_park}`}]</Text>
+            <Text style={styles.detailTitleText}>Gym                       [{`${property.gym}`}]</Text>
+            <Text style={styles.detailTitleText}>Laundry                   [{`${property.laundry}`}]</Text>
+            <Text style={styles.detailTitleText}>Study room                [{`${property.study_room}`}]</Text>
+            <Text style={styles.detailTitleText}>Tv room                    [{`${property.tv_room}`}]</Text>
+         
+
+
           </View>
         </ScrollView>
 

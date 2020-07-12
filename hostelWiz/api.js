@@ -151,7 +151,47 @@ export const deleteProperty = async (id,token) => {
       
     })
     if (response.ok) {
+      
         return true
+    }
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+}
+
+export const deleteUser = async (password,token) => {
+ 
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/users/delete_user/`, {
+
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json',
+                   'Authorization':`token ${token}`,
+     },
+     body: JSON.stringify({ password:password })
+      
+    })
+    if (response.ok) {
+        const data = await response.json()
+        return data
+    }
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+}
+
+export const change_password = async (old_password,new_password,token) => {
+ 
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/users/change_password/`, {
+
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json',
+                   'Authorization':`token ${token}`,
+     },
+     body: JSON.stringify({ old_password:old_password,new_password:new_password })
+      
+    })
+    if (response.ok) {
+   
+        const data = await response.json()
+        return data
     }
     const errMessage = await response.text()
     throw new Error(errMessage)
@@ -236,6 +276,23 @@ export const saveProperties = async (property,token,user) => {
 
 export const getSavedProperties = async (token) => {
     const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/saved/get_saved/`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json' ,
+               'Authorization':`token ${token}`
+             }
+
+    })
+    if(response.ok){
+        const saved = response.json()
+        return saved
+    }
+
+    const errMessage = await response.text()
+    throw new Error(errMessage)
+}
+
+export const removeSavedProperties = async (id,token) => {
+    const response = await fetch(`${REACT_APP_API_URL}/hostelwiz/saved/${id}/remove_saved/`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json' ,
                'Authorization':`token ${token}`

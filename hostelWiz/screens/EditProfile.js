@@ -153,7 +153,7 @@ class EditProfile extends React.Component{
             />
 
 
-          <View  style={styles.divider} ></View>
+          <View style={styles.divider} ></View>
 
           <Text style={styles.label}>Phone number</Text>
           <TextInput
@@ -165,7 +165,7 @@ class EditProfile extends React.Component{
             />
 
 
-          <View  style={styles.divider} ></View>
+          <View style={styles.divider} ></View>
          
 
           <Button
@@ -212,8 +212,6 @@ const styles = StyleSheet.create({
     height:screenHeight*0.07,
     borderRadius:5,
     backgroundColor:"#E7C654",
-
-    
   },
   backAndSave: {
     flex: 1,

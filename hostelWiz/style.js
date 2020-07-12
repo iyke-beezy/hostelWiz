@@ -8,6 +8,14 @@ const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
 
 export default {
+
+  image: {
+    height: 70,
+    width: 70,
+    borderRadius: 100,
+    borderWidth: 0.5,
+    borderColor: '#92A5A3',
+  },
   page: {
     flex: 1,
     paddingTop: Constants.statusBarHeight,

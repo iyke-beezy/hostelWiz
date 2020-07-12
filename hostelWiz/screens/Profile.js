@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Image, Dimensions, Text, View, StyleSheet, Alert, AsyncStorage, ScrollView } from 'react-native';
-import { AntDesign, Entypo, FontAwesome5, FontAwesome, MaterialIcons } from '@expo/vector-icons';
+import { Image, Dimensions, Text, View, StyleSheet, Alert, AsyncStorage, ScrollView,Modal,TouchableHighlight,ToastAndroid,TextInput } from 'react-native';
+import { AntDesign, Entypo, FontAwesome5, FontAwesome, MaterialIcons,EvilIcons } from '@expo/vector-icons';
 
 import { getUser } from '../api';
 const screenWidth = Math.round(Dimensions.get('window').width);
@@ -8,13 +8,19 @@ const screenHeight = Math.round(Dimensions.get('window').height);
 import Constants from 'expo-constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import firebase from 'firebase';
-import { getMyProperties,getHostelManager,add_to_hostel_manager_table } from '../api';
+import { getMyProperties,getHostelManager,add_to_hostel_manager_table,deleteUser,change_password} from '../api';
 
 class ProfileScreen extends React.Component {
   state = {
     token: '',
     user: {},
-    loginSource: null
+    changePasswordModal:false,
+    deleteUserModal:false,
+    loginSource: null,
+    oldPassword:'',
+    newPassword:'',
+    password:'',
+
   }
   componentDidMount() {
     this.init()
@@ -34,6 +40,53 @@ class ProfileScreen extends React.Component {
       this.getUser()
     }
   }
+
+  setChangePasswordModalVisible = () =>{
+      this.setState({changePasswordModal:!this.state.changePasswordModal})
+  }
+
+  setdeleteUserModalVisible = () =>{
+    this.setState({deleteUserModal:!this.state.deleteUserModal})
+  }
+
+  change_Password = async() =>{
+    try{
+      const res = await change_password(this.state.oldPassword,this.state.newPassword,this.state.token);
+    
+      if(res.user==="password changed"){
+        ToastAndroid.show("Password succesfully changed", ToastAndroid.SHORT);
+      }else if(res.user==="wrong password"){
+        ToastAndroid.show("wrong password", ToastAndroid.SHORT);
+      }
+    }
+    catch(error){
+      console.log("Something went wrong", error);
+    }
+
+  }
+
+  delete_User = async() =>{
+        try{
+      const res = await deleteUser(this.state.password,this.state.token);
+        if(res.user === "wrong password" ){
+          ToastAndroid.show(res.user, ToastAndroid.SHORT);
+          
+        }else if(res.user === "user deleted"){
+          ToastAndroid.show(res.user, ToastAndroid.SHORT);
+          this.props.navigation.navigate('Login');
+          AsyncStorage.removeItem('userData');
+          AsyncStorage.removeItem('userToken');
+          this.switchRoute('Logout')
+       
+        }
+    }
+    catch(error){
+      console.log("Something went wrong", error);
+    }
+  }
+
+  
+
   async getUser() {
     try {
       let userData = await AsyncStorage.getItem("userData");
@@ -159,10 +212,7 @@ class ProfileScreen extends React.Component {
                 <Text style={styles.itemText}>
                   <FontAwesome5 size={20} color={'#92A5A3'} name={'pen'} />    Edit Profile
          </Text></TouchableOpacity>
-              {/* <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('notification')}>
-                <Text style={styles.itemText}>
-                  <FontAwesome5 size={20} color={'#92A5A3'} name={'pen'} />    Change Password
-         </Text></TouchableOpacity> */}
+            
               <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('notification')}>
                 <Text style={styles.itemText}>
                   <FontAwesome size={25} color={'#92A5A3'} name={'bell'} />   Notifications
@@ -175,6 +225,14 @@ class ProfileScreen extends React.Component {
                 <Text style={styles.itemText}>
                   <MaterialIcons size={25} color={'#92A5A3'} name={'feedback'} />   Get feedback
          </Text></TouchableOpacity>
+         { <TouchableOpacity style={styles.item} onPress={() => this.setChangePasswordModalVisible()}>
+                <Text style={styles.itemText}>
+                  <FontAwesome style={{paddingTop:30}} size={35} color={'#92A5A3'} name={'lock'} />    Change Password
+         </Text></TouchableOpacity> }
+         { <TouchableOpacity style={styles.item} onPress={() => this.setdeleteUserModalVisible()}>
+                <Text style={styles.itemText}>
+                  <AntDesign size={30} color={'#92A5A3'} name={'deleteuser'} />    Delete Account
+         </Text></TouchableOpacity> }
               <TouchableOpacity style={styles.item} onPress={() => this.switchRoute('term')}>
                 <Text style={styles.itemText}>
                   <Entypo size={25} color={'#92A5A3'} name={'text'} />   Terms and Condition
@@ -202,6 +260,99 @@ class ProfileScreen extends React.Component {
             </View>
           </View>
         </ScrollView>
+        <Modal
+        animationType="slide"
+        transparent={true}
+        visible={this.state.changePasswordModal}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Do you want to change your password?</Text>
+         
+            <TextInput
+            defaultValue={this.state.oldPassword}
+            placeholder="Old Password"
+            placeholderColor="#fff"
+           style={styles.input}
+            onChangeText={(text) => this.setState({oldPassword:text})}
+            />
+            <View style={styles.divider} ></View>
+
+           
+            <TextInput
+            defaultValue={this.state.newPassword}
+            placeholder="New Password"
+            placeholderColor="#fff"
+           style={styles.input}
+            onChangeText={(text) => this.setState({newPassword:text})}
+            />
+            <View  style={{borderBottomWidth:1,marginTop:20,borderColor:"gainsboro",marginBottom:20}} ></View>
+           
+
+            <TouchableHighlight
+              style={{ ...styles.openButton, backgroundColor: "gold" }}
+              onPress={() => {
+                this.setChangePasswordModalVisible();
+                this.change_Password();
+              }}
+            >
+              <Text style={styles.textStyle}> Done </Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+      </Modal>
+
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={this.state.deleteUserModal}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Do you want to delete account?</Text>
+         
+            <TextInput
+            defaultValue={this.state.password}
+            placeholder="Enter Password"
+            placeholderColor="#fff"
+           style={styles.input}
+            onChangeText={(text) => this.setState({password:text})}
+            />
+            <View style={styles.divider} ></View>
+
+           
+           
+            <TouchableHighlight
+              style={{ ...styles.openButton, backgroundColor: "gold" }}
+              onPress={() => {
+                this.setdeleteUserModalVisible();
+               // this.delete_User();
+              }}
+            >
+              <Text style={styles.textStyle}>No,I no longer want to delete my account</Text>
+            </TouchableHighlight>
+
+            <View style={styles.divider} ></View>
+
+            <TouchableHighlight
+              style={{ ...styles.openButton, backgroundColor: "gold" }}
+              onPress={() => {
+                this.setdeleteUserModalVisible();
+                this.delete_User();
+              }}
+            >
+              <Text style={styles.textStyle}>Done</Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+      </Modal>
       </View>
 
 
@@ -298,6 +449,48 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: 'Baloo-Paaji-Medium',
     color: '#92A5A3',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  openButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  },
+  input:{
+    marginTop:10,fontSize:25,color:'grey'
+  },
+  divider:{
+    borderBottomWidth:1,marginTop:20,borderColor:"gainsboro",marginBottom:20
   },
 
 })
